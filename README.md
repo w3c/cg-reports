@@ -1,5 +1,5 @@
 # cg-reports
-A repo to manage and publish Community Groups and Business Group final reports
+A repo for <a href="https://www.w3.org/community/">W3C Community and Business Groups</a> to manage and publish <a href="https://www.w3.org/community/reports/">final reports</a>. Reports managed through this repo are mirrored on w3.org.
 
 # Usage
 To publish a final report, please bring it as a pull request that provides the report content under a directory with  the following convention:
