@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JSON Web Signature 2020</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <!--
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+     -->
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+    ></script>
+    <script type="text/javascript" class="remove">
+      var respecConfig = {
+        // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
+        specStatus: "CG-FINAL",
+        group: "credentials",
+        wgPublicList: "public-credentials",
+        // the specification's short name, as in http://www.w3.org/TR/short-name/
+        shortName: "lds-jws2020",
+        // unable to fix this due to not having a published URL
+        latestVersion: "https://www.w3.org/community/reports/ccg/CG-FINAL-lds-jws2020-2022-07-21/",
+        // if you wish the publication date to be other than today, set this
+        // publishDate:  "2009-08-06",
+
+        // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
+        // and its maturity status
+        // previousPublishDate:  "1977-03-15",
+        // previousMaturity:  "WD",
+
+        // if there a publicly available Editor's Draft, this is the link
+        edDraftURI: "https://w3id.org/security/suites/jws-2020",
+
+        // if this is a LCWD, uncomment and set the end of its review period
+        // lcEnd: "2009-08-05",
+
+        // if you want to have extra CSS, append them to this list
+        // it is recommended that the respec.css stylesheet be kept
+        //extraCSS:             ["spec.css", "prettify.css"],
+
+        // editors, add as many as you like
+        // only "name" is required
+        editors: [
+          {
+            name: "Orie Steele",
+            url: "https://transmute.industries",
+            company: "Transmute",
+            companyURL: "https://transmute.industries",
+          },
+          {
+            name: "Michael Prorock",
+            url: "https://mesur.io/",
+            company: "mesur.io",
+            companyURL: "https://mesur.io/",
+          },
+          {
+            name: "Charles E. Lehner",
+            url: "https://www.w3.org/wiki/User:cel",
+            company: "Spruce",
+            companyURL: "https://spruceid.com/",
+          },
+        ],
+
+        // extend the bibliography entries
+        //localBiblio: webpayments.localBiblio,
+
+        wg: "Credentials Community Group",
+        // URI of the public WG page
+        wgURI: "https://www.w3.org/community/credentials/",
+        // name (with the @w3c.org) of the public mailing to which comments are due
+        wgPublicList: "public-credentials",
+        // URI of the patent status for this WG, for Rec-track documents
+        // !!!! IMPORTANT !!!!
+        // This is important for Rec-track documents, do not copy a patent URI from a random
+        // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+        // Team Contact.
+        wgPatentURI: "https://www.w3.org/community/about/agreements/cla/",
+
+        otherLinks: [
+          {
+            key: "Source control",
+            data: [
+              {
+                value: "https://github.com/w3c-ccg/lds-jws2020/",
+                href: "https://github.com/w3c-ccg/lds-jws2020/",
+              },
+            ],
+          },
+          {
+            key: "Issue Tracker",
+            data: [
+              {
+                value: "https://github.com/w3c-ccg/lds-jws2020/issues/",
+                href: "https://github.com/w3c-ccg/lds-jws2020/issues/",
+              },
+            ],
+          },
+        ],
+
+        // URI of the patent status for this WG, for Rec-track documents
+        // !!!! IMPORTANT !!!!
+        // This is important for Rec-track documents, do not copy a patent URI from a random
+        // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+        // Team Contact.
+        // wgPatentURI:  "",
+        maxTocLevel: 4,
+        /*preProcess: [ webpayments.preProcess ],
+        alternateFormats: [ {uri: "diff-20111214.html", label: "diff to previous version"} ],
+        */
+        localBiblio: {
+          "RDF-DATASET-NORMALIZATION": {
+            title: "RDF Dataset Normalization 1.0",
+            href: "http://json-ld.github.io/normalization/spec/",
+            authors: ["David Longley", "Manu Sporny"],
+            status: "CGDRAFT",
+            publisher: "JSON-LD Community Group",
+          },
+          "RDF-CONCEPTS": {
+            title: "RDF 1.1 Concepts and Abstract Syntax",
+            href: "https://www.w3.org/TR/rdf11-concepts/",
+            authors: ["Richard Cyganiak", "David Wood", "Markus Lanthaler"],
+            status: "Recommendation",
+            publisher: "W3C",
+          },
+          "RDF-N-Quads": {
+            title: "RDF 1.1 N-Quads",
+            href: "http://json-ld.github.io/normalization/spec/",
+            authors: ["Gaven Carothers"],
+            status: "Recommendation",
+          },
+          "SECURITY-VOCABULARY": {
+            title: "Security Linked Data Vocabulary",
+            href: "https://w3id.org/security",
+            authors: ["Manu Sporny", "David Longley"],
+            status: "CGDRAFT",
+            publisher: "Web Payments Community Group",
+          },
+          "LD-PROOFS": {
+            title: "Linked Data Proofs 1.0",
+            href: "https://w3c-ccg.github.io/ld-proofs",
+            authors: ["David Longley", "Manu Sporny"],
+            status: "CGDRAFT",
+            publisher: "Web Payments Community Group",
+          },
+          ISO_8601: {
+            title: "ISO_8601",
+            href: "https://en.wikipedia.org/wiki/ISO_8601",
+          },
+          IANA_JOSE: {
+            title: "JOSE",
+            href: "https://www.iana.org/assignments/jose/jose.xhtml",
+          }
+        },
+      };
+    </script>
+    <style>
+      pre .highlight {
+        font-weight: bold;
+        color: green;
+      }
+      pre .comment {
+        font-weight: bold;
+        color: Gray;
+      }
+      .color-text {
+        font-weight: bold;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+      ol.algorithm {
+        counter-reset: numsection;
+        list-style-type: none;
+      }
+      ol.algorithm li {
+        margin: 0.5em 0;
+      }
+      ol.algorithm li:before {
+        font-weight: bold;
+        counter-increment: numsection;
+        content: counters(numsection, ".") ") ";
+      }
+    </style>
+  </head>
+  <body>
+    <section id="abstract">
+      <p>
+        This specification describes a JSON Web Signature Suite created in 2020
+        for the Linked Data Proof specification. The Signature Suite utilizes
+        Detached JWS signatures to provide support for a subset of the digital
+        signature algorithms registered with IANA.
+      </p>
+    </section>
+
+    <section id="sotd">
+      <p>
+        This is an experimental specification and is undergoing regular
+        revisions. It is not fit for production deployment.
+      </p>
+    </section>
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        This specification defines a cryptographic suite for the purpose of
+        creating, verifying proofs for JSON Web Signatures in conformance with
+        the Linked Data Proofs [[LD-PROOFS]] specification.
+      </p>
+      <p>
+        In general the suites uses the RDF Dataset Normalization Algorithm
+        [[RDF-DATASET-NORMALIZATION]] to transform an input document into its
+        canonical form. The cannonical representation is then hashed and signed
+        with a detached signature algorithm.
+      </p>
+    </section>
+
+    <section id="terminology">
+      <h2>Terminology</h2>
+      <p>
+        The following terms are used to describe concepts involved in the
+        generation and verification of the Linked Data Proof
+        <a>signature suite</a>.
+      </p>
+
+      <dl>
+        <dt><dfn>signature suite</dfn></dt>
+        <dd>
+          A specified set of cryptographic primitives typically consisting of a
+          canonicalization algorithm, a message digest algorithm, and a
+          signature algorithm that are bundled together by cryptographers for
+          developers for the purposes of safety and convenience.
+        </dd>
+        <dt><dfn>canonicalization algorithm</dfn></dt>
+        <dd>
+          An algorithm that takes an input document that has more than one
+          possible representation and always transforms it into a
+          <a>canonical form</a>. This process is sometimes also called
+          normalization.
+        </dd>
+        <dt>
+          <dfn data-lt="message digest algorithm | message digest algorithms"
+            >message digest algorithm</dfn
+          >
+        </dt>
+        <dd>
+          An algorithm that takes a message, prefferably in some
+          <a>canonical form</a> and produces a cryptographic output called a
+          digest that is often many orders of magnitude smaller than the input
+          message. These algorithms are often 1) very fast, 2) non-reversible,
+          3) cause the output to change significantly when even one bit of the
+          input message changes, and 4) make it infeasible to find two different
+          inputs for the same output.
+        </dd>
+        <dt><dfn>canonical form</dfn></dt>
+        <dd>
+          The output of applying a <a>canonicalization algorithm</a> to an input
+          document.
+        </dd>
+        <dt><dfn>signature algorithm</dfn></dt>
+        <dd>
+          An algorithm that takes an input message and produces an output value
+          where the receiver of the message can mathematically verify that the
+          message has not been modified in transit and came from someone
+          possessing a particular secret.
+        </dd>
+        <dt>
+          <dfn data-lt="linked data document|linked data documents"
+            >linked data document</dfn
+          >
+        </dt>
+        <dd>A document comprised of linked data.</dd>
+        <dt>
+          <dfn data-lt="linked data proof|linked data proofs"
+            >linked data proof</dfn
+          >
+        </dt>
+        <dd>
+          A
+          <a
+            href="https://w3c-ccg.github.io/data-integrity-spec/#signatures"
+            class="externalDFN"
+            >linked data proof</a
+          >
+          which is a set of attributes that represent a linked data digital
+          proof and the parameters required to verify it as defined by
+          [[RDF-N-Quads]].
+        </dd>
+        <dt>linked data proof document</dt>
+        <dd>
+          A <a>linked data document</a> featuring one or more
+          <a>linked data proofs</a>.
+        </dd>
+
+        <dt><dfn>JsonWebKey2020</dfn></dt>
+        <dd>
+          The <code>type</code> of the verification method for the signature
+          suite <a>JsonWebSignature2020</a>.
+        </dd>
+
+        <dt><dfn>JsonWebSignature2020</dfn></dt>
+        <dd>
+          The <code>type</code> of the linked data proof for the signature suite
+          <a>JsonWebSignature2020</a>.
+        </dd>
+      </dl>
+    </section>
+
+    <section id="suite-definition">
+      <h2>Suite Definition</h2>
+
+      <p>
+        The JSON Web Signature <a>signature suite</a> 2020 MUST be used in
+        conjunction with the signing and verification algorithms in the Linked
+        Data Proofs [[LD-PROOFS]] specification. The suite consists of the
+        following algorithms:
+      </p>
+
+      <table class="simple">
+        <thead>
+          <th>Parameter</th>
+          <th>Value</th>
+          <th>Specification</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a>canonicalization algorithm</a></td>
+            <td>https://w3id.org/security#URDNA2015</td>
+            <td>[[RDF-DATASET-NORMALIZATION]]</td>
+          </tr>
+          <tr>
+            <td><a>message digest algorithm</a></td>
+            <td>SHA-256</td>
+            <td>[[RFC4634]]</td>
+          </tr>
+          <tr>
+            <td><a>signature algorithm</a></td>
+            <td>JSON Web Signature (JWS) Unencoded Payload Option</td>
+            <td>[[RFC7797]]</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+      <section>
+        <h3>JOSE Conformance</h3>
+
+        <p>
+          This suite support cryptographic agility, see [[RFC7696]].
+          This table maps a key type to a subset of [[IANA_JOSE]] supported
+          signing and encryption algorithms.
+        </p>
+
+      <table class="simple">
+        <thead>
+          <th>kty</th>
+          <th>crvOrSize</th>
+          <th>signature</th>
+          <th>keyAgreement</th>
+          <th>encryption</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>OKP</td>
+            <td>Ed25519</td>
+            <td>EdDSA</td>
+            <td></td>
+            <td>ECDH-ES+A256KW</td>
+          </tr>
+          <tr>
+            <td>OKP</td>
+            <td>X25519</td>
+            <td></td>
+            <td>ECDH</td>
+            <td>ECDH-ES+A256KW</td>
+          </tr>
+          <tr>
+            <td>EC</td>
+            <td>secp256k1</td>
+            <td>ES256K</td>
+            <td>ECDH</td>
+            <td>ECDH-ES+A256KW</td>
+          </tr>
+          <tr>
+            <td>EC</td>
+            <td>P-256</td>
+            <td>ES256</td>
+            <td>ECDH</td>
+            <td>ECDH-ES+A256KW</td>
+          </tr>
+          <tr>
+            <td>EC</td>
+            <td>P-384</td>
+            <td>ES384</td>
+            <td>ECDH</td>
+            <td>ECDH-ES+A256KW</td>
+          </tr>
+          <tr>
+            <td>RSA</td>
+            <td>2048+</td>
+            <td>PS256</td>
+            <td></td>
+            <td>RSA-OAEP</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+      <section>
+        <h2>Verification Method</h2>
+        <p>
+          The cryptographic material used to verify a linked data proof is
+          called the verification method.
+        </p>
+
+        <p>
+          This suite relies on public key material represented using
+          [[RFC7517]].
+        </p>
+
+        <p>
+          This suite supports public key use for both digital signature
+          verification, according to [[RFC7515]], and key agreement according to
+          [[RFC8037]].
+        </p>
+
+        <p>
+          This suite MAY be used to verify linked data proofs produced by key
+          material in any representation that can be converted to JWK, however
+          it is RECOMMENDED that this suite be used with verification method's
+          of type <a>JsonWebKey2020</a>.
+        </p>
+
+        <section>
+          <h3>JSON Web Key 2020</h3>
+
+          <p>
+            The <code>id</code> of the verification method SHOULD be the JWK
+            thumbprint calculated from the <code>publicKeyJwk</code> property
+            value according to [[RFC7638]].
+          </p>
+          <p>
+            The <code>type</code> of the verification method SHOULD be
+            <a>JsonWebKey2020</a>.
+          </p>
+          <p>
+            The <code>controller</code> of the verification method SHOULD be a
+            URI.
+          </p>
+
+          <p>
+            The <code>publicKeyJwk</code> property of the verification method
+            SHOULD be a JWK formatted according to [[RFC7517]].
+          </p>
+
+          <p class="advisement">
+            Be careful not to accidentally publish the JWK representation of a
+            private key. See
+            <a href="https://tools.ietf.org/html/rfc7517#appendix-A.2"
+              >rfc7517#appendix-A.2</a
+            >
+            for examples of private key representations. The property
+            <code>publicKeyJwk</code> MUST never contain <code>"d"</code>.
+          </p>
+
+          <pre class="example">
+            {
+              "id": "https://example.com/issuer/123#ovsDKYBjFemIy8DVhc-w2LSi8CvXMw2AYDzHj04yxkc",
+              "type": "JsonWebKey2020",
+              "controller": "https://example.com/issuer/123",
+              "publicKeyJwk": {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "x": "CV-aGlld3nVdgnhoZK0D36Wk-9aIMlZjZOK2XhPMnkQ"
+              }
+            }
+          </pre>
+
+          <pre class="example" title="Example in DID Document.">
+            {
+              "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/jws-2020/v1"],
+              "id": "did:example:123",
+              "publicKey": [
+                {
+                  "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
+                  }
+                },
+                {
+                  "id": "did:example:123#4SZ-StXrp5Yd4_4rxHVTCYTHyt4zyPfN1fIuYsm6k3A",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "secp256k1",
+                    "x": "Z4Y3NNOxv0J6tCgqOBFnHnaZhJF6LdulT7z8A-2D5_8",
+                    "y": "i5a2NtJoUKXkLm6q8nOEu9WOkso1Ag6FTUT6k_LMnGk"
+                  }
+                },
+                {
+                  "id": "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "RSA",
+                    "e": "AQAB",
+                    "n": "omwsC1AqEk6whvxyOltCFWheSQvv1MExu5RLCMT4jVk9khJKv8JeMXWe3bWHatjPskdf2dlaGkW5QjtOnUKL742mvr4tCldKS3ULIaT1hJInMHHxj2gcubO6eEegACQ4QSu9LO0H-LM_L3DsRABB7Qja8HecpyuspW1Tu_DbqxcSnwendamwL52V17eKhlO4uXwv2HFlxufFHM0KmCJujIKyAxjD_m3q__IiHUVHD1tDIEvLPhG9Azsn3j95d-saIgZzPLhQFiKluGvsjrSkYU5pXVWIsV-B2jtLeeLC14XcYxWDUJ0qVopxkBvdlERcNtgF4dvW4X00EHj4vCljFw"
+                  }
+                },
+                {
+                  "id": "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "P-256",
+                    "x": "38M1FDts7Oea7urmseiugGW7tWc3mLpJh6rKe7xINZ8",
+                    "y": "nDQW6XZ7b_u2Sy9slofYLlG03sOEoug3I0aAPQ0exs4"
+                  }
+                },
+                {
+                  "id": "did:example:123#8wgRfY3sWmzoeAL-78-oALNvNj67ZlQxd1ss_NX1hZY",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "P-384",
+                    "x": "GnLl6mDti7a2VUIZP5w6pcRX8q5nvEIgB3Q_5RI2p9F_QVsaAlDN7IG68Jn0dS_F",
+                    "y": "jq4QoAHKiIzezDp88s_cxSPXtuXYFliuCGndgU4Qp8l91xzD1spCmFIzQgVjqvcP"
+                  }
+                },
+                {
+                  "id": "did:example:123#NjQ6Y_ZMj6IUK_XkgCDwtKHlNTUTVjEYOWZtxhp1n-E",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:example:123",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "P-521",
+                    "x": "AVlZG23LyXYwlbjbGPMxZbHmJpDSu-IvpuKigEN2pzgWtSo--Rwd-n78nrWnZzeDc187Ln3qHlw5LRGrX4qgLQ-y",
+                    "y": "ANIbFeRdPHf1WYMCUjcPz-ZhecZFybOqLIJjVOlLETH7uPlyG0gEoMWnIZXhQVypPy_HtUiUzdnSEPAylYhHBTX2"
+
+                  }
+                }
+              ],
+              "authentication": [
+                "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+                "did:example:123#4SZ-StXrp5Yd4_4rxHVTCYTHyt4zyPfN1fIuYsm6k3A",
+                "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+                "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+                "did:example:123#8wgRfY3sWmzoeAL-78-oALNvNj67ZlQxd1ss_NX1hZY",
+                "did:example:123#NjQ6Y_ZMj6IUK_XkgCDwtKHlNTUTVjEYOWZtxhp1n-E"
+              ],
+              "assertionMethod": [
+                "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+                "did:example:123#4SZ-StXrp5Yd4_4rxHVTCYTHyt4zyPfN1fIuYsm6k3A",
+                "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+                "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+                "did:example:123#8wgRfY3sWmzoeAL-78-oALNvNj67ZlQxd1ss_NX1hZY",
+                "did:example:123#NjQ6Y_ZMj6IUK_XkgCDwtKHlNTUTVjEYOWZtxhp1n-E"
+              ],
+              "capabilityDelegation": [
+                "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+                "did:example:123#4SZ-StXrp5Yd4_4rxHVTCYTHyt4zyPfN1fIuYsm6k3A",
+                "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+                "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+                "did:example:123#8wgRfY3sWmzoeAL-78-oALNvNj67ZlQxd1ss_NX1hZY",
+                "did:example:123#NjQ6Y_ZMj6IUK_XkgCDwtKHlNTUTVjEYOWZtxhp1n-E"
+              ],
+              "capabilityInvocation": [
+                "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+                "did:example:123#4SZ-StXrp5Yd4_4rxHVTCYTHyt4zyPfN1fIuYsm6k3A",
+                "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+                "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+                "did:example:123#8wgRfY3sWmzoeAL-78-oALNvNj67ZlQxd1ss_NX1hZY",
+                "did:example:123#NjQ6Y_ZMj6IUK_XkgCDwtKHlNTUTVjEYOWZtxhp1n-E"
+              ]
+            }
+          </pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Proof Representation</h2>
+        <p>
+          The cryptographic material used to represent a linked data proof is
+          called the proof type.
+        </p>
+
+        <p>
+          This suite relies on detached digital signatures represented using
+          [[RFC7797]].
+        </p>
+
+        <section>
+          <h3>JSON Web Signature 2020</h3>
+
+          <!-- "type": "JsonWebSignature2020",
+          "created": "2020-02-15T17:13:18Z",
+          "verificationMethod": "did:example:123#n4cQ-I_WkHMcwXBJa7IHkYu8CMfdNcZKnKsOrnHLpFs",
+          "proofPurpose": "assertionMethod",
+          "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..WBMRV34Bm9BRTQtw-wlVP01y27vlbYRRv2BDfGVIjAG5GLppLfOuPOd5CmnApnVMV4Sy-2GLZMEie0qeUYwUbt9tk-euWEM3cy36iESugdEwL4GrOUUmr1YoE7ahEKn5CjPGq397V_96ljEeA5KJeV9ORro6rdk-CMMEMxCkLwgu3TFOwDMoJ7GBN3HviyNwf9MXQ3bWNwAN_TYuYXf7r8L50DAjp1mK2JdFgAc5dLbu4Jpb-qHUDyxguP0N5AeM0n-brndOlmyj8FeRe3Chj9JK8xw04HfScv0OMTNLu1QcZn32z9xytIIneo9TEnD25sEClrcNb_W6fl31wtsvdQ"
+     -->
+
+          <p>
+            The <code>verificationMethod</code> property of the proof SHOULD be
+            a URI. Dereferencing the <code>verificationMethod</code> SHOULD
+            result in an object of <code>type</code> <a>JsonWebKey2020</a>.
+          </p>
+          <p>
+            The <code>type</code> property of the proof MUST be
+            <a>JsonWebSignature2020</a>.
+          </p>
+          <p>
+            The <code>created</code> property of the proof MUST be an
+            [[ISO_8601]] formated date string.
+          </p>
+          <p>
+            The <code>proofPurpose</code> property of the proof MUST be a
+            string, and SHOULD match the verification relationship expressed by
+            the verification method <code>controller</code>.
+          </p>
+          <p>
+            The <code>jws</code> property of the proof MUST be a detached JWS
+            produced according to [[RFC7797]].
+
+            <p class="advisement">
+              The header of the detached JWS MUST look like this:
+              <code>{"b64":false,"crit":["b64"],"alg":"PS256"}</code>
+              where <code>alg</code> is a value registered in [[IANA_JOSE]]
+              AND is present in the supported algorithms table of this suite.
+            </p>
+          </p>
+        </section>
+      </section>
+    </section>
+
+    <section>
+      <h2>Test Vectors</h2>
+      <p>The following test vectors are provided to assist with implementers.</p>
+
+      <pre class="example">
+        {
+          "seed_0": "9b937b81322d816cfab9d5a3baacc9b2a5febe4b149f126b3630f93a29527017"
+        }
+      </pre>
+      <pre class="example">
+        {
+          "keypair_0": {
+            "id": "#ovsDKYBjFemIy8DVhc-w2LSi8CvXMw2AYDzHj04yxkc",
+            "type": "JsonWebKey2020",
+            "controller": "did:key:z6Mkf5rGMoatrSj1f4CyvuHBeXJELe9RPdzo2PKGNCKVtZxP",
+            "publicKeyJwk": {
+              "kty": "OKP",
+              "crv": "Ed25519",
+              "x": "CV-aGlld3nVdgnhoZK0D36Wk-9aIMlZjZOK2XhPMnkQ"
+            },
+            "privateKeyJwk": {
+              "kty": "OKP",
+              "crv": "Ed25519",
+              "x": "CV-aGlld3nVdgnhoZK0D36Wk-9aIMlZjZOK2XhPMnkQ",
+              "d": "m5N7gTItgWz6udWjuqzJsqX-vksUnxJrNjD5OilScBc"
+            }
+          },
+          "keypair_1": {
+            "id": "#zaS0k3zk2KpT4NqqpdUA1YD0JVTOtQf3pNoKDI-wes0",
+            "type": "JsonWebKey2020",
+            "controller": "did:key:zQ3shP2mWsZYWgvgM11nenXRTx9L1yiJKmkf9dfX7NaMKb1pX",
+            "publicKeyJwk": {
+              "kty": "EC",
+              "crv": "secp256k1",
+              "x": "GBMxavme-AfIVDKqI6WBJ4V5wZItsxJ9muhxPByllHQ",
+              "y": "SChlfVBhTXG_sRGc9ZdFeCYzI3Kbph3ivE12OFVk4jo"
+            },
+            "privateKeyJwk": {
+              "kty": "EC",
+              "crv": "secp256k1",
+              "x": "GBMxavme-AfIVDKqI6WBJ4V5wZItsxJ9muhxPByllHQ",
+              "y": "SChlfVBhTXG_sRGc9ZdFeCYzI3Kbph3ivE12OFVk4jo",
+              "d": "m5N7gTItgWz6udWjuqzJsqX-vksUnxJrNjD5OilScBc"
+            }
+          },
+          "keypair_2": {
+            "id": "#zwlFQYyCqQXZ3nzpxkxJFxlpGU2l8LZQ9gxIxDdEhuY",
+            "type": "JsonWebKey2020",
+            "controller": "did:key:zUewtYk1yGS3SWp7kxrFK3DZRHMFbGEnrgFrqsi6hG8Z7EpRzbMP7d5y49HhrUv4tgV4DHCSoQUtF1NRNe43bymdi7K91PkwEGJRR4jv4Vb2mu2ZcBJXbw3d35JfqsVeLcwXFUi",
+            "publicKeyJwk": {
+              "kty": "EC",
+              "crv": "P-384",
+              "x": "eQbMauiHc9HuiqXT894gW5XTCrOpeY8cjLXAckfRtdVBLzVHKaiXAAxBFeVrSB75",
+              "y": "YOjxhMkdH9QnNmGCGuGXJrjAtk8CQ1kTmEEi9cg2R9ge-zh8SFT1Xu6awoUjK5Bv"
+            },
+            "privateKeyJwk": {
+              "kty": "EC",
+              "crv": "P-384",
+              "x": "eQbMauiHc9HuiqXT894gW5XTCrOpeY8cjLXAckfRtdVBLzVHKaiXAAxBFeVrSB75",
+              "y": "YOjxhMkdH9QnNmGCGuGXJrjAtk8CQ1kTmEEi9cg2R9ge-zh8SFT1Xu6awoUjK5Bv",
+              "d": "dXghMAzYZmv46SNRuxmfDIuAlv7XIhvlkPzW3vXsopB1ihWp47tx0hqjZmYO6fJa"
+            }
+          }
+        }
+      </pre>
+      <pre class="example">
+        {
+          "message_0": "hello world"
+        }
+      </pre>
+      <pre class="example">
+        {
+          "signature_0": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..v_Tni1_9lPQsS52GOnCMTFp7vDRjZIcj3pmuY1mF9W7nMAH94DpGecNwdFsXrz09n9bDTd8gJFqXWZeWIGvUAA",
+          "signature_1": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..dsgrLHXb5-VsUKVop4JJyO9dkFvJKRVNeOcEDD9nBAl3MqzJrJYfEfL8wArG-9ZjL12UD8btrJljZ7_C8p51mA"
+        }
+      </pre>
+      <pre class="example">
+        {
+          "issuer_0": {
+            "@context": [
+              "https://www.w3.org/ns/did/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@base": "https://example.com/issuer/123"
+              }
+            ],
+            "id": "https://example.com/issuer/123",
+            "publicKey": [
+              {
+                "id": "#ovsDKYBjFemIy8DVhc-w2LSi8CvXMw2AYDzHj04yxkc",
+                "type": "JsonWebKey2020",
+                "controller": "https://example.com/issuer/123",
+                "publicKeyJwk": {
+                  "kty": "OKP",
+                  "crv": "Ed25519",
+                  "x": "CV-aGlld3nVdgnhoZK0D36Wk-9aIMlZjZOK2XhPMnkQ"
+                }
+              }
+            ],
+            "assertionMethod": ["#ovsDKYBjFemIy8DVhc-w2LSi8CvXMw2AYDzHj04yxkc"]
+          }
+        }
+
+      </pre>
+
+      <pre class="example">
+        {
+          "vc_template_0": {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://www.w3.org/2018/credentials/examples/v1",
+              "https://w3id.org/security/suites/jws-2020/v1"
+            ],
+            "id": "http://example.gov/credentials/3732",
+            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+            "issuer": { "id": "did:example:123" },
+            "issuanceDate": "2020-03-10T04:24:12.164Z",
+            "credentialSubject": {
+              "id": "did:example:456",
+              "degree": {
+                "type": "BachelorDegree",
+                "name": "Bachelor of Science and Arts"
+              }
+            }
+          },
+          "vc_0": {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://www.w3.org/2018/credentials/examples/v1",
+              "https://w3id.org/security/suites/jws-2020/v1"
+            ],
+            "id": "http://example.gov/credentials/3732",
+            "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+            "issuer": {
+              "id": "https://example.com/issuer/123"
+            },
+            "issuanceDate": "2020-03-10T04:24:12.164Z",
+            "credentialSubject": {
+              "id": "did:example:456",
+              "degree": {
+                "type": "BachelorDegree",
+                "name": "Bachelor of Science and Arts"
+              }
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2019-12-11T03:50:55Z",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..MJ5GwWRMsadCyLNXU_flgJtsS32584MydBxBuygps_cM0sbU3abTEOMyUvmLNcKOwOBE1MfDoB1_YY425W3sAg",
+              "proofPurpose": "assertionMethod",
+              "verificationMethod": "https://example.com/issuer/123#ovsDKYBjFemIy8DVhc-w2LSi8CvXMw2AYDzHj04yxkc"
+            }
+          }
+        }
+
+      </pre>
+
+    </section>
+
+    <section id="conformance">
+      <p>
+        A <dfn>conforming document</dfn> is any concrete expression of the data model
+        that complies with the normative statements in this specification.
+        Specifically, all relevant normative statements in Sections
+        <a href="#terminology"></a> and <a href="#suite-definition"></a>
+        of this document MUST be enforced.
+        </p>
+
+        <p>
+          A <code>conforming processor</code> is any algorithm realized as software and/or
+          hardware that generates or consumes a <a>conforming document</a>. Conforming
+          processors MUST produce errors when non-conforming documents are consumed.
+                  </p>
+        <p>
+        This document also contains examples that contain JSON and JSON-LD content.
+        Some of these examples contain characters that are invalid JSON, such as
+        inline comments (<code>//</code>) and the use of ellipsis (<code>...</code>)
+        to denote information that adds little value to the example. Implementers are
+        cautioned to remove this content if they desire to use the information as
+        valid JSON or JSON-LD.
+        </p>
+    </section>
+
+    <section>
+      <h2>Security Considerations</h2>
+      <p>
+        The following section describes security considerations that developers
+        implementing this specification should be aware of in order to create
+        secure software.
+      </p>
+
+      <p class="note">This specification relies on URDNA2015, please review [[RDF-DATASET-NORMALIZATION]].</p>
+
+      <p class="note">This specification relies on [[IANA_JOSE]], please review [[RFC8725]].</p>
+
+      <div class="issue">
+        TODO: We need to add a complete list of security considerations.
+      </div>
+
+    </section>
+  </body>
+</html>
