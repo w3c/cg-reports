@@ -1,0 +1,1324 @@
+<!DOCTYPE html><html dir="ltr" lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 32.4.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+.example pre{background-color:rgba(0,0,0,.03)}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+  
+  
+<title>Using DPV in OWL2</title>
+  
+  
+
+<style type="text/css">
+
+  .head img[src*="logos/W3C"] {
+    display: inherit !important;
+  }
+  .head a:hover > img[src*='ogc'] {
+    opacity: 0.8;
+  }
+  /* Table styles, March 2016 */
+  table {border-collapse:collapse}
+  th, td {
+    border:thin solid black;
+    padding: 0.3em;
+  }
+  .inlineCode {
+    FONT-FAMILY: "courier new"; BACKGROUND-COLOR: #ddf
+  }
+  PRE.code {
+    BORDER-RIGHT: #999999 1pt solid; PADDING-RIGHT: 0.5em; BORDER-TOP: #999999 1pt solid; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0.5em; BORDER-LEFT: #999999 1pt solid; PADDING-TOP: 0.5em; BORDER-BOTTOM: #999999 1pt solid; FONT-FAMILY: "courier new"; BACKGROUND-COLOR: #eef
+  }
+  PRE.code2 {
+    BORDER-RIGHT: #999999 1pt solid; PADDING-RIGHT: 0.5em; BORDER-TOP: #999999 1pt solid; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0.5em; BORDER-LEFT: #999999 1pt solid; PADDING-TOP: 0.5em; BORDER-BOTTOM: #999999 1pt solid; FONT-FAMILY: "courier new"; BACKGROUND-COLOR: #ffa
+  }
+  .ednote {
+    FONT-STYLE: italic ;
+  }
+  PRE.clientmsg {
+    BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 2px; BACKGROUND: #eee; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #999 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #999 1px solid
+  }
+  PRE.servermsg {
+    BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 2px; BACKGROUND: #eee; PADDING-BOTTOM: 2px; MARGIN: 5px 0px 0px; BORDER-LEFT: #999 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #999 1px solid; TEXT-ALIGN: left
+  }
+  P.msg {
+    PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; TEXT-ALIGN: center
+  }
+  DIV.interaction {
+    BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #999 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #999 1px solid
+  }
+  DIV.interaction H4 {
+    MARGIN: 0px 0px 10px
+  }
+  DIV.interaction P {
+    MARGIN: 0px
+  }
+  DIV.test {
+    BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #999 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #999 1px solid
+  }
+  DIV.test H4 {
+    MARGIN: 0px 0px 10px
+  }
+  .todo {
+    display: block;
+    background-color: #F99;
+    margin: 5px;
+    padding-left: 5px;
+    border: 2px solid #633;
+  }
+  .todo::before {
+    content: "TODO: ";
+    font-weight: bold;
+  }
+  figure {
+    margin: 2px;
+    padding: 2px;
+    border: 1px solid black;
+  }
+
+</style>
+
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="description" content="This document acts as a guide presenting how Data Privacy Vocabulary (DPV) Specification, through its OWL2 encoding (i.e. [DPV-OWL]) can be used as an OWL2 vocabulary by easily encoding it in a low-complexity profile of OWL2 called OWL2-PL.">
+<link rel="canonical" href="https://w3id.org/dpv/guides/dpv-owl">
+<script type="application/ld+json">{
+  "@context": [
+    "http://schema.org",
+    {
+      "@vocab": "http://schema.org/",
+      "@language": "en",
+      "w3p": "http://www.w3.org/2001/02pd/rec54#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "datePublished": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date"
+      },
+      "inLanguage": {
+        "@language": null
+      },
+      "isBasedOn": {
+        "@type": "@id"
+      },
+      "license": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://w3id.org/dpv/guides/dpv-owl",
+  "type": [
+    "TechArticle"
+  ],
+  "name": "Using DPV in OWL2",
+  "inLanguage": "en",
+  "license": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document",
+  "datePublished": "2022-10-06",
+  "copyrightHolder": {
+    "name": "World Wide Web Consortium",
+    "url": "https://www.w3.org/"
+  },
+  "discussionUrl": "https://github.com/w3c/dpv/issues/",
+  "alternativeHeadline": "",
+  "isBasedOn": "",
+  "description": "This document acts as a guide presenting how Data Privacy Vocabulary (DPV) Specification, through its OWL2 encoding (i.e. [DPV-OWL]) can be used as an OWL2 vocabulary by easily encoding it in a low-complexity profile of OWL2 called OWL2-PL.",
+  "editor": [
+    {
+      "type": "Person",
+      "name": "Piero Bonatti",
+      "worksFor": {
+        "name": "Università di Napoli Federico II"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Luigi Sauro",
+      "worksFor": {
+        "name": "Università di Napoli Federico II"
+      }
+    }
+  ],
+  "contributor": [],
+  "citation": [
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl",
+      "type": "TechArticle",
+      "name": "DPV-OWL: Data Privacy Vocabulary serialised in OWL2",
+      "url": "https://www.w3id.org/dpv/dpv-owl"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos",
+      "type": "TechArticle",
+      "name": "DPV-SKOS: Data Privacy Vocabulary serialised in RDFS & SKOS",
+      "url": "https://www.w3id.org/dpv/dpv-skos"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-gdpr",
+      "type": "TechArticle",
+      "name": "DPV-GDPR: Extension providing GDPR concepts",
+      "url": "https://www.w3id.org/dpv/dpv-gdpr"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/dpv-gdpr",
+      "type": "TechArticle",
+      "name": "DPV-SKOS-GDPR: Extension providing GDPR concepts",
+      "url": "https://www.w3id.org/dpv/dpv-skos/dpv-gdpr"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/dpv-gdpr",
+      "type": "TechArticle",
+      "name": "DPV-OWL-GDPR: Extension providing GDPR concepts",
+      "url": "https://www.w3id.org/dpv/dpv-owl/dpv-gdpr"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-pd",
+      "type": "TechArticle",
+      "name": "DPV-PD: Extension providing Personal Data Categories",
+      "url": "https://www.w3id.org/dpv/dpv-pd"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/dpv-pd",
+      "type": "TechArticle",
+      "name": "DPV-SKOS-PD: Extension providing Personal Data Categories",
+      "url": "https://www.w3id.org/dpv/dpv-skos/dpv-pd"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/dpv-pd",
+      "type": "TechArticle",
+      "name": "DPV-OWL-PD: Extension providing Personal Data Categories",
+      "url": "https://www.w3id.org/dpv/dpv-owl/dpv-pd"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-legal",
+      "type": "TechArticle",
+      "name": "DPV-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-legal"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/dpv-legal",
+      "type": "TechArticle",
+      "name": "DPV-SKOS-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-skos/dpv-legal"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/dpv-legal",
+      "type": "TechArticle",
+      "name": "DPV-OWL-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-owl/dpv-legal"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-tech",
+      "type": "TechArticle",
+      "name": "DPV-TECH: Extension providing Technology-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-tech"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/dpv-tech",
+      "type": "TechArticle",
+      "name": "DPV-SKOS-TECH: Extension providing Technology-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-skos/dpv-tech"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/dpv-tech",
+      "type": "TechArticle",
+      "name": "DPV-OWL-TECH: Extension providing Technology-relevant concepts",
+      "url": "https://www.w3id.org/dpv/dpv-owl/dpv-tech"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/risk",
+      "type": "TechArticle",
+      "name": "Risk Extension for DPV",
+      "url": "https://www.w3id.org/dpv/risk"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/risk",
+      "type": "TechArticle",
+      "name": "Risk Extension for DPV",
+      "url": "https://www.w3id.org/dpv/dpv-skos/risk"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/risk",
+      "type": "TechArticle",
+      "name": "Risk Extension for DPV",
+      "url": "https://www.w3id.org/dpv/dpv-owl/risk"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-skos/rights/eu",
+      "type": "TechArticle",
+      "name": "Extension providing EU Rights",
+      "url": "https://www.w3id.org/dpv/dpv-skos/rights/eu"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-owl/rights/eu",
+      "type": "TechArticle",
+      "name": "Extension providing EU Rights",
+      "url": "https://www.w3id.org/dpv/dpv-owl/rights/eu"
+    },
+    {
+      "id": "https://www.w3.org/community/dpvcg/",
+      "type": "TechArticle",
+      "name": "W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)",
+      "url": "https://www.w3.org/community/dpvcg/"
+    },
+    {
+      "id": "https://www.w3id.org/dpv",
+      "type": "TechArticle",
+      "name": "Data Privacy Vocabulary (DPV) Specification",
+      "url": "https://www.w3id.org/dpv"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/primer",
+      "type": "TechArticle",
+      "name": "Primer for Data Privacy Vocabulary",
+      "url": "https://www.w3id.org/dpv/primer"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides",
+      "type": "TechArticle",
+      "name": "Guidelines for Adoption and Use of DPV",
+      "url": "https://w3id.org/dpv/guides"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides/serialisations",
+      "type": "TechArticle",
+      "name": "Guide on DPV's serialisations and semantics",
+      "url": "https://w3id.org/dpv/guides/serialisations"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides/dpv-skos",
+      "type": "TechArticle",
+      "name": "Guide for using DPV with RDFS and SKOS",
+      "url": "https://w3id.org/dpv/guides/dpv-skos"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides/dpv-owl",
+      "type": "TechArticle",
+      "name": "Guide for using DPV in OWL2",
+      "url": "https://w3id.org/dpv/guides/dpv-owl"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides/notice",
+      "type": "TechArticle",
+      "name": "Guide for Privacy Notices using DPV",
+      "url": "https://w3id.org/dpv/guides/notice"
+    },
+    {
+      "id": "https://w3id.org/dpv/guides/consent",
+      "type": "TechArticle",
+      "name": "Guide for Consent Records using DPV",
+      "url": "https://w3id.org/dpv/guides/consent"
+    },
+    {
+      "id": "https://w3id.org/dpv/dpv-gdpr/dpia",
+      "type": "TechArticle",
+      "name": "Guide for GDPR DPIA's using DPV",
+      "url": "https://w3id.org/dpv/dpv-gdpr/dpia"
+    },
+    {
+      "id": "https://w3id.org/dpv/dpv-gdpr/ropa",
+      "type": "TechArticle",
+      "name": "Guide for GDPR ROPA's using DPV",
+      "url": "https://w3id.org/dpv/dpv-gdpr/ropa"
+    },
+    {
+      "id": "https://w3id.org/dpv/use-cases",
+      "type": "TechArticle",
+      "name": "DPV Use-Cases and Requirements",
+      "url": "https://w3id.org/dpv/use-cases"
+    },
+    {
+      "id": "https://w3id.org/dpv/examples",
+      "type": "TechArticle",
+      "name": "DPV Examples",
+      "url": "https://w3id.org/dpv/examples"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/dpv-nace",
+      "type": "TechArticle",
+      "name": "NACE Taxonomy serialised in RDFS",
+      "url": "https://www.w3id.org/dpv/dpv-nace"
+    },
+    {
+      "id": "https://www.w3id.org/dpv/rights/eu",
+      "type": "TechArticle",
+      "name": "Extension providing EU Rights",
+      "url": "https://www.w3id.org/dpv/rights/eu"
+    }
+  ]
+}</script>
+<style>
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
+.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
+.hljs-literal{color:#0b76c5}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "shortName": "guide-dpv-owl",
+  "title": "Using DPV in OWL2",
+  "publishDate": "2022-10-06",
+  "specStatus": "CG-FINAL",
+  "group": "dpvcg",
+  "latestVersion": "https://w3id.org/dpv/guides/dpv-owl",
+  "canonicalUri": "https://w3id.org/dpv/guides/dpv-owl",
+  "edDraftURI": "https://w3id.org/dpv/guides/dpv-owl",
+  "github": "w3c/dpv",
+  "subjectPrefix": "[dpv-owl]",
+  "doJsonLd": true,
+  "lint": {
+    "no-unused-dfns": false
+  },
+  "editors": [
+    {
+      "name": "Piero Bonatti",
+      "company": "Università di Napoli Federico II"
+    },
+    {
+      "name": "Luigi Sauro",
+      "company": "Università di Napoli Federico II"
+    }
+  ],
+  "localBiblio": {
+    "DPVCG": {
+      "href": "https://www.w3.org/community/dpvcg/",
+      "title": "W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)",
+      "id": "dpvcg"
+    },
+    "__001": "DPV Core Family",
+    "DPV": {
+      "href": "https://www.w3id.org/dpv",
+      "title": "Data Privacy Vocabulary (DPV) Specification",
+      "id": "dpv"
+    },
+    "DPV-GDPR": {
+      "href": "https://www.w3id.org/dpv/dpv-gdpr",
+      "title": "DPV-GDPR: Extension providing GDPR concepts",
+      "id": "dpv-gdpr"
+    },
+    "DPV-NACE": {
+      "href": "https://www.w3id.org/dpv/dpv-nace",
+      "title": "NACE Taxonomy serialised in RDFS",
+      "id": "dpv-nace"
+    },
+    "DPV-PD": {
+      "href": "https://www.w3id.org/dpv/dpv-pd",
+      "title": "DPV-PD: Extension providing Personal Data Categories",
+      "id": "dpv-pd"
+    },
+    "DPV-LEGAL": {
+      "href": "https://www.w3id.org/dpv/dpv-legal",
+      "title": "DPV-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "id": "dpv-legal"
+    },
+    "DPV-TECH": {
+      "href": "https://www.w3id.org/dpv/dpv-tech",
+      "title": "DPV-TECH: Extension providing Technology-relevant concepts",
+      "id": "dpv-tech"
+    },
+    "RISK": {
+      "href": "https://www.w3id.org/dpv/risk",
+      "title": "Risk Extension for DPV",
+      "id": "risk"
+    },
+    "RIGHTS": {
+      "href": "https://www.w3id.org/dpv/rights",
+      "title": "Rights Extension for Data Privacy Vocabulary"
+    },
+    "RIGHTS-EU": {
+      "href": "https://www.w3id.org/dpv/rights/eu",
+      "title": "Extension providing EU Rights",
+      "id": "rights-eu"
+    },
+    "__002": "DPV-SKOS Family",
+    "DPV-SKOS": {
+      "href": "https://www.w3id.org/dpv/dpv-skos",
+      "title": "DPV-SKOS: Data Privacy Vocabulary serialised in RDFS & SKOS",
+      "id": "dpv-skos"
+    },
+    "DPV-SKOS-GDPR": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/dpv-gdpr",
+      "title": "DPV-SKOS-GDPR: Extension providing GDPR concepts",
+      "id": "dpv-skos-gdpr"
+    },
+    "DPV-SKOS-PD": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/dpv-pd",
+      "title": "DPV-SKOS-PD: Extension providing Personal Data Categories",
+      "id": "dpv-skos-pd"
+    },
+    "DPV-SKOS-LEGAL": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/dpv-legal",
+      "title": "DPV-SKOS-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "id": "dpv-skos-legal"
+    },
+    "DPV-SKOS-TECH": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/dpv-tech",
+      "title": "DPV-SKOS-TECH: Extension providing Technology-relevant concepts",
+      "id": "dpv-skos-tech"
+    },
+    "RISK-SKOS": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/risk",
+      "title": "Risk Extension for DPV",
+      "id": "risk-skos"
+    },
+    "RIGHTS-SKOS": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/rights",
+      "title": "Rights Extension for Data Privacy Vocabulary"
+    },
+    "RIGHTS-EU-SKOS": {
+      "href": "https://www.w3id.org/dpv/dpv-skos/rights/eu",
+      "title": "Extension providing EU Rights",
+      "id": "rights-eu-skos"
+    },
+    "__003": "DPV-OWL Family",
+    "DPV-OWL": {
+      "href": "https://www.w3id.org/dpv/dpv-owl",
+      "title": "DPV-OWL: Data Privacy Vocabulary serialised in OWL2",
+      "id": "dpv-owl"
+    },
+    "DPV-OWL-GDPR": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/dpv-gdpr",
+      "title": "DPV-OWL-GDPR: Extension providing GDPR concepts",
+      "id": "dpv-owl-gdpr"
+    },
+    "DPV-OWL-NACE": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/dpv-nace",
+      "title": "NACE Taxonomy serialised in RDFS"
+    },
+    "DPV-OWL-PD": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/dpv-pd",
+      "title": "DPV-OWL-PD: Extension providing Personal Data Categories",
+      "id": "dpv-owl-pd"
+    },
+    "DPV-OWL-LEGAL": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/dpv-legal",
+      "title": "DPV-OWL-LEGAL: Extension providing Jurisdiction-relevant concepts",
+      "id": "dpv-owl-legal"
+    },
+    "DPV-OWL-TECH": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/dpv-tech",
+      "title": "DPV-OWL-TECH: Extension providing Technology-relevant concepts",
+      "id": "dpv-owl-tech"
+    },
+    "RISK-OWL": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/risk",
+      "title": "Risk Extension for DPV",
+      "id": "risk-owl"
+    },
+    "RIGHTS-OWL": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/rights",
+      "title": "Rights Extension for Data Privacy Vocabulary"
+    },
+    "RIGHTS-EU-OWL": {
+      "href": "https://www.w3id.org/dpv/dpv-owl/rights/eu",
+      "title": "Extension providing EU Rights",
+      "id": "rights-eu-owl"
+    },
+    "__004": "DPV Documentation & Guides",
+    "DPV-Primer": {
+      "href": "https://www.w3id.org/dpv/primer",
+      "title": "Primer for Data Privacy Vocabulary",
+      "id": "dpv-primer"
+    },
+    "DPV-ADOPTION": {
+      "href": "https://www.w3.org/community/dpvcg/wiki/Adoption_of_DPVCG",
+      "title": "Listing of DPV adoption and applications"
+    },
+    "DPV-GUIDES": {
+      "href": "https://w3id.org/dpv/guides",
+      "title": "Guidelines for Adoption and Use of DPV",
+      "id": "dpv-guides"
+    },
+    "DPV-GUIDE-Consent": {
+      "href": "https://w3id.org/dpv/guides/consent",
+      "title": "Guide for Consent Records using DPV",
+      "id": "dpv-guide-consent"
+    },
+    "DPV-GUIDE-Notice": {
+      "href": "https://w3id.org/dpv/guides/notice",
+      "title": "Guide for Privacy Notices using DPV",
+      "id": "dpv-guide-notice"
+    },
+    "DPV-GUIDE-Serialisations": {
+      "href": "https://w3id.org/dpv/guides/serialisations",
+      "title": "Guide on DPV's serialisations and semantics",
+      "id": "dpv-guide-serialisations"
+    },
+    "DPV-GUIDE-SKOS": {
+      "href": "https://w3id.org/dpv/guides/dpv-skos",
+      "title": "Guide for using DPV with RDFS and SKOS",
+      "id": "dpv-guide-skos"
+    },
+    "DPV-GUIDE-OWL2": {
+      "href": "https://w3id.org/dpv/guides/dpv-owl",
+      "title": "Guide for using DPV in OWL2",
+      "id": "dpv-guide-owl2"
+    },
+    "DPV-GUIDE-GDPR-DPIA": {
+      "href": "https://w3id.org/dpv/dpv-gdpr/dpia",
+      "title": "Guide for GDPR DPIA's using DPV",
+      "id": "dpv-guide-gdpr-dpia"
+    },
+    "DPV-GUIDE-GDPR-ROPA": {
+      "href": "https://w3id.org/dpv/dpv-gdpr/ropa",
+      "title": "Guide for GDPR ROPA's using DPV",
+      "id": "dpv-guide-gdpr-ropa"
+    },
+    "__005": "Examples",
+    "Examples": {
+      "href": "https://w3id.org/dpv/examples",
+      "title": "DPV Examples",
+      "id": "examples"
+    },
+    "__006": "Examples",
+    "UseCases-Requirements": {
+      "href": "https://w3id.org/dpv/use-cases",
+      "title": "DPV Use-Cases and Requirements",
+      "id": "usecases-requirements"
+    },
+    "__000": "External References",
+    "RDF": {
+      "href": "https://www.w3.org/TR/rdf11-concepts/",
+      "title": "RDF 1.1 Concepts and Abstract Syntax"
+    },
+    "RDFS": {
+      "href": "https://www.w3.org/TR/rdf-schema/",
+      "title": "RDF Schema 1.1"
+    },
+    "OWL": {
+      "href": "https://www.w3.org/TR/owl2-overview/",
+      "title": "OWL 2 Web Ontology Language Document Overview (Second Edition)"
+    },
+    "SKOS": {
+      "href": "https://www.w3.org/TR/skos-reference/",
+      "title": "SKOS Simple Knowledge Organization System"
+    },
+    "SPECIAL": {
+      "href": "https://www.specialprivacy.eu/",
+      "title": "SPECIAL H2020 Project"
+    },
+    "GDPR": {
+      "href": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "title": "General Data Protection Regulation (GDPR)"
+    },
+    "NACE": {
+      "href": "https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2",
+      "title": "Statistical Classification of Economic Activities in the European Community (NACE)"
+    },
+    "NAICS": {
+      "href": "https://www.census.gov/eos/www/naics/",
+      "title": "North American Industry Classification System (NAICS)"
+    },
+    "ISIC": {
+      "href": "https://unstats.un.org/unsd/classifications",
+      "title": "International Standard Industrial Classification of All Economic Activities (ISIC)"
+    },
+    "GICS": {
+      "href": "https://www.msci.com/gics",
+      "title": "Global Industry Classification Standard (GICS)"
+    },
+    "NACE-NAICS": {
+      "href": "https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2",
+      "title": "NACE to NAICS mapping"
+    },
+    "EnterPrivacy": {
+      "href": "https://enterprivacy.com/wp-content/uploads/2018/09/Categories-of-Personal-Information.pdf",
+      "title": "Taxonomy of Personal Data Categories"
+    },
+    "TIME": {
+      "href": "https://www.w3.org/TR/owl-time/",
+      "title": "Time Ontology in OWL"
+    },
+    "ISO-27017": {
+      "href": "https://www.iso.org/standard/43757.html",
+      "title": "ISO/IEC 27017:2015 Information technology — Security techniques — Code of practice for information security controls based on ISO/IEC 27002 for cloud services"
+    },
+    "ISO-27560": {
+      "href": "https://www.iso.org/standard/80392.html",
+      "title": "ISO/IEC TS 27560 Privacy technologies — Consent record information structure"
+    },
+    "SHACL-UseCases": {
+      "href": "https://www.w3.org/TR/shacl-ucr/",
+      "title": "SHACL Use Cases and Requirements"
+    },
+    "DCT": {
+      "title": "DCMI Metadata Terms (DCT)",
+      "href": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+    },
+    "DCAT": {
+      "title": "Data Catalog Vocabulary (DCAT) - Version 2",
+      "href": "http://www.w3.org/ns/dcat"
+    },
+    "RuleML": {
+      "title": "RuleML: Rule Markup Language",
+      "href": "www.ruleml.org/"
+    }
+  },
+  "publishISODate": "2022-10-06T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 06 October 2022"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+<body class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Using DPV in OWL2</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2022-10-06">06 October 2022</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/dpvcg/CG-FINAL-guide-dpv-owl-20221006/">https://www.w3.org/community/reports/dpvcg/CG-FINAL-guide-dpv-owl-20221006/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://w3id.org/dpv/guides/dpv-owl">https://w3id.org/dpv/guides/dpv-owl</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3id.org/dpv/guides/dpv-owl">https://w3id.org/dpv/guides/dpv-owl</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Piero Bonatti</span> (<span class="p-org org h-org">Università di Napoli Federico II</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Luigi Sauro</span> (<span class="p-org org h-org">Università di Napoli Federico II</span>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/dpv/">GitHub w3c/dpv</a>
+        (<a href="https://github.com/w3c/dpv/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/dpv/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/dpv/issues/">open issues</a>)
+      </dd>
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+          ©
+          2022
+          
+          the Contributors to the Using DPV in OWL2
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/dpvcg">Data Privacy Vocabularies and Controls Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+<section id="abstract" class="introductory">
+    <p>This document acts as a guide presenting how <cite><a data-matched-text="[[[DPV]]]" href="https://www.w3id.org/dpv">Data Privacy Vocabulary (DPV) Specification</a></cite>, through its OWL2 encoding (i.e. [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl" title="DPV-OWL: Data Privacy Vocabulary serialised in OWL2">DPV-OWL</a></cite>]) can be used as an OWL2 vocabulary by easily encoding it in a low-complexity profile of OWL2 called <em>OWL2-PL</em>. </p>
+    <section id="dpv-document-family" class="noTOC"><div class="header-wrapper"><h3 id="dpv-family-of-documents">DPV Family of Documents</h3><a class="self-link" href="#dpv-document-family" aria-label="Permalink for this Section"></a></div>
+    
+    <ul>
+      <li><cite><a data-matched-text="[[[DPV-Primer]]]" href="https://www.w3id.org/dpv/primer">Primer for Data Privacy Vocabulary</a></cite>:  An introductory document for DPV's concepts and taxonomies.
+        <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><p class="">Newcomers to the DPV are <strong>strongly recommended to first read through the Primer</strong> to familiarise themselves with the semantics and concepts of DPV.</p></div>
+      </li>
+      <li><cite><a data-matched-text="[[[DPV]]]" href="https://www.w3id.org/dpv">Data Privacy Vocabulary (DPV) Specification</a></cite>:  The formal and normative description of DPV and its concepts, with serialisations in RDFS &amp; SKOS [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-skos" title="DPV-SKOS: Data Privacy Vocabulary serialised in RDFS &amp; SKOS">DPV-SKOS</a></cite>] and OWL2 [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl" title="DPV-OWL: Data Privacy Vocabulary serialised in OWL2">DPV-OWL</a></cite>]</li>
+      <li>Extensions to Concepts: <ul>
+        <li>[<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-gdpr" title="DPV-GDPR: Extension providing GDPR concepts">DPV-GDPR</a></cite>]:  for GDPR concepts; serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-skos-gdpr" title="DPV-SKOS-GDPR: Extension providing GDPR concepts">DPV-SKOS-GDPR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl-gdpr" title="DPV-OWL-GDPR: Extension providing GDPR concepts">DPV-OWL-GDPR</a></cite>]</li>
+        <li>[<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-pd" title="DPV-PD: Extension providing Personal Data Categories">DPV-PD</a></cite>]  for Personal Data concepts; serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-skos-pd" title="DPV-SKOS-PD: Extension providing Personal Data Categories">DPV-SKOS-PD</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl-pd" title="DPV-OWL-PD: Extension providing Personal Data Categories">DPV-OWL-PD</a></cite>]</li>
+        <li>[<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-legal" title="DPV-LEGAL: Extension providing Jurisdiction-relevant concepts">DPV-LEGAL</a></cite>]  for Jurisdiction-relevant concepts; serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-skos-legal" title="DPV-SKOS-LEGAL: Extension providing Jurisdiction-relevant concepts">DPV-SKOS-LEGAL</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl-legal" title="DPV-OWL-LEGAL: Extension providing Jurisdiction-relevant concepts">DPV-OWL-LEGAL</a></cite>]</li>
+        <li>[<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-tech" title="DPV-TECH: Extension providing Technology-relevant concepts">DPV-TECH</a></cite>]  for Technology concepts; serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-skos-tech" title="DPV-SKOS-TECH: Extension providing Technology-relevant concepts">DPV-SKOS-TECH</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpv-owl-tech" title="DPV-OWL-TECH: Extension providing Technology-relevant concepts">DPV-OWL-TECH</a></cite>]</li>
+        <li>[<cite><a class="bibref" data-link-type="biblio" href="#bib-risk" title="Risk Extension for DPV">RISK</a></cite>]  for Risk Assessment and Management concepts; serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-risk-skos" title="Risk Extension for DPV">RISK-SKOS</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-risk-owl" title="Risk Extension for DPV">RISK-OWL</a></cite>]</li>
+        </ul></li>
+      <li><cite><a data-matched-text="[[[DPV-GUIDES]]]" href="https://w3id.org/dpv/guides">Guidelines for Adoption and Use of DPV</a></cite>: <ul>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-Serialisations]]]" href="https://w3id.org/dpv/guides/serialisations">Guide on DPV's serialisations and semantics</a></cite>  (coming soon)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-SKOS]]]" href="https://w3id.org/dpv/guides/dpv-skos">Guide for using DPV with RDFS and SKOS</a></cite>  (coming soon)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-OWL2]]]" href="https://w3id.org/dpv/guides/dpv-owl">Guide for using DPV in OWL2</a></cite> (this document)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-Notice]]]" href="https://w3id.org/dpv/guides/notice">Guide for Privacy Notices using DPV</a></cite>  (coming soon)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-Consent]]]" href="https://w3id.org/dpv/guides/consent">Guide for Consent Records using DPV</a></cite>  (being updated for v1)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-GDPR-DPIA]]]" href="https://w3id.org/dpv/dpv-gdpr/dpia">Guide for GDPR DPIA's using DPV</a></cite>  (being updated for v1)</li>
+        <li><cite><a data-matched-text="[[[DPV-GUIDE-GDPR-ROPA]]]" href="https://w3id.org/dpv/dpv-gdpr/ropa">Guide for GDPR ROPA's using DPV</a></cite>  (being updated for v1)</li>
+        </ul></li>
+      <li>Other Resources:<ul>
+        <li><cite><a data-matched-text="[[[UseCases-Requirements]]]" href="https://w3id.org/dpv/use-cases">DPV Use-Cases and Requirements</a></cite></li>
+        <li><cite><a data-matched-text="[[[Examples]]]" href="https://w3id.org/dpv/examples">DPV Examples</a></cite></li>
+        <li><cite><a data-matched-text="[[[DPV-NACE]]]" href="https://www.w3id.org/dpv/dpv-nace">NACE Taxonomy serialised in RDFS</a></cite></li>
+        <li><cite><a data-matched-text="[[[RIGHTS-EU]]]" href="https://www.w3id.org/dpv/rights/eu">Extension providing EU Rights</a></cite> serialisations: [<cite><a class="bibref" data-link-type="biblio" href="#bib-rights-eu-skos" title="Extension providing EU Rights">RIGHTS-EU-SKOS</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rights-eu-owl" title="Extension providing EU Rights">RIGHTS-EU-OWL</a></cite>]</li>
+        </ul></li>
+    </ul>
+    <p><strong>Related Links</strong></p>
+    <ul>
+      <li>Releases are published on <a href="https://github.com/w3c/dpv/releases">GitHub</a></li>
+      <li>For a general overview of the Data Protection Vocabularies and Controls Community Group [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpvcg" title="W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)">DPVCG</a></cite>], its history, deliverables, and activities - refer to <a href="https://www.w3.org/community/dpvcg/"><u>DPVCG Website</u></a>.<p></p>
+      </li>
+      <li>
+        <p>The peer-reviewed article “<a href="https://link.springer.com/chapter/10.1007%2F978-3-030-33246-4_44"><u>Creating A Vocabulary for Data Privacy</u></a>” presents a historical overview of the DPVCG, and describes the methodology and structure of the DPV along with describing its creation. An open-access version can be accessed <a href="http://hdl.handle.net/2262/91581"><u>here</u></a>, <a href="http://doras.dcu.ie/23801/"><u>here</u></a>, and <a href="https://aic.ai.wu.ac.at/~polleres/publications/pand-etal-2019ODBASE.pdf"><u>here</u></a>.</p>
+      </li>
+    </ul>
+</section>
+
+      <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/dpvcg">Data Privacy Vocabularies and Controls Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+  
+  <p>This document is published by the <a href="https://www.w3.org/community/dpvcg/">Data Privacy Vocabularies and Controls Community Group (DPVCG)</a> as a deliverable and report of its work in creating and maintaining the Data Privacy Vocabulary (DPV).</p>
+  <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><div class="">
+    <p><strong>Contributing to the DPV and its extensions</strong> The DPVCG welcomes participation regarding the DPV, including expansion or refinement of its terms, addressing open issues, and welcomes suggestions on their resolution or mitigation. For further information, please see the <a href="https://github.com/w3c/dpv#contribution--participation">contribution section</a>.</p>
+  </div></div>
+<p>
+    <a href="https://github.com/w3c/dpv/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#modeling-dpv-with-owl2-pl"><bdi class="secno">2. </bdi>Modeling and extending DPV with OWL2-PL</a></li><li class="tocline"><a class="tocxref" href="#owl2-pl"><bdi class="secno">3. </bdi>A complete definition of OWL2-PL’s ontology language</a></li><li class="tocline"><a class="tocxref" href="#use-case-compliance-checking"><bdi class="secno">4. </bdi>Use Case: Automated Compliance Checking</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">5. </bdi>Acknowledgments</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.1 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+</section>
+<section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+    
+    <p>DPV’s concept are treated as OWL2 <em>classes</em>, and DPV’s properties as OWL2 <em>object properties</em>. For example, the term <em>Location</em> represent the class of all points on the earth’s surface; the term <em>Collect </em>denotes the class of all possible data collection operations. The term <em>Marketing</em> represents the class of all possible varieties of purposes related to marketing, including all kinds of <em>DirectMarketing</em>, <em>Advertising</em>, etc.</p>
+    <p>The reason for encoding DPV concepts as classes is simple: they are meant to be extended and refined for specific domains and use cases, as described in section 4 of the primer. For example, the purpose <em>AcademicResearch</em> may be specialized by introducing two subclasses, one for medical research and one for AI research. The processing category <em>Collect</em>, that denotes all personal data collection operations, can be specialized by two subclasses, one for the direct collection from the data subject, and one for the import of personal data from a third party, such as Open-ID or a Solid repository, for example. The new subclasses, in turn can be further specialized to support extreme extensibility and granularity. For example, the class <em>Location</em> can be refined by a class <em>EULocation</em> representing all the coordinates that fall within the borders of the European Union; in turn, <em>EULocation</em> can be refined by further terms, one for each country belonging to the Union; such terms can be further refined by classes that represent increasingly specific areas, such as regions, cities, streets, buildings, and even rooms in a building.</p>
+    <p>OWL2 provides strong interoperability guarantees: its <em>direct semantics</em> constitutes a crisp semantic specification, that guarantees that all compliant software agents understand and process DPV and its extensions in the same way.</p>
+    <p>The formal semantics of OWL2 provides also other guarantees, for example it can be formally proved that the compliance checking algorithms never return any false positive or negative. This robustness property and flexibility, extensibility and interoperability, make OWL2 the recommended machine-understandable encoding for automated compliance checking (of privacy policies – or records of processing – with respect to data protection regulations and the data subjects’ consent to personal data processing).</p>
+    <p>OWL2 does not mean poor performance: for example, using the <a href="https://github.com/specialprivacy/SPECIAL-compliance-engine">specialized Java compliance checker developed in SPECIAL</a> a compliance check takes only a few hundred μ-seconds.</p>
+</section>
+<section id="modeling-dpv-with-owl2-pl"><div class="header-wrapper"><h2 id="x2-modeling-and-extending-dpv-with-owl2-pl"><bdi class="secno">2. </bdi>Modeling and extending DPV with OWL2-PL</h2><a class="self-link" href="#modeling-dpv-with-owl2-pl" aria-label="Permalink for Section 2."></a></div>
+    
+    <p>It is not necessary to master OWL2 in its full complexity, to encode DPV in OWL2; a few simple features suffice, namely:</p>
+    <ul>
+    <li><p>subclass assertions (to state – say – that <em>DataSubjectRight is a subclass of Right</em>)</p></li>
+    <li><p>property range assertions (e.g. to say that <em>the values of the hasPurpose property are instances of Purpose</em>)</p></li>
+    </ul>
+    <p>No complex classes are needed, only class <em>names</em>. Optionally, DPV’s semantics can be refined by asserting formally that two classes are disjoint:</p>
+    <ul>
+    <li><p>disjoint classes assertions (e.g. <em>Purpose and Recipient have no instance in common</em>)</p></li>
+    </ul>
+    <p>Such disjointness assertions may help in identifying wrong uses of DPV (like the assignment of a recipient to property <em>hasPurpose</em>).</p>
+    <p>To give a concrete example, let us show how the term <em>MedicalHealth</em> is encoded in OWL2. In the following examples we use the <em>Manchester syntax</em> of OWL2.</p>
+    <aside class="example" id="example-combining-concepts"><div class="marker">
+    <a class="self-link" href="#example-combining-concepts">Example<bdi> 1</bdi></a><span class="example-title">: Combining concepts</span>
+  </div>
+        <p>DPV defines <em>MedicalHealth</em> at <a href="https://w3id.org/dpv#MedicalHealth">https://w3id.org/dpv#MedicalHealth</a>, where it is specified that this term is a subclass of both <em>External</em> and <em>SpecialCategoryPersonalData</em>. In OWL2, the class <em>MedicalHealth</em> can be created and associated to its super-classes with the following simple text:</p>
+<pre class="nohighlight">Class: dpv:MedicalHealth
+SubclassOf: dpv:External, dpv:SpecialCategoryPersonalData</pre>
+</aside>
+    <aside class="example" id="example-asserting-correct-use-for-properties"><div class="marker">
+    <a class="self-link" href="#example-asserting-correct-use-for-properties">Example<bdi> 2</bdi></a><span class="example-title">: Asserting correct use for properties</span>
+  </div>
+        <p>The following text creates property <em>hasPurpose</em> and asserts that its values must belong to the class <em>Purpose</em>:</p>
+<pre class="nohighlight">ObjectProperty: dpv:hasPurpose
+Range: dpv:Purpose</pre></aside>
+    <aside class="example" id="example-separation-or-disjointness-between-concepts"><div class="marker">
+    <a class="self-link" href="#example-separation-or-disjointness-between-concepts">Example<bdi> 3</bdi></a><span class="example-title">: Separation or disjointness between concepts</span>
+  </div>
+        <p>The following text says that <em>Purpose</em> and <em>Recipient</em> have no elements in common:</p>
+<pre class="nohighlight">DisjointClasses: dpv:Purpose, dpv:Recipient</pre></aside>
+    <aside class="example" id="example-extending-concepts-for-use-case"><div class="marker">
+    <a class="self-link" href="#example-extending-concepts-for-use-case">Example<bdi> 4</bdi></a><span class="example-title">: Extending concepts for use-case</span>
+  </div>
+        <p>DPV can be extended with domain-specific and regulation-specific terms in a similar way. In order to add a new subclass of <em>Marketing</em> such as <em>MarketingOfNewProducts</em> it suffices to add the following lines to the DPV ontology:</p>
+<pre class="nohighlight">Class: myext:MarketingOfNewProducts
+SubclassOf: dpv:Marketing</pre>
+</aside>
+    <p>In a few cases, it may be appropriate to introduce new terms that are <em>instances</em> of a class, in particular when the new term represents:</p>
+    <ul>
+    <li><p>a single, specific recipient or controller,</p></li>
+    <li><p>a single location, such as those specified by GPS coordinates,</p></li>
+    <li><p>other single data values, such as specific email addresses (like “jane.doe@provider.org”), specific social security numbers, and the like.</p></li>
+    </ul>
+    <p>The rule of thumb to decide whether a term should be a class or an instance is based on the question: <em>can the new term possibly be further refined?</em> If the answer is “yes”, then make it a class, otherwise it can be made an instance. In case of doubt, making the new term a class is the safest option.</p>
+    <p>Instances can be added to the ontology with:</p>
+    <ul>
+    <li><p>instance assertions (e.g. stating that <em>the ACME company is an instance of Recipient</em>).</p></li>
+    </ul>
+    <p>The OWL2 keyword for declaring instances is “Individual”. Its use is illustrated in the following example:</p>
+    <aside class="example" id="example-instances-of-concepts"><div class="marker">
+    <a class="self-link" href="#example-instances-of-concepts">Example<bdi> 5</bdi></a><span class="example-title">: Instances of Concepts</span>
+  </div>
+        <p>Making <em>ACME</em> an instance of <em>Recipient</em> in OWL2:</p>
+<pre class="nohighlight">Individual: myext:ACME
+Types: dpv:Recipient</pre></aside>
+</section>
+<section id="owl2-pl"><div class="header-wrapper"><h2 id="x3-a-complete-definition-of-owl2-pl-s-ontology-language"><bdi class="secno">3. </bdi>A complete definition of OWL2-PL’s ontology language</h2><a class="self-link" href="#owl2-pl" aria-label="Permalink for Section 3."></a></div>
+    
+    <p>The low-complexity profile OWL2-PL allows to define properties and classes with little more than the OWL2 keywords illustrated in the previous section. The complete list of keywords that can be used for this purpose is the following:</p>
+    <aside>
+<pre aria-busy="false"><code class="hljs">Class:
+SubclassOf:
+Individual:
+Types:
+ObjectProperty:
+Range:
+Characteristics: Functional</code></pre></aside>
+    <p><em>No other OWL2 keywords are accepted in the OWL2-PL ontologies that formalize terminologies such as the DPV and its extensions</em>.</p>
+    <p>In the above list, only the last feature has not yet been explained. It is applied in the use cases related to policies and compliance in order to define <em>functional </em>properties of the data processing operations (that is, properties that may have only one value). This task is under the responsibility of the policy language designer. The users who extend the DPV, as illustrated in the previous section, do not need to use this feature.</p>
+</section>
+<section id="use-case-compliance-checking"><div class="header-wrapper"><h2 id="x4-use-case-automated-compliance-checking"><bdi class="secno">4. </bdi>Use Case: Automated Compliance Checking</h2><a class="self-link" href="#use-case-compliance-checking" aria-label="Permalink for Section 4."></a></div>
+    
+    <p>The OWL2 encoding of DPV can be used to encode <em>data usage policies</em>. A data usage policy can be:</p>
+    <ul>
+    <li><p>the privacy policy of a company or organization,</p></li>
+    <li><p>the <em>record of processing</em> maintained by a company or organization,</p></li>
+    <li><p>the consent statement of a data subject,</p></li>
+    <li><p>the objective part of a personal data protection regulation such as the GDPR.</p></li>
+    </ul>
+    <p>Data usage policies are modeled as <em>classes</em>. More precisely, a policy is nothing but the <em>class of permitted data processing operations</em>. A policy <em>P1</em> <em> </em>(like the privacy policy of a company) <em>complies</em> with a policy <em>P2</em> <em> </em>(like the consent policy of a data subject, or the objective part of the GDPR) if all the operations permitted by <em>P1</em> are also permitted by <em>P2</em>, that is,</p>
+    <p><em>P1</em> <em>complies</em> with <em>P2 if, and only if, P1 is a subclass of P2.</em></p>
+    <p>A policy can be specified in a compact way by describing the properties of its permitted operations.</p>
+    <p>In a personal data protection use case, the relevant properties of such operations include (not exclusively) the category of data being processed, the purpose of the processing, the kind of processing (e.g. data collection, data analysis, etc.), the recipients to which the data is transferred, and other properties related to how data is stored and protected, and the legal basis of the processing.</p>
+    <p>For example, let <em>Policy1</em> be a privacy policy that permits the <em>collection</em> of <em>email addresses</em> for <em>advertising</em> purposes, based on the<em> consent</em> of the data subjects. This policy – seen as a class of operations – contains <em>all</em> the possible operations with the following DPV features:</p>
+    <ul>
+    <li><p>their <em>hasProcessing</em> attribute is some kind of data collection (i.e. an instance of <em>Collection</em>)</p></li>
+    <li><p>their <em>hasPersonalData</em> attribute is some email address</p></li>
+    <li><p>their <em>hasPurpose</em> attribute is some kind of advertising (i.e. an instance of <em>Advertising</em>)</p></li>
+    <li><p>their <em>hasLegalBasis</em> attribute is some kind of consent (either explicit or implicit)</p></li>
+    </ul>
+    <p>This class of operations is encoded in OWL2-PL as follows:</p>
+    <aside><pre aria-busy="false"><code class="hljs">Class: Policy1
+EquivalentTo:
+    hasProcessing some Collection and
+    hasPersonalData some EmailAddress and
+    hasPurpose some Advertising and
+    hasLegalBasis some myext:A6-1-a-consent</code></pre></aside>
+    <p>where <em>A6-1-a-consent</em> is a superclass of <em>A6-1-a-explicit-consent and A6-1-a-non-explicit-consent. </em>In a similar way, one can encode a consent statement that permits all the operations that <em>collect</em> <em>contact information</em> for <em>marketing</em> purposes:</p>
+    <aside><pre aria-busy="false"><code class="hljs">Class: Policy2
+EquivalentTo: 
+    hasProcessing some Collection and 
+    hasPersonalData some Contact and
+    hasPurpose some Marketing</code></pre></aside>
+    <p>Now, since <em>EmailAddress</em> is a subclass of <em>Contact</em> and <em>Advertising</em> is a subclass of <em>Marketing</em>, all the operations that belong to<em> Policy1</em> satisfy also the requirements for being in<em> Policy2</em> as well. Then<em> Policy1</em> is a subclass of <em>Policy2</em>, that is, the privacy policy complies with the data subject’s consent.</p>
+    <p>It is also easy to say that some properties of a policy must have a single value (an instance). For example, the policy <em>Policy3</em> stating that the email address “user@provider.com” (and only that mail address) can be transferred to the ACME company (and only that company) for any marketing purposes is encoded in OWL2-PL as follows:</p>
+    <aside><pre aria-busy="false"><code class="hljs css">Class: Policy3
+EquivalentTo: 
+    hasProcessing some Transfer and 
+    hasPersonalData some {user@provider.com} and
+    hasRecipient some {myext:ACME}
+    hasPurpose some Marketing</code></pre></aside>
+    <p>The expressions {user@provider.com} and {myext:ACME} denote the classes that contain <em>only </em>user@provider.com and ACME, respectively. Therefore, all the operations permitted by <em>Policy3</em> process only the address “user@provider.com” and share it only with ACME, as required. Any other operation is forbidden.</p>
+    <p>Interestingly, every OWL2 reasoner can be used to check compliance, because they are all able to check whether a class is a subclass of another class. Of course, the reasoners specialized for OWL2-PL are in general more efficient than generic OWL2 reasoners. The part of OWL2-PL aimed at encoding policies supports the above syntax, that is, policies can be defined using the keywords “<em>EquivalentTo</em>”, “<em>and</em>”, and “<em>some</em>” as shown above. Each policy must have a unique definition.</p>
+    <p>This kind of automated compliance checking has several interesting applications, including the following:</p>
+    <ul>
+    <li><p><em>Consent re-use</em>: when a new application or business line is deployed, its data usage policy can be automatically checked for compliance with the consent statements that are already available; in this way, the users whose consent already covers the new processing need not be asked again for consent.</p></li>
+    <li><p><em>Data re-purposing</em>: an organization wants to use its data for a purpose different from that declared when the data was collected. Similarly to consent re-use, it can be checked automatically which data can be used for the new purpose based on the available consent.</p></li>
+    <li><p><em>Data sharing</em>: The personal information contained in a container like a Solid pod or an Open-ID account can be labeled with a consent policy that determines whether a third party can access it, based on the data usage policy of the requester. This method improves the existing access control language by taking into account additional relevant information such as purposes and transfers to third parties.</p></li>
+    <li><p><em>Dynamic query control</em>: when an employee queries personal data, the purpose of the query and the data categories involved in the query can be checked on-the-fly for compliance with the available consent.</p></li>
+    <li><p><em>Compliance with the regulations</em>: the personal data usage policies of a company can be checked for compliance with the objective part of the data protection regulations. Every single compliance check verifies a number of restrictions, including (not exclusively): (i) verifying whether international data transfers comply with GDPR’s restrictions; (ii) verifying whether special data categories are protected with the technical and organizational measures prescribed by the GDPR.</p></li>
+    </ul>
+    <p>As it should be expected, modeling the GDPR is more complex, but its encoding into OWL2 and OWL2-PL is the responsibility of knowledge engineers, and it does not concern end users. The interested reader may find more details about the OWL2 encoding of the GDPR in several papers and documents, such as [1] and [2].</p>
+    <p>The complete grammar of the policy language of OWL2-PL can be found in [3], together with a corresponding JSON version designed for the developers that are not familiar with OWL2.</p>
+</section>
+<section id="acknowledgements"><div class="header-wrapper"><h2 id="x5-acknowledgments"><bdi class="secno">5. </bdi>Acknowledgments</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Section 5."></a></div>
+    
+    <p>OWL2-PL and the semantic policy framework have been developed by the H2020 projects SPECIAL and TRAPEZE, funded by the European Union under grants n. 731601 and 883464, respectively.</p>
+</section>
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div>
+    <p>[1] Piero A. Bonatti, Sabrina Kirrane, Iliana M. Petrova, Luigi Sauro: <em>Machine Understandable Policies and GDPR Compliance Checking</em>. Künstliche Intell. 34(3): 303-315 (2020)</p>
+    <p>[2] P.A. Bonatti, L. Ioffredo, G. Luongo, S. Mosi, I.M. Petrova, L. Sauro: <em>Formalization of the GDPR and of the Pilots’ Policies</em>. SPECIAL Report D5. Available at: <a href="https://specialprivacy.ercim.eu/images/documents/report-D5.pdf">https://specialprivacy.ercim.eu/images/documents/report-D5.pdf</a></p>
+    <p>[3] P.A. Bonatti, J. Langens, L. Sauro: <em>Policy Language – v1</em>. TRAPEZE Report D2.1. Available at: <a href="https://trapeze-project.eu/resources/">https://trapeze-project.eu/resources/</a></p>
+<section id="informative-references"><div class="header-wrapper"><h3 id="a-1-informative-references"><bdi class="secno">A.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-dpv">[DPV]</dt><dd>
+      <a href="https://www.w3id.org/dpv"><cite>Data Privacy Vocabulary (DPV) Specification</cite></a>. URL: <a href="https://www.w3id.org/dpv">https://www.w3id.org/dpv</a>
+    </dd><dt id="bib-dpv-gdpr">[DPV-GDPR]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-gdpr"><cite>DPV-GDPR: Extension providing GDPR concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-gdpr">https://www.w3id.org/dpv/dpv-gdpr</a>
+    </dd><dt id="bib-dpv-guide-consent">[DPV-GUIDE-Consent]</dt><dd>
+      <a href="https://w3id.org/dpv/guides/consent"><cite>Guide for Consent Records using DPV</cite></a>. URL: <a href="https://w3id.org/dpv/guides/consent">https://w3id.org/dpv/guides/consent</a>
+    </dd><dt id="bib-dpv-guide-gdpr-dpia">[DPV-GUIDE-GDPR-DPIA]</dt><dd>
+      <a href="https://w3id.org/dpv/dpv-gdpr/dpia"><cite>Guide for GDPR DPIA's using DPV</cite></a>. URL: <a href="https://w3id.org/dpv/dpv-gdpr/dpia">https://w3id.org/dpv/dpv-gdpr/dpia</a>
+    </dd><dt id="bib-dpv-guide-gdpr-ropa">[DPV-GUIDE-GDPR-ROPA]</dt><dd>
+      <a href="https://w3id.org/dpv/dpv-gdpr/ropa"><cite>Guide for GDPR ROPA's using DPV</cite></a>. URL: <a href="https://w3id.org/dpv/dpv-gdpr/ropa">https://w3id.org/dpv/dpv-gdpr/ropa</a>
+    </dd><dt id="bib-dpv-guide-notice">[DPV-GUIDE-Notice]</dt><dd>
+      <a href="https://w3id.org/dpv/guides/notice"><cite>Guide for Privacy Notices using DPV</cite></a>. URL: <a href="https://w3id.org/dpv/guides/notice">https://w3id.org/dpv/guides/notice</a>
+    </dd><dt id="bib-dpv-guide-owl2">[DPV-GUIDE-OWL2]</dt><dd>
+      <a href="https://w3id.org/dpv/guides/dpv-owl"><cite>Guide for using DPV in OWL2</cite></a>. URL: <a href="https://w3id.org/dpv/guides/dpv-owl">https://w3id.org/dpv/guides/dpv-owl</a>
+    </dd><dt id="bib-dpv-guide-serialisations">[DPV-GUIDE-Serialisations]</dt><dd>
+      <a href="https://w3id.org/dpv/guides/serialisations"><cite>Guide on DPV's serialisations and semantics</cite></a>. URL: <a href="https://w3id.org/dpv/guides/serialisations">https://w3id.org/dpv/guides/serialisations</a>
+    </dd><dt id="bib-dpv-guide-skos">[DPV-GUIDE-SKOS]</dt><dd>
+      <a href="https://w3id.org/dpv/guides/dpv-skos"><cite>Guide for using DPV with RDFS and SKOS</cite></a>. URL: <a href="https://w3id.org/dpv/guides/dpv-skos">https://w3id.org/dpv/guides/dpv-skos</a>
+    </dd><dt id="bib-dpv-guides">[DPV-GUIDES]</dt><dd>
+      <a href="https://w3id.org/dpv/guides"><cite>Guidelines for Adoption and Use of DPV</cite></a>. URL: <a href="https://w3id.org/dpv/guides">https://w3id.org/dpv/guides</a>
+    </dd><dt id="bib-dpv-legal">[DPV-LEGAL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-legal"><cite>DPV-LEGAL: Extension providing Jurisdiction-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-legal">https://www.w3id.org/dpv/dpv-legal</a>
+    </dd><dt id="bib-dpv-nace">[DPV-NACE]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-nace"><cite>NACE Taxonomy serialised in RDFS</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-nace">https://www.w3id.org/dpv/dpv-nace</a>
+    </dd><dt id="bib-dpv-owl">[DPV-OWL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl"><cite>DPV-OWL: Data Privacy Vocabulary serialised in OWL2</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl">https://www.w3id.org/dpv/dpv-owl</a>
+    </dd><dt id="bib-dpv-owl-gdpr">[DPV-OWL-GDPR]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/dpv-gdpr"><cite>DPV-OWL-GDPR: Extension providing GDPR concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/dpv-gdpr">https://www.w3id.org/dpv/dpv-owl/dpv-gdpr</a>
+    </dd><dt id="bib-dpv-owl-legal">[DPV-OWL-LEGAL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/dpv-legal"><cite>DPV-OWL-LEGAL: Extension providing Jurisdiction-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/dpv-legal">https://www.w3id.org/dpv/dpv-owl/dpv-legal</a>
+    </dd><dt id="bib-dpv-owl-pd">[DPV-OWL-PD]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/dpv-pd"><cite>DPV-OWL-PD: Extension providing Personal Data Categories</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/dpv-pd">https://www.w3id.org/dpv/dpv-owl/dpv-pd</a>
+    </dd><dt id="bib-dpv-owl-tech">[DPV-OWL-TECH]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/dpv-tech"><cite>DPV-OWL-TECH: Extension providing Technology-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/dpv-tech">https://www.w3id.org/dpv/dpv-owl/dpv-tech</a>
+    </dd><dt id="bib-dpv-pd">[DPV-PD]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-pd"><cite>DPV-PD: Extension providing Personal Data Categories</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-pd">https://www.w3id.org/dpv/dpv-pd</a>
+    </dd><dt id="bib-dpv-primer">[DPV-Primer]</dt><dd>
+      <a href="https://www.w3id.org/dpv/primer"><cite>Primer for Data Privacy Vocabulary</cite></a>. URL: <a href="https://www.w3id.org/dpv/primer">https://www.w3id.org/dpv/primer</a>
+    </dd><dt id="bib-dpv-skos">[DPV-SKOS]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos"><cite>DPV-SKOS: Data Privacy Vocabulary serialised in RDFS &amp; SKOS</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos">https://www.w3id.org/dpv/dpv-skos</a>
+    </dd><dt id="bib-dpv-skos-gdpr">[DPV-SKOS-GDPR]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/dpv-gdpr"><cite>DPV-SKOS-GDPR: Extension providing GDPR concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/dpv-gdpr">https://www.w3id.org/dpv/dpv-skos/dpv-gdpr</a>
+    </dd><dt id="bib-dpv-skos-legal">[DPV-SKOS-LEGAL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/dpv-legal"><cite>DPV-SKOS-LEGAL: Extension providing Jurisdiction-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/dpv-legal">https://www.w3id.org/dpv/dpv-skos/dpv-legal</a>
+    </dd><dt id="bib-dpv-skos-pd">[DPV-SKOS-PD]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/dpv-pd"><cite>DPV-SKOS-PD: Extension providing Personal Data Categories</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/dpv-pd">https://www.w3id.org/dpv/dpv-skos/dpv-pd</a>
+    </dd><dt id="bib-dpv-skos-tech">[DPV-SKOS-TECH]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/dpv-tech"><cite>DPV-SKOS-TECH: Extension providing Technology-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/dpv-tech">https://www.w3id.org/dpv/dpv-skos/dpv-tech</a>
+    </dd><dt id="bib-dpv-tech">[DPV-TECH]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-tech"><cite>DPV-TECH: Extension providing Technology-relevant concepts</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-tech">https://www.w3id.org/dpv/dpv-tech</a>
+    </dd><dt id="bib-dpvcg">[DPVCG]</dt><dd>
+      <a href="https://www.w3.org/community/dpvcg/"><cite>W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)</cite></a>. URL: <a href="https://www.w3.org/community/dpvcg/">https://www.w3.org/community/dpvcg/</a>
+    </dd><dt id="bib-examples">[Examples]</dt><dd>
+      <a href="https://w3id.org/dpv/examples"><cite>DPV Examples</cite></a>. URL: <a href="https://w3id.org/dpv/examples">https://w3id.org/dpv/examples</a>
+    </dd><dt id="bib-rights-eu">[RIGHTS-EU]</dt><dd>
+      <a href="https://www.w3id.org/dpv/rights/eu"><cite>Extension providing EU Rights</cite></a>. URL: <a href="https://www.w3id.org/dpv/rights/eu">https://www.w3id.org/dpv/rights/eu</a>
+    </dd><dt id="bib-rights-eu-owl">[RIGHTS-EU-OWL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/rights/eu"><cite>Extension providing EU Rights</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/rights/eu">https://www.w3id.org/dpv/dpv-owl/rights/eu</a>
+    </dd><dt id="bib-rights-eu-skos">[RIGHTS-EU-SKOS]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/rights/eu"><cite>Extension providing EU Rights</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/rights/eu">https://www.w3id.org/dpv/dpv-skos/rights/eu</a>
+    </dd><dt id="bib-risk">[RISK]</dt><dd>
+      <a href="https://www.w3id.org/dpv/risk"><cite>Risk Extension for DPV</cite></a>. URL: <a href="https://www.w3id.org/dpv/risk">https://www.w3id.org/dpv/risk</a>
+    </dd><dt id="bib-risk-owl">[RISK-OWL]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-owl/risk"><cite>Risk Extension for DPV</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-owl/risk">https://www.w3id.org/dpv/dpv-owl/risk</a>
+    </dd><dt id="bib-risk-skos">[RISK-SKOS]</dt><dd>
+      <a href="https://www.w3id.org/dpv/dpv-skos/risk"><cite>Risk Extension for DPV</cite></a>. URL: <a href="https://www.w3id.org/dpv/dpv-skos/risk">https://www.w3id.org/dpv/dpv-skos/risk</a>
+    </dd><dt id="bib-usecases-requirements">[UseCases-Requirements]</dt><dd>
+      <a href="https://w3id.org/dpv/use-cases"><cite>DPV Use-Cases and Requirements</cite></a>. URL: <a href="https://w3id.org/dpv/use-cases">https://w3id.org/dpv/use-cases</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
