@@ -1,0 +1,2989 @@
+<!DOCTYPE html><html dir="ltr" lang="en"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 24.37.1"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
+span.example-title {
+    text-transform: none;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example span.example-title {
+    color: #999;
+}
+</style><style>/* --- ISSUES/NOTES --- */
+.issue-label {
+    text-transform: initial;
+}
+
+.warning > p:first-child { margin-top: 0 }
+.warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+span.warning { padding: .1em .5em .15em; }
+
+.issue.closed span.issue-number {
+    text-decoration: line-through;
+}
+
+.warning {
+    border-color: #f11;
+    border-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 1.3em;
+    float: left;
+    padding-right: .3em;
+    margin-top: -0.3em;
+}
+
+li.task-list-item {
+    list-style: none;
+}
+
+input.task-list-item-checkbox {
+    margin: 0 0.35em 0.25em -1.6em;
+    vertical-align: middle;
+}
+
+.issue a.respec-gh-label {
+  padding: 5px;
+  margin: 0 2px 0 2px;
+  font-size: 10px;
+  text-transform: none;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  position: relative;
+  bottom: 2px;
+  border: none;
+  display: inline-block;
+}
+
+.issue a.respec-label-dark {
+  color: #fff;
+  background-color: #000;
+}
+
+.issue a.respec-label-light {
+  color: #000;
+  background-color: #fff;
+}
+</style>
+    
+    
+    
+    <title>Reconciliation Service API v0.1</title>
+  <style id="respec-mainstyle">/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+@keyframes pop {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.25, 1.25);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* Override code highlighter background */
+.hljs {
+  background: transparent !important;
+}
+
+/* --- INLINES --- */
+h1 abbr,
+h2 abbr,
+h3 abbr,
+h4 abbr,
+h5 abbr,
+h6 abbr,
+a abbr {
+  border: none;
+}
+
+dfn {
+  font-weight: bold;
+}
+
+a.internalDFN {
+  color: inherit;
+  border-bottom: 1px solid #99c;
+  text-decoration: none;
+}
+
+a.externalDFN {
+  color: inherit;
+  border-bottom: 1px dotted #ccc;
+  text-decoration: none;
+}
+
+a.bibref {
+  text-decoration: none;
+}
+
+.respec-offending-element:target {
+  animation: pop 0.25s ease-in-out 0s 1;
+}
+
+.respec-offending-element,
+a[href].respec-offending-element {
+  text-decoration: red wavy underline;
+}
+@supports not (text-decoration: red wavy underline) {
+  .respec-offending-element:not(pre) {
+    display: inline-block;
+  }
+  .respec-offending-element {
+    /* Red squiggly line */
+    background: url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=)
+      bottom repeat-x;
+  }
+}
+
+#references :target {
+  background: #eaf3ff;
+  animation: pop 0.4s ease-in-out 0s 1;
+}
+
+cite .bibref {
+  font-style: normal;
+}
+
+code {
+  color: #c83500;
+}
+
+th code {
+  color: inherit;
+}
+
+a[href].orcid {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+a[href].orcid > svg {
+    margin-bottom: -2px;
+}
+
+/* --- TOC --- */
+
+.toc a,
+.tof a {
+  text-decoration: none;
+}
+
+a .secno,
+a .figno {
+  color: #000;
+}
+
+ul.tof,
+ol.tof {
+  list-style: none outside none;
+}
+
+.caption {
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* --- TABLE --- */
+
+table.simple {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-bottom: 3px solid #005a9c;
+}
+
+.simple th {
+  background: #005a9c;
+  color: #fff;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.simple th a {
+  color: #fff;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.simple th[scope="row"] {
+  background: inherit;
+  color: inherit;
+  border-top: 1px solid #ddd;
+}
+
+.simple td {
+  padding: 3px 10px;
+  border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+  background: #f0f6ff;
+}
+
+/* --- DL --- */
+
+.section dd > p:first-child {
+  margin-top: 0;
+}
+
+.section dd > p:last-child {
+  margin-bottom: 0;
+}
+
+.section dd {
+  margin-bottom: 1em;
+}
+
+.section dl.attrs dd,
+.section dl.eldef dd {
+  margin-bottom: 0;
+}
+
+#issue-summary > ul,
+.respec-dfn-list {
+  column-count: 2;
+}
+
+#issue-summary li,
+.respec-dfn-list li {
+  list-style: none;
+}
+
+details.respec-tests-details {
+  margin-left: 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+
+details.respec-tests-details > * {
+  padding-right: 2em;
+}
+
+details.respec-tests-details[open] {
+  z-index: 999999;
+  position: absolute;
+  border: thin solid #cad3e2;
+  border-radius: 0.3em;
+  background-color: white;
+  padding-bottom: 0.5em;
+}
+
+details.respec-tests-details[open] > summary {
+  border-bottom: thin solid #cad3e2;
+  padding-left: 1em;
+  margin-bottom: 1em;
+  line-height: 2em;
+}
+
+details.respec-tests-details > ul {
+  width: 100%;
+  margin-top: -0.3em;
+}
+
+details.respec-tests-details > li {
+  padding-left: 1em;
+}
+
+a[href].self-link:hover {
+  opacity: 1;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+}
+
+aside.example .marker > a.self-link {
+  color: inherit;
+}
+
+h2 > a.self-link,
+h3 > a.self-link,
+h4 > a.self-link,
+h5 > a.self-link,
+h6 > a.self-link {
+  border: none;
+  color: inherit;
+  font-size: 83%;
+  height: 2em;
+  left: -1.6em;
+  opacity: 0.5;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+  transition: opacity 0.2s;
+  width: 2em;
+}
+
+h2 > a.self-link::before,
+h3 > a.self-link::before,
+h4 > a.self-link::before,
+h5 > a.self-link::before,
+h6 > a.self-link::before {
+  content: "§";
+  display: block;
+}
+
+@media (max-width: 767px) {
+  dd {
+    margin-left: 0;
+  }
+
+  /* Don't position self-link in headings off-screen */
+  h2 > a.self-link,
+  h3 > a.self-link,
+  h4 > a.self-link,
+  h5 > a.self-link,
+  h6 > a.self-link {
+    left: auto;
+    top: auto;
+  }
+}
+
+@media print {
+  .removeOnSave {
+    display: none;
+  }
+}
+</style><meta name="description" content="This document describes the reconciliation service API, as implemented in OpenRefine 2.8 to 3.2.
+        It is intended as a comprehensive and definitive specification of this API in its given state.
+	This is mostly of historical interest since newer versions are available and already widely adopted by both clients and services.
+	Further improvements to the API, coordinated by the
+	W3C Entity Reconciliation Community Group,
+	have been specified in the next iteration of this document,
+        which we encourage services to follow instead."><link rel="canonical" href="https://www.w3.org/community/reports/reconciliation/CG-FINAL-specs-0.1-20230316/"><script type="application/ld+json">{
+  "@context": [
+    "http://schema.org",
+    {
+      "@vocab": "http://schema.org/",
+      "@language": "en",
+      "w3p": "http://www.w3.org/2001/02pd/rec54#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "datePublished": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date"
+      },
+      "inLanguage": {
+        "@language": null
+      },
+      "isBasedOn": {
+        "@type": "@id"
+      },
+      "license": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://www.w3.org/community/reports/reconciliation/CG-FINAL-specs-0.1-20230316/",
+  "type": [
+    "TechArticle"
+  ],
+  "name": "Reconciliation Service API v0.1",
+  "inLanguage": "en",
+  "license": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document",
+  "datePublished": "2023-03-16",
+  "copyrightHolder": {
+    "name": "World Wide Web Consortium",
+    "url": "https://www.w3.org/"
+  },
+  "discussionUrl": "https://github.com/reconciliation-api/specs/issues/",
+  "alternativeHeadline": "A protocol for data matching on the Web",
+  "isBasedOn": "",
+  "description": "This document describes the reconciliation service API, as implemented in OpenRefine 2.8 to 3.2.\n        It is intended as a comprehensive and definitive specification of this API in its given state.\n\tThis is mostly of historical interest since newer versions are available and already widely adopted by both clients and services.\n\tFurther improvements to the API, coordinated by the\n\tW3C Entity Reconciliation Community Group,\n\thave been specified in the next iteration of this document,\n        which we encourage services to follow instead.",
+  "editor": [
+    {
+      "type": "Person",
+      "name": "Antonin Delpeuch",
+      "url": "http://antonin.delpeuch.eu/",
+      "worksFor": {
+        "name": "University of Oxford",
+        "url": "https://www.ox.ac.uk/"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Adrian Pohl",
+      "url": "https://lobid.org/team/ap",
+      "worksFor": {
+        "name": "hbz, Cologne",
+        "url": "https://www.hbz-nrw.de/"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Fabian Steeg",
+      "url": "http://fsteeg.com",
+      "worksFor": {
+        "name": "hbz, Cologne",
+        "url": "https://www.hbz-nrw.de/"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Thad Guidry Sr.",
+      "url": "https://www.linkedin.com/in/thadguidry/"
+    }
+  ],
+  "citation": [
+    {
+      "id": "https://tools.ietf.org/html/rfc2396",
+      "type": "TechArticle",
+      "name": "Uniform Resource Identifiers (URI): Generic Syntax",
+      "url": "https://tools.ietf.org/html/rfc2396",
+      "creator": [
+        {
+          "name": "T. Berners-Lee"
+        },
+        {
+          "name": "R. Fielding"
+        },
+        {
+          "name": "L. Masinter"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://httpwg.org/specs/rfc7230.html",
+      "type": "TechArticle",
+      "name": "Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing",
+      "url": "https://httpwg.org/specs/rfc7230.html",
+      "creator": [
+        {
+          "name": "R. Fielding, Ed."
+        },
+        {
+          "name": "J. Reschke, Ed."
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.w3.org/2001/tag/doc/web-https",
+      "type": "TechArticle",
+      "name": "Securing the Web",
+      "url": "https://www.w3.org/2001/tag/doc/web-https",
+      "creator": [
+        {
+          "name": "Mark Nottingham"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://en.wikipedia.org/wiki/JSONP",
+      "type": "TechArticle",
+      "name": "JSONP",
+      "url": "https://en.wikipedia.org/wiki/JSONP",
+      "publisher": {
+        "name": "English Wikipedia"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/cors/",
+      "type": "TechArticle",
+      "name": "Cross-Origin Resource Sharing",
+      "url": "https://www.w3.org/TR/cors/",
+      "creator": [
+        {
+          "name": "Anne van Kesteren"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://tools.ietf.org/html/draft-zyp-json-schema",
+      "type": "TechArticle",
+      "name": "JSON Schema: core definitions and terminology",
+      "url": "https://tools.ietf.org/html/draft-zyp-json-schema",
+      "creator": [
+        {
+          "name": "K. Zyp"
+        }
+      ],
+      "publisher": {
+        "name": "Internet Engineering Task Force (IETF)"
+      }
+    },
+    {
+      "id": "https://tools.ietf.org/html/rfc2119",
+      "type": "TechArticle",
+      "name": "Key words for use in RFCs to Indicate Requirement Levels",
+      "url": "https://tools.ietf.org/html/rfc2119",
+      "creator": [
+        {
+          "name": "S. Bradner"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://tools.ietf.org/html/rfc8174",
+      "type": "TechArticle",
+      "name": "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words",
+      "url": "https://tools.ietf.org/html/rfc8174",
+      "creator": [
+        {
+          "name": "B. Leiba"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/owl-features/",
+      "type": "TechArticle",
+      "name": "OWL Web Ontology Language Overview",
+      "url": "https://www.w3.org/TR/owl-features/",
+      "creator": [
+        {
+          "name": "Deborah McGuinness"
+        },
+        {
+          "name": "Frank van Harmelen"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/skos-primer/",
+      "type": "TechArticle",
+      "name": "SKOS Simple Knowledge Organization System Primer",
+      "url": "https://www.w3.org/TR/skos-primer/",
+      "creator": [
+        {
+          "name": "Antoine Isaac"
+        },
+        {
+          "name": "Ed Summers"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "url": "http://dx.doi.org/10.1007/978-3-319-93417-4_5",
+      "name": [
+        "sameAs.cc: The Closure of 500M owl:sameAs Statements"
+      ],
+      "creator": [
+        {
+          "givenName": "Wouter",
+          "familyName": "Beek",
+          "name": "Wouter Beek",
+          "sameAs": "http://orcid.org/0000-0003-0250-9655"
+        },
+        {
+          "givenName": "Joe",
+          "familyName": "Raad",
+          "name": "Joe Raad",
+          "sameAs": "http://orcid.org/0000-0002-7891-7738"
+        },
+        {
+          "givenName": "Jan",
+          "familyName": "Wielemaker",
+          "name": "Jan Wielemaker",
+          "sameAs": "http://orcid.org/0000-0001-5574-5673"
+        },
+        {
+          "givenName": "Frank",
+          "familyName": "van Harmelen",
+          "name": "Frank van Harmelen",
+          "sameAs": "http://orcid.org/0000-0002-7913-0048"
+        }
+      ],
+      "publisher": {
+        "name": "Springer International Publishing"
+      }
+    },
+    {
+      "url": "http://dx.doi.org/10.1007/978-3-642-31164-2",
+      "name": [
+        "Data Matching"
+      ],
+      "creator": [
+        {
+          "givenName": "Peter",
+          "familyName": "Christen",
+          "name": "Peter Christen"
+        }
+      ],
+      "publisher": {
+        "name": "Springer Berlin Heidelberg"
+      }
+    }
+  ]
+}</script><style>/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style><style>var {
+  position: relative;
+  cursor: pointer;
+}
+
+var[data-type]::before,
+var[data-type]::after {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+/* the triangle or arrow or caret or whatever */
+var[data-type]::before {
+  content: "";
+  transform: translateX(-50%);
+  border-width: 4px 6px 0 6px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: #000;
+}
+
+/* actual text */
+var[data-type]::after {
+  content: attr(data-type);
+  transform: translateX(-50%) translateY(-100%);
+  background: #000;
+  text-align: center;
+  /* additional styling */
+  font-family: "Dank Mono", "Fira Code", monospace;
+  font-style: normal;
+  padding: 6px;
+  border-radius: 3px;
+  color: #daca88;
+  text-indent: 0;
+  font-weight: normal;
+}
+
+var[data-type]:hover::after,
+var[data-type]:hover::before {
+  opacity: 1;
+}
+</style><script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-FINAL",
+  "subtitle": "A protocol for data matching on the Web",
+  "pluralize": true,
+  "doJsonLd": true,
+  "wg": "Entity Reconciliation Community Group",
+  "wgPublicList": "public-reconciliation",
+  "wgURI": "https://www.w3.org/community/reconciliation/",
+  "canonicalURI": "https://www.w3.org/community/reports/reconciliation/CG-FINAL-specs-0.1-20230316/",
+  "edDraftURI": "https://reconciliation-api.github.io/specs/draft/",
+  "license": "w3c-software-doc",
+  "github": {
+    "repoURL": "https://github.com/reconciliation-api/specs",
+    "branch": "master"
+  },
+  "editors": [
+    {
+      "name": "Antonin Delpeuch",
+      "url": "http://antonin.delpeuch.eu/",
+      "orcid": "https://orcid.org/0000-0002-8612-8827",
+      "company": "University of Oxford",
+      "companyURL": "https://www.ox.ac.uk/"
+    },
+    {
+      "name": "Adrian Pohl",
+      "url": "https://lobid.org/team/ap",
+      "orcid": "https://orcid.org/0000-0001-9083-7442",
+      "company": "hbz, Cologne",
+      "companyURL": "https://www.hbz-nrw.de/"
+    },
+    {
+      "name": "Fabian Steeg",
+      "url": "http://fsteeg.com",
+      "orcid": "https://orcid.org/0000-0001-8829-1989",
+      "company": "hbz, Cologne",
+      "companyURL": "https://www.hbz-nrw.de/"
+    },
+    {
+      "name": "Thad Guidry Sr.",
+      "url": "https://www.linkedin.com/in/thadguidry/",
+      "orcid": "https://orcid.org/0000-0001-7446-501X"
+    }
+  ],
+  "localBiblio": {
+    "beek-2018": {
+      "aliasOf": "doi:10.1007/978-3-319-93417-4_5"
+    },
+    "christen-2012": {
+      "aliasOf": "doi:10.1007/978-3-642-31164-2"
+    },
+    "JSONP": {
+      "title": "JSONP",
+      "publisher": "English Wikipedia",
+      "href": "https://en.wikipedia.org/wiki/JSONP",
+      "id": "jsonp"
+    }
+  },
+  "publishISODate": "2023-03-16T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 16 March 2023"
+}</script><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/cg-final"></head>
+  <body class="mastodon-simplified-federation-injected h-entry"><div class="head">
+      <a class="logo" href="https://www.w3.org/"><img alt="W3C" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72" height="48"></a>
+      <h1 class="title p-name" id="title">Reconciliation Service API v0.1</h1>
+      <h2 id="subtitle">A protocol for data matching on the Web</h2>
+      <h2>
+        Final Community Group Report
+        <time class="dt-published" datetime="2023-03-16">16 March 2023</time>
+      </h2>
+      <dl>
+        
+        
+        <dt>Latest editor's draft:</dt><dd><a href="https://reconciliation-api.github.io/specs/draft/">https://reconciliation-api.github.io/specs/draft/</a></dd>
+        
+        
+        
+        
+        
+        <dt>Editors:</dt>
+        <dd class="p-author h-card vcard"><a class="u-url url p-name fn" href="http://antonin.delpeuch.eu/">Antonin Delpeuch</a><a class="p-name orcid" href="https://orcid.org/0000-0002-8612-8827"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg>
+         </a>
+            (<a class="p-org org h-org h-card" href="https://www.ox.ac.uk/">University of Oxford</a>)
+          </dd><dd class="p-author h-card vcard"><a class="u-url url p-name fn" href="https://lobid.org/team/ap">Adrian Pohl</a><a class="p-name orcid" href="https://orcid.org/0000-0001-9083-7442"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg>
+         </a>
+            (<a class="p-org org h-org h-card" href="https://www.hbz-nrw.de/">hbz, Cologne</a>)
+          </dd><dd class="p-author h-card vcard"><a class="u-url url p-name fn" href="http://fsteeg.com">Fabian Steeg</a><a class="p-name orcid" href="https://orcid.org/0000-0001-8829-1989"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg>
+         </a>
+            (<a class="p-org org h-org h-card" href="https://www.hbz-nrw.de/">hbz, Cologne</a>)
+          </dd><dd class="p-author h-card vcard"><a class="u-url url p-name fn" href="https://www.linkedin.com/in/thadguidry/">Thad Guidry Sr.</a><a class="p-name orcid" href="https://orcid.org/0000-0001-7446-501X"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg>
+         </a></dd>
+        
+        
+        <dt>Participate:</dt><dd>
+      <a href="https://github.com/reconciliation-api/specs/">GitHub reconciliation-api/specs</a>
+    </dd><dd>
+      <a href="https://github.com/reconciliation-api/specs/issues/">File a bug</a>
+    </dd><dd>
+      <a href="https://github.com/reconciliation-api/specs/commits/master">Commit history</a>
+    </dd><dd>
+      <a href="https://github.com/reconciliation-api/specs/pulls/">Pull requests</a>
+    </dd>
+      </dl>
+      
+      <p class="copyright">
+        <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+        ©
+        2023
+        
+        the Contributors to the Reconciliation Service API v0.1 Specification, published by the
+        <a href="https://www.w3.org/community/reconciliation/">Entity Reconciliation Community Group</a> under the
+        <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+              <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+              is available.
+            
+      </p>
+      <hr title="Separator for header">
+    </div>
+    <h1>Reconciliation Service API</h1>
+    <section id="abstract" class="introductory"><h2>Abstract</h2>
+      <p>
+        This document describes the reconciliation service API, as implemented in OpenRefine 2.8 to 3.2.
+        It is intended as a comprehensive and definitive specification of this API in its given state.
+	This is mostly of historical interest since newer versions are available and already widely adopted by both clients and services.
+	Further improvements to the API, coordinated by the
+	<a href="https://www.w3c.org/community/reconciliation/">W3C Entity Reconciliation Community Group</a>,
+	have been specified in <a href="https://reconciliation-api.github.io/specs/0.2/">the next iteration of this document</a>,
+        which we encourage services to follow instead.
+      </p>
+    </section>
+    <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/community/reconciliation/">Entity Reconciliation Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+      <p>
+        Members of the Community Group are encouraged to contribute to this document by
+        documenting the current behaviour of the reconciliation API.
+        The <a href="https://github.com/w3c/respec/wiki/ReSpec-Editor's-Guide">ReSpec Editor's Guide</a>
+        can be used to learn more about the markup to use in this document.
+      </p>
+    <p>
+            If you wish to make comments regarding this document, please send
+            them to
+            <a href="mailto:public-reconciliation@w3.org">public-reconciliation@w3.org</a>
+            (<a href="mailto:public-reconciliation-request@w3.org?subject=subscribe">subscribe</a>,
+            <a href="https://lists.w3.org/Archives/Public/public-reconciliation/">archives</a>).
+          </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-matching-on-the-web"><bdi class="secno">1.1 </bdi>Data Matching on the Web</a></li><li class="tocline"><a class="tocxref" href="#history-of-the-reconciliation-api"><bdi class="secno">1.2 </bdi>History of the Reconciliation API</a></li><li class="tocline"><a class="tocxref" href="#external-resources"><bdi class="secno">1.3 </bdi>External Resources</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.4 </bdi>Conformance</a></li></ol></li><li class="tocline"><a class="tocxref" href="#core-concepts"><bdi class="secno">2. </bdi>Core Concepts</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#entities"><bdi class="secno">2.1 </bdi>Entities</a></li><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">2.2 </bdi>Types</a></li><li class="tocline"><a class="tocxref" href="#properties"><bdi class="secno">2.3 </bdi>Properties</a></li><li class="tocline"><a class="tocxref" href="#property-values"><bdi class="secno">2.4 </bdi>Property Values</a></li><li class="tocline"><a class="tocxref" href="#identifier-and-schema-spaces"><bdi class="secno">2.5 </bdi>Identifier and Schema Spaces</a></li></ol></li><li class="tocline"><a class="tocxref" href="#service-definition"><bdi class="secno">3. </bdi>Service Definition</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#service-manifest"><bdi class="secno">3.1 </bdi>Service Manifest</a></li><li class="tocline"><a class="tocxref" href="#http-s-access"><bdi class="secno">3.2 </bdi>HTTP(S) Access</a></li><li class="tocline"><a class="tocxref" href="#cross-origin-access"><bdi class="secno">3.3 </bdi>Cross-Origin Access</a></li></ol></li><li class="tocline"><a class="tocxref" href="#reconciliation-queries"><bdi class="secno">4. </bdi>Reconciliation Queries</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#structure-of-a-reconciliation-query"><bdi class="secno">4.1 </bdi>Structure of a Reconciliation Query</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-candidates"><bdi class="secno">4.2 </bdi>Reconciliation Candidates</a></li><li class="tocline"><a class="tocxref" href="#sending-reconciliation-queries-to-a-service"><bdi class="secno">4.3 </bdi>Sending Reconciliation Queries to a Service</a></li><li class="tocline"><a class="tocxref" href="#a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">4.4 </bdi>A Note on Candidate Retrieval and Scoring</a></li></ol></li><li class="tocline"><a class="tocxref" href="#preview-service"><bdi class="secno">5. </bdi>Preview Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#preview-metadata"><bdi class="secno">5.1 </bdi>Preview Metadata</a></li><li class="tocline"><a class="tocxref" href="#preview-queries"><bdi class="secno">5.2 </bdi>Preview Queries</a></li></ol></li><li class="tocline"><a class="tocxref" href="#suggest-services"><bdi class="secno">6. </bdi>Suggest Services</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#suggest-metadata"><bdi class="secno">6.1 </bdi>Suggest Metadata</a></li><li class="tocline"><a class="tocxref" href="#suggest-queries"><bdi class="secno">6.2 </bdi>Suggest Queries</a></li><li class="tocline"><a class="tocxref" href="#suggest-responses"><bdi class="secno">6.3 </bdi>Suggest Responses</a></li><li class="tocline"><a class="tocxref" href="#general-expectations-about-suggest-services"><bdi class="secno">6.4 </bdi>General Expectations about Suggest Services</a></li><li class="tocline"><a class="tocxref" href="#flyout-services"><bdi class="secno">6.5 </bdi>Flyout Services</a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-extension-service"><bdi class="secno">7. </bdi>Data Extension Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-extension-metadata"><bdi class="secno">7.1 </bdi>Data Extension Metadata</a></li><li class="tocline"><a class="tocxref" href="#data-extension-property-proposals"><bdi class="secno">7.2 </bdi>Data Extension Property Proposals</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-requests"><bdi class="secno">7.3 </bdi>Data Extension Query Requests</a></li><li class="tocline"><a class="tocxref" href="#data-extension-responses"><bdi class="secno">7.4 </bdi>Data Extension Responses</a></li></ol></li><li class="tocline"><a class="tocxref" href="#json-schemas"><bdi class="secno">A. </bdi>JSON Schemas</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#manifest-schema"><bdi class="secno">A.1 </bdi>Manifest Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-query-batch-schema"><bdi class="secno">A.2 </bdi>Reconciliation Query Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-result-batch-schema"><bdi class="secno">A.3 </bdi>Reconciliation Result Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-entities-response-schema"><bdi class="secno">A.4 </bdi>Suggest Entities Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-properties-response-schema"><bdi class="secno">A.5 </bdi>Suggest Properties Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-types-response-schema"><bdi class="secno">A.6 </bdi>Suggest Types Response Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-schema"><bdi class="secno">A.7 </bdi>Data Extension Query Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-response-schema"><bdi class="secno">A.8 </bdi>Data Extension Response Schema</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">B.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+    <section class="informative" id="introduction">
+      <h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction<a class="self-link" aria-label="§" href="#introduction"></a></h2><p><em>This section is non-normative.</em></p>
+      <section id="data-matching-on-the-web">
+        <h3 id="x1-1-data-matching-on-the-web"><bdi class="secno">1.1 </bdi>Data Matching on the Web<a class="self-link" aria-label="§" href="#data-matching-on-the-web"></a></h3>
+        <p>
+          Integrating data from sources which do not share common unique identifiers often requires matching (or <emph>reconciling</emph>, <emph>merging</emph>) records which refer to the same entities.
+	  The promises of the Linked Open Data movement, the ability to mix up data from different publishers expressed in a common language (such as <abbr title="Resource Description Framework">RDF</abbr>) rely on being able to identify identities across services.
+	  Due to the Web's decentralized nature, there is nothing preventing a service from publishing a new <abbr title="Universal Resource Identifier">URI</abbr> for a resource or concept which is
+already expressed by another <abbr title="Universal Resource Identifier">URI</abbr>.
+        </p>
+	<p>
+	  Various mechanisms exist to state the equivalence between two URIs: for instance, such a correspondence can be stated with the <code>owl:sameAs</code> property [<cite><a class="bibref" href="#bib-owl-features" title="OWL Web Ontology Language Overview" data-link-type="biblio">owl-features</a></cite>], or using looser notions equivalences defined in <abbr title="Simple Knowledge
+Organization System">SKOS</abbr> [<cite><a class="bibref" href="#bib-skos-primer" title="SKOS Simple Knowledge Organization System Primer" data-link-type="biblio">skos-primer</a></cite>]. But such statements must in turn be themselves findable.
+          One can aggregate <code>owl:sameAs</code> statements from various sources to infer identities by transitivity, but this is a subtle art as some data sources can erroneously equate different concepts [<cite><a class="bibref" href="#bib-beek-2018" title="sameAs.cc: The Closure of 500M owl:sameAs Statements" data-link-type="biblio">beek-2018</a></cite>].
+          After all, any quest towards building a universal identifier system which avoids duplicates is necessarily doomed.
+          Data publishers use different granularities to model the world. Concepts have fluctuating boundaries across languages, cultures and time.
+        </p>
+        <p>
+          In practice, we can determine if two database records refer to the same entity by comparing their attributes.
+          For instance, two entries about cities bearing the same name, in the same country and with the same mayor are likely to refer to the same city.
+          The reconciliation API that we present here makes it easier to discover such matches.
+          It is a protocol that a data provider can implement, enabling its consumers to efficiently match their own data to the entities represented by the provider.
+        </p>
+        <p>
+          By nature, reconciliation is a heuristic process. Different entities can have many identical characteristics, leading to false positives.
+          The same entity can be represented in different ways by two databases, for instance by spelling names differently, leading to false negatives.
+          This problem has been extensively studied and many heuristics have been proposed to tackle it [<cite><a class="bibref" href="#bib-christen-2012" title="Data Matching" data-link-type="biblio">christen-2012</a></cite>].
+	  The reconciliation API is agnostic about the particulars of the heuristics involved: it lets data providers choose how
+	  they want to determine which of their entities are good candidates for a particular query. What it provides
+	  is a web API to let users obtain these candidate entities without having to implement the underlying reconciliation heuristics
+	  themselves, nor download the entire contents of the target database.
+        </p>
+      </section>
+      <section id="history-of-the-reconciliation-api">
+        <h3 id="x1-2-history-of-the-reconciliation-api"><bdi class="secno">1.2 </bdi>History of the Reconciliation API<a class="self-link" aria-label="§" href="#history-of-the-reconciliation-api"></a></h3>
+        <p>
+          This API was originally designed by Metaweb as a protocol used between Freebase and Gridworks (now known as OpenRefine).
+	  Freebase was a free crowdsourced knowledge graph, storing data about a broad range of topics and exposed on the web as linked data.
+	  OpenRefine is tool which was originally designed to help populate this knowledge graph by importing data into it.
+	  It supports a range of operations which help the user reshape their data to prepare it for ingestion in a data model such as Freebase's.
+	  One of these operations is <emph>reconciliation</emph>, which matches mentions of entities in the local dataset to records in the target database. The reconciliation API was initially introduced to specify how OpenRefine and Freebase could communicate during that process. 
+        </p>
+	<p>
+	  The reconciliation API was then turned into a generic protocol that any database could implement.
+	  This made it possible to register such a database into OpenRefine by adding it as a <emph>Standard Service</emph>.
+	  This API was implemented by various services, either directly by the service provider itself (for instance the <a href="https://www.crossref.org/labs/fundref-reconciliation-service/">Crossref funder database</a>,
+	  <a href="http://numishare.blogspot.com/2017/10/nomisma-launches-openrefine.html">Nomisma</a> or the <a href="http://www.getty.edu/research/tools/vocabularies/obtain/openrefine.html">Getty thesaurus</a>) or by a third party as a wrapper sitting on top of other existing web APIs for the service
+	  (such as <a href="https://tools.wmflabs.org/openrefine-wikidata/">Wikidata</a> or <a href="http://refine.codefork.com/">VIAF</a>).
+	  Software was also developed to expose a reconciliation endpoint out of any tabular file (<a href="http://www.okfnlabs.org/reconcile-csv/">reconcile-csv</a>) or by wrapping a SPARQL endpoint (in the <a href="https://github.com/stkenny/grefine-rdf-extension">OpenRefine <abbr title="Resource Description Framework">RDF</abbr> extension</a>).
+	</p>
+	<p>
+	This API was documented on OpenRefine's wiki as <a href="https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API">a living document</a> which evolved gradually, as OpenRefine improved.
+	  In addition to its core feature, fetching reconciliation candidates matching a given query, services are optionally able
+	  to implement additional endpoints which ease the integration of the service in OpenRefine's UI, by providing previews
+	  for entities (with a Preview Service) and auto-completion for various inputs (with Suggest Services).
+	  In 2018, a Data Extension Service was added, letting consumers pull data from the target database once they have reconciled
+	  their records.
+        </p>
+        <p>
+          In 2019 the <a href="https://w3c.org/community/reconciliation">W3C Entity Reconciliation Community Group</a> was formed,
+	  with the intention of promoting and improving this API outside the strict scope of the OpenRefine project.
+	  This document is an attempt to better specify this API.
+	</p>
+      </section>
+      <section id="external-resources">
+        <h3 id="x1-3-external-resources"><bdi class="secno">1.3 </bdi>External Resources<a class="self-link" aria-label="§" href="#external-resources"></a></h3>
+        <p>
+          A <a href="https://reconciliation-api.github.io/testbench/">list of known public endpoints</a> is maintained by the community, where they can also be tried out interactively. OpenRefine's wiki also hosts a <a href="https://github.com/OpenRefine/OpenRefine/wiki/Reconciliable-Data-Sources">list of reconciliable data source</a> which also includes non-hosted or discontinued services.
+	  Existing clients to the API, such as <a href="http://openrefine.org">OpenRefine</a> or <a href="https://coli-conc.gbv.de/cocoda/">Cocoda</a> can be used to interact with reconciliation services.
+        </p>
+      </section>
+      <section id="conformance"><h3 id="x1-4-conformance"><bdi class="secno">1.4 </bdi>Conformance<a class="self-link" aria-label="§" href="#conformance"></a></h3><p>
+      As well as sections marked as non-normative, all authoring guidelines,
+      diagrams, examples, and notes in this specification are non-normative.
+      Everything else in this specification is normative.
+    </p><p>
+            The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, and <em class="rfc2119">SHOULD</em> in this document
+            are to be interpreted as described in
+            <a href="https://tools.ietf.org/html/bcp14">BCP 14</a>
+            [<cite><a class="bibref" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels" data-link-type="biblio">RFC2119</a></cite>]
+            [<cite><a class="bibref" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words" data-link-type="biblio">RFC8174</a></cite>] when, and only when, they appear
+            in all capitals, as shown here.
+          </p></section>
+    </section>
+    <section id="core-concepts">
+      <h2 id="x2-core-concepts"><bdi class="secno">2. </bdi>Core Concepts<a class="self-link" aria-label="§" href="#core-concepts"></a></h2>
+      <p>
+        This section documents the data model behind the reconciliation API.
+        A reconciliation service lets users match their data against <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>
+        exposed by the service. Matching can be refined by filtering by <a href="#dfn-type" class="internalDFN" data-link-type="dfn">type</a>
+        or <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> with <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn">property values</a>.
+        The purpose of this section is to define these notions.
+      </p>
+      <section id="entities">
+        <h3 data-link-for="entities" id="x2-1-entities"><bdi class="secno">2.1 </bdi>Entities<a class="self-link" aria-label="§" href="#entities"></a></h3>
+        <p>
+           An <dfn data-dfn-type="dfn" data-plurals="entities" id="dfn-entity">entity</dfn> is a record in the data source exposed by the service.
+           It comprises the following fields:
+           </p><dl>
+	     <dt><code>id</code></dt>
+             <dd>an identifier, which is a non-empty string. This identifier must be unique among all entities;</dd>
+             <dt><code>name</code></dt>
+             <dd>a <emph>name</emph>, which is also a non-empty string;</dd>
+             <dt><code>type</code></dt>
+             <dd>a list of <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a>, possibly empty;</dd>
+           </dl>
+           Moreover, for each <a href="#dfn-property" class="internalDFN" data-link-type="dfn">property</a> it contains a set of associated <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn">property values</a>, possibly empty.
+        <p></p>
+        <p>
+           Reconciliation services can define in their <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a> a <dfn data-dfn-type="dfn" id="dfn-view-template">view template</dfn> which
+           associates to each entity a corresponding <abbr title="Universal Resource Identifier">URI</abbr>, by inserting its identifier in the template.
+           A view template is a string which contains the <code>{{id}}</code> substring.
+           For each entity, replacing <code>{{id}}</code> in the template by the entity's identifier
+           <em class="rfc2119" title="MUST">MUST</em> result in a valid <abbr title="Universal Resource Identifier">URI</abbr> [<cite><a class="bibref" href="#bib-rfc2396" title="Uniform Resource Identifiers (URI): Generic Syntax" data-link-type="biblio">RFC2396</a></cite>].
+        </p>
+      </section>
+      <section id="types">
+        <h3 data-link-for="types" id="x2-2-types"><bdi class="secno">2.2 </bdi>Types<a class="self-link" aria-label="§" href="#types"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="types" id="dfn-type">type</dfn> represents a category of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>.
+          It comprises the following fields:
+          </p><dl>
+             <dt><code>id</code></dt>
+             <dd>an identifier, which is a non-empty string. This identifier must be unique among all types;</dd>
+	     <dt><code>name</code></dt>
+             <dd>a human-readable name, which is a non-empty string.</dd>
+          </dl>
+        <p></p>
+      </section>
+      <section id="properties">
+        <h3 data-link-for="properties" id="x2-3-properties"><bdi class="secno">2.3 </bdi>Properties<a class="self-link" aria-label="§" href="#properties"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="properties" id="dfn-property">property</dfn> represents a type of attribute that entities can have in the data source.
+          It comprises the following fields:
+          </p><dl>
+	    <dt><code>id</code></dt>
+            <dd>an identifier, which is a non-empty string. This identifier must be unique among all properties;</dd>
+	    <dt><code>name</code></dt>
+            <dd>a human-readable name, which is a non-empty string.</dd>
+          </dl>
+        <p></p>
+      </section>
+      <section id="property-values">
+        <h3 data-link-for="property values" id="x2-4-property-values"><bdi class="secno">2.4 </bdi>Property Values<a class="self-link" aria-label="§" href="#property-values"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="property values" id="dfn-property-value">property value</dfn> can be any of the following:
+          </p><ul>
+             <li>A string;</li>
+             <li>A boolean;</li>
+             <li>An integer;</li>
+             <li>A floating-point value;</li>
+             <li>An <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a>.</li>
+          </ul>
+        <p></p>
+      </section>
+      <section id="identifier-and-schema-spaces">
+        <h3 data-link-for="spaces" id="x2-5-identifier-and-schema-spaces"><bdi class="secno">2.5 </bdi>Identifier and Schema Spaces<a class="self-link" aria-label="§" href="#identifier-and-schema-spaces"></a></h3>
+        <p>
+          A reconciliation service <em class="rfc2119" title="MUST">MUST</em> define two URIs, exposed in its <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a>:
+          </p><dl>
+            <dt><dfn data-dfn-type="dfn" id="dfn-identifier-space">identifier space</dfn></dt>
+            <dd>A <abbr title="Universal Resource Identifier">URI</abbr> which identifies the sort of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a> identifiers returned by this service. This <abbr title="Universal Resource Identifier">URI</abbr> <em class="rfc2119" title="MAY">MAY</em> resolve to a page describing these entities and their identifiers;</dd>
+            <dt><dfn data-dfn-type="dfn" id="dfn-schema-space">schema space</dfn></dt>
+            <dd>A <abbr title="Universal Resource Identifier">URI</abbr> which identifies the ontology used by the service, in other words its collection of <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a>. This <abbr title="Universal Resource Identifier">URI</abbr> also <em class="rfc2119" title="MAY">MAY</em> resolve to a page describing these properties and their identifiers.</dd>
+          </dl>
+        <p></p>
+        <p>
+          If two different reconciliation services expose the same entities and properties, then
+          they <em class="rfc2119" title="SHOULD">SHOULD</em> use the same identifier and schema space URIs, signalling that
+          (for instance) the Data Extension service of the first one can be used on reconciliation candidates by the second one.
+        </p>
+        <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><p class="">
+          The notions of identifier and schema space
+          have been inherited from the API's original purpose, when it was specific
+          to Freebase. Their original meaning was to be understood within Freebase's
+          own data model.
+        </p></div>
+      </section>
+    </section>
+    <section id="service-definition">
+      <h2 id="x3-service-definition"><bdi class="secno">3. </bdi>Service Definition<a class="self-link" aria-label="§" href="#service-definition"></a></h2>
+      <p>
+        This section documents how reconciliation services are exposed as HTTP(S) services and
+        how they can announce the features of the API they implement.
+      </p>
+      <section id="service-manifest">
+        <h3 id="x3-1-service-manifest"><bdi class="secno">3.1 </bdi>Service Manifest<a class="self-link" aria-label="§" href="#service-manifest"></a></h3>
+      <p>
+        A <dfn data-dfn-type="dfn" id="dfn-service-manifest">service manifest</dfn> consists of the following fields:
+        </p><dl>
+          <dt><code>name</code></dt>
+          <dd>A human-readable name for the service, generally the name of the database it exposes. In the case where multiple reconciliation services exist for the same database, it is in the interest of a service to bear a meaningful name which
+will help disambiguating it from others;</dd>
+          <dt><code>identifierSpace</code></dt>
+          <dd>The <a href="#dfn-identifier-space" class="internalDFN" data-link-type="dfn">identifier space</a> used by the service, as a <abbr title="Universal Resource Identifier">URI</abbr>;</dd>
+          <dt><code>schemaSpace</code></dt>
+          <dd>The <a href="#dfn-schema-space" class="internalDFN" data-link-type="dfn">schema space</a> used by the service, as a <abbr title="Universal Resource Identifier">URI</abbr>;</dd>
+          <dt><code>defaultTypes</code></dt>
+          <dd>A list of <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a> which are considered sensible default choices as types supplied in reconciliation queries. For services which do not rely on types, this <em class="rfc2119" title="MAY">MAY</em> contain a single type with a generic name making it clear that all entities in the
+database are instances of this type.</dd><dd>
+          </dd><dt><code>view</code></dt>
+          <dd>An optional object which contains a single field <code>url</code>. Its value is a <a href="#dfn-view-template" class="internalDFN" data-link-type="dfn">view template</a> for the service;</dd>
+          <dt><code>preview</code></dt>
+          <dd>A <a href="#dfn-preview-metadata" class="internalDFN" data-link-type="dfn">preview metadata</a>, supplied if the service offers a <a href="#preview-service">preview service</a>;</dd>
+          <dt><code>suggest</code></dt>
+          <dd>An optional object which may contain the following fields, depending on which <a href="#suggest-services">suggest services</a> are offered:
+            <dl>
+              <dt><code>entity</code></dt>
+              <dd>A <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn">suggest metadata</a> for auto-suggestion of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>;</dd>
+              <dt><code>property</code></dt>
+              <dd>A <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn">suggest metadata</a> for auto-suggestion of <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a>;</dd>
+              <dt><code>type</code></dt>
+              <dd>A <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn">suggest metadata</a> for auto-suggestion of <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a>.</dd>
+            </dl>
+          </dd>
+          <dt><code>extend</code></dt>
+          <dd>A <a href="#dfn-data-extension-metadata" class="internalDFN" data-link-type="dfn">data extension metadata</a>, supplied if the service offers a <a href="#data-extension-service">data extension service</a>.</dd>
+        </dl>
+      <p></p>
+      <p>For instance, a service could expose the following minimal service manifest:
+        </p><div class="example" id="example-1">
+          <div class="marker">
+      <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"VIAF"</span>,
+    <span class="hljs-attr">"identifierSpace"</span>: <span class="hljs-string">"http://vocab.getty.edu/doc/#GVP_URLs_and_Prefixes"</span>,
+    <span class="hljs-attr">"schemaSpace"</span>: <span class="hljs-string">"http://vocab.getty.edu/doc/#The_Getty_Vocabularies_and_LOD"</span>
+}
+</code></pre>
+        </div>
+      <p></p>
+      <p>
+        A more complete example, with some optional services implemented:
+        </p><div class="example" id="example-2">
+          <div class="marker">
+      <a class="self-link" href="#example-2">Example<bdi> 2</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"defaultTypes"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"/ulan"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ULAN search"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"/tgn"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"TGN search"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"/aat"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"AAT search"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"/all"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Search all Vocabs"</span>
+    }
+  ],
+  <span class="hljs-attr">"identifierSpace"</span>: <span class="hljs-string">"http://vocab.getty.edu/doc/#GVP_URLs_and_Prefixes"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Getty Vocabularies Reconciliation Service"</span>,
+  <span class="hljs-attr">"preview"</span>: {
+    <span class="hljs-attr">"height"</span>: <span class="hljs-number">200</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://services.getty.edu/vocab/reconcile/preview?id={{id}}"</span>,
+    <span class="hljs-attr">"width"</span>: <span class="hljs-number">350</span>
+  },
+  <span class="hljs-attr">"schemaSpace"</span>: <span class="hljs-string">"http://vocab.getty.edu/doc/#The_Getty_Vocabularies_and_LOD"</span>,
+  <span class="hljs-attr">"suggest"</span>: {
+    <span class="hljs-attr">"property"</span>: {
+      <span class="hljs-attr">"service_path"</span>: <span class="hljs-string">"/suggest/property"</span>,
+      <span class="hljs-attr">"service_url"</span>: <span class="hljs-string">"https://services.getty.edu/vocab/reconcile"</span>
+    }
+  },
+  <span class="hljs-attr">"view"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://vocab.getty.edu/page/{{id}}"</span>
+  }
+}
+</code></pre>
+        </div>
+      <p></p>
+      </section>
+      <section id="http-s-access">
+        <h3 id="x3-2-http-s-access"><bdi class="secno">3.2 </bdi>HTTP(S) Access<a class="self-link" aria-label="§" href="#http-s-access"></a></h3>
+	<p>
+	   In the interest of protecting the data sent as reconciliation queries, all endpoints of reconciliation
+	   services <em class="rfc2119" title="SHOULD">SHOULD</em> be available over HTTPS [<cite><a class="bibref" href="#bib-rfc7230" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing" data-link-type="biblio">RFC7230</a></cite>] [<cite><a class="bibref" href="#bib-securing-web" title="Securing the Web" data-link-type="biblio">SECURING-WEB</a></cite>]. This does not apply to locally hosted services.
+	</p>
+      </section>
+      <section id="cross-origin-access">
+        <h3 id="x3-3-cross-origin-access"><bdi class="secno">3.3 </bdi>Cross-Origin Access<a class="self-link" aria-label="§" href="#cross-origin-access"></a></h3>
+        <p>
+           All HTTP(S) endpoints exposed by the service <em class="rfc2119" title="MUST">MUST</em> support JSONP [<cite><a class="bibref" href="#bib-jsonp" title="JSONP" data-link-type="biblio">JSONP</a></cite>], which
+           enables web-based clients to access the service from a different domain.
+        </p>
+        <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><p class="">
+           Some clients might only require cross-origin access on some particular endpoints,
+	   which are called directly by a web UI.
+	   Since this depends on the architecture of the client, this cannot be relied upon
+	   and cross-origin access <em class="rfc2119" title="MUST">MUST</em> be implemented for all endpoints in a uniform way.
+        </p></div>
+        <p>
+           In addition, endpoints <em class="rfc2119" title="SHOULD">SHOULD</em> also enable access by CORS [<cite><a class="bibref" href="#bib-cors" title="Cross-Origin Resource Sharing" data-link-type="biblio">cors</a></cite>] to enable
+           newer web-based clients to access the service without exposing themselves to
+           untrusted third-party code.
+        </p>
+        <p>
+           This can be achieved by adding the following HTTP headers to all HTTP responses
+           produced by the service:
+           </p><pre aria-busy="false"><code class="hljs">Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token
+Access-Control-Allow-Origin: *</code></pre>
+        <p></p>
+        <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="4"><span>Note</span></div><p class="">
+           CORS provides a safer way to expose cross-origin web services and <em class="rfc2119" title="SHOULD">SHOULD</em> therefore be
+           supported by reconciliation services, in the interest of other clients and potentially
+           of newer versions of OpenRefine.
+        </p></div>
+      </section>
+    </section>
+    <section id="reconciliation-queries">
+      <h2 id="x4-reconciliation-queries"><bdi class="secno">4. </bdi>Reconciliation Queries<a class="self-link" aria-label="§" href="#reconciliation-queries"></a></h2>
+      <p>
+        This section specifies how clients can send reconciliation queries to services and
+        how services respond to them.
+      </p>
+      <section id="structure-of-a-reconciliation-query">
+        <h3 id="x4-1-structure-of-a-reconciliation-query"><bdi class="secno">4.1 </bdi>Structure of a Reconciliation Query<a class="self-link" aria-label="§" href="#structure-of-a-reconciliation-query"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="reconciliation queries" id="dfn-reconciliation-query">reconciliation query</dfn> consists of:
+          </p><dl>
+	    <dt><code>query</code></dt>
+            <dd>A query string, consisting of a non-empty string, which is mandatory.
+	    	By supplying such a string, a client intends to search for entities with similar
+	    	names. The specifics of how this similarity is defined are determined by the service.</dd>
+	    <dt><code>type</code></dt>
+            <dd>Optionally, a list of <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a>. Supplying such types allows users to restrict
+	    	the search to entities which bear those types. Whether this restriction should be a
+	    	hard constraint or simply induce a change on the reconciliation scores can be
+	    	determined by the service. In particular, services <em class="rfc2119" title="MAY">MAY</em> return candidates which
+	    	do not belong to any of the supplied types;</dd>
+	    <dt><code>limit</code></dt>
+            <dd>Optionally, a limit on the number of candidates to return, which must be a positive integer;</dd>
+	    <dt><code>properties</code></dt>
+	    <dd>Optionally, a map from <a href="#properties">property</a> identifiers to a list of <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn">property values</a> (or list of <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn">property values</a>). These are used to further filter the set of candidates (similar to a WHERE clause in SQL, by allowing clients to specify other attributes of entities that should match, beyond their name in the <code>query</code> field.
+		How reconciliation services handle this further restriction ("must match all properties" or "should match some") and how it affects the score, is up to the service;</dd>
+	    <dt><code>type_strict</code></dt>
+            <dd>Optionally, a type strictness parameter, which can be one of the strings <code>"should"</code>, <code>"all"</code> or <code>"any"</code>.</dd>
+          </dl>
+        <p></p>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="reconciliation query batches" id="dfn-reconciliation-query-batch">reconciliation query batch</dfn> is a set of <a href="#dfn-reconciliation-query" class="internalDFN" data-link-type="dfn">reconciliation queries</a> indexed by string identifiers.
+        </p>
+        <p>
+          Minimal example of a <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a> with mandatory fields only:
+          </p><div class="example" id="example-3">
+          <div class="marker">
+      <a class="self-link" href="#example-3">Example<bdi> 3</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"q1"</span>: {
+    <span class="hljs-attr">"query"</span>: <span class="hljs-string">"Hans-Eberhard Urbaniak"</span>
+  },
+  <span class="hljs-attr">"q2"</span>: {
+    <span class="hljs-attr">"query"</span>: <span class="hljs-string">"Ernst Schwanhold"</span>
+  }
+}</code></pre>
+        </div>
+        <p></p>
+        <p>
+          Full example of a <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a> with all optional fields:
+          </p><div class="example" id="example-4">
+          <div class="marker">
+      <a class="self-link" href="#example-4">Example<bdi> 4</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"q0"</span>: {
+    <span class="hljs-attr">"query"</span>: <span class="hljs-string">"Christel Hanewinckel"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DifferentiatedPerson"</span>,
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"properties"</span>: [
+      {
+        <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"professionOrOccupation"</span>,
+        <span class="hljs-attr">"v"</span>: <span class="hljs-string">"Politik*"</span>
+      },
+      {
+        <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"affiliation"</span>,
+        <span class="hljs-attr">"v"</span>: <span class="hljs-string">"http://d-nb.info/gnd/2022139-3"</span>
+      }
+    ],
+    <span class="hljs-attr">"type_strict"</span>: <span class="hljs-string">"should"</span>
+  },
+  <span class="hljs-attr">"q1"</span>: {
+    <span class="hljs-attr">"query"</span>: <span class="hljs-string">"Franz Thönnes"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DifferentiatedPerson"</span>,
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"properties"</span>: [
+      {
+        <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"professionOrOccupation"</span>,
+        <span class="hljs-attr">"v"</span>: <span class="hljs-string">"Politik*"</span>
+      },
+      {
+        <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"affiliation"</span>,
+        <span class="hljs-attr">"v"</span>: <span class="hljs-string">"http://d-nb.info/gnd/2022139-3"</span>
+      }
+    ],
+    <span class="hljs-attr">"type_strict"</span>: <span class="hljs-string">"should"</span>
+  }
+}</code></pre>
+        </div>
+        <p></p>
+	<p>
+	  For a single property it is possible to provide multiple values as a list. The values provided do not need
+	  to have the same type. In the following example a string and a reconciled value are provided as values for the
+	  same property.
+	  </p><div class="example" id="example-5">
+          <div class="marker">
+      <a class="self-link" href="#example-5">Example<bdi> 5</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"q0"</span>: {
+    <span class="hljs-attr">"query"</span>: <span class="hljs-string">"Christel Hanewinckel"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DifferentiatedPerson"</span>,
+    <span class="hljs-attr">"limit"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"properties"</span>: [
+      {
+        <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"professionOrOccupation"</span>,
+        <span class="hljs-attr">"v"</span>: [
+          <span class="hljs-string">"Politik*"</span>,
+          {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"wissenschaftler"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Wissenschaftler(in)"</span>
+          }
+        ]
+      }
+    ],
+    <span class="hljs-attr">"type_strict"</span>: <span class="hljs-string">"should"</span>
+  }
+}
+</code></pre>
+        </div>
+	<p></p>
+        <p>
+          A <a href="#reconciliation-query-batch-json-schema">JSON schema to validate the serialization of a query batch</a> is available.
+        </p>
+	<div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-2" aria-level="4"><span>Note</span></div><p class="">
+          The meaning of the <code>type_strict</code> is unclear, it is inherited from Freebase's API but is not used
+	  or documented in OpenRefine.
+	</p></div>
+      </section>
+      <section id="reconciliation-candidates">
+        <h3 id="x4-2-reconciliation-candidates"><bdi class="secno">4.2 </bdi>Reconciliation Candidates<a class="self-link" aria-label="§" href="#reconciliation-candidates"></a></h3>
+        <p>
+	  A <dfn data-dfn-type="dfn" data-plurals="reconciliation candidates" id="dfn-reconciliation-candidate">reconciliation candidate</dfn> represents an <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a> as a response to a <a href="#dfn-reconciliation-query" class="internalDFN" data-link-type="dfn">reconciliation query</a>.
+	  It is proposed to the client as a potential matching entity for this query. It contains the following fields:
+          </p><dl>
+	    <dt><code>id</code></dt>
+	    <dd>The identifier of the candidate entity;</dd>
+	    <dt><code>name</code></dt>
+	    <dd>The name of the candidate entity;</dd>
+	    <dt><code>type</code></dt>
+	    <dd>The types of the candidate entity;</dd>
+	    <dt><code>score</code></dt>
+	    <dd>A numeral indicating how well this candidate entity matches the query: a higher score indicates a better match;
+	    </dd><dt><code>match</code></dt>
+            <dd>A boolean matching decision, which indicates whether the service considers this candidate good enough to be chosen as a correct match.</dd>
+          </dl>
+        <p></p>
+      </section>
+      <section id="sending-reconciliation-queries-to-a-service">
+        <h3 id="x4-3-sending-reconciliation-queries-to-a-service"><bdi class="secno">4.3 </bdi>Sending Reconciliation Queries to a Service<a class="self-link" aria-label="§" href="#sending-reconciliation-queries-to-a-service"></a></h3>
+        <p>
+	  A <dfn data-dfn-type="dfn" data-plurals="reconciliation results" id="dfn-reconciliation-result">reconciliation result</dfn> is a set of <a href="#dfn-reconciliation-candidate" class="internalDFN" data-link-type="dfn">reconciliation candidates</a>. It is serialized in JSON
+	  as an array of such reconciliation candidate objects. This list <em class="rfc2119" title="SHOULD">SHOULD</em> be sorted by decreasing score. 
+        </p>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="reconciliation result batches" id="dfn-reconciliation-result-batch">reconciliation result batch</dfn> is a set of <a href="#dfn-reconciliation-result" class="internalDFN" data-link-type="dfn">reconciliation results</a> indexed by string identifiers of the corresponding <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a>.
+        </p>
+        <p>
+          A <a href="#reconciliation-result-batch-json-schema">JSON schema to validate the serialization of a reconciliation result batch</a> is available.
+        </p>
+        <p>
+	  The primary role of a reconciliation service is to translate <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batches</a> to
+	  <a href="#dfn-reconciliation-result-batch" class="internalDFN" data-link-type="dfn">reconciliation result batches</a> over HTTP.
+	</p>
+	<p>
+          A reconciliation service <em class="rfc2119" title="MUST">MUST</em> support HTTP POST requests with
+          <code>application/x-www-form-urlencoded</code> bodies containing a
+          <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a> (serialized in JSON) in a form element named <code>queries</code>.
+        </p>
+        <p>
+          </p><div class="example" id="example-6">
+          <div class="marker">
+      <a class="self-link" href="#example-6">Example<bdi> 6</bdi></a>
+    </div> <pre class="nohighlight">POST / queries=&lt;URL-encoded reconciliation query batch&gt;</pre>
+        </div>
+        <p></p>
+        <p>
+          Similarly, a reconciliation service <em class="rfc2119" title="SHOULD">SHOULD</em> support HTTP GET requests with a
+          <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a> in a query string parameter named <code>queries</code>.
+        </p>
+        <p>
+          </p><div class="example" id="example-7">
+          <div class="marker">
+      <a class="self-link" href="#example-7">Example<bdi> 7</bdi></a>
+    </div> <pre class="nohighlight">GET /?queries=&lt;URL-encoded reconciliation query batch&gt;</pre>
+        </div>
+        <p></p>
+	<p>
+	   In both cases, the service returns the corresponding query batch serialized in JSON.
+	</p>
+	<div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="4"><span>Note</span></div><p class="">
+	   The POST method is the primary way to send reconciliation queries to a service since 
+	   it does not restrict the length of the query batches. The GET method is useful for
+	   interactive debugging of reconciliation queries in a web browser, for instance.
+	</p></div>
+      </section>
+      <section class="informative" id="a-note-on-candidate-retrieval-and-scoring">
+	<h3 id="x4-4-a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">4.4 </bdi>A Note on Candidate Retrieval and Scoring<a class="self-link" aria-label="§" href="#a-note-on-candidate-retrieval-and-scoring"></a></h3><p><em>This section is non-normative.</em></p>
+	<p>
+	  The way candidates are retrieved from the underlying database and scored against the query is left
+	  entirely at the discretion of the service.
+	  However services should retrieve and score the candidates of each query in a batch independently
+	  of the other queries in the same batch, or in previous ones.
+          It is also expected that reconciliation queries where <code>query</code> matches exactly the name
+          of an entity in the database and with no other constraint should return at least this entity, unless
+          it is hidden by many namesakes. Similarly, supplying an entity identifier as <code>query</code>
+          should return the corresponding entity as a candidate, with a high score.
+	</p>
+	<p>
+	  Deciding on a scoring method is one of the main difficulties in developing a reconciliation service.
+	  Many scoring strategies used in data matching [<cite><a class="bibref" href="#bib-christen-2012" title="Data Matching" data-link-type="biblio">christen-2012</a></cite>] cannot be implemented easily in
+	  the context of this reconciliation API due to the separation of responsibilities between the client
+	  and the server.
+	</p>
+	<div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div><p class="">
+	  Many open source reconciliation services are available and these might provide some inspiration
+	  concerning indexing and scoring methods when developing new services.
+	  See <a href="#external-resources">External Resources</a> for some examples.
+	</p></div>
+      </section>
+    </section>
+    <section id="preview-service">
+      <h2 id="x5-preview-service"><bdi class="secno">5. </bdi>Preview Service<a class="self-link" aria-label="§" href="#preview-service"></a></h2>
+      <p>
+        This section specifies how reconciliation services can provide embeddable HTML previews
+        of their entities, which clients can display in their user interface.
+      </p>
+      <section id="preview-metadata">
+      <h3 id="x5-1-preview-metadata"><bdi class="secno">5.1 </bdi>Preview Metadata<a class="self-link" aria-label="§" href="#preview-metadata"></a></h3>
+      <p>Reconciliation services <em class="rfc2119" title="MAY">MAY</em> offer a preview service by providing the <dfn data-dfn-type="dfn" id="dfn-preview-metadata">preview metadata</dfn> as an object stored in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a> under the key <code>preview</code>. It consists of the following fields, all mandatory:
+        </p><dl>
+          <dt><code>url</code></dt>
+          <dd>A string containing <code>{{id}}</code> such that replacing <code>{{id}}</code> by an <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a> identifier yields the <dfn data-dfn-type="dfn" id="dfn-preview-url">preview URL</dfn> for that entity. This preview URL <em class="rfc2119" title="MUST">MUST</em> resolve to an HTML page summarizing the entity.
+It <em class="rfc2119" title="SHOULD">SHOULD</em> render appropriately in an <code>&lt;iframe&gt;</code> whose dimensions are specified by the service in the following fields;</dd>
+          <dt><code>width</code></dt>
+          <dd>The width in pixels of the <code>&lt;iframe&gt;</code> element where to render an entity preview;</dd>
+          <dt><code>height</code></dt>
+          <dd>The height in pixels of the same <code>&lt;iframe&gt;</code>.</dd>
+        </dl>
+      <p></p>
+      <p>
+        For instance, a service may expose the following <a href="#dfn-preview-metadata" class="internalDFN" data-link-type="dfn">preview metadata</a>:
+        </p><div class="example" id="example-8">
+          <div class="marker">
+      <a class="self-link" href="#example-8">Example<bdi> 8</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+   <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://example.com/api/preview?id={{id}}"</span>,
+   <span class="hljs-attr">"width"</span>: <span class="hljs-number">200</span>,
+   <span class="hljs-attr">"height"</span>: <span class="hljs-number">100</span>
+}
+</code></pre>
+        </div>
+      <p></p>
+      </section>
+      <section id="preview-queries">
+      <h3 id="x5-2-preview-queries"><bdi class="secno">5.2 </bdi>Preview Queries<a class="self-link" aria-label="§" href="#preview-queries"></a></h3>
+      <p>A preview service is queried by resolving the <a href="#dfn-preview-url" class="internalDFN" data-link-type="dfn">preview URL</a> for an <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a>. The URL must resolve to an HTML document.
+      </p>
+      <p>
+        For instance, assuming the example preview metadata above, the service could respond to a preview request as follows:
+       </p><div class="example" id="example-9">
+          <div class="marker">
+      <a class="self-link" href="#example-9">Example<bdi> 9</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs html">GET /api/preview?id=H-34bd8e0bba
+
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Cumulonimbus<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Type of cloud<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+        </div>
+      <p></p>
+      </section>
+    </section>
+    <section id="suggest-services">
+      <h2 id="x6-suggest-services"><bdi class="secno">6. </bdi>Suggest Services<a class="self-link" aria-label="§" href="#suggest-services"></a></h2>
+      <p>
+        This section specifies how reconciliation services can provide auto-complete
+        endpoints for their <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>, <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> and <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a>.
+        A reconciliation service can offer a suggest service for any of these three classes. For instance, a service which only exposes a single type might not want to expose a suggest service for types.
+        These suggest services can be used by clients to let users select an entity, property or type manually, at various stages of their reconciliation workflows.
+        Suggest services for entities, properties and types are declared independently
+        in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a> by providing a <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn">suggest metadata</a> for them.
+      </p>
+      <section id="suggest-metadata">
+      <h3 id="x6-1-suggest-metadata"><bdi class="secno">6.1 </bdi>Suggest Metadata<a class="self-link" aria-label="§" href="#suggest-metadata"></a></h3>
+      <p>
+        A <dfn data-dfn-type="dfn" id="dfn-suggest-metadata">suggest metadata</dfn> object consists of the following fields:
+        </p><dl>
+          <dt><code>service_url</code></dt>
+          <dd>The base URL for the suggest service;</dd>
+          <dt><code>service_path</code></dt>
+          <dd>A URL path which will be concatenated to the <code>service_url</code> to obtain the full URL of the suggest service;</dd>
+          <dt><code>flyout_service_url</code></dt>
+          <dd>The base URL for the <a href="#dfn-flyout-service" class="internalDFN" data-link-type="dfn">flyout service</a>. If none is provided, it is assumed to be identical to <code>service_url</code>;</dd>
+          <dt><code>flyout_service_path</code></dt>
+          <dd>An optional URL path which will be concatenated to the <code>flyout_service_url</code> to obtain the full URL of the flyout service. The absence of this parameter indicates that no flyout service is associated with this suggest service.</dd>
+        </dl>
+      <p></p>
+      <p>
+        For instance, a suggest metadata could be as follows:
+        </p><div class="example" id="example-10">
+          <div class="marker">
+      <a class="self-link" href="#example-10">Example<bdi> 10</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"service_url"</span>: <span class="hljs-string">"https://example.com/api"</span>,
+  <span class="hljs-attr">"service_path"</span>: <span class="hljs-string">"/suggest"</span>,
+  <span class="hljs-attr">"flyout_service_path"</span>: <span class="hljs-string">"/suggest/flyout/${id}"</span>
+}
+</code></pre>
+        </div>
+	Such a metadata indicates that a suggest service is available at <code>https://example.com/api/suggest</code> with an associated <a href="#dfn-flyout-endpoint" class="internalDFN" data-link-type="dfn">flyout endpoint</a> at <code>https://example.com/api/suggest/flyout/${id}</code>.
+      <p></p>
+      </section>
+      <section id="suggest-queries">
+      <h3 id="x6-2-suggest-queries"><bdi class="secno">6.2 </bdi>Suggest Queries<a class="self-link" aria-label="§" href="#suggest-queries"></a></h3>
+        <p>A suggest service <em class="rfc2119" title="MUST">MUST</em> accept GET queries with the following URL-encoded parameters:
+          </p><dl>
+            <dt><code>prefix</code></dt>
+            <dd>The string input by the user in the auto-suggest-enabled field;</dd>
+            <dt><code>cursor</code></dt>
+            <dd>An optional integer to specify the number of suggestions to skip: this can be used by clients to fetch more suggestions.</dd>
+          </dl>
+        <p></p>
+      </section>
+      <section id="suggest-responses">
+        <h3 id="x6-3-suggest-responses"><bdi class="secno">6.3 </bdi>Suggest Responses<a class="self-link" aria-label="§" href="#suggest-responses"></a></h3>
+        <p>
+          A response to a suggest query consists of the following fields:
+          </p><dl>
+            <dt><code>result</code></dt>
+            <dd>A list of items, which can be <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>, <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a>
+            or <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a> depending on which of these the service
+            is provided for. Each such object can contain the following fields:
+            <dl>
+              <dt><code>id</code></dt>
+              <dd>The identifier of the entity, property or type suggested;</dd>
+              <dt><code>name</code></dt>
+              <dd>Its corresponding human-readable name, to be displayed prominently to the user;</dd>
+              <dt><code>description</code></dt>
+              <dd>An optional description which can be provided to disambiguate namesakes, providing more context. This could for instance be displayed underneath the <code>name</code>;</dd>
+	      <dt><code>notable</code></dt>
+	      <dd>When suggesting entities only, this field can be used to supply some important types (not necessarily all types) of the suggested entity. The value must be an array of either type identifiers (as strings) or type objects, containing a <code>id</code> and <code>name</code> field which represent the type.</dd>
+            </dl>
+            </dd>
+          </dl>
+        <p></p>
+	<div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><p class="">
+          The key <code>notable</code> comes from a notion of <em>notable types</em> that existed in Freebase.
+	</p></div>
+        <p>
+          For instance, a suggest service for <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a> could return the following response:
+          </p><div class="example" id="example-11">
+          <div class="marker">
+      <a class="self-link" href="#example-11">Example<bdi> 11</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"result"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cumulonimbus"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"genus of clouds, dense towering vertical cloud associated with thunderstorms and atmospheric instability"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q182311"</span>,
+      <span class="hljs-attr">"notable"</span>: [
+	 {
+	   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cloud genera"</span>,
+	   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q1840368"</span>
+	 }
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Cumulopuntia"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"genus of plants"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q310599"</span>,
+      <span class="hljs-attr">"notable"</span>: [
+	 {
+	   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"taxon"</span>,
+	   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q16521"</span>
+	 }
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cumulonimbus incus"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"variety of cloud"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q1358304"</span>,
+      <span class="hljs-attr">"notable"</span>: []
+    }
+  ]
+}
+</code></pre>
+        </div>
+        <p></p>
+        <p>
+          A suggest service for <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> could return the following response:
+          </p><div class="example" id="example-12">
+          <div class="marker">
+      <a class="self-link" href="#example-12">Example<bdi> 12</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"result"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"coordinate location"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"geocoordinates of the subject. For Earth, please note that only WGS84 coordinating system is supported at the moment"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P625"</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"place of birth"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"most specific known (e.g. city instead of country, or hospital instead of city) birth location of a person, animal or fictional character"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P19"</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"located in time zone"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"time zone for this item"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P421"</span>
+    }
+  ]
+}
+</code></pre>
+        </div>
+        <p></p>
+        <p>
+          And a  suggest service for <a href="#dfn-type" class="internalDFN" data-link-type="dfn">types</a> could return the following response:
+          </p><div class="example" id="example-13">
+          <div class="marker">
+      <a class="self-link" href="#example-13">Example<bdi> 13</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"result"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Work"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Werk"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"MusicalWork"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Werk der Musik"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"BuildingOrMemorial"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bauwerk oder Denkmal"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"VersionOfAMusicalWork"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fassung eines Werks der Musik"</span>
+    }
+  ]
+}
+</code></pre>
+        </div>
+        <p></p>
+	<p>
+	  JSON schemas to validate suggest responses are available <a href="#suggest-entities-response-json-schema">for entities</a>, <a href="#suggest-properties-response-json-schema">for properties</a> and <a href="#suggest-types-response-json-schema">for types</a>.
+	</p>
+      </section>
+      <section class="informative" id="general-expectations-about-suggest-services">
+        <h3 id="x6-4-general-expectations-about-suggest-services"><bdi class="secno">6.4 </bdi>General Expectations about Suggest Services<a class="self-link" aria-label="§" href="#general-expectations-about-suggest-services"></a></h3><p><em>This section is non-normative.</em></p>
+        <p>
+          It is generally expected by users that an entity suggest query where <code>prefix</code> is the name of an entity should return this entity in the suggest response, unless that entity is hidden behind many other namesakes.
+          Similarly, supplying an entity identifier as <code>prefix</code> should return this entity in the suggest response. 
+          Analogous expectations apply for property and type suggest services.
+        </p>
+        <p>
+          As the <code>prefix</code> name suggests, suggest services are expected to perform prefix search on their database of records, such that a suggest service can be used to provide auto-completion as users type names or identifiers in a field.
+        </p>
+      </section>      
+      <section id="flyout-services">
+      <h3 id="x6-5-flyout-services"><bdi class="secno">6.5 </bdi>Flyout Services<a class="self-link" aria-label="§" href="#flyout-services"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" id="dfn-flyout-service">flyout service</dfn> provides small previews of suggested elements.
+          These previews are designed to be shown when hovering a suggested element.
+	  When a suggest service supports flyout, it declares the <dfn data-dfn-type="dfn" id="dfn-flyout-endpoint">flyout endpoint</dfn> in its <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn">suggest metadata</a>.
+        </p>
+	<p>
+	  A preview for a suggested entity, property or type can then be obtained at the flyout endpoint by replacing <code>${id}</code>
+	  by the identifier for the entity, property or type. Upon a GET query to this URL, the service returns a JSON response
+	  consisting of an object with the following fields:
+	  </p><dl>
+	    <dt><code>id</code></dt>
+	    <dd>The identifier supplied in the URL;</dd>
+	    <dt><code>html</code></dt>
+	    <dd>A string containing HTML code that can be used to display a small preview alongside the suggested entity, property or type.</dd>
+	  </dl>
+	<p></p>
+	<p>
+          For instance, if a service's flyout endpoint is <code>https://example.com/suggest/entities/flyout?id=${id}</code>,
+	  then by retrieving <code>https://example.com/suggest/entities/flyout?id=Q38274</code>, one might get the following
+	  response:
+          </p><div class="example" id="example-14">
+          <div class="marker">
+      <a class="self-link" href="#example-14">Example<bdi> 14</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Q38274"</span>,
+  <span class="hljs-attr">"html"</span>: <span class="hljs-string">"&lt;p style=\"font-size: 0.8em; color: black;\"&gt;Thai musician&lt;/p&gt;"</span>
+}
+</code></pre>
+        </div>
+	<p></p>
+	<div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><p class="">
+	  Flyout services were used by Freebase and are mostly redundant with the <code>description</code> field in <a href="#suggest-responses">suggest responses</a>.
+	  Given that they allow services to return arbitrary HTML content, they also pose a security threat to clients. It is therefore proposed          that this functionality is dropped in the future.
+	</p></div>
+      </section>
+    </section>
+    <section id="data-extension-service">
+      <h2 id="x7-data-extension-service"><bdi class="secno">7. </bdi>Data Extension Service<a class="self-link" aria-label="§" href="#data-extension-service"></a></h2>
+      <p>
+        This section specifies how reconciliation services can let clients fetch the values
+        of some <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> on a selection of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>.
+      </p>
+      <p>
+        A data extension service <em class="rfc2119" title="MUST">MUST</em> support <a href="#dfn-data-extension-query-request" class="internalDFN" data-link-type="dfn">data extension query requests</a>.
+      </p>
+      <p>
+        A data extension service <em class="rfc2119" title="SHOULD">SHOULD</em> provide <a href="#dfn-data-extension-property-proposal" class="internalDFN" data-link-type="dfn">data extension property proposals</a>.
+      </p>
+      <p>
+        A data extension service <em class="rfc2119" title="MAY">MAY</em> support <a href="#dfn-data-extension-property-setting" class="internalDFN" data-link-type="dfn">data extension property settings</a>.
+      </p>
+      <section id="data-extension-metadata">
+        <h3 id="x7-1-data-extension-metadata"><bdi class="secno">7.1 </bdi>Data Extension Metadata<a class="self-link" aria-label="§" href="#data-extension-metadata"></a></h3>
+        <p>
+          The <dfn data-dfn-type="dfn" id="dfn-data-extension-metadata">data extension metadata</dfn> is an object stored in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a> in the <code>extend</code> field. It consists of the following settings, all optional:
+          </p><dl>
+            <dt><code>propose_properties</code></dt>
+            <dd>A service path object defining a URL which implements <a href="#dfn-data-extension-property-proposal" class="internalDFN" data-link-type="dfn">data extension property proposal</a>, which consists of:
+              <dl>
+                <dt><code>service_url</code></dt>
+                <dd>The root URL of the service;</dd>
+                <dt><code>service_path</code></dt>
+                <dd>The path to the endpoint for property proposals.</dd>
+              </dl>
+              The full URL for data extension property proposals is obtained by concatenating these two fields.
+            </dd>
+            <dt><code>property_settings</code></dt>
+            <dd>A list of <a href="#dfn-data-extension-property-setting" class="internalDFN" data-link-type="dfn">data extension property settings</a>.</dd>
+          </dl>
+        <p></p>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="data extension property settings" id="dfn-data-extension-property-setting">data extension property setting</dfn> consists of:
+          </p><dl>
+	    <dt><code>name</code></dt>
+            <dd>A name for the setting, which identifies the setting uniquely;</dd>
+            <dt><code>label</code></dt>
+	    <dd>A human-readable label, which is used when presenting the setting to the user in a form;</dd>
+	    <dt><code>type</code></dt>
+            <dd>A data type, which can be one of the strings <code>"number"</code>, <code>"text"</code>, <code>"checkbox"</code>, or <code>"select"</code>. This determines which type of value the property setting gis expected to store: clients <em class="rfc2119" title="SHOULD">SHOULD</em> render this setting with the corresponding HTML element;
+	    </dd><dt><code>default</code></dt>
+	    <dd>A default value for the setting, when not provided or left untouched by the user;</dd>
+	    <dt><code>help_text</code></dt>
+            <dd>A help text, which describes the meaning of the field to the user. This is meant to be a short string that can be displayed alongside the corresponding form field;</dd>
+	    <dt><code>choices</code></dt>
+            <dd>If <code>type</code> is <code>select</code>, a list of property setting choices.</dd>
+          </dl>
+        <p></p>
+        <p>
+          Example of <a href="#dfn-data-extension-metadata" class="internalDFN" data-link-type="dfn">data extension metadata</a> with all optional fields:
+          </p><div class="example" id="example-15">
+          <div class="marker">
+      <a class="self-link" href="#example-15">Example<bdi> 15</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"propose_properties"</span>: {
+    <span class="hljs-attr">"service_url"</span>: <span class="hljs-string">"https://lobid.org"</span>,
+    <span class="hljs-attr">"service_path"</span>: <span class="hljs-string">"/gnd/reconcile/properties"</span>
+  },
+  <span class="hljs-attr">"property_settings"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"limit"</span>,
+      <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Limit"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
+      <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">"help_text"</span>: <span class="hljs-string">"Maximum number of values to return per row (0 for no limit)"</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"content"</span>,
+      <span class="hljs-attr">"label"</span>: <span class="hljs-string">"Content"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"select"</span>,
+      <span class="hljs-attr">"default"</span>: <span class="hljs-string">"literal"</span>,
+      <span class="hljs-attr">"help_text"</span>: <span class="hljs-string">"Content type: ID or literal"</span>,
+      <span class="hljs-attr">"choices"</span>: [
+        {
+          <span class="hljs-attr">"value"</span>: <span class="hljs-string">"id"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ID"</span>
+        },
+        {
+          <span class="hljs-attr">"value"</span>: <span class="hljs-string">"literal"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Literal"</span>
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+        </div>
+        <p></p>
+      </section>
+      <section id="data-extension-property-proposals">
+        <h3 id="x7-2-data-extension-property-proposals"><bdi class="secno">7.2 </bdi>Data Extension Property Proposals<a class="self-link" aria-label="§" href="#data-extension-property-proposals"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="data extension property proposals" id="dfn-data-extension-property-proposal">data extension property proposal</dfn> service returns <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> for a given <a href="#dfn-type" class="internalDFN" data-link-type="dfn">type</a> identifier.
+        </p>
+        <p>
+          The service <em class="rfc2119" title="MUST">MUST</em> support HTTP GET requests with a <code>type</code> query string parameter.
+        </p>
+        <p>
+          The service <em class="rfc2119" title="SHOULD">SHOULD</em> support an optional <code>limit</code> query string parameter to control the number of proposed properties.
+        </p>
+        <p>
+          The service URL and path are declared in the <a href="#dfn-data-extension-metadata" class="internalDFN" data-link-type="dfn">data extension metadata</a> of the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a>.
+        </p>
+        <p>
+          </p><div class="example" id="example-16">
+          <div class="marker">
+      <a class="self-link" href="#example-16">Example<bdi> 16</bdi></a>
+    </div> <pre class="nohighlight">GET /properties?type=&lt;type identifier&gt;[&amp;limit=&lt;limit&gt;]</pre>
+        </div>
+        <p></p>
+        <p>
+          A <dfn data-dfn-type="dfn" id="dfn-data-extension-property-proposal-response">data extension property proposal response</dfn> consists of:
+          </p><dl>
+            <dt><code>properties</code></dt>
+            <dd>An array of proposed <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a>. These properties are suggested as fields that could be potentially fetched via data extension for entities of the type provided in the query;</dd>
+            <dt><code>type</code></dt>
+            <dd>The <a href="#dfn-type" class="internalDFN" data-link-type="dfn">type</a> identifier supplied in the query;</dd>
+            <dt><code>limit</code></dt>
+            <dd>Optionally, the requested limit;</dd>
+          </dl>
+        <p></p>
+        <p>
+          Example of a <a href="#dfn-data-extension-property-proposal" class="internalDFN" data-link-type="dfn">data extension property proposal</a> response:
+          </p><div class="example" id="example-17">
+          <div class="marker">
+      <a class="self-link" href="#example-17">Example<bdi> 17</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"limit"</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DifferentiatedPerson"</span>,
+  <span class="hljs-attr">"properties"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"affiliation"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Affiliation"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"geographicAreaCode"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ländercode"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"preferredName"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Bevorzugter Name"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"professionOrOccupation"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Beruf oder Beschäftigung"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"variantName"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Varianter Name"</span>
+    }
+  ]
+}</code></pre>
+        </div>
+        <p></p>
+      </section>
+      <section id="data-extension-query-requests">
+        <h3 id="x7-3-data-extension-query-requests"><bdi class="secno">7.3 </bdi>Data Extension Query Requests<a class="self-link" aria-label="§" href="#data-extension-query-requests"></a></h3>
+        <p>
+         A <dfn data-dfn-type="dfn" data-plurals="data extension query requests" id="dfn-data-extension-query-request">data extension query request</dfn> lets clients fetch the values
+         of some <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> on a selection of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>.
+        </p>
+        <p>
+          The fact that a reconciliation service offers data extension <em class="rfc2119" title="MUST">MUST</em> be announced by including a <a href="#dfn-data-extension-metadata" class="internalDFN" data-link-type="dfn">data extension metadata</a> in the <code>extend</code> field of the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a>.
+        </p><p>
+          A data extension service <em class="rfc2119" title="MUST">MUST</em> support HTTP POST requests with
+          <code>application/x-www-form-urlencoded</code> bodies containing a
+          <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a> in a form element named <code>extend</code>.
+        </p>
+        <p>
+          </p><div class="example" id="example-18">
+          <div class="marker">
+      <a class="self-link" href="#example-18">Example<bdi> 18</bdi></a>
+    </div> <pre class="nohighlight">POST / extend=&lt;URL-encoded data extension query&gt;</pre>
+        </div>
+        <p></p>
+        <p>
+          A data extension service <em class="rfc2119" title="SHOULD">SHOULD</em> support HTTP GET requests with a
+          <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a> in a query string parameter named <code>extend</code>.
+        </p>
+        <p>
+          </p><div class="example" id="example-19">
+          <div class="marker">
+      <a class="self-link" href="#example-19">Example<bdi> 19</bdi></a>
+    </div> <pre class="nohighlight">GET /?extend=&lt;URL-encoded data extension query&gt;</pre>
+        </div>
+        <p></p>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="data extension queries" id="dfn-data-extension-query">data extension query</dfn> consists of:
+          </p><ul>
+            <li>A list of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a> identifiers;</li>
+            <li>A list of <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> with optional <a href="#dfn-data-extension-property-setting">settings</a>.</li>
+          </ul>
+        <p></p>
+        <p>
+          Example of a <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a>:
+          </p><div class="example" id="example-20">
+          <div class="marker">
+      <a class="self-link" href="#example-20">Example<bdi> 20</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"ids"</span>: [
+    <span class="hljs-string">"10662041X"</span>,
+    <span class="hljs-string">"1064905412"</span>
+  ],
+  <span class="hljs-attr">"properties"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"variantName"</span>,
+      <span class="hljs-attr">"settings"</span>: {
+        <span class="hljs-attr">"limit"</span>: <span class="hljs-string">"5"</span>
+      }
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"geographicAreaCode"</span>,
+      <span class="hljs-attr">"settings"</span>: {
+        <span class="hljs-attr">"limit"</span>: <span class="hljs-string">"1"</span>,
+        <span class="hljs-attr">"content"</span>: <span class="hljs-string">"id"</span>
+      }
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"professionOrOccupation"</span>
+    }
+  ]
+}
+</code></pre>
+        </div>
+        <p></p>
+      </section>
+      <section id="data-extension-responses">
+        <h3 id="x7-4-data-extension-responses"><bdi class="secno">7.4 </bdi>Data Extension Responses<a class="self-link" aria-label="§" href="#data-extension-responses"></a></h3>
+        <p>
+          A <dfn data-dfn-type="dfn" data-plurals="data extension responses" id="dfn-data-extension-response">data extension response</dfn> consists of <a href="#data+extension+response+metadata">metadata</a>
+          and <a href="#data+extension+response+rows">rows</a>.
+        </p>
+        <p>
+          The <dfn id="data+extension+response+metadata" data-dfn-type="dfn">metadata</dfn> contains the <a href="#dfn-property" class="internalDFN" data-link-type="dfn">properties</a> used for data
+          extension, as requested in the <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a>. If properties have <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a> as values,
+          they <em class="rfc2119" title="MAY">MAY</em> specify a <a href="#dfn-type" class="internalDFN" data-link-type="dfn">type</a> in the metadata.
+        </p>
+        <p>
+          The <dfn id="data+extension+response+rows" data-dfn-type="dfn">rows</dfn> object contains, for each <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entity</a> identifier in the
+          <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a>, for each <a href="#dfn-property" class="internalDFN" data-link-type="dfn">property</a> identifier in the
+          <a href="#data+extension+response+metadata">metadata</a>, the <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn">property values</a> of that property in that entity.
+          If the property values are <a href="#dfn-entity" class="internalDFN" data-link-type="dfn">entities</a>, their identifiers <em class="rfc2119" title="MUST">MUST</em> be in the service's <a href="#dfn-identifier-space" class="internalDFN" data-link-type="dfn">identifier space</a>.
+        </p>
+        <p>
+          Response example for the <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension query</a> from the previous example:
+          </p><div class="example" id="example-21">
+          <div class="marker">
+      <a class="self-link" href="#example-21">Example<bdi> 21</bdi></a>
+    </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"meta"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"variantName"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Varianter Name"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"geographicAreaCode"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ländercode"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"professionOrOccupation"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Beruf oder Beschäftigung"</span>,
+      <span class="hljs-attr">"type"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"SubjectHeading"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Schlagwort"</span>
+      }
+    }
+  ],
+  <span class="hljs-attr">"rows"</span>: {
+    <span class="hljs-attr">"10662041X"</span>: {
+      <span class="hljs-attr">"variantName"</span>: [
+        {
+          <span class="hljs-attr">"str"</span>: <span class="hljs-string">"Stryi-Leitgeb, Gerda"</span>
+        },
+        {
+          <span class="hljs-attr">"str"</span>: <span class="hljs-string">"Leitgeb, Gerda Stryi-"</span>
+        }
+      ],
+      <span class="hljs-attr">"geographicAreaCode"</span>: [
+        {
+          <span class="hljs-attr">"str"</span>: <span class="hljs-string">"http://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE"</span>
+        }
+      ],
+      <span class="hljs-attr">"professionOrOccupation"</span>: [
+        {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4037223-6"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Malerin"</span>
+        },
+        {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4033430-2"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Künstlerin"</span>
+        }
+      ]
+    },
+    <span class="hljs-attr">"1064905412"</span>: {
+      <span class="hljs-attr">"variantName"</span>: [
+        {}
+      ],
+      <span class="hljs-attr">"geographicAreaCode"</span>: [
+        {
+          <span class="hljs-attr">"str"</span>: <span class="hljs-string">"http://d-nb.info/standards/vocab/gnd/geographic-area-code#XA-DE"</span>
+        }
+      ],
+      <span class="hljs-attr">"professionOrOccupation"</span>: [
+        {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4002844-6"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Architekt"</span>
+        }
+      ]
+    }
+  }
+}</code></pre>
+        </div>
+        <p></p>
+      </section>
+    </section>
+    <section class="appendix" id="json-schemas">
+      <h2 id="a-json-schemas"><bdi class="secno">A. </bdi>JSON Schemas<a class="self-link" aria-label="§" href="#json-schemas"></a></h2>
+        <p>
+          This appendix provides JSON schemas [<cite><a class="bibref" href="#bib-json-schema" title="JSON Schema: core definitions and terminology" data-link-type="biblio">json-schema</a></cite>] which can be used to validate the JSON serialization
+          of various elements as specified by these specifications.
+        </p>
+      <section id="manifest-schema">
+        <h3 id="a-1-manifest-schema"><bdi class="secno">A.1 </bdi>Manifest Schema<a class="self-link" aria-label="§" href="#manifest-schema"></a></h3>
+        <p>
+          The <a href="schemas/manifest.json">manifest schema</a> can be used to validate a <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn">service manifest</a>.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/manifest.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This validates a service manifest, describing the features supported by the endpoint."</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"name"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A human-readable name for the service or data source"</span>
+    },
+    <span class="hljs-attr">"identifierSpace"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A URI describing the entity identifiers used in this service"</span>
+    },
+    <span class="hljs-attr">"schemaSpace"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A URI describing the schema used in this service"</span>
+    },
+    <span class="hljs-attr">"view"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"url"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A template to transform an entity identifier into the corresponding URI"</span>,
+          <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">".*\\{\\{id\\}\\}.*"</span>
+        }
+      },
+      <span class="hljs-attr">"required"</span>: [
+        <span class="hljs-string">"url"</span>
+      ]
+    },
+    <span class="hljs-attr">"defaultTypes"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A list of default types that are considered good generic choices for reconciliation"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          },
+          <span class="hljs-attr">"name"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>,
+          <span class="hljs-string">"name"</span>
+        ]
+      },
+      <span class="hljs-attr">"uniqueItems"</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">"suggest"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Settings for the suggest protocol, to auto-complete entities, properties and types"</span>,
+      <span class="hljs-attr">"definitions"</span>: {
+        <span class="hljs-attr">"service_definition"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"service_url"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"service_path"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"flyout_service_url"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"flyout_service_path"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+              <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">".*\\$\\{id\\}.*"</span>
+            }
+          },
+          <span class="hljs-attr">"required"</span>: []
+        }
+      },
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"entity"</span>: {
+          <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/properties/suggest/definitions/service_definition"</span>
+        },
+        <span class="hljs-attr">"property"</span>: {
+          <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/properties/suggest/definitions/service_definition"</span>
+        },
+        <span class="hljs-attr">"type"</span>: {
+          <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/properties/suggest/definitions/service_definition"</span>
+        }
+      }
+    },
+    <span class="hljs-attr">"preview"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Settings for the preview protocol, for HTML previews of entities"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"url"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">".*\\{\\{id\\}\\}.*"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A URL pattern which transforms the entity ID into a preview URL for it"</span>
+        },
+        <span class="hljs-attr">"width"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The width of the iframe where to include the HTML preview"</span>
+        },
+        <span class="hljs-attr">"height"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The height of the iframe where to include the HTML preview"</span>
+        }
+      },
+      <span class="hljs-attr">"required"</span>: [
+        <span class="hljs-string">"url"</span>,
+        <span class="hljs-string">"width"</span>,
+        <span class="hljs-string">"height"</span>
+      ]
+    },
+    <span class="hljs-attr">"extend"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Settings for the data extension protocol, to fetch property values"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"propose_properties"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Location of the endpoint to propose properties to fetch for a given type"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"service_url"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"service_path"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        },
+        <span class="hljs-attr">"property_settings"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Definition of the settings configurable by the user when fetching a property"</span>,
+          <span class="hljs-attr">"items"</span>: {
+            <span class="hljs-attr">"oneOf"</span>: [
+              {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a numerical setting on a property"</span>,
+                <span class="hljs-attr">"properties"</span>: {
+                  <span class="hljs-attr">"type"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                    <span class="hljs-attr">"enum"</span>: [
+                      <span class="hljs-string">"number"</span>
+                    ]
+                  },
+                  <span class="hljs-attr">"default"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+                  },
+                  <span class="hljs-attr">"label"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"name"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"help_text"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  }
+                },
+                <span class="hljs-attr">"required"</span>: [
+                  <span class="hljs-string">"type"</span>,
+                  <span class="hljs-string">"label"</span>,
+                  <span class="hljs-string">"name"</span>
+                ]
+              },
+              {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a string setting on a property"</span>,
+                <span class="hljs-attr">"properties"</span>: {
+                  <span class="hljs-attr">"type"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                    <span class="hljs-attr">"enum"</span>: [
+                      <span class="hljs-string">"text"</span>
+                    ]
+                  },
+                  <span class="hljs-attr">"default"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"label"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"name"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"help_text"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  }
+                },
+                <span class="hljs-attr">"required"</span>: [
+                  <span class="hljs-string">"type"</span>,
+                  <span class="hljs-string">"label"</span>,
+                  <span class="hljs-string">"name"</span>
+                ]
+              },
+              {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a boolean setting on a property"</span>,
+                <span class="hljs-attr">"properties"</span>: {
+                  <span class="hljs-attr">"type"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                    <span class="hljs-attr">"enum"</span>: [
+                      <span class="hljs-string">"checkbox"</span>
+                    ]
+                  },
+                  <span class="hljs-attr">"default"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>
+                  },
+                  <span class="hljs-attr">"label"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"name"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"help_text"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  }
+                },
+                <span class="hljs-attr">"required"</span>: [
+                  <span class="hljs-string">"type"</span>,
+                  <span class="hljs-string">"label"</span>,
+                  <span class="hljs-string">"name"</span>
+                ]
+              },
+              {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a setting with a fixed set of choices"</span>,
+                <span class="hljs-attr">"properties"</span>: {
+                  <span class="hljs-attr">"type"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                    <span class="hljs-attr">"enum"</span>: [
+                      <span class="hljs-string">"select"</span>
+                    ]
+                  },
+                  <span class="hljs-attr">"default"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"label"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"name"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"help_text"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                  },
+                  <span class="hljs-attr">"choices"</span>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                    <span class="hljs-attr">"items"</span>: {
+                      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                      <span class="hljs-attr">"properties"</span>: {
+                        <span class="hljs-attr">"value"</span>: {
+                          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                        },
+                        <span class="hljs-attr">"name"</span>: {
+                          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                        }
+                      },
+                      <span class="hljs-attr">"required"</span>: [
+                        <span class="hljs-string">"value"</span>,
+                        <span class="hljs-string">"name"</span>
+                      ]
+                    }
+                  }
+                },
+                <span class="hljs-attr">"required"</span>: [
+                  <span class="hljs-string">"type"</span>,
+                  <span class="hljs-string">"label"</span>,
+                  <span class="hljs-string">"name"</span>,
+                  <span class="hljs-string">"choices"</span>
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"name"</span>,
+    <span class="hljs-string">"identifierSpace"</span>,
+    <span class="hljs-string">"schemaSpace"</span>
+  ]
+}
+</code></pre></section>
+      <section id="reconciliation-query-batch-schema">
+        <h3 id="reconciliation-query-batch-json-schema"><bdi class="secno">A.2 </bdi>Reconciliation Query Batch Schema<a class="self-link" aria-label="§" href="#reconciliation-query-batch-schema"></a></h3>
+	    <p>
+	      The <a href="schemas/reconciliation-query-batch.json">reconciliation query batch schema</a> can be used to validate
+	      the JSON serialization of any <a href="#dfn-reconciliation-query-batch" class="internalDFN" data-link-type="dfn">reconciliation query batch</a>, i.e. the payload of a GET/POST to the reconciliation endpoint.
+	   </p>
+	   <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/reconciliation-query.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema validates the JSON serialization of any reconciliation query batch, i.e. the payload of a GET/POST to a reconciliation endpoint."</span>,
+  <span class="hljs-attr">"definitions"</span>: {
+    <span class="hljs-attr">"property_value"</span>: {
+      <span class="hljs-attr">"oneOf"</span>: [
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+        },
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>
+        },
+        {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A property value which represents another entity, for instance if it was previously reconciled itself"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"id"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"name"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          },
+          <span class="hljs-attr">"required"</span>: [
+            <span class="hljs-string">"id"</span>
+          ]
+        }
+      ]
+    }
+  },
+  <span class="hljs-attr">"patternProperties"</span>: {
+    <span class="hljs-attr">"^.*$"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"query"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A string to be matched against the name of the entities"</span>
+        },
+        <span class="hljs-attr">"type"</span>: {
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Either a single type identifier or a list of type identifiers"</span>,
+          <span class="hljs-attr">"oneOf"</span>: [
+            {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+              <span class="hljs-attr">"items"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+              }
+            }
+          ]
+        },
+        <span class="hljs-attr">"limit"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The maximum number of candidates to return"</span>
+        },
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An optional list of property mappings to refine the query"</span>,
+          <span class="hljs-attr">"items"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+            <span class="hljs-attr">"properties"</span>: {
+              <span class="hljs-attr">"pid"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The identifier of the property, whose values will be compared to the values supplied"</span>
+              },
+              <span class="hljs-attr">"v"</span>: {
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A value (or array of values) to match against the property values associated with the property on each candidate"</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                  {
+                    <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/property_value"</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                    <span class="hljs-attr">"items"</span>: {
+                      <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/property_value"</span>
+                    }
+                  }
+                ]
+              }
+            },
+            <span class="hljs-attr">"required"</span>: [
+              <span class="hljs-string">"pid"</span>,
+              <span class="hljs-string">"v"</span>
+            ]
+          }
+        },
+        <span class="hljs-attr">"type_strict"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A classification of the type matching strategy when multiple types are supplied"</span>,
+          <span class="hljs-attr">"enum"</span>: [
+            <span class="hljs-string">"any"</span>,
+            <span class="hljs-string">"should"</span>,
+            <span class="hljs-string">"all"</span>
+          ]
+        }
+      },
+      <span class="hljs-attr">"required"</span>: [
+        <span class="hljs-string">"query"</span>
+      ],
+      <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+    }
+  }
+}
+</code></pre></section>
+      <section id="reconciliation-result-batch-schema">
+        <h3 id="reconciliation-result-batch-json-schema"><bdi class="secno">A.3 </bdi>Reconciliation Result Batch Schema<a class="self-link" aria-label="§" href="#reconciliation-result-batch-schema"></a></h3>
+	    <p>
+          The <a href="schemas/reconciliation-result-batch.json">reconciliation result batch schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#dfn-reconciliation-result-batch" class="internalDFN" data-link-type="dfn">reconciliation result batch</a>.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/reconciliation-result-batch.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema can be used to validate the JSON&nbsp;serialization of any reconciliation result batch."</span>,
+  <span class="hljs-attr">"patternProperties"</span>: {
+    <span class="hljs-attr">"^.*$"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"result"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-attr">"items"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+            <span class="hljs-attr">"properties"</span>: {
+              <span class="hljs-attr">"id"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Entity identifier of the candidate"</span>
+              },
+              <span class="hljs-attr">"name"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Entity name of the candidate"</span>
+              },
+              <span class="hljs-attr">"score"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Number indicating how likely it is that the candidate matches the query"</span>
+              },
+              <span class="hljs-attr">"match"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Boolean value indicating whether the candiate is a certain match or not."</span>
+              },
+              <span class="hljs-attr">"type"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Types the candidate entity belongs to"</span>,
+                <span class="hljs-attr">"items"</span>: {
+                  <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A type can be given by id and name"</span>,
+                      <span class="hljs-attr">"properties"</span>: {
+                        <span class="hljs-attr">"id"</span>: {
+                          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                        },
+                        <span class="hljs-attr">"name"</span>: {
+                          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                        }
+                      },
+                      <span class="hljs-attr">"required"</span>: [
+                        <span class="hljs-string">"id"</span>
+                      ]
+                    },
+                    {
+                      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Alternatively, if only a string is given, it is treated as the id"</span>
+                    }
+                  ]
+                }
+              }
+            },
+            <span class="hljs-attr">"required"</span>: [
+              <span class="hljs-string">"id"</span>,
+              <span class="hljs-string">"name"</span>,
+              <span class="hljs-string">"score"</span>
+            ]
+          }
+        }
+      },
+      <span class="hljs-attr">"required"</span>: [
+        <span class="hljs-string">"result"</span>
+      ]
+    }
+  }
+}
+</code></pre></section>
+      <section id="suggest-entities-response-schema">
+        <h3 id="suggest-entities-response-json-schema"><bdi class="secno">A.4 </bdi>Suggest Entities Response Schema<a class="self-link" aria-label="§" href="#suggest-entities-response-schema"></a></h3>
+	<p>
+          The <a href="schemas/suggest-entities-response.json">suggest entities response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for entities.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/suggest-entities-response.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema can be used to validate the JSON response of a suggest service for entities."</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"result"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Identifier of the suggested entity"</span>
+          },
+          <span class="hljs-attr">"name"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Name of the suggested entity"</span>
+          },
+          <span class="hljs-attr">"description"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An optional description which can be provided to disambiguate namesakes, providing more context."</span>
+          },
+          <span class="hljs-attr">"notable"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Types the suggest entity belongs to"</span>,
+            <span class="hljs-attr">"items"</span>: {
+              <span class="hljs-attr">"oneOf"</span>: [
+                {
+                  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A type can be given by id and name"</span>,
+                  <span class="hljs-attr">"properties"</span>: {
+                    <span class="hljs-attr">"id"</span>: {
+                      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                    },
+                    <span class="hljs-attr">"name"</span>: {
+                      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                    }
+                  },
+                  <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"id"</span>
+                  ]
+                },
+                {
+                  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Alternatively, if only a string is given, it is treated as the id"</span>
+                }
+              ]
+            }
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>,
+          <span class="hljs-string">"name"</span>
+        ]
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"result"</span>
+  ]
+}
+</code></pre></section>
+      <section id="suggest-properties-response-schema">
+        <h3 id="suggest-properties-response-json-schema"><bdi class="secno">A.5 </bdi>Suggest Properties Response Schema<a class="self-link" aria-label="§" href="#suggest-properties-response-schema"></a></h3>
+	<p>
+          The <a href="schemas/suggest-properties-response.json">suggest properties response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for properties.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/suggest-types-response.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema can be used to validate the JSON response of a suggest service for types."</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"result"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Identifier of the suggested type"</span>
+          },
+          <span class="hljs-attr">"name"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Name of the suggested type"</span>
+          },
+          <span class="hljs-attr">"description"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An optional description which can be provided to disambiguate namesakes, providing more context."</span>
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>,
+          <span class="hljs-string">"name"</span>
+        ]
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"result"</span>
+  ]
+}
+</code></pre></section>
+      <section id="suggest-types-response-schema">
+        <h3 id="suggest-types-response-json-schema"><bdi class="secno">A.6 </bdi>Suggest Types Response Schema<a class="self-link" aria-label="§" href="#suggest-types-response-schema"></a></h3>
+	<p>
+          The <a href="schemas/suggest-types-response.json">suggest types response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for types.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/suggest-types-response.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema can be used to validate the JSON response of a suggest service for types."</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"result"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Identifier of the suggested type"</span>
+          },
+          <span class="hljs-attr">"name"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Name of the suggested type"</span>
+          },
+          <span class="hljs-attr">"description"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An optional description which can be provided to disambiguate namesakes, providing more context."</span>
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>,
+          <span class="hljs-string">"name"</span>
+        ]
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"result"</span>
+  ]
+}
+</code></pre></section>
+      <section id="data-extension-query-schema">
+        <h3 id="a-7-data-extension-query-schema"><bdi class="secno">A.7 </bdi>Data Extension Query Schema<a class="self-link" aria-label="§" href="#data-extension-query-schema"></a></h3>
+        <p>
+          The <a href="schemas/data-extension-query.json">data extension query schema</a> validates <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn">data extension queries</a>.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/data-extension-query.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema validates a data extension query"</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"ids"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The list of entity identifiers to fetch property values from"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+      }
+    },
+    <span class="hljs-attr">"properties"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The list of properties to fetch, with their optional configuration"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          },
+          <span class="hljs-attr">"settings"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>
+        ]
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"ids"</span>,
+    <span class="hljs-string">"properties"</span>
+  ]
+}
+</code></pre></section>
+      <section id="data-extension-response-schema">
+        <h3 id="a-8-data-extension-response-schema"><bdi class="secno">A.8 </bdi>Data Extension Response Schema<a class="self-link" aria-label="§" href="#data-extension-response-schema"></a></h3>
+        <p>
+          The <a href="schemas/data-extension-response.json">data extension response schema</a> validates <a href="#dfn-data-extension-response" class="internalDFN" data-link-type="dfn">data extension responses</a>.
+        </p>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"http://json-schema.org/schema#"</span>,
+  <span class="hljs-attr">"$id"</span>: <span class="hljs-string">"https://reconciliation-api.github.io/specs/0.1/schemas/data-extension-response.json"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"This schema validates a data extension response"</span>,
+  <span class="hljs-attr">"properties"</span>: {
+    <span class="hljs-attr">"meta"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+      <span class="hljs-attr">"items"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+        <span class="hljs-attr">"properties"</span>: {
+          <span class="hljs-attr">"id"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          },
+          <span class="hljs-attr">"name"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          },
+          <span class="hljs-attr">"type"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+            <span class="hljs-attr">"properties"</span>: {
+              <span class="hljs-attr">"id"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+              },
+              <span class="hljs-attr">"name"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+              }
+            },
+            <span class="hljs-attr">"required"</span>: [
+              <span class="hljs-string">"id"</span>
+            ]
+          }
+        },
+        <span class="hljs-attr">"required"</span>: [
+          <span class="hljs-string">"id"</span>,
+          <span class="hljs-string">"name"</span>
+        ]
+      }
+    },
+    <span class="hljs-attr">"rows"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"patternProperties"</span>: {
+        <span class="hljs-attr">".*"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"patternProperties"</span>: {
+            <span class="hljs-attr">".*"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+              <span class="hljs-attr">"items"</span>: {
+                <span class="hljs-attr">"oneOf"</span>: [
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"properties"</span>: {
+                      <span class="hljs-attr">"id"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                      },
+                      <span class="hljs-attr">"name"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                      }
+                    },
+                    <span class="hljs-attr">"required"</span>: [
+                      <span class="hljs-string">"id"</span>,
+                      <span class="hljs-string">"name"</span>
+                    ],
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"properties"</span>: {
+                      <span class="hljs-attr">"str"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                      }
+                    },
+                    <span class="hljs-attr">"required"</span>: [
+                      <span class="hljs-string">"str"</span>
+                    ],
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"properties"</span>: {
+                      <span class="hljs-attr">"float"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+                      }
+                    },
+                    <span class="hljs-attr">"required"</span>: [
+                      <span class="hljs-string">"float"</span>
+                    ],
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"properties"</span>: {
+                      <span class="hljs-attr">"int"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>
+                      }
+                    },
+                    <span class="hljs-attr">"required"</span>: [
+                      <span class="hljs-string">"int"</span>
+                    ],
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  },
+                  {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                    <span class="hljs-attr">"properties"</span>: {
+                      <span class="hljs-attr">"date"</span>: {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Date and time formatted in ISO format"</span>,
+                        <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">"^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$"</span>
+                      }
+                    },
+                    <span class="hljs-attr">"required"</span>: [
+                      <span class="hljs-string">"date"</span>
+                    ],
+                    <span class="hljs-attr">"additionalProperties"</span>: <span class="hljs-literal">false</span>
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  <span class="hljs-attr">"required"</span>: [
+    <span class="hljs-string">"rows"</span>,
+    <span class="hljs-string">"meta"</span>
+  ]
+}
+</code></pre></section>
+    </section>
+  
+
+<section id="references" class="appendix">
+      <h2 id="b-references"><bdi class="secno">B. </bdi>References<a class="self-link" aria-label="§" href="#references"></a></h2>
+      
+    <section id="normative-references">
+        <h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references<a class="self-link" aria-label="§" href="#normative-references"></a></h3>
+      <dl class="bibliography">
+        <dt id="bib-cors">[cors]</dt><dd><a href="https://www.w3.org/TR/cors/"><cite>Cross-Origin Resource Sharing</cite></a>. Anne van Kesteren.  W3C. 16 January 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a></dd><dt id="bib-json-schema">[json-schema]</dt><dd><a href="https://tools.ietf.org/html/draft-zyp-json-schema"><cite>JSON Schema: core definitions and terminology</cite></a>. K. Zyp.  Internet Engineering Task Force (IETF). 31 January 2013. Internet-Draft. URL: <a href="https://tools.ietf.org/html/draft-zyp-json-schema">https://tools.ietf.org/html/draft-zyp-json-schema</a></dd><dt id="bib-jsonp">[JSONP]</dt><dd><a href="https://en.wikipedia.org/wiki/JSONP"><cite>JSONP</cite></a>.  English Wikipedia. URL: <a href="https://en.wikipedia.org/wiki/JSONP">https://en.wikipedia.org/wiki/JSONP</a></dd><dt id="bib-rfc2119">[RFC2119]</dt><dd><a href="https://tools.ietf.org/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd><dt id="bib-rfc2396">[RFC2396]</dt><dd><a href="https://tools.ietf.org/html/rfc2396"><cite>Uniform Resource Identifiers (URI): Generic Syntax</cite></a>. T. Berners-Lee; R. Fielding; L. Masinter.  IETF. August 1998. Draft Standard. URL: <a href="https://tools.ietf.org/html/rfc2396">https://tools.ietf.org/html/rfc2396</a></dd><dt id="bib-rfc7230">[RFC7230]</dt><dd><a href="https://httpwg.org/specs/rfc7230.html"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. R. Fielding, Ed.; J. Reschke, Ed..  IETF. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7230.html">https://httpwg.org/specs/rfc7230.html</a></dd><dt id="bib-rfc8174">[RFC8174]</dt><dd><a href="https://tools.ietf.org/html/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc8174">https://tools.ietf.org/html/rfc8174</a></dd><dt id="bib-securing-web">[SECURING-WEB]</dt><dd><a href="https://www.w3.org/2001/tag/doc/web-https"><cite>Securing the Web</cite></a>. Mark Nottingham.  W3C. TAG Finding. URL: <a href="https://www.w3.org/2001/tag/doc/web-https">https://www.w3.org/2001/tag/doc/web-https</a></dd>
+      </dl></section><section id="informative-references">
+        <h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references<a class="self-link" aria-label="§" href="#informative-references"></a></h3>
+      <dl class="bibliography">
+        <dt id="bib-beek-2018">[beek-2018]</dt><dd><a href="http://dx.doi.org/10.1007/978-3-319-93417-4_5"><cite>sameAs.cc: The Closure of 500M owl:sameAs Statements</cite></a>. Wouter Beek&nbsp;<a href="http://orcid.org/0000-0003-0250-9655"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg></a>, Joe Raad&nbsp;<a href="http://orcid.org/0000-0002-7891-7738"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg></a>, Jan Wielemaker&nbsp;<a href="http://orcid.org/0000-0001-5574-5673"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg></a>, Frank van Harmelen&nbsp;<a href="http://orcid.org/0000-0002-7913-0048"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <style>
+                .st1 {
+                  fill: #fff;
+                }
+              </style>
+              <path d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z" fill="#a6ce39"></path>
+              <path class="st1" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7C191.7 111.2 178 93 148 93h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z"></path>
+            </svg></a>.  The Semantic Web, pp. 65-80, 2018.  DOI:&nbsp;<a href="https://doi.org/10.1007/978-3-319-93417-4_5">10.1007/978-3-319-93417-4_5</a></dd><dt id="bib-christen-2012">[christen-2012]</dt><dd><a href="http://dx.doi.org/10.1007/978-3-642-31164-2"><cite>Data Matching</cite></a>. Peter Christen.  Springer Berlin Heidelberg, 2012.  DOI:&nbsp;<a href="https://doi.org/10.1007/978-3-642-31164-2">10.1007/978-3-642-31164-2</a>, ISBN:&nbsp;9783642311635, 9783642311642</dd><dt id="bib-owl-features">[owl-features]</dt><dd><a href="https://www.w3.org/TR/owl-features/"><cite>OWL Web Ontology Language Overview</cite></a>. Deborah McGuinness; Frank van Harmelen.  W3C. 10 February 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/owl-features/">https://www.w3.org/TR/owl-features/</a></dd><dt id="bib-skos-primer">[skos-primer]</dt><dd><a href="https://www.w3.org/TR/skos-primer/"><cite>SKOS Simple Knowledge Organization System Primer</cite></a>. Antoine Isaac; Ed Summers.  W3C. 18 August 2009. W3C Note. URL: <a href="https://www.w3.org/TR/skos-primer/">https://www.w3.org/TR/skos-primer/</a></dd>
+      </dl></section></section><p role="navigation" id="back-to-top"><a href="#title"><abbr title="Back to Top">↑</abbr></a></p><script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>
