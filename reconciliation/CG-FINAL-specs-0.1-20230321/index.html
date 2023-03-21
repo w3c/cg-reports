@@ -431,7 +431,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "subtitle": "A protocol for data matching on the Web",
   "pluralize": true,
   "doJsonLd": true,
-  "group": "cg/reconciliation",
+  "group": "reconciliation",
   "wg": "Entity Reconciliation Community Group",
   "wgPublicList": "public-reconciliation",
   "wgURI": "https://www.w3.org/community/reconciliation/",
@@ -584,8 +584,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
     <hr title="Separator for header">
   </div>
-    <section id="reconciliation-service-api"><div class="header-wrapper"><h2 id="x1-reconciliation-service-api"><bdi class="secno">1. </bdi>Reconciliation Service API</h2><a class="self-link" href="#reconciliation-service-api" aria-label="Permalink for Section 1."></a></div>
-    <section id="abstract" class="introductory"><div class="header-wrapper"><h2 id="abstract-0">Abstract</h2><a class="self-link" href="#abstract" aria-label="Permalink for this Section"></a></div>
+    <section id="abstract" class="introductory"><h2>Abstract</h2>
       <p>
         This document describes the reconciliation service API, as implemented in OpenRefine 2.8 to 3.2.
         It is intended as a comprehensive and definitive specification of this API in its given state.
@@ -596,7 +595,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         which we encourage services to follow instead.
       </p>
     </section>
-    <section id="sotd" class="introductory"><div class="header-wrapper"><h2 id="status-of-this-document">Status of This Document</h2><a class="self-link" href="#sotd" aria-label="Permalink for this Section"></a></div><p>
+    <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
       This specification was published by the
       <a href="https://www.w3.org/groups/cg/reconciliation">Entity Reconciliation Community Group</a>. It is not a W3C Standard nor is it
       on the W3C Standards Track.
@@ -624,10 +623,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           (<a href="mailto:public-reconciliation-request@w3.org?subject=subscribe">subscribe</a>,
           <a href="https://lists.w3.org/Archives/Public/public-reconciliation/">archives</a>).
         
-  </p></section><nav id="toc"><div class="header-wrapper"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><a class="self-link" href="#table-of-contents" aria-label="Permalink for this Section"></a></div><ol class="toc"><li class="tocline"><a class="tocxref" href="#reconciliation-service-api"><bdi class="secno">1. </bdi>Reconciliation Service API</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1.1 </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-matching-on-the-web"><bdi class="secno">1.1.1 </bdi>Data Matching on the Web</a></li><li class="tocline"><a class="tocxref" href="#history-of-the-reconciliation-api"><bdi class="secno">1.1.2 </bdi>History of the Reconciliation API</a></li><li class="tocline"><a class="tocxref" href="#external-resources"><bdi class="secno">1.1.3 </bdi>External Resources</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.1.4 </bdi>Conformance</a></li></ol></li><li class="tocline"><a class="tocxref" href="#core-concepts"><bdi class="secno">1.2 </bdi>Core Concepts</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#entities"><bdi class="secno">1.2.1 </bdi>Entities</a></li><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">1.2.2 </bdi>Types</a></li><li class="tocline"><a class="tocxref" href="#properties"><bdi class="secno">1.2.3 </bdi>Properties</a></li><li class="tocline"><a class="tocxref" href="#property-values"><bdi class="secno">1.2.4 </bdi>Property Values</a></li><li class="tocline"><a class="tocxref" href="#identifier-and-schema-spaces"><bdi class="secno">1.2.5 </bdi>Identifier and Schema Spaces</a></li></ol></li><li class="tocline"><a class="tocxref" href="#service-definition"><bdi class="secno">1.3 </bdi>Service Definition</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#service-manifest"><bdi class="secno">1.3.1 </bdi>Service Manifest</a></li><li class="tocline"><a class="tocxref" href="#http-s-access"><bdi class="secno">1.3.2 </bdi>HTTP(S) Access</a></li><li class="tocline"><a class="tocxref" href="#cross-origin-access"><bdi class="secno">1.3.3 </bdi>Cross-Origin Access</a></li></ol></li><li class="tocline"><a class="tocxref" href="#reconciliation-queries"><bdi class="secno">1.4 </bdi>Reconciliation Queries</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#structure-of-a-reconciliation-query"><bdi class="secno">1.4.1 </bdi>Structure of a Reconciliation Query</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-candidates"><bdi class="secno">1.4.2 </bdi>Reconciliation Candidates</a></li><li class="tocline"><a class="tocxref" href="#sending-reconciliation-queries-to-a-service"><bdi class="secno">1.4.3 </bdi>Sending Reconciliation Queries to a Service</a></li><li class="tocline"><a class="tocxref" href="#a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">1.4.4 </bdi>A Note on Candidate Retrieval and Scoring</a></li></ol></li><li class="tocline"><a class="tocxref" href="#preview-service"><bdi class="secno">1.5 </bdi>Preview Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#preview-metadata"><bdi class="secno">1.5.1 </bdi>Preview Metadata</a></li><li class="tocline"><a class="tocxref" href="#preview-queries"><bdi class="secno">1.5.2 </bdi>Preview Queries</a></li></ol></li><li class="tocline"><a class="tocxref" href="#suggest-services"><bdi class="secno">1.6 </bdi>Suggest Services</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#suggest-metadata"><bdi class="secno">1.6.1 </bdi>Suggest Metadata</a></li><li class="tocline"><a class="tocxref" href="#suggest-queries"><bdi class="secno">1.6.2 </bdi>Suggest Queries</a></li><li class="tocline"><a class="tocxref" href="#suggest-responses"><bdi class="secno">1.6.3 </bdi>Suggest Responses</a></li><li class="tocline"><a class="tocxref" href="#general-expectations-about-suggest-services"><bdi class="secno">1.6.4 </bdi>General Expectations about Suggest Services</a></li><li class="tocline"><a class="tocxref" href="#flyout-services"><bdi class="secno">1.6.5 </bdi>Flyout Services</a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-extension-service"><bdi class="secno">1.7 </bdi>Data Extension Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-extension-metadata"><bdi class="secno">1.7.1 </bdi>Data Extension Metadata</a></li><li class="tocline"><a class="tocxref" href="#data-extension-property-proposals"><bdi class="secno">1.7.2 </bdi>Data Extension Property Proposals</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-requests"><bdi class="secno">1.7.3 </bdi>Data Extension Query Requests</a></li><li class="tocline"><a class="tocxref" href="#data-extension-responses"><bdi class="secno">1.7.4 </bdi>Data Extension Responses</a></li></ol></li><li class="tocline"><a class="tocxref" href="#json-schemas"><bdi class="secno">1.8 </bdi>JSON Schemas</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#manifest-schema"><bdi class="secno">1.8.1 </bdi>Manifest Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-query-batch-json-schema"><bdi class="secno">1.8.2 </bdi>Reconciliation Query Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-result-batch-json-schema"><bdi class="secno">1.8.3 </bdi>Reconciliation Result Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-entities-response-json-schema"><bdi class="secno">1.8.4 </bdi>Suggest Entities Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-properties-response-json-schema"><bdi class="secno">1.8.5 </bdi>Suggest Properties Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-types-response-json-schema"><bdi class="secno">1.8.6 </bdi>Suggest Types Response Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-schema"><bdi class="secno">1.8.7 </bdi>Data Extension Query Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-response-schema"><bdi class="secno">1.8.8 </bdi>Data Extension Response Schema</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.2 </bdi>Informative references</a></li></ol></li></ol></nav>
-    <section class="informative" id="introduction"><div class="header-wrapper"><h3 id="x1-1-introduction"><bdi class="secno">1.1 </bdi>Introduction</h3><a class="self-link" href="#introduction" aria-label="Permalink for Section 1.1"></a></div><p><em>This section is non-normative.</em></p>
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-matching-on-the-web"><bdi class="secno">1.1 </bdi>Data Matching on the Web</a></li><li class="tocline"><a class="tocxref" href="#history-of-the-reconciliation-api"><bdi class="secno">1.2 </bdi>History of the Reconciliation API</a></li><li class="tocline"><a class="tocxref" href="#external-resources"><bdi class="secno">1.3 </bdi>External Resources</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1.4 </bdi>Conformance</a></li></ol></li><li class="tocline"><a class="tocxref" href="#core-concepts"><bdi class="secno">2. </bdi>Core Concepts</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#entities"><bdi class="secno">2.1 </bdi>Entities</a></li><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">2.2 </bdi>Types</a></li><li class="tocline"><a class="tocxref" href="#properties"><bdi class="secno">2.3 </bdi>Properties</a></li><li class="tocline"><a class="tocxref" href="#property-values"><bdi class="secno">2.4 </bdi>Property Values</a></li><li class="tocline"><a class="tocxref" href="#identifier-and-schema-spaces"><bdi class="secno">2.5 </bdi>Identifier and Schema Spaces</a></li></ol></li><li class="tocline"><a class="tocxref" href="#service-definition"><bdi class="secno">3. </bdi>Service Definition</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#service-manifest"><bdi class="secno">3.1 </bdi>Service Manifest</a></li><li class="tocline"><a class="tocxref" href="#http-s-access"><bdi class="secno">3.2 </bdi>HTTP(S) Access</a></li><li class="tocline"><a class="tocxref" href="#cross-origin-access"><bdi class="secno">3.3 </bdi>Cross-Origin Access</a></li></ol></li><li class="tocline"><a class="tocxref" href="#reconciliation-queries"><bdi class="secno">4. </bdi>Reconciliation Queries</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#structure-of-a-reconciliation-query"><bdi class="secno">4.1 </bdi>Structure of a Reconciliation Query</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-candidates"><bdi class="secno">4.2 </bdi>Reconciliation Candidates</a></li><li class="tocline"><a class="tocxref" href="#sending-reconciliation-queries-to-a-service"><bdi class="secno">4.3 </bdi>Sending Reconciliation Queries to a Service</a></li><li class="tocline"><a class="tocxref" href="#a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">4.4 </bdi>A Note on Candidate Retrieval and Scoring</a></li></ol></li><li class="tocline"><a class="tocxref" href="#preview-service"><bdi class="secno">5. </bdi>Preview Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#preview-metadata"><bdi class="secno">5.1 </bdi>Preview Metadata</a></li><li class="tocline"><a class="tocxref" href="#preview-queries"><bdi class="secno">5.2 </bdi>Preview Queries</a></li></ol></li><li class="tocline"><a class="tocxref" href="#suggest-services"><bdi class="secno">6. </bdi>Suggest Services</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#suggest-metadata"><bdi class="secno">6.1 </bdi>Suggest Metadata</a></li><li class="tocline"><a class="tocxref" href="#suggest-queries"><bdi class="secno">6.2 </bdi>Suggest Queries</a></li><li class="tocline"><a class="tocxref" href="#suggest-responses"><bdi class="secno">6.3 </bdi>Suggest Responses</a></li><li class="tocline"><a class="tocxref" href="#general-expectations-about-suggest-services"><bdi class="secno">6.4 </bdi>General Expectations about Suggest Services</a></li><li class="tocline"><a class="tocxref" href="#flyout-services"><bdi class="secno">6.5 </bdi>Flyout Services</a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-extension-service"><bdi class="secno">7. </bdi>Data Extension Service</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#data-extension-metadata"><bdi class="secno">7.1 </bdi>Data Extension Metadata</a></li><li class="tocline"><a class="tocxref" href="#data-extension-property-proposals"><bdi class="secno">7.2 </bdi>Data Extension Property Proposals</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-requests"><bdi class="secno">7.3 </bdi>Data Extension Query Requests</a></li><li class="tocline"><a class="tocxref" href="#data-extension-responses"><bdi class="secno">7.4 </bdi>Data Extension Responses</a></li></ol></li><li class="tocline"><a class="tocxref" href="#json-schemas"><bdi class="secno">A. </bdi>JSON Schemas</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#manifest-schema"><bdi class="secno">A.1 </bdi>Manifest Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-query-batch-json-schema"><bdi class="secno">A.2 </bdi>Reconciliation Query Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#reconciliation-result-batch-json-schema"><bdi class="secno">A.3 </bdi>Reconciliation Result Batch Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-entities-response-json-schema"><bdi class="secno">A.4 </bdi>Suggest Entities Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-properties-response-json-schema"><bdi class="secno">A.5 </bdi>Suggest Properties Response Schema</a></li><li class="tocline"><a class="tocxref" href="#suggest-types-response-json-schema"><bdi class="secno">A.6 </bdi>Suggest Types Response Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-query-schema"><bdi class="secno">A.7 </bdi>Data Extension Query Schema</a></li><li class="tocline"><a class="tocxref" href="#data-extension-response-schema"><bdi class="secno">A.8 </bdi>Data Extension Response Schema</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">B.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+    <section class="informative" id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
       
-      <section id="data-matching-on-the-web"><div class="header-wrapper"><h4 id="x1-1-1-data-matching-on-the-web"><bdi class="secno">1.1.1 </bdi>Data Matching on the Web</h4><a class="self-link" href="#data-matching-on-the-web" aria-label="Permalink for Section 1.1.1"></a></div>
+      <section id="data-matching-on-the-web"><div class="header-wrapper"><h3 id="x1-1-data-matching-on-the-web"><bdi class="secno">1.1 </bdi>Data Matching on the Web</h3><a class="self-link" href="#data-matching-on-the-web" aria-label="Permalink for Section 1.1"></a></div>
         
         <p>
           Integrating data from sources which do not share common unique identifiers often requires matching (or <emph>reconciling</emph>, <emph>merging</emph>) records which refer to the same entities.
@@ -658,7 +657,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
 	  themselves, nor download the entire contents of the target database.
         </p>
       </section>
-      <section id="history-of-the-reconciliation-api"><div class="header-wrapper"><h4 id="x1-1-2-history-of-the-reconciliation-api"><bdi class="secno">1.1.2 </bdi>History of the Reconciliation API</h4><a class="self-link" href="#history-of-the-reconciliation-api" aria-label="Permalink for Section 1.1.2"></a></div>
+      <section id="history-of-the-reconciliation-api"><div class="header-wrapper"><h3 id="x1-2-history-of-the-reconciliation-api"><bdi class="secno">1.2 </bdi>History of the Reconciliation API</h3><a class="self-link" href="#history-of-the-reconciliation-api" aria-label="Permalink for Section 1.2"></a></div>
         
         <p>
           This API was originally designed by Metaweb as a protocol used between Freebase and Gridworks (now known as OpenRefine).
@@ -689,14 +688,14 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
 	  This document is an attempt to better specify this API.
 	</p>
       </section>
-      <section id="external-resources"><div class="header-wrapper"><h4 id="x1-1-3-external-resources"><bdi class="secno">1.1.3 </bdi>External Resources</h4><a class="self-link" href="#external-resources" aria-label="Permalink for Section 1.1.3"></a></div>
+      <section id="external-resources"><div class="header-wrapper"><h3 id="x1-3-external-resources"><bdi class="secno">1.3 </bdi>External Resources</h3><a class="self-link" href="#external-resources" aria-label="Permalink for Section 1.3"></a></div>
         
         <p>
           A <a href="https://reconciliation-api.github.io/testbench/">list of known public endpoints</a> is maintained by the community, where they can also be tried out interactively. OpenRefine's wiki also hosts a <a href="https://github.com/OpenRefine/OpenRefine/wiki/Reconciliable-Data-Sources">list of reconciliable data source</a> which also includes non-hosted or discontinued services.
 	  Existing clients to the API, such as <a href="http://openrefine.org">OpenRefine</a> or <a href="https://coli-conc.gbv.de/cocoda/">Cocoda</a> can be used to interact with reconciliation services.
         </p>
       </section>
-      <section id="conformance"><div class="header-wrapper"><h4 id="x1-1-4-conformance"><bdi class="secno">1.1.4 </bdi>Conformance</h4><a class="self-link" href="#conformance" aria-label="Permalink for Section 1.1.4"></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+      <section id="conformance"><div class="header-wrapper"><h3 id="x1-4-conformance"><bdi class="secno">1.4 </bdi>Conformance</h3><a class="self-link" href="#conformance" aria-label="Permalink for Section 1.4"></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, and <em class="rfc2119">SHOULD</em> in this document
         are to be interpreted as described in
         <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
@@ -704,7 +703,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
         when, and only when, they appear in all capitals, as shown here.
       </p></section>
     </section>
-    <section id="core-concepts"><div class="header-wrapper"><h3 id="x1-2-core-concepts"><bdi class="secno">1.2 </bdi>Core Concepts</h3><a class="self-link" href="#core-concepts" aria-label="Permalink for Section 1.2"></a></div>
+    <section id="core-concepts"><div class="header-wrapper"><h2 id="x2-core-concepts"><bdi class="secno">2. </bdi>Core Concepts</h2><a class="self-link" href="#core-concepts" aria-label="Permalink for Section 2."></a></div>
       
       <p>
         This section documents the data model behind the reconciliation API.
@@ -713,7 +712,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
         or <a href="#dfn-property" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-property-1">properties</a> with <a href="#dfn-property-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-property-value-1">property values</a>.
         The purpose of this section is to define these notions.
       </p>
-      <section id="entities"><div class="header-wrapper"><h4 data-link-for="entities" id="x1-2-1-entities"><bdi class="secno">1.2.1 </bdi>Entities</h4><a class="self-link" href="#entities" aria-label="Permalink for Section 1.2.1"></a></div>
+      <section id="entities"><div class="header-wrapper"><h3 data-link-for="entities" id="x2-1-entities"><bdi class="secno">2.1 </bdi>Entities</h3><a class="self-link" href="#entities" aria-label="Permalink for Section 2.1"></a></div>
         
         <p>
            An <dfn data-plurals="entities" id="dfn-entity" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">entity</dfn> is a record in the data source exposed by the service.
@@ -736,7 +735,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
            <em class="rfc2119">MUST</em> result in a valid <abbr title="Universal Resource Identifier">URI</abbr> [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2396" title="Uniform Resource Identifiers (URI): Generic Syntax">RFC2396</a></cite>].
         </p>
       </section>
-      <section id="types"><div class="header-wrapper"><h4 data-link-for="types" id="x1-2-2-types"><bdi class="secno">1.2.2 </bdi>Types</h4><a class="self-link" href="#types" aria-label="Permalink for Section 1.2.2"></a></div>
+      <section id="types"><div class="header-wrapper"><h3 data-link-for="types" id="x2-2-types"><bdi class="secno">2.2 </bdi>Types</h3><a class="self-link" href="#types" aria-label="Permalink for Section 2.2"></a></div>
         
         <p>
           A <dfn data-plurals="types" id="dfn-type" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">type</dfn> represents a category of <a href="#dfn-entity" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-entity-2">entities</a>.
@@ -749,7 +748,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
           </dl>
         <p></p>
       </section>
-      <section id="properties"><div class="header-wrapper"><h4 data-link-for="properties" id="x1-2-3-properties"><bdi class="secno">1.2.3 </bdi>Properties</h4><a class="self-link" href="#properties" aria-label="Permalink for Section 1.2.3"></a></div>
+      <section id="properties"><div class="header-wrapper"><h3 data-link-for="properties" id="x2-3-properties"><bdi class="secno">2.3 </bdi>Properties</h3><a class="self-link" href="#properties" aria-label="Permalink for Section 2.3"></a></div>
         
         <p>
           A <dfn data-plurals="properties" id="dfn-property" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">property</dfn> represents a type of attribute that entities can have in the data source.
@@ -762,7 +761,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
           </dl>
         <p></p>
       </section>
-      <section id="property-values"><div class="header-wrapper"><h4 data-link-for="property values" id="x1-2-4-property-values"><bdi class="secno">1.2.4 </bdi>Property Values</h4><a class="self-link" href="#property-values" aria-label="Permalink for Section 1.2.4"></a></div>
+      <section id="property-values"><div class="header-wrapper"><h3 data-link-for="property values" id="x2-4-property-values"><bdi class="secno">2.4 </bdi>Property Values</h3><a class="self-link" href="#property-values" aria-label="Permalink for Section 2.4"></a></div>
         
         <p>
           A <dfn data-plurals="property values" id="dfn-property-value" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">property value</dfn> can be any of the following:
@@ -775,7 +774,7 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
           </ul>
         <p></p>
       </section>
-      <section id="identifier-and-schema-spaces"><div class="header-wrapper"><h4 data-link-for="spaces" id="x1-2-5-identifier-and-schema-spaces"><bdi class="secno">1.2.5 </bdi>Identifier and Schema Spaces</h4><a class="self-link" href="#identifier-and-schema-spaces" aria-label="Permalink for Section 1.2.5"></a></div>
+      <section id="identifier-and-schema-spaces"><div class="header-wrapper"><h3 data-link-for="spaces" id="x2-5-identifier-and-schema-spaces"><bdi class="secno">2.5 </bdi>Identifier and Schema Spaces</h3><a class="self-link" href="#identifier-and-schema-spaces" aria-label="Permalink for Section 2.5"></a></div>
         
         <p>
           A reconciliation service <em class="rfc2119">MUST</em> define two URIs, exposed in its <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-service-manifest-2">service manifest</a>:
@@ -799,13 +798,13 @@ Organization System">SKOS</abbr> [<cite><a class="bibref" data-link-type="biblio
         </p></div>
       </section>
     </section>
-    <section id="service-definition"><div class="header-wrapper"><h3 id="x1-3-service-definition"><bdi class="secno">1.3 </bdi>Service Definition</h3><a class="self-link" href="#service-definition" aria-label="Permalink for Section 1.3"></a></div>
+    <section id="service-definition"><div class="header-wrapper"><h2 id="x3-service-definition"><bdi class="secno">3. </bdi>Service Definition</h2><a class="self-link" href="#service-definition" aria-label="Permalink for Section 3."></a></div>
       
       <p>
         This section documents how reconciliation services are exposed as HTTP(S) services and
         how they can announce the features of the API they implement.
       </p>
-      <section id="service-manifest"><div class="header-wrapper"><h4 id="x1-3-1-service-manifest"><bdi class="secno">1.3.1 </bdi>Service Manifest</h4><a class="self-link" href="#service-manifest" aria-label="Permalink for Section 1.3.1"></a></div>
+      <section id="service-manifest"><div class="header-wrapper"><h3 id="x3-1-service-manifest"><bdi class="secno">3.1 </bdi>Service Manifest</h3><a class="self-link" href="#service-manifest" aria-label="Permalink for Section 3.1"></a></div>
         
       <p>
         A <dfn id="dfn-service-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">service manifest</dfn> consists of the following fields:
@@ -895,14 +894,14 @@ database are instances of this type.</dd><dd>
       </div>
       <p></p>
       </section>
-      <section id="http-s-access"><div class="header-wrapper"><h4 id="x1-3-2-http-s-access"><bdi class="secno">1.3.2 </bdi>HTTP(S) Access</h4><a class="self-link" href="#http-s-access" aria-label="Permalink for Section 1.3.2"></a></div>
+      <section id="http-s-access"><div class="header-wrapper"><h3 id="x3-2-http-s-access"><bdi class="secno">3.2 </bdi>HTTP(S) Access</h3><a class="self-link" href="#http-s-access" aria-label="Permalink for Section 3.2"></a></div>
         
 	<p>
 	   In the interest of protecting the data sent as reconciliation queries, all endpoints of reconciliation
 	   services <em class="rfc2119">SHOULD</em> be available over HTTPS [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7230" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">RFC7230</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-securing-web" title="Securing the Web">SECURING-WEB</a></cite>]. This does not apply to locally hosted services.
 	</p>
       </section>
-      <section id="cross-origin-access"><div class="header-wrapper"><h4 id="x1-3-3-cross-origin-access"><bdi class="secno">1.3.3 </bdi>Cross-Origin Access</h4><a class="self-link" href="#cross-origin-access" aria-label="Permalink for Section 1.3.3"></a></div>
+      <section id="cross-origin-access"><div class="header-wrapper"><h3 id="x3-3-cross-origin-access"><bdi class="secno">3.3 </bdi>Cross-Origin Access</h3><a class="self-link" href="#cross-origin-access" aria-label="Permalink for Section 3.3"></a></div>
         
         <p>
            All HTTP(S) endpoints exposed by the service <em class="rfc2119">MUST</em> support JSONP [<cite><a class="bibref" data-link-type="biblio" href="#bib-jsonp" title="JSONP">JSONP</a></cite>], which
@@ -933,13 +932,13 @@ Access-Control-Allow-Origin: *</code></pre>
         </p></div>
       </section>
     </section>
-    <section id="reconciliation-queries"><div class="header-wrapper"><h3 id="x1-4-reconciliation-queries"><bdi class="secno">1.4 </bdi>Reconciliation Queries</h3><a class="self-link" href="#reconciliation-queries" aria-label="Permalink for Section 1.4"></a></div>
+    <section id="reconciliation-queries"><div class="header-wrapper"><h2 id="x4-reconciliation-queries"><bdi class="secno">4. </bdi>Reconciliation Queries</h2><a class="self-link" href="#reconciliation-queries" aria-label="Permalink for Section 4."></a></div>
       
       <p>
         This section specifies how clients can send reconciliation queries to services and
         how services respond to them.
       </p>
-      <section id="structure-of-a-reconciliation-query"><div class="header-wrapper"><h4 id="x1-4-1-structure-of-a-reconciliation-query"><bdi class="secno">1.4.1 </bdi>Structure of a Reconciliation Query</h4><a class="self-link" href="#structure-of-a-reconciliation-query" aria-label="Permalink for Section 1.4.1"></a></div>
+      <section id="structure-of-a-reconciliation-query"><div class="header-wrapper"><h3 id="x4-1-structure-of-a-reconciliation-query"><bdi class="secno">4.1 </bdi>Structure of a Reconciliation Query</h3><a class="self-link" href="#structure-of-a-reconciliation-query" aria-label="Permalink for Section 4.1"></a></div>
         
         <p>
           A <dfn data-plurals="reconciliation queries" id="dfn-reconciliation-query" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">reconciliation query</dfn> consists of:
@@ -1059,7 +1058,7 @@ Access-Control-Allow-Origin: *</code></pre>
 	  or documented in OpenRefine.
 	</p></div>
       </section>
-      <section id="reconciliation-candidates"><div class="header-wrapper"><h4 id="x1-4-2-reconciliation-candidates"><bdi class="secno">1.4.2 </bdi>Reconciliation Candidates</h4><a class="self-link" href="#reconciliation-candidates" aria-label="Permalink for Section 1.4.2"></a></div>
+      <section id="reconciliation-candidates"><div class="header-wrapper"><h3 id="x4-2-reconciliation-candidates"><bdi class="secno">4.2 </bdi>Reconciliation Candidates</h3><a class="self-link" href="#reconciliation-candidates" aria-label="Permalink for Section 4.2"></a></div>
         
         <p>
 	  A <dfn data-plurals="reconciliation candidates" id="dfn-reconciliation-candidate" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">reconciliation candidate</dfn> represents an <a href="#dfn-entity" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-entity-6">entity</a> as a response to a <a href="#dfn-reconciliation-query" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-reconciliation-query-2">reconciliation query</a>.
@@ -1078,7 +1077,7 @@ Access-Control-Allow-Origin: *</code></pre>
           </dl>
         <p></p>
       </section>
-      <section id="sending-reconciliation-queries-to-a-service"><div class="header-wrapper"><h4 id="x1-4-3-sending-reconciliation-queries-to-a-service"><bdi class="secno">1.4.3 </bdi>Sending Reconciliation Queries to a Service</h4><a class="self-link" href="#sending-reconciliation-queries-to-a-service" aria-label="Permalink for Section 1.4.3"></a></div>
+      <section id="sending-reconciliation-queries-to-a-service"><div class="header-wrapper"><h3 id="x4-3-sending-reconciliation-queries-to-a-service"><bdi class="secno">4.3 </bdi>Sending Reconciliation Queries to a Service</h3><a class="self-link" href="#sending-reconciliation-queries-to-a-service" aria-label="Permalink for Section 4.3"></a></div>
         
         <p>
 	  A <dfn data-plurals="reconciliation results" id="dfn-reconciliation-result" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">reconciliation result</dfn> is a set of <a href="#dfn-reconciliation-candidate" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-reconciliation-candidate-1">reconciliation candidates</a>. It is serialized in JSON
@@ -1126,7 +1125,7 @@ Access-Control-Allow-Origin: *</code></pre>
 	   interactive debugging of reconciliation queries in a web browser, for instance.
 	</p></div>
       </section>
-      <section class="informative" id="a-note-on-candidate-retrieval-and-scoring"><div class="header-wrapper"><h4 id="x1-4-4-a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">1.4.4 </bdi>A Note on Candidate Retrieval and Scoring</h4><a class="self-link" href="#a-note-on-candidate-retrieval-and-scoring" aria-label="Permalink for Section 1.4.4"></a></div><p><em>This section is non-normative.</em></p>
+      <section class="informative" id="a-note-on-candidate-retrieval-and-scoring"><div class="header-wrapper"><h3 id="x4-4-a-note-on-candidate-retrieval-and-scoring"><bdi class="secno">4.4 </bdi>A Note on Candidate Retrieval and Scoring</h3><a class="self-link" href="#a-note-on-candidate-retrieval-and-scoring" aria-label="Permalink for Section 4.4"></a></div><p><em>This section is non-normative.</em></p>
 	
 	<p>
 	  The way candidates are retrieved from the underlying database and scored against the query is left
@@ -1151,13 +1150,13 @@ Access-Control-Allow-Origin: *</code></pre>
 	</p></div>
       </section>
     </section>
-    <section id="preview-service"><div class="header-wrapper"><h3 id="x1-5-preview-service"><bdi class="secno">1.5 </bdi>Preview Service</h3><a class="self-link" href="#preview-service" aria-label="Permalink for Section 1.5"></a></div>
+    <section id="preview-service"><div class="header-wrapper"><h2 id="x5-preview-service"><bdi class="secno">5. </bdi>Preview Service</h2><a class="self-link" href="#preview-service" aria-label="Permalink for Section 5."></a></div>
       
       <p>
         This section specifies how reconciliation services can provide embeddable HTML previews
         of their entities, which clients can display in their user interface.
       </p>
-      <section id="preview-metadata"><div class="header-wrapper"><h4 id="x1-5-1-preview-metadata"><bdi class="secno">1.5.1 </bdi>Preview Metadata</h4><a class="self-link" href="#preview-metadata" aria-label="Permalink for Section 1.5.1"></a></div>
+      <section id="preview-metadata"><div class="header-wrapper"><h3 id="x5-1-preview-metadata"><bdi class="secno">5.1 </bdi>Preview Metadata</h3><a class="self-link" href="#preview-metadata" aria-label="Permalink for Section 5.1"></a></div>
       
       <p>Reconciliation services <em class="rfc2119">MAY</em> offer a preview service by providing the <dfn id="dfn-preview-metadata" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">preview metadata</dfn> as an object stored in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-service-manifest-3">service manifest</a> under the key <code>preview</code>. It consists of the following fields, all mandatory:
         </p><dl>
@@ -1183,7 +1182,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       </div>
       <p></p>
       </section>
-      <section id="preview-queries"><div class="header-wrapper"><h4 id="x1-5-2-preview-queries"><bdi class="secno">1.5.2 </bdi>Preview Queries</h4><a class="self-link" href="#preview-queries" aria-label="Permalink for Section 1.5.2"></a></div>
+      <section id="preview-queries"><div class="header-wrapper"><h3 id="x5-2-preview-queries"><bdi class="secno">5.2 </bdi>Preview Queries</h3><a class="self-link" href="#preview-queries" aria-label="Permalink for Section 5.2"></a></div>
       
       <p>A preview service is queried by resolving the <a href="#dfn-preview-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-preview-url-1">preview URL</a> for an <a href="#dfn-entity" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-entity-8">entity</a>. The URL must resolve to an HTML document.
       </p>
@@ -1205,7 +1204,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p></p>
       </section>
     </section>
-    <section id="suggest-services"><div class="header-wrapper"><h3 id="x1-6-suggest-services"><bdi class="secno">1.6 </bdi>Suggest Services</h3><a class="self-link" href="#suggest-services" aria-label="Permalink for Section 1.6"></a></div>
+    <section id="suggest-services"><div class="header-wrapper"><h2 id="x6-suggest-services"><bdi class="secno">6. </bdi>Suggest Services</h2><a class="self-link" href="#suggest-services" aria-label="Permalink for Section 6."></a></div>
       
       <p>
         This section specifies how reconciliation services can provide auto-complete
@@ -1215,7 +1214,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
         Suggest services for entities, properties and types are declared independently
         in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-service-manifest-4">service manifest</a> by providing a <a href="#dfn-suggest-metadata" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-suggest-metadata-4">suggest metadata</a> for them.
       </p>
-      <section id="suggest-metadata"><div class="header-wrapper"><h4 id="x1-6-1-suggest-metadata"><bdi class="secno">1.6.1 </bdi>Suggest Metadata</h4><a class="self-link" href="#suggest-metadata" aria-label="Permalink for Section 1.6.1"></a></div>
+      <section id="suggest-metadata"><div class="header-wrapper"><h3 id="x6-1-suggest-metadata"><bdi class="secno">6.1 </bdi>Suggest Metadata</h3><a class="self-link" href="#suggest-metadata" aria-label="Permalink for Section 6.1"></a></div>
       
       <p>
         A <dfn id="dfn-suggest-metadata" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">suggest metadata</dfn> object consists of the following fields:
@@ -1244,7 +1243,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
 	Such a metadata indicates that a suggest service is available at <code>https://example.com/api/suggest</code> with an associated <a href="#dfn-flyout-endpoint" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-flyout-endpoint-1">flyout endpoint</a> at <code>https://example.com/api/suggest/flyout/${id}</code>.
       <p></p>
       </section>
-      <section id="suggest-queries"><div class="header-wrapper"><h4 id="x1-6-2-suggest-queries"><bdi class="secno">1.6.2 </bdi>Suggest Queries</h4><a class="self-link" href="#suggest-queries" aria-label="Permalink for Section 1.6.2"></a></div>
+      <section id="suggest-queries"><div class="header-wrapper"><h3 id="x6-2-suggest-queries"><bdi class="secno">6.2 </bdi>Suggest Queries</h3><a class="self-link" href="#suggest-queries" aria-label="Permalink for Section 6.2"></a></div>
       
         <p>A suggest service <em class="rfc2119">MUST</em> accept GET queries with the following URL-encoded parameters:
           </p><dl>
@@ -1255,7 +1254,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
           </dl>
         <p></p>
       </section>
-      <section id="suggest-responses"><div class="header-wrapper"><h4 id="x1-6-3-suggest-responses"><bdi class="secno">1.6.3 </bdi>Suggest Responses</h4><a class="self-link" href="#suggest-responses" aria-label="Permalink for Section 1.6.3"></a></div>
+      <section id="suggest-responses"><div class="header-wrapper"><h3 id="x6-3-suggest-responses"><bdi class="secno">6.3 </bdi>Suggest Responses</h3><a class="self-link" href="#suggest-responses" aria-label="Permalink for Section 6.3"></a></div>
         
         <p>
           A response to a suggest query consists of the following fields:
@@ -1376,7 +1375,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
 	  JSON schemas to validate suggest responses are available <a href="#suggest-entities-response-json-schema">for entities</a>, <a href="#suggest-properties-response-json-schema">for properties</a> and <a href="#suggest-types-response-json-schema">for types</a>.
 	</p>
       </section>
-      <section class="informative" id="general-expectations-about-suggest-services"><div class="header-wrapper"><h4 id="x1-6-4-general-expectations-about-suggest-services"><bdi class="secno">1.6.4 </bdi>General Expectations about Suggest Services</h4><a class="self-link" href="#general-expectations-about-suggest-services" aria-label="Permalink for Section 1.6.4"></a></div><p><em>This section is non-normative.</em></p>
+      <section class="informative" id="general-expectations-about-suggest-services"><div class="header-wrapper"><h3 id="x6-4-general-expectations-about-suggest-services"><bdi class="secno">6.4 </bdi>General Expectations about Suggest Services</h3><a class="self-link" href="#general-expectations-about-suggest-services" aria-label="Permalink for Section 6.4"></a></div><p><em>This section is non-normative.</em></p>
         
         <p>
           It is generally expected by users that an entity suggest query where <code>prefix</code> is the name of an entity should return this entity in the suggest response, unless that entity is hidden behind many other namesakes.
@@ -1387,7 +1386,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
           As the <code>prefix</code> name suggests, suggest services are expected to perform prefix search on their database of records, such that a suggest service can be used to provide auto-completion as users type names or identifiers in a field.
         </p>
       </section>      
-      <section id="flyout-services"><div class="header-wrapper"><h4 id="x1-6-5-flyout-services"><bdi class="secno">1.6.5 </bdi>Flyout Services</h4><a class="self-link" href="#flyout-services" aria-label="Permalink for Section 1.6.5"></a></div>
+      <section id="flyout-services"><div class="header-wrapper"><h3 id="x6-5-flyout-services"><bdi class="secno">6.5 </bdi>Flyout Services</h3><a class="self-link" href="#flyout-services" aria-label="Permalink for Section 6.5"></a></div>
       
         <p>
           A <dfn id="dfn-flyout-service" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">flyout service</dfn> provides small previews of suggested elements.
@@ -1424,7 +1423,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
 	</p></div>
       </section>
     </section>
-    <section id="data-extension-service"><div class="header-wrapper"><h3 id="x1-7-data-extension-service"><bdi class="secno">1.7 </bdi>Data Extension Service</h3><a class="self-link" href="#data-extension-service" aria-label="Permalink for Section 1.7"></a></div>
+    <section id="data-extension-service"><div class="header-wrapper"><h2 id="x7-data-extension-service"><bdi class="secno">7. </bdi>Data Extension Service</h2><a class="self-link" href="#data-extension-service" aria-label="Permalink for Section 7."></a></div>
       
       <p>
         This section specifies how reconciliation services can let clients fetch the values
@@ -1439,7 +1438,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p>
         A data extension service <em class="rfc2119">MAY</em> support <a href="#dfn-data-extension-property-setting" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-data-extension-property-setting-1">data extension property settings</a>.
       </p>
-      <section id="data-extension-metadata"><div class="header-wrapper"><h4 id="x1-7-1-data-extension-metadata"><bdi class="secno">1.7.1 </bdi>Data Extension Metadata</h4><a class="self-link" href="#data-extension-metadata" aria-label="Permalink for Section 1.7.1"></a></div>
+      <section id="data-extension-metadata"><div class="header-wrapper"><h3 id="x7-1-data-extension-metadata"><bdi class="secno">7.1 </bdi>Data Extension Metadata</h3><a class="self-link" href="#data-extension-metadata" aria-label="Permalink for Section 7.1"></a></div>
         
         <p>
           The <dfn id="dfn-data-extension-metadata" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">data extension metadata</dfn> is an object stored in the <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-service-manifest-5">service manifest</a> in the <code>extend</code> field. It consists of the following settings, all optional:
@@ -1515,7 +1514,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       </div>
         <p></p>
       </section>
-      <section id="data-extension-property-proposals"><div class="header-wrapper"><h4 id="x1-7-2-data-extension-property-proposals"><bdi class="secno">1.7.2 </bdi>Data Extension Property Proposals</h4><a class="self-link" href="#data-extension-property-proposals" aria-label="Permalink for Section 1.7.2"></a></div>
+      <section id="data-extension-property-proposals"><div class="header-wrapper"><h3 id="x7-2-data-extension-property-proposals"><bdi class="secno">7.2 </bdi>Data Extension Property Proposals</h3><a class="self-link" href="#data-extension-property-proposals" aria-label="Permalink for Section 7.2"></a></div>
         
         <p>
           A <dfn data-plurals="data extension property proposals" id="dfn-data-extension-property-proposal" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">data extension property proposal</dfn> service returns <a href="#dfn-property" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-property-9">properties</a> for a given <a href="#dfn-type" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-type-9">type</a> identifier.
@@ -1581,7 +1580,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       </div>
         <p></p>
       </section>
-      <section id="data-extension-query-requests"><div class="header-wrapper"><h4 id="x1-7-3-data-extension-query-requests"><bdi class="secno">1.7.3 </bdi>Data Extension Query Requests</h4><a class="self-link" href="#data-extension-query-requests" aria-label="Permalink for Section 1.7.3"></a></div>
+      <section id="data-extension-query-requests"><div class="header-wrapper"><h3 id="x7-3-data-extension-query-requests"><bdi class="secno">7.3 </bdi>Data Extension Query Requests</h3><a class="self-link" href="#data-extension-query-requests" aria-label="Permalink for Section 7.3"></a></div>
         
         <p>
          A <dfn data-plurals="data extension query requests" id="dfn-data-extension-query-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">data extension query request</dfn> lets clients fetch the values
@@ -1651,7 +1650,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       </div>
         <p></p>
       </section>
-      <section id="data-extension-responses"><div class="header-wrapper"><h4 id="x1-7-4-data-extension-responses"><bdi class="secno">1.7.4 </bdi>Data Extension Responses</h4><a class="self-link" href="#data-extension-responses" aria-label="Permalink for Section 1.7.4"></a></div>
+      <section id="data-extension-responses"><div class="header-wrapper"><h3 id="x7-4-data-extension-responses"><bdi class="secno">7.4 </bdi>Data Extension Responses</h3><a class="self-link" href="#data-extension-responses" aria-label="Permalink for Section 7.4"></a></div>
         
         <p>
           A <dfn data-plurals="data extension responses" id="dfn-data-extension-response" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">data extension response</dfn> consists of <a href="#data+extension+response+metadata" id="ref-for-data+extension+response+metadata-1">metadata</a>
@@ -1740,13 +1739,13 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
         <p></p>
       </section>
     </section>
-    <section class="appendix" id="json-schemas"><div class="header-wrapper"><h3 id="x1-8-json-schemas"><bdi class="secno">1.8 </bdi>JSON Schemas</h3><a class="self-link" href="#json-schemas" aria-label="Permalink for Appendix 1.8"></a></div>
+    <section class="appendix" id="json-schemas"><div class="header-wrapper"><h2 id="a-json-schemas"><bdi class="secno">A. </bdi>JSON Schemas</h2><a class="self-link" href="#json-schemas" aria-label="Permalink for Appendix A."></a></div>
       
         <p>
           This appendix provides JSON schemas [<cite><a class="bibref" data-link-type="biblio" href="#bib-json-schema" title="JSON Schema: A Media Type for Describing JSON Documents">json-schema</a></cite>] which can be used to validate the JSON serialization
           of various elements as specified by these specifications.
         </p>
-      <section id="manifest-schema"><div class="header-wrapper"><h4 id="x1-8-1-manifest-schema"><bdi class="secno">1.8.1 </bdi>Manifest Schema</h4><a class="self-link" href="#manifest-schema" aria-label="Permalink for Appendix 1.8.1"></a></div>
+      <section id="manifest-schema"><div class="header-wrapper"><h3 id="a-1-manifest-schema"><bdi class="secno">A.1 </bdi>Manifest Schema</h3><a class="self-link" href="#manifest-schema" aria-label="Permalink for Appendix A.1"></a></div>
         
         <p>
           The <a href="schemas/manifest.json">manifest schema</a> can be used to validate a <a href="#dfn-service-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-service-manifest-8">service manifest</a>.
@@ -2030,7 +2029,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     <span class="hljs-string">"schemaSpace"</span>
   ]
 }</code></pre></section>
-      <section id="reconciliation-query-batch-schema"><div class="header-wrapper"><h4 id="reconciliation-query-batch-json-schema"><bdi class="secno">1.8.2 </bdi>Reconciliation Query Batch Schema</h4><a class="self-link" href="#reconciliation-query-batch-json-schema" aria-label="Permalink for Appendix 1.8.2"></a></div>
+      <section id="reconciliation-query-batch-schema"><div class="header-wrapper"><h3 id="reconciliation-query-batch-json-schema"><bdi class="secno">A.2 </bdi>Reconciliation Query Batch Schema</h3><a class="self-link" href="#reconciliation-query-batch-json-schema" aria-label="Permalink for Appendix A.2"></a></div>
         
 	    <p>
 	      The <a href="schemas/reconciliation-query-batch.json">reconciliation query batch schema</a> can be used to validate
@@ -2145,7 +2144,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     }
   }
 }</code></pre></section>
-      <section id="reconciliation-result-batch-schema"><div class="header-wrapper"><h4 id="reconciliation-result-batch-json-schema"><bdi class="secno">1.8.3 </bdi>Reconciliation Result Batch Schema</h4><a class="self-link" href="#reconciliation-result-batch-json-schema" aria-label="Permalink for Appendix 1.8.3"></a></div>
+      <section id="reconciliation-result-batch-schema"><div class="header-wrapper"><h3 id="reconciliation-result-batch-json-schema"><bdi class="secno">A.3 </bdi>Reconciliation Result Batch Schema</h3><a class="self-link" href="#reconciliation-result-batch-json-schema" aria-label="Permalink for Appendix A.3"></a></div>
         
 	    <p>
           The <a href="schemas/reconciliation-result-batch.json">reconciliation result batch schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#dfn-reconciliation-result-batch" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-reconciliation-result-batch-2">reconciliation result batch</a>.
@@ -2222,7 +2221,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     }
   }
 }</code></pre></section>
-      <section id="suggest-entities-response-schema"><div class="header-wrapper"><h4 id="suggest-entities-response-json-schema"><bdi class="secno">1.8.4 </bdi>Suggest Entities Response Schema</h4><a class="self-link" href="#suggest-entities-response-json-schema" aria-label="Permalink for Appendix 1.8.4"></a></div>
+      <section id="suggest-entities-response-schema"><div class="header-wrapper"><h3 id="suggest-entities-response-json-schema"><bdi class="secno">A.4 </bdi>Suggest Entities Response Schema</h3><a class="self-link" href="#suggest-entities-response-json-schema" aria-label="Permalink for Appendix A.4"></a></div>
         
 	<p>
           The <a href="schemas/suggest-entities-response.json">suggest entities response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for entities.
@@ -2289,7 +2288,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     <span class="hljs-string">"result"</span>
   ]
 }</code></pre></section>
-      <section id="suggest-properties-response-schema"><div class="header-wrapper"><h4 id="suggest-properties-response-json-schema"><bdi class="secno">1.8.5 </bdi>Suggest Properties Response Schema</h4><a class="self-link" href="#suggest-properties-response-json-schema" aria-label="Permalink for Appendix 1.8.5"></a></div>
+      <section id="suggest-properties-response-schema"><div class="header-wrapper"><h3 id="suggest-properties-response-json-schema"><bdi class="secno">A.5 </bdi>Suggest Properties Response Schema</h3><a class="self-link" href="#suggest-properties-response-json-schema" aria-label="Permalink for Appendix A.5"></a></div>
         
 	<p>
           The <a href="schemas/suggest-properties-response.json">suggest properties response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for properties.
@@ -2329,7 +2328,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     <span class="hljs-string">"result"</span>
   ]
 }</code></pre></section>
-      <section id="suggest-types-response-schema"><div class="header-wrapper"><h4 id="suggest-types-response-json-schema"><bdi class="secno">1.8.6 </bdi>Suggest Types Response Schema</h4><a class="self-link" href="#suggest-types-response-json-schema" aria-label="Permalink for Appendix 1.8.6"></a></div>
+      <section id="suggest-types-response-schema"><div class="header-wrapper"><h3 id="suggest-types-response-json-schema"><bdi class="secno">A.6 </bdi>Suggest Types Response Schema</h3><a class="self-link" href="#suggest-types-response-json-schema" aria-label="Permalink for Appendix A.6"></a></div>
         
 	<p>
           The <a href="schemas/suggest-types-response.json">suggest types response schema</a> can be used to validate the JSON&nbsp;serialization of any <a href="#suggest-responses">suggest response</a> for types.
@@ -2369,7 +2368,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     <span class="hljs-string">"result"</span>
   ]
 }</code></pre></section>
-      <section id="data-extension-query-schema"><div class="header-wrapper"><h4 id="x1-8-7-data-extension-query-schema"><bdi class="secno">1.8.7 </bdi>Data Extension Query Schema</h4><a class="self-link" href="#data-extension-query-schema" aria-label="Permalink for Appendix 1.8.7"></a></div>
+      <section id="data-extension-query-schema"><div class="header-wrapper"><h3 id="a-7-data-extension-query-schema"><bdi class="secno">A.7 </bdi>Data Extension Query Schema</h3><a class="self-link" href="#data-extension-query-schema" aria-label="Permalink for Appendix A.7"></a></div>
         
         <p>
           The <a href="schemas/data-extension-query.json">data extension query schema</a> validates <a href="#dfn-data-extension-query" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-data-extension-query-7">data extension queries</a>.
@@ -2411,7 +2410,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     <span class="hljs-string">"properties"</span>
   ]
 }</code></pre></section>
-      <section id="data-extension-response-schema"><div class="header-wrapper"><h4 id="x1-8-8-data-extension-response-schema"><bdi class="secno">1.8.8 </bdi>Data Extension Response Schema</h4><a class="self-link" href="#data-extension-response-schema" aria-label="Permalink for Appendix 1.8.8"></a></div>
+      <section id="data-extension-response-schema"><div class="header-wrapper"><h3 id="a-8-data-extension-response-schema"><bdi class="secno">A.8 </bdi>Data Extension Response Schema</h3><a class="self-link" href="#data-extension-response-schema" aria-label="Permalink for Appendix A.8"></a></div>
         
         <p>
           The <a href="schemas/data-extension-response.json">data extension response schema</a> validates <a href="#dfn-data-extension-response" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-data-extension-response-1">data extension responses</a>.
@@ -2550,7 +2549,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     </section>
   
 
-</section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix B.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-cors">[cors]</dt><dd>
       <a href="https://www.w3.org/TR/cors/"><cite>Cross-Origin Resource Sharing</cite></a>. Anne van Kesteren.  W3C. 2 June 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
@@ -2569,7 +2568,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
     </dd><dt id="bib-securing-web">[SECURING-WEB]</dt><dd>
       <a href="https://www.w3.org/2001/tag/doc/web-https"><cite>Securing the Web</cite></a>. Mark Nottingham.  W3C. TAG Finding. URL: <a href="https://www.w3.org/2001/tag/doc/web-https">https://www.w3.org/2001/tag/doc/web-https</a>
     </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="a-2-informative-references"><bdi class="secno">A.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.2"></a></div>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-beek-2018">[beek-2018]</dt><dd>
       <a href="http://dx.doi.org/10.1007/978-3-319-93417-4_5"><cite>sameAs.cc: The Closure of 500M owl:sameAs Statements</cite></a>. Wouter Beek&nbsp;<a href="http://orcid.org/0000-0003-0250-9655"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -2631,31 +2630,31 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-entity-1" title="§ 1.2 Core Concepts">§ 1.2 Core Concepts</a> 
+    <a href="#ref-for-dfn-entity-1" title="§ 2. Core Concepts">§ 2. Core Concepts</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-2" title="§ 1.2.2 Types">§ 1.2.2 Types</a> 
+    <a href="#ref-for-dfn-entity-2" title="§ 2.2 Types">§ 2.2 Types</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-3" title="§ 1.2.4 Property Values">§ 1.2.4 Property Values</a> 
+    <a href="#ref-for-dfn-entity-3" title="§ 2.4 Property Values">§ 2.4 Property Values</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-4" title="§ 1.2.5 Identifier and Schema Spaces">§ 1.2.5 Identifier and Schema Spaces</a> 
+    <a href="#ref-for-dfn-entity-4" title="§ 2.5 Identifier and Schema Spaces">§ 2.5 Identifier and Schema Spaces</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-5" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-entity-5" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-6" title="§ 1.4.2 Reconciliation Candidates">§ 1.4.2 Reconciliation Candidates</a> 
+    <a href="#ref-for-dfn-entity-6" title="§ 4.2 Reconciliation Candidates">§ 4.2 Reconciliation Candidates</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-7" title="§ 1.5.1 Preview Metadata">§ 1.5.1 Preview Metadata</a> 
+    <a href="#ref-for-dfn-entity-7" title="§ 5.1 Preview Metadata">§ 5.1 Preview Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-8" title="§ 1.5.2 Preview Queries">§ 1.5.2 Preview Queries</a> 
+    <a href="#ref-for-dfn-entity-8" title="§ 5.2 Preview Queries">§ 5.2 Preview Queries</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-9" title="§ 1.6 Suggest Services">§ 1.6 Suggest Services</a> 
+    <a href="#ref-for-dfn-entity-9" title="§ 6. Suggest Services">§ 6. Suggest Services</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-10" title="§ 1.6.3 Suggest Responses">§ 1.6.3 Suggest Responses</a> <a href="#ref-for-dfn-entity-11" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-entity-10" title="§ 6.3 Suggest Responses">§ 6.3 Suggest Responses</a> <a href="#ref-for-dfn-entity-11" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-12" title="§ 1.7 Data Extension Service">§ 1.7 Data Extension Service</a> 
+    <a href="#ref-for-dfn-entity-12" title="§ 7. Data Extension Service">§ 7. Data Extension Service</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-13" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-entity-14" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-entity-13" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-entity-14" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-entity-15" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> <a href="#ref-for-dfn-entity-16" title="Reference 2">(2)</a> <a href="#ref-for-dfn-entity-17" title="Reference 3">(3)</a> 
+    <a href="#ref-for-dfn-entity-15" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> <a href="#ref-for-dfn-entity-16" title="Reference 2">(2)</a> <a href="#ref-for-dfn-entity-17" title="Reference 3">(3)</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-view-template" aria-label="Links in this document to definition: view template" hidden="">
@@ -2667,7 +2666,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-view-template-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-view-template-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-type" aria-label="Links in this document to definition: type" hidden="">
@@ -2679,21 +2678,21 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-type-1" title="§ 1.2 Core Concepts">§ 1.2 Core Concepts</a> 
+    <a href="#ref-for-dfn-type-1" title="§ 2. Core Concepts">§ 2. Core Concepts</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-2" title="§ 1.2.1 Entities">§ 1.2.1 Entities</a> 
+    <a href="#ref-for-dfn-type-2" title="§ 2.1 Entities">§ 2.1 Entities</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-3" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> <a href="#ref-for-dfn-type-4" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-type-3" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> <a href="#ref-for-dfn-type-4" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-5" title="§ 1.4.1 Structure of a Reconciliation Query">§ 1.4.1 Structure of a Reconciliation Query</a> 
+    <a href="#ref-for-dfn-type-5" title="§ 4.1 Structure of a Reconciliation Query">§ 4.1 Structure of a Reconciliation Query</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-6" title="§ 1.6 Suggest Services">§ 1.6 Suggest Services</a> 
+    <a href="#ref-for-dfn-type-6" title="§ 6. Suggest Services">§ 6. Suggest Services</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-7" title="§ 1.6.3 Suggest Responses">§ 1.6.3 Suggest Responses</a> <a href="#ref-for-dfn-type-8" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-type-7" title="§ 6.3 Suggest Responses">§ 6.3 Suggest Responses</a> <a href="#ref-for-dfn-type-8" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-9" title="§ 1.7.2 Data Extension Property Proposals">§ 1.7.2 Data Extension Property Proposals</a> <a href="#ref-for-dfn-type-10" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-type-9" title="§ 7.2 Data Extension Property Proposals">§ 7.2 Data Extension Property Proposals</a> <a href="#ref-for-dfn-type-10" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-type-11" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> 
+    <a href="#ref-for-dfn-type-11" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-property" aria-label="Links in this document to definition: property" hidden="">
@@ -2705,25 +2704,25 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-property-1" title="§ 1.2 Core Concepts">§ 1.2 Core Concepts</a> 
+    <a href="#ref-for-dfn-property-1" title="§ 2. Core Concepts">§ 2. Core Concepts</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-2" title="§ 1.2.1 Entities">§ 1.2.1 Entities</a> 
+    <a href="#ref-for-dfn-property-2" title="§ 2.1 Entities">§ 2.1 Entities</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-3" title="§ 1.2.5 Identifier and Schema Spaces">§ 1.2.5 Identifier and Schema Spaces</a> 
+    <a href="#ref-for-dfn-property-3" title="§ 2.5 Identifier and Schema Spaces">§ 2.5 Identifier and Schema Spaces</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-4" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-property-4" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-5" title="§ 1.6 Suggest Services">§ 1.6 Suggest Services</a> 
+    <a href="#ref-for-dfn-property-5" title="§ 6. Suggest Services">§ 6. Suggest Services</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-6" title="§ 1.6.3 Suggest Responses">§ 1.6.3 Suggest Responses</a> <a href="#ref-for-dfn-property-7" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-property-6" title="§ 6.3 Suggest Responses">§ 6.3 Suggest Responses</a> <a href="#ref-for-dfn-property-7" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-8" title="§ 1.7 Data Extension Service">§ 1.7 Data Extension Service</a> 
+    <a href="#ref-for-dfn-property-8" title="§ 7. Data Extension Service">§ 7. Data Extension Service</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-9" title="§ 1.7.2 Data Extension Property Proposals">§ 1.7.2 Data Extension Property Proposals</a> <a href="#ref-for-dfn-property-10" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-property-9" title="§ 7.2 Data Extension Property Proposals">§ 7.2 Data Extension Property Proposals</a> <a href="#ref-for-dfn-property-10" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-11" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-property-12" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-property-11" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-property-12" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-13" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> <a href="#ref-for-dfn-property-14" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-property-13" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> <a href="#ref-for-dfn-property-14" title="Reference 2">(2)</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-property-value" aria-label="Links in this document to definition: property value" hidden="">
@@ -2735,13 +2734,13 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-property-value-1" title="§ 1.2 Core Concepts">§ 1.2 Core Concepts</a> 
+    <a href="#ref-for-dfn-property-value-1" title="§ 2. Core Concepts">§ 2. Core Concepts</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-value-2" title="§ 1.2.1 Entities">§ 1.2.1 Entities</a> 
+    <a href="#ref-for-dfn-property-value-2" title="§ 2.1 Entities">§ 2.1 Entities</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-value-3" title="§ 1.4.1 Structure of a Reconciliation Query">§ 1.4.1 Structure of a Reconciliation Query</a> <a href="#ref-for-dfn-property-value-4" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-property-value-3" title="§ 4.1 Structure of a Reconciliation Query">§ 4.1 Structure of a Reconciliation Query</a> <a href="#ref-for-dfn-property-value-4" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-property-value-5" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> 
+    <a href="#ref-for-dfn-property-value-5" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-identifier-space" aria-label="Links in this document to definition: identifier space" hidden="">
@@ -2753,9 +2752,9 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-identifier-space-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-identifier-space-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li><li>
-    <a href="#ref-for-dfn-identifier-space-2" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> 
+    <a href="#ref-for-dfn-identifier-space-2" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-schema-space" aria-label="Links in this document to definition: schema space" hidden="">
@@ -2767,7 +2766,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-schema-space-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-schema-space-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-service-manifest" aria-label="Links in this document to definition: service manifest" hidden="">
@@ -2779,21 +2778,21 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-service-manifest-1" title="§ 1.2.1 Entities">§ 1.2.1 Entities</a> 
+    <a href="#ref-for-dfn-service-manifest-1" title="§ 2.1 Entities">§ 2.1 Entities</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-2" title="§ 1.2.5 Identifier and Schema Spaces">§ 1.2.5 Identifier and Schema Spaces</a> 
+    <a href="#ref-for-dfn-service-manifest-2" title="§ 2.5 Identifier and Schema Spaces">§ 2.5 Identifier and Schema Spaces</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-3" title="§ 1.5.1 Preview Metadata">§ 1.5.1 Preview Metadata</a> 
+    <a href="#ref-for-dfn-service-manifest-3" title="§ 5.1 Preview Metadata">§ 5.1 Preview Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-4" title="§ 1.6 Suggest Services">§ 1.6 Suggest Services</a> 
+    <a href="#ref-for-dfn-service-manifest-4" title="§ 6. Suggest Services">§ 6. Suggest Services</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-5" title="§ 1.7.1 Data Extension Metadata">§ 1.7.1 Data Extension Metadata</a> 
+    <a href="#ref-for-dfn-service-manifest-5" title="§ 7.1 Data Extension Metadata">§ 7.1 Data Extension Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-6" title="§ 1.7.2 Data Extension Property Proposals">§ 1.7.2 Data Extension Property Proposals</a> 
+    <a href="#ref-for-dfn-service-manifest-6" title="§ 7.2 Data Extension Property Proposals">§ 7.2 Data Extension Property Proposals</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-7" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> 
+    <a href="#ref-for-dfn-service-manifest-7" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> 
   </li><li>
-    <a href="#ref-for-dfn-service-manifest-8" title="§ 1.8.1 Manifest Schema">§ 1.8.1 Manifest Schema</a> 
+    <a href="#ref-for-dfn-service-manifest-8" title="§ A.1 Manifest Schema">§ A.1 Manifest Schema</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-reconciliation-query" aria-label="Links in this document to definition: reconciliation query" hidden="">
@@ -2805,9 +2804,9 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-reconciliation-query-1" title="§ 1.4.1 Structure of a Reconciliation Query">§ 1.4.1 Structure of a Reconciliation Query</a> 
+    <a href="#ref-for-dfn-reconciliation-query-1" title="§ 4.1 Structure of a Reconciliation Query">§ 4.1 Structure of a Reconciliation Query</a> 
   </li><li>
-    <a href="#ref-for-dfn-reconciliation-query-2" title="§ 1.4.2 Reconciliation Candidates">§ 1.4.2 Reconciliation Candidates</a> 
+    <a href="#ref-for-dfn-reconciliation-query-2" title="§ 4.2 Reconciliation Candidates">§ 4.2 Reconciliation Candidates</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-reconciliation-query-batch" aria-label="Links in this document to definition: reconciliation query batch" hidden="">
@@ -2819,11 +2818,11 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-reconciliation-query-batch-1" title="§ 1.4.1 Structure of a Reconciliation Query">§ 1.4.1 Structure of a Reconciliation Query</a> <a href="#ref-for-dfn-reconciliation-query-batch-2" title="Reference 2">(2)</a> 
+    <a href="#ref-for-dfn-reconciliation-query-batch-1" title="§ 4.1 Structure of a Reconciliation Query">§ 4.1 Structure of a Reconciliation Query</a> <a href="#ref-for-dfn-reconciliation-query-batch-2" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-reconciliation-query-batch-3" title="§ 1.4.3 Sending Reconciliation Queries to a Service">§ 1.4.3 Sending Reconciliation Queries to a Service</a> <a href="#ref-for-dfn-reconciliation-query-batch-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-reconciliation-query-batch-5" title="Reference 3">(3)</a> <a href="#ref-for-dfn-reconciliation-query-batch-6" title="Reference 4">(4)</a> 
+    <a href="#ref-for-dfn-reconciliation-query-batch-3" title="§ 4.3 Sending Reconciliation Queries to a Service">§ 4.3 Sending Reconciliation Queries to a Service</a> <a href="#ref-for-dfn-reconciliation-query-batch-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-reconciliation-query-batch-5" title="Reference 3">(3)</a> <a href="#ref-for-dfn-reconciliation-query-batch-6" title="Reference 4">(4)</a> 
   </li><li>
-    <a href="#ref-for-dfn-reconciliation-query-batch-7" title="§ 1.8.2 Reconciliation Query Batch Schema">§ 1.8.2 Reconciliation Query Batch Schema</a> 
+    <a href="#ref-for-dfn-reconciliation-query-batch-7" title="§ A.2 Reconciliation Query Batch Schema">§ A.2 Reconciliation Query Batch Schema</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-reconciliation-candidate" aria-label="Links in this document to definition: reconciliation candidate" hidden="">
@@ -2835,7 +2834,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-reconciliation-candidate-1" title="§ 1.4.3 Sending Reconciliation Queries to a Service">§ 1.4.3 Sending Reconciliation Queries to a Service</a> 
+    <a href="#ref-for-dfn-reconciliation-candidate-1" title="§ 4.3 Sending Reconciliation Queries to a Service">§ 4.3 Sending Reconciliation Queries to a Service</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-reconciliation-result" aria-label="Links in this document to definition: reconciliation result" hidden="">
@@ -2847,7 +2846,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-reconciliation-result-1" title="§ 1.4.3 Sending Reconciliation Queries to a Service">§ 1.4.3 Sending Reconciliation Queries to a Service</a> 
+    <a href="#ref-for-dfn-reconciliation-result-1" title="§ 4.3 Sending Reconciliation Queries to a Service">§ 4.3 Sending Reconciliation Queries to a Service</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-reconciliation-result-batch" aria-label="Links in this document to definition: reconciliation result batch" hidden="">
@@ -2859,9 +2858,9 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-reconciliation-result-batch-1" title="§ 1.4.3 Sending Reconciliation Queries to a Service">§ 1.4.3 Sending Reconciliation Queries to a Service</a> 
+    <a href="#ref-for-dfn-reconciliation-result-batch-1" title="§ 4.3 Sending Reconciliation Queries to a Service">§ 4.3 Sending Reconciliation Queries to a Service</a> 
   </li><li>
-    <a href="#ref-for-dfn-reconciliation-result-batch-2" title="§ 1.8.3 Reconciliation Result Batch Schema">§ 1.8.3 Reconciliation Result Batch Schema</a> 
+    <a href="#ref-for-dfn-reconciliation-result-batch-2" title="§ A.3 Reconciliation Result Batch Schema">§ A.3 Reconciliation Result Batch Schema</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-preview-metadata" aria-label="Links in this document to definition: preview metadata" hidden="">
@@ -2873,9 +2872,9 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-preview-metadata-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-preview-metadata-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li><li>
-    <a href="#ref-for-dfn-preview-metadata-2" title="§ 1.5.1 Preview Metadata">§ 1.5.1 Preview Metadata</a> 
+    <a href="#ref-for-dfn-preview-metadata-2" title="§ 5.1 Preview Metadata">§ 5.1 Preview Metadata</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-preview-url" aria-label="Links in this document to definition: preview URL" hidden="">
@@ -2887,7 +2886,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-preview-url-1" title="§ 1.5.2 Preview Queries">§ 1.5.2 Preview Queries</a> 
+    <a href="#ref-for-dfn-preview-url-1" title="§ 5.2 Preview Queries">§ 5.2 Preview Queries</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-suggest-metadata" aria-label="Links in this document to definition: suggest metadata" hidden="">
@@ -2899,11 +2898,11 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-suggest-metadata-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> <a href="#ref-for-dfn-suggest-metadata-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-suggest-metadata-3" title="Reference 3">(3)</a> 
+    <a href="#ref-for-dfn-suggest-metadata-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> <a href="#ref-for-dfn-suggest-metadata-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-suggest-metadata-3" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-dfn-suggest-metadata-4" title="§ 1.6 Suggest Services">§ 1.6 Suggest Services</a> 
+    <a href="#ref-for-dfn-suggest-metadata-4" title="§ 6. Suggest Services">§ 6. Suggest Services</a> 
   </li><li>
-    <a href="#ref-for-dfn-suggest-metadata-5" title="§ 1.6.5 Flyout Services">§ 1.6.5 Flyout Services</a> 
+    <a href="#ref-for-dfn-suggest-metadata-5" title="§ 6.5 Flyout Services">§ 6.5 Flyout Services</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-flyout-service" aria-label="Links in this document to definition: flyout service" hidden="">
@@ -2915,7 +2914,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-flyout-service-1" title="§ 1.6.1 Suggest Metadata">§ 1.6.1 Suggest Metadata</a> 
+    <a href="#ref-for-dfn-flyout-service-1" title="§ 6.1 Suggest Metadata">§ 6.1 Suggest Metadata</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-flyout-endpoint" aria-label="Links in this document to definition: flyout endpoint" hidden="">
@@ -2927,7 +2926,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-flyout-endpoint-1" title="§ 1.6.1 Suggest Metadata">§ 1.6.1 Suggest Metadata</a> 
+    <a href="#ref-for-dfn-flyout-endpoint-1" title="§ 6.1 Suggest Metadata">§ 6.1 Suggest Metadata</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-metadata" aria-label="Links in this document to definition: data extension metadata" hidden="">
@@ -2939,13 +2938,13 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-metadata-1" title="§ 1.3.1 Service Manifest">§ 1.3.1 Service Manifest</a> 
+    <a href="#ref-for-dfn-data-extension-metadata-1" title="§ 3.1 Service Manifest">§ 3.1 Service Manifest</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-metadata-2" title="§ 1.7.1 Data Extension Metadata">§ 1.7.1 Data Extension Metadata</a> 
+    <a href="#ref-for-dfn-data-extension-metadata-2" title="§ 7.1 Data Extension Metadata">§ 7.1 Data Extension Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-metadata-3" title="§ 1.7.2 Data Extension Property Proposals">§ 1.7.2 Data Extension Property Proposals</a> 
+    <a href="#ref-for-dfn-data-extension-metadata-3" title="§ 7.2 Data Extension Property Proposals">§ 7.2 Data Extension Property Proposals</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-metadata-4" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> 
+    <a href="#ref-for-dfn-data-extension-metadata-4" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-property-setting" aria-label="Links in this document to definition: data extension property setting" hidden="">
@@ -2957,11 +2956,11 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-property-setting-1" title="§ 1.7 Data Extension Service">§ 1.7 Data Extension Service</a> 
+    <a href="#ref-for-dfn-data-extension-property-setting-1" title="§ 7. Data Extension Service">§ 7. Data Extension Service</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-property-setting-2" title="§ 1.7.1 Data Extension Metadata">§ 1.7.1 Data Extension Metadata</a> 
+    <a href="#ref-for-dfn-data-extension-property-setting-2" title="§ 7.1 Data Extension Metadata">§ 7.1 Data Extension Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-property-setting-3" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> 
+    <a href="#ref-for-dfn-data-extension-property-setting-3" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-property-proposal" aria-label="Links in this document to definition: data extension property proposal" hidden="">
@@ -2973,11 +2972,11 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-property-proposal-1" title="§ 1.7 Data Extension Service">§ 1.7 Data Extension Service</a> 
+    <a href="#ref-for-dfn-data-extension-property-proposal-1" title="§ 7. Data Extension Service">§ 7. Data Extension Service</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-property-proposal-2" title="§ 1.7.1 Data Extension Metadata">§ 1.7.1 Data Extension Metadata</a> 
+    <a href="#ref-for-dfn-data-extension-property-proposal-2" title="§ 7.1 Data Extension Metadata">§ 7.1 Data Extension Metadata</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-property-proposal-3" title="§ 1.7.2 Data Extension Property Proposals">§ 1.7.2 Data Extension Property Proposals</a> 
+    <a href="#ref-for-dfn-data-extension-property-proposal-3" title="§ 7.2 Data Extension Property Proposals">§ 7.2 Data Extension Property Proposals</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-property-proposal-response" aria-label="Links in this document to definition: data extension property proposal response" hidden="">
@@ -2999,7 +2998,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-query-request-1" title="§ 1.7 Data Extension Service">§ 1.7 Data Extension Service</a> 
+    <a href="#ref-for-dfn-data-extension-query-request-1" title="§ 7. Data Extension Service">§ 7. Data Extension Service</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-query" aria-label="Links in this document to definition: data extension query" hidden="">
@@ -3011,11 +3010,11 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-query-1" title="§ 1.7.3 Data Extension Query Requests">§ 1.7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-data-extension-query-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-data-extension-query-3" title="Reference 3">(3)</a> 
+    <a href="#ref-for-dfn-data-extension-query-1" title="§ 7.3 Data Extension Query Requests">§ 7.3 Data Extension Query Requests</a> <a href="#ref-for-dfn-data-extension-query-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-data-extension-query-3" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-query-4" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> <a href="#ref-for-dfn-data-extension-query-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-data-extension-query-6" title="Reference 3">(3)</a> 
+    <a href="#ref-for-dfn-data-extension-query-4" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> <a href="#ref-for-dfn-data-extension-query-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-data-extension-query-6" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-dfn-data-extension-query-7" title="§ 1.8.7 Data Extension Query Schema">§ 1.8.7 Data Extension Query Schema</a> 
+    <a href="#ref-for-dfn-data-extension-query-7" title="§ A.7 Data Extension Query Schema">§ A.7 Data Extension Query Schema</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-data-extension-response" aria-label="Links in this document to definition: data extension response" hidden="">
@@ -3027,7 +3026,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-data-extension-response-1" title="§ 1.8.8 Data Extension Response Schema">§ 1.8.8 Data Extension Response Schema</a> 
+    <a href="#ref-for-dfn-data-extension-response-1" title="§ A.8 Data Extension Response Schema">§ A.8 Data Extension Response Schema</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-data+extension+response+metadata" aria-label="Links in this document to definition: metadata" hidden="">
@@ -3039,7 +3038,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-data+extension+response+metadata-1" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> <a href="#ref-for-data+extension+response+metadata-2" title="Reference 2">(2)</a> 
+    <a href="#ref-for-data+extension+response+metadata-1" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> <a href="#ref-for-data+extension+response+metadata-2" title="Reference 2">(2)</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-data+extension+response+rows" aria-label="Links in this document to definition: rows" hidden="">
@@ -3051,7 +3050,7 @@ It <em class="rfc2119">SHOULD</em> render appropriately in an <code>&lt;iframe&g
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-data+extension+response+rows-1" title="§ 1.7.4 Data Extension Responses">§ 1.7.4 Data Extension Responses</a> 
+    <a href="#ref-for-data+extension+response+rows-1" title="§ 7.4 Data Extension Responses">§ 7.4 Data Extension Responses</a> 
   </li>
   </ul>
     </div><script id="respec-dfn-panel">(() => {
