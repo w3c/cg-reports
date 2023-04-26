@@ -1,0 +1,2351 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 32.8.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+.example pre{background-color:rgba(0,0,0,.03)}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>Schema.org Accessibility Properties for Discoverability Vocabulary</title>
+		
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+		
+		
+		
+		
+	
+<style>
+pre,
+code {
+	white-space: break-spaces !important;
+}
+
+fieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+legend {
+	position: absolute;
+	left: -9999rem;
+	overflow: hidden;
+}
+
+div.ex-buttons {
+	margin: 1rem auto -1rem;
+	min-width: 45rem;
+	background-color: rgb(235, 235, 235);
+}
+
+div.ex-buttons input {
+	background-color: inherit;
+	border: none;
+	width: 5rem;
+	height: 1.6rem;
+}
+
+input.active {
+	background-color: rgb(250, 250, 250) !important;
+}
+
+p.synonym {
+	margin-top: -0.5rem;
+	margin-bottom: 2rem;
+	padding-top: 0;
+	font-weight: bold;
+	font-size: 90%;
+}
+
+</style>
+<meta name="description" content="This document defines the recommended vocabularies for use with the Schema.org accessibility properties
+				for discoverability of creative works.">
+<link rel="canonical" href="https://www.w3.org/2021/a11y-discov-vocab/latest/">
+<style>
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
+.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
+.hljs-literal{color:#0b76c5}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "group": "a11y-discov-vocab",
+  "specStatus": "CG-FINAL",
+  "noRecTrack": true,
+  "previousPublishDate": "2023-03-06",
+  "previousMaturity": "CG-FINAL",
+  "shortName": "vocabulary",
+  "edDraftURI": "https://w3c.github.io/a11y-discov-vocab/",
+  "latestVersion": "https://www.w3.org/2021/a11y-discov-vocab/latest/",
+  "thisVersion": "https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20230330/",
+  "editors": [
+    {
+      "name": "Charles LaPierre",
+      "company": "Benetech",
+      "companyURL": "https://benetech.org",
+      "w3cid": 72055
+    },
+    {
+      "name": "Madeleine Rothberg",
+      "company": "WGBH",
+      "companyURL": "https://www.wgbh.org"
+    },
+    {
+      "name": "Matt Garrish",
+      "company": "DAISY Consortium",
+      "companyURL": "https://daisy.org",
+      "w3cid": 51655
+    }
+  ],
+  "includePermalinks": true,
+  "permalinkEdge": true,
+  "permalinkHide": false,
+  "localBiblio": {
+    "WCAG2": {
+      "title": "Web Content Accessibility Guidelines (WCAG) 2",
+      "href": "https://www.w3.org/TR/WCAG2/",
+      "publisher": "W3C",
+      "id": "wcag2"
+    }
+  },
+  "diffTool": "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+  "github": {
+    "repoURL": "https://github.com/w3c/a11y-discov-vocab",
+    "branch": "main"
+  },
+  "preProcess": [
+    null,
+    null
+  ],
+  "postProcess": [
+    null,
+    null
+  ],
+  "publishISODate": "2023-03-30T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 30 March 2023"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+	<body class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Schema.org Accessibility Properties for Discoverability Vocabulary</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2023-03-30">30 March 2023</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20230330/">https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20230330/</a>
+            </dd>
+      <dt>Previous version:</dt><dd><a href="https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20230306/">https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20230306/</a></dd><dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/">https://www.w3.org/2021/a11y-discov-vocab/latest/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/a11y-discov-vocab/">https://w3c.github.io/a11y-discov-vocab/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="72055">
+    <span class="p-name fn">Charles LaPierre</span> (<a class="p-org org h-org" href="https://benetech.org">Benetech</a>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Madeleine Rothberg</span> (<a class="p-org org h-org" href="https://www.wgbh.org">WGBH</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="51655">
+    <span class="p-name fn">Matt Garrish</span> (<a class="p-org org h-org" href="https://daisy.org">DAISY Consortium</a>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/a11y-discov-vocab/">GitHub w3c/a11y-discov-vocab</a>
+        (<a href="https://github.com/w3c/a11y-discov-vocab/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/a11y-discov-vocab/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/a11y-discov-vocab/issues/">open issues</a>)
+      </dd>
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+          ©
+          2023
+          
+          the Contributors to the Schema.org Accessibility Properties for Discoverability Vocabulary
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/a11y-discov-vocab">Accessibility Discoverability Vocabulary for Schema.org Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>This document defines the recommended vocabularies for use with the Schema.org accessibility properties
+				for discoverability of creative works.</p>
+		</section>
+		<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/a11y-discov-vocab">Accessibility Discoverability Vocabulary for Schema.org Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p><p>
+    <a href="https://github.com/w3c/a11y-discov-vocab/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#intro"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#background"><bdi class="secno">1.1 </bdi>Background</a></li><li class="tocline"><a class="tocxref" href="#naming"><bdi class="secno">1.2 </bdi>Vocabulary Naming Convention</a></li><li class="tocline"><a class="tocxref" href="#extensions"><bdi class="secno">1.3 </bdi>Extending the Vocabulary</a></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibilityAPI"><bdi class="secno">2. </bdi>The <code>accessibilityAPI</code> Property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibilityAPI-application"><bdi class="secno">2.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessibilityAPI-vocabulary"><bdi class="secno">2.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#AndroidAccessibility"><bdi class="secno">2.2.1 </bdi>AndroidAccessibility</a></li><li class="tocline"><a class="tocxref" href="#ARIA-deprecated"><bdi class="secno">2.2.2 </bdi>ARIA (deprecated)</a></li><li class="tocline"><a class="tocxref" href="#ATK"><bdi class="secno">2.2.3 </bdi>ATK</a></li><li class="tocline"><a class="tocxref" href="#AT-SPI"><bdi class="secno">2.2.4 </bdi>AT-SPI</a></li><li class="tocline"><a class="tocxref" href="#BlackberryAccessibility"><bdi class="secno">2.2.5 </bdi>BlackberryAccessibility (obsolete)</a></li><li class="tocline"><a class="tocxref" href="#iAccessible2"><bdi class="secno">2.2.6 </bdi>iAccessible2</a></li><li class="tocline"><a class="tocxref" href="#iOSAccessibility"><bdi class="secno">2.2.7 </bdi>iOSAccessibility (deprecated)</a></li><li class="tocline"><a class="tocxref" href="#JavaAccessibility"><bdi class="secno">2.2.8 </bdi>JavaAccessibility</a></li><li class="tocline"><a class="tocxref" href="#MacOSXAccessibility"><bdi class="secno">2.2.9 </bdi>MacOSXAccessibility (deprecated)</a></li><li class="tocline"><a class="tocxref" href="#MSAA"><bdi class="secno">2.2.10 </bdi>MSAA</a></li><li class="tocline"><a class="tocxref" href="#NSAccessibility"><bdi class="secno">2.2.11 </bdi>NSAccessibility</a></li><li class="tocline"><a class="tocxref" href="#UIAccessibility"><bdi class="secno">2.2.12 </bdi>UIAccessibility</a></li><li class="tocline"><a class="tocxref" href="#UIAutomation"><bdi class="secno">2.2.13 </bdi>UIAutomation</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibilityControl"><bdi class="secno">3. </bdi>The <code>accessibilityControl</code> Property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibilityControl-application"><bdi class="secno">3.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessibilityControl-vocabulary"><bdi class="secno">3.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#fullKeyboardControl"><bdi class="secno">3.2.1 </bdi>fullKeyboardControl</a></li><li class="tocline"><a class="tocxref" href="#fullMouseControl"><bdi class="secno">3.2.2 </bdi>fullMouseControl</a></li><li class="tocline"><a class="tocxref" href="#fullSwitchControl"><bdi class="secno">3.2.3 </bdi>fullSwitchControl</a></li><li class="tocline"><a class="tocxref" href="#fullTouchControl"><bdi class="secno">3.2.4 </bdi>fullTouchControl</a></li><li class="tocline"><a class="tocxref" href="#fullVideoControl"><bdi class="secno">3.2.5 </bdi>fullVideoControl</a></li><li class="tocline"><a class="tocxref" href="#fullVoiceControl"><bdi class="secno">3.2.6 </bdi>fullVoiceControl</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibilityFeature"><bdi class="secno">4. </bdi>The <code>accessibilityFeature</code> Property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibilityFeature-application"><bdi class="secno">4.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessibilityFeature-vocabulary"><bdi class="secno">4.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#structure-and-navigation-terms"><bdi class="secno">4.2.1 </bdi>Structure and Navigation Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#annotations"><bdi class="secno">4.2.1.1 </bdi>annotations</a></li><li class="tocline"><a class="tocxref" href="#ARIA"><bdi class="secno">4.2.1.2 </bdi>ARIA</a></li><li class="tocline"><a class="tocxref" href="#bookmarks"><bdi class="secno">4.2.1.3 </bdi>bookmarks (deprecated)</a></li><li class="tocline"><a class="tocxref" href="#index-term"><bdi class="secno">4.2.1.4 </bdi>index</a></li><li class="tocline"><a class="tocxref" href="#pageBreakMarkers"><bdi class="secno">4.2.1.5 </bdi>pageBreakMarkers</a></li><li class="tocline"><a class="tocxref" href="#pageNavigation"><bdi class="secno">4.2.1.6 </bdi>pageNavigation</a></li><li class="tocline"><a class="tocxref" href="#readingOrder"><bdi class="secno">4.2.1.7 </bdi>readingOrder</a></li><li class="tocline"><a class="tocxref" href="#structuralNavigation"><bdi class="secno">4.2.1.8 </bdi>structuralNavigation</a></li><li class="tocline"><a class="tocxref" href="#tableOfContents"><bdi class="secno">4.2.1.9 </bdi>tableOfContents</a></li><li class="tocline"><a class="tocxref" href="#taggedPDF"><bdi class="secno">4.2.1.10 </bdi>taggedPDF</a></li></ol></li><li class="tocline"><a class="tocxref" href="#adaptation-terms"><bdi class="secno">4.2.2 </bdi>Adaptation Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#alternativeText"><bdi class="secno">4.2.2.1 </bdi>alternativeText</a></li><li class="tocline"><a class="tocxref" href="#audioDescription"><bdi class="secno">4.2.2.2 </bdi>audioDescription</a></li><li class="tocline"><a class="tocxref" href="#captions"><bdi class="secno">4.2.2.3 </bdi>captions</a></li><li class="tocline"><a class="tocxref" href="#describedMath"><bdi class="secno">4.2.2.4 </bdi>describedMath</a></li><li class="tocline"><a class="tocxref" href="#longDescription"><bdi class="secno">4.2.2.5 </bdi>longDescription</a></li><li class="tocline"><a class="tocxref" href="#rubyAnnotations"><bdi class="secno">4.2.2.6 </bdi>rubyAnnotations</a></li><li class="tocline"><a class="tocxref" href="#signLanguage"><bdi class="secno">4.2.2.7 </bdi>signLanguage</a></li><li class="tocline"><a class="tocxref" href="#transcript"><bdi class="secno">4.2.2.8 </bdi>transcript</a></li></ol></li><li class="tocline"><a class="tocxref" href="#rendering-control-terms"><bdi class="secno">4.2.3 </bdi>Rendering Control Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#displayTransformability"><bdi class="secno">4.2.3.1 </bdi>displayTransformability</a></li><li class="tocline"><a class="tocxref" href="#synchronizedAudioText"><bdi class="secno">4.2.3.2 </bdi>synchronizedAudioText</a></li><li class="tocline"><a class="tocxref" href="#timingControl"><bdi class="secno">4.2.3.3 </bdi>timingControl</a></li><li class="tocline"><a class="tocxref" href="#unlocked"><bdi class="secno">4.2.3.4 </bdi>unlocked</a></li></ol></li><li class="tocline"><a class="tocxref" href="#specialized-markup-terms"><bdi class="secno">4.2.4 </bdi>Specialized Markup Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ChemML"><bdi class="secno">4.2.4.1 </bdi>ChemML</a></li><li class="tocline"><a class="tocxref" href="#latex"><bdi class="secno">4.2.4.2 </bdi>latex</a></li><li class="tocline"><a class="tocxref" href="#mathml"><bdi class="secno">4.2.4.3 </bdi>MathML</a></li><li class="tocline"><a class="tocxref" href="#ttsMarkup"><bdi class="secno">4.2.4.4 </bdi>ttsMarkup</a></li></ol></li><li class="tocline"><a class="tocxref" href="#clarity-terms"><bdi class="secno">4.2.5 </bdi>Clarity Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#highContrastAudio"><bdi class="secno">4.2.5.1 </bdi>highContrastAudio</a></li><li class="tocline"><a class="tocxref" href="#highContrastDisplay"><bdi class="secno">4.2.5.2 </bdi>highContrastDisplay</a></li><li class="tocline"><a class="tocxref" href="#largePrint"><bdi class="secno">4.2.5.3 </bdi>largePrint</a></li></ol></li><li class="tocline"><a class="tocxref" href="#tactile-terms"><bdi class="secno">4.2.6 </bdi>Tactile Terms</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#braille"><bdi class="secno">4.2.6.1 </bdi>braille</a></li><li class="tocline"><a class="tocxref" href="#tactileGraphic"><bdi class="secno">4.2.6.2 </bdi>tactileGraphic</a></li><li class="tocline"><a class="tocxref" href="#tactileObject"><bdi class="secno">4.2.6.3 </bdi>tactileObject</a></li></ol></li><li class="tocline"><a class="tocxref" href="#feature-none"><bdi class="secno">4.2.7 </bdi>none</a></li><li class="tocline"><a class="tocxref" href="#feature-unknown"><bdi class="secno">4.2.8 </bdi>unknown</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibilityHazard"><bdi class="secno">5. </bdi>The <code>accessibilityHazard</code> Property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibilityHazard-application"><bdi class="secno">5.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessibilityHazard-vocabulary"><bdi class="secno">5.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#flashing"><bdi class="secno">5.2.1 </bdi>flashing</a></li><li class="tocline"><a class="tocxref" href="#noFlashingHazard"><bdi class="secno">5.2.2 </bdi>noFlashingHazard</a></li><li class="tocline"><a class="tocxref" href="#motionSimulation"><bdi class="secno">5.2.3 </bdi>motionSimulation</a></li><li class="tocline"><a class="tocxref" href="#noMotionSimulationHazard"><bdi class="secno">5.2.4 </bdi>noMotionSimulationHazard</a></li><li class="tocline"><a class="tocxref" href="#sound"><bdi class="secno">5.2.5 </bdi>sound</a></li><li class="tocline"><a class="tocxref" href="#noSoundHazard"><bdi class="secno">5.2.6 </bdi>noSoundHazard</a></li><li class="tocline"><a class="tocxref" href="#hazard-unknown"><bdi class="secno">5.2.7 </bdi>unknown</a></li><li class="tocline"><a class="tocxref" href="#hazard-none"><bdi class="secno">5.2.8 </bdi>none</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibilitySummary"><bdi class="secno">6. </bdi>The <code>accessibilitySummary</code> Property</a></li><li class="tocline"><a class="tocxref" href="#accessMode"><bdi class="secno">7. </bdi>The <code>accessMode</code> Property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessMode-application"><bdi class="secno">7.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessMode-vocabulary"><bdi class="secno">7.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#auditory"><bdi class="secno">7.2.1 </bdi>auditory</a></li><li class="tocline"><a class="tocxref" href="#chartOnVisual"><bdi class="secno">7.2.2 </bdi>chartOnVisual</a></li><li class="tocline"><a class="tocxref" href="#chemOnVisual"><bdi class="secno">7.2.3 </bdi>chemOnVisual</a></li><li class="tocline"><a class="tocxref" href="#colorDependent"><bdi class="secno">7.2.4 </bdi>colorDependent</a></li><li class="tocline"><a class="tocxref" href="#diagramOnVisual"><bdi class="secno">7.2.5 </bdi>diagramOnVisual</a></li><li class="tocline"><a class="tocxref" href="#mathOnVisual"><bdi class="secno">7.2.6 </bdi>mathOnVisual</a></li><li class="tocline"><a class="tocxref" href="#musicOnVisual"><bdi class="secno">7.2.7 </bdi>musicOnVisual</a></li><li class="tocline"><a class="tocxref" href="#tactile"><bdi class="secno">7.2.8 </bdi>tactile</a></li><li class="tocline"><a class="tocxref" href="#textOnVisual"><bdi class="secno">7.2.9 </bdi>textOnVisual</a></li><li class="tocline"><a class="tocxref" href="#textual"><bdi class="secno">7.2.10 </bdi>textual</a></li><li class="tocline"><a class="tocxref" href="#visual"><bdi class="secno">7.2.11 </bdi>visual</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessModeSufficient"><bdi class="secno">8. </bdi>The <code>accessModeSufficient</code> property</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessModeSufficient-application"><bdi class="secno">8.1 </bdi>Application</a></li><li class="tocline"><a class="tocxref" href="#accessModeSufficient-vocabulary"><bdi class="secno">8.2 </bdi>Vocabulary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ams-auditory"><bdi class="secno">8.2.1 </bdi>auditory</a></li><li class="tocline"><a class="tocxref" href="#ams-tactile"><bdi class="secno">8.2.2 </bdi>tactile</a></li><li class="tocline"><a class="tocxref" href="#ams-textual"><bdi class="secno">8.2.3 </bdi>textual</a></li><li class="tocline"><a class="tocxref" href="#ams-visual"><bdi class="secno">8.2.4 </bdi>visual</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">9. </bdi>Examples</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ex-book"><bdi class="secno">9.1 </bdi>Book</a></li><li class="tocline"><a class="tocxref" href="#ex-video"><bdi class="secno">9.2 </bdi>Video</a></li></ol></li><li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">A. </bdi>Change Log</a></li><li class="tocline"><a class="tocxref" href="#acknowledgments"><bdi class="secno">B. </bdi>Acknowledgments</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">C.1 </bdi>Informative references</a></li></ol></li></ol></nav>
+		<section id="intro"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#intro" aria-label="Permalink for Section 1."></a></div>
+			
+
+			<section id="background"><div class="header-wrapper"><h3 id="x1-1-background"><bdi class="secno">1.1 </bdi>Background</h3><a class="self-link" href="#background" aria-label="Permalink for Section 1.1"></a></div>
+				
+
+				<p>The <a href="https://schema.org/CreativeWork"><code>CreativeWork</code> type</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-schema-org" title="Schema.org">schema-org</a></cite>]
+					includes the following accessibility properties for discoverability:</p>
+
+				<ul>
+					<li><a href="https://schema.org/accessibilityAPI"><code>accessibilityAPI</code></a></li>
+					<li><a href="https://schema.org/accessibilityControl"><code>accessibilityControl</code></a></li>
+					<li><a href="https://schema.org/accessibilityFeature"><code>accessibilityFeature</code></a></li>
+					<li><a href="https://schema.org/accessibilityHazard"><code>accessibilityHazard</code></a></li>
+					<li><a href="https://schema.org/accessibilitySummary"><code>accessibilitySummary</code></a></li>
+					<li><a href="https://schema.org/accessMode"><code>accessMode</code></a></li>
+					<li><a href="https://schema.org/accessModeSufficient"><code>accessModeSufficient</code></a></li>
+				</ul>
+
+				<p>Although schema.org contains many other properties that describe the accessibility of objects in its
+					taxonomy, these specific properties were developed together as part of a project to improve the
+					discoverability of accessible resources headed by Benetech and IMS Global. Many of these properties
+					were derived directly from the <a href="http://www.imsglobal.org/accessibility/afav3p0pd/AfA3p0_DESinfoModel_v1p0pd.html">IMS
+						Global AccessForAll (AfA) Information Model Data Element Specification</a>.</p>
+
+				<p>Part of this work included defining vocabularies of recommended values for use with these properties
+					to ensure predictability for machine processing. This document represents those vocabularies.</p>
+
+				<p>By defining these vocabularies, not only is it simpler for authors to understand and apply the
+					properties, but it ensures that search tools, user agents and other machine intelligence can easily
+					parse and inform users of the information.</p>
+
+				<div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><div class="">
+					<p>The vocabulary defined in this document is a continuation of the work that was informally hosted
+						on the <a href="https://www.w3.org/wiki/WebSchemas/Accessibility">WebSchemas wiki</a> (sometimes
+						referred to as the "version 2.0 accessibility properties"). The project was moved to a W3C
+						Community Group to better formalize the document and increase the transparency of its update
+						process.</p>
+					<p>For more information about the original project, refer to the <a href="http://www.a11ymetadata.org/">Accessibility Metadata Project's web site</a>.</p>
+				</div></div>
+
+				<div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><p class="">For more information on how to use schema.org accessibility properties not covered by
+					this vocabulary, please refer to their relevant definitions in schema.org.</p></div>
+			</section>
+
+			<section id="naming"><div class="header-wrapper"><h3 id="x1-2-vocabulary-naming-convention"><bdi class="secno">1.2 </bdi>Vocabulary Naming Convention</h3><a class="self-link" href="#naming" aria-label="Permalink for Section 1.2"></a></div>
+				
+
+				<p>The values defined in this vocabulary follow a camel casing convention: single words are lowercase,
+					while compound words are concatenated into a single value with a capital letter indicating the start
+					of each connected word (e.g., "alternativeText"). This convention is not applied to acronyms,
+					accessibility APIs, and other values that already have recognized naming conventions (e.g., "MathML"
+					and "iOSAccessibility").</p>
+
+				<p>To ensure maximum interoperability with user agents that process these properties, use the values
+					exactly as they are defined in this vocabulary. Alternative case spellings may not be recognized
+					(e.g., "mathml" or "aria").</p>
+
+				<p>User agent developers should be aware that these values may not be strictly validated depending on
+					the context in which they are created and used. Two values that differ only in case should be
+					treated as identical.</p>
+			</section>
+
+			<section id="extensions"><div class="header-wrapper"><h3 id="x1-3-extending-the-vocabulary"><bdi class="secno">1.3 </bdi>Extending the Vocabulary</h3><a class="self-link" href="#extensions" aria-label="Permalink for Section 1.3"></a></div>
+				
+
+				<p>To extend terms with more information, this vocabulary used to recommend the old <a href="https://schema.org/docs/old_extension.html">slash extension syntax</a> employed by
+					Schema.org until 2015. In this model, extensions of a term are made by adding a slash followed by a
+					refinement term.</p>
+
+				<p>Authors are no longer recommended to use this extension mechanism, although the use of slashes is not
+					formally deprecated for backwards compatibility with existing content. The slash syntax was poorly
+					defined, especially when multiple refinements could be specified, making it difficult for machines
+					to process.</p>
+
+				<p>When a user may require more information about the characteristics of a resource (e.g., the specifics
+					of what type of <a href="#braille">braille</a> it contains), it is better to explain these in
+					human-readable terms in an <a href="#accessibilitySummary">accessibility summary</a>.</p>
+
+				<p>If a term in this vocabulary is not be expressive enough, it is now recommended to open an <a href="https://github.com/w3c/a11y-discov-vocab/issues">issue in the tracker</a> to consider how
+					to improve the existing term (e.g., by renaming terms or defining more specialized cases).</p>
+			</section>
+		</section>
+		<section id="accessibilityAPI"><div class="header-wrapper"><h2 id="x2-the-accessibilityapi-property"><bdi class="secno">2. </bdi>The <code>accessibilityAPI</code> Property</h2><a class="self-link" href="#accessibilityAPI" aria-label="Permalink for Section 2."></a></div>
+			
+
+			<section id="accessibilityAPI-application"><div class="header-wrapper"><h3 id="x2-1-application"><bdi class="secno">2.1 </bdi>Application</h3><a class="self-link" href="#accessibilityAPI-application" aria-label="Permalink for Section 2.1"></a></div>
+				
+
+				<blockquote>
+					<p>Indicates that the resource is compatible with the referenced accessibility API.</p>
+				</blockquote>
+
+				<p>Compatibility with an accessibility API indicates that assistive technologies on the platform should
+					be able to access the resource.</p>
+
+				<p>The property is not applicable to resources that are not tightly integrated with their user
+					interface. It can describe whether a word processing document that only opens in a specific
+					application will work on a given platform, for example, but is not a useful indicator of whether an
+					HTML document will, as there are numerous user agents a user could use to render it.</p>
+
+				<p>Setting the property means that the resource is compatible with the given API(s). It does not
+					necessarily mean that the content will be fully accessible to any given user group.</p>
+
+				<p>The expected value of the <code>accessibilityAPI</code> property is a list of the compatible APIs.
+					For metadata formats incapable of expressing lists, the property should be repeated for each
+					API.</p>
+
+				<aside class="example ex-group" id="example-accessibilityapi"><div class="marker">
+    <a class="self-link" href="#example-accessibilityapi">Example<bdi> 1</bdi></a><span class="example-title">: AccessibilityAPI expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following example shows the metadata used to express that a word processing document is
+						compatible with AndroidAccessibility and iOSAccessibility platform APIs.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"DigitalDocument"</span>,
+   …
+   <span class="hljs-string">"accessibilityAPI"</span>: [<span class="hljs-string">"AndroidAcessibility"</span>,
+                        <span class="hljs-string">"iOSAccessibility"</span>],
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden" aria-busy="false"><code class="hljs">AccessibilityAPI is not applicable to EPUB content.
+Interoperability with platform APIs is an issue for Reading Systems</code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"DigitalDocument"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This word processing document is compatible
+      with the
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityAPI"</span>&gt;</span>
+         AndroidAccessibility
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      and
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityAPI"</span>&gt;</span>
+         iOSAccessibility
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      accessibility APIS.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"DigitalDocument"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This word processing document is compatible
+      with the
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityAPI"</span>&gt;</span>
+         AndroidAccessibility
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      and
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityAPI"</span>&gt;</span>
+         iOSAccessibility
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      APIS.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessibilityAPI-vocabulary"><div class="header-wrapper"><h3 id="x2-2-vocabulary"><bdi class="secno">2.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessibilityAPI-vocabulary" aria-label="Permalink for Section 2.2"></a></div>
+				
+
+				<section id="AndroidAccessibility"><div class="header-wrapper"><h4 id="x2-2-1-androidaccessibility"><bdi class="secno">2.2.1 </bdi>AndroidAccessibility</h4><a class="self-link" href="#AndroidAccessibility" aria-label="Permalink for Section 2.2.1"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="http://developer.android.com/reference/android/view/accessibility/package-summary.html">Android Access API</a>.</p>
+				</section>
+
+				<section id="ARIA-deprecated"><div class="header-wrapper"><h4 id="x2-2-2-aria-deprecated"><bdi class="secno">2.2.2 </bdi>ARIA (deprecated)</h4><a class="self-link" href="#ARIA-deprecated" aria-label="Permalink for Section 2.2.2"></a></div>
+					
+
+					<p>Indicates the resource uses <a href="http://www.w3.org/TR/wai-aria/">ARIA</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag21" title="Web Content Accessibility Guidelines (WCAG) 2.1">WCAG21</a></cite>] markup
+						to improve interoperability with platform APIs.</p>
+
+					<div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="5"><span>Note</span></div><div class="">
+						<p>The use of the ARIA value is now deprecated as ARIA is not an accessibility API. The
+								<code>accessibilityFeature</code> property value "<code>ARIA</code>" is now recommended
+							to use to indicate that a resource makes use of ARIA to improve structural navigation.</p>
+					</div></div>
+				</section>
+
+				<section id="ATK"><div class="header-wrapper"><h4 id="x2-2-3-atk"><bdi class="secno">2.2.3 </bdi>ATK</h4><a class="self-link" href="#ATK" aria-label="Permalink for Section 2.2.3"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://gnome.pages.gitlab.gnome.org/atk/">Accessibility Toolkit (ATK) API</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-atk" title="ATK - Accessibility Toolkit">ATK</a></cite>] for GNOME.</p>
+				</section>
+
+				<section id="AT-SPI"><div class="header-wrapper"><h4 id="x2-2-4-at-spi"><bdi class="secno">2.2.4 </bdi>AT-SPI</h4><a class="self-link" href="#AT-SPI" aria-label="Permalink for Section 2.2.4"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://developer-old.gnome.org/libatspi/stable/">Assistive Technology Service
+							Provider Interface (AT-SPI) API</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-at-spi" title="Assistive Technology Service Provider Interface">AT-SPI</a></cite>] for GNOME.</p>
+				</section>
+
+				<section id="BlackberryAccessibility"><div class="header-wrapper"><h4 id="x2-2-5-blackberryaccessibility-obsolete"><bdi class="secno">2.2.5 </bdi>BlackberryAccessibility (obsolete)</h4><a class="self-link" href="#BlackberryAccessibility" aria-label="Permalink for Section 2.2.5"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://blackberry.com/developers/docs/7.1.0api/net/rim/device/api/ui/accessibility/package-summary.html">BlackBerry Accessibility API</a>.</p>
+
+					<p>This value is now obsolete as BlackBerry devices phones and operating systems are no longer
+						developed, sold, or maintained.</p>
+
+					<div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-2" aria-level="5"><span>Note</span></div><div class="">
+						<p>After 2016, the BlackBerry name was licensed for phones released using the Android platform.
+							Compatibility with these devices must be indicated using the <a href="#AndroidAccessibility"><code>AndroidAccessibility</code> value</a>.</p>
+					</div></div>
+				</section>
+
+				<section id="iAccessible2"><div class="header-wrapper"><h4 id="x2-2-6-iaccessible2"><bdi class="secno">2.2.6 </bdi>iAccessible2</h4><a class="self-link" href="#iAccessible2" aria-label="Permalink for Section 2.2.6"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://wiki.linuxfoundation.org/accessibility/iaccessible2/">iAccessible2 API</a>
+						[<cite><a class="bibref" data-link-type="biblio" href="#bib-iaccessible2" title="IAccessible2">IAccessible2</a></cite>] for Windows.</p>
+				</section>
+
+				<section id="iOSAccessibility"><div class="header-wrapper"><h4 id="x2-2-7-iosaccessibility-deprecated"><bdi class="secno">2.2.7 </bdi>iOSAccessibility (deprecated)</h4><a class="self-link" href="#iOSAccessibility" aria-label="Permalink for Section 2.2.7"></a></div>
+					
+
+					<p>Authors should use the <a href="#NSAccessibility">NSAccessibility</a> value instead.</p>
+				</section>
+
+				<section id="JavaAccessibility"><div class="header-wrapper"><h4 id="x2-2-8-javaaccessibility"><bdi class="secno">2.2.8 </bdi>JavaAccessibility</h4><a class="self-link" href="#JavaAccessibility" aria-label="Permalink for Section 2.2.8"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://www.oracle.com/java/technologies/javase/desktop-accessibility.html">Java
+							Accessibility API</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-japi" title="Java Accessibility API">JAPI</a></cite>].</p>
+				</section>
+
+				<section id="MacOSXAccessibility"><div class="header-wrapper"><h4 id="x2-2-9-macosxaccessibility-deprecated"><bdi class="secno">2.2.9 </bdi>MacOSXAccessibility (deprecated)</h4><a class="self-link" href="#MacOSXAccessibility" aria-label="Permalink for Section 2.2.9"></a></div>
+					
+
+					<p>Authors should use the <a href="#UIAccessibility">UIAccessibility</a> value instead.</p>
+				</section>
+
+				<section id="MSAA"><div class="header-wrapper"><h4 id="x2-2-10-msaa"><bdi class="secno">2.2.10 </bdi>MSAA</h4><a class="self-link" href="#MSAA" aria-label="Permalink for Section 2.2.10"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://docs.microsoft.com/en-us/dotnet/framework/ui-automation/ui-automation-and-microsoft-active-accessibility">Microsoft Active Accessibility (MSAA) API</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-msaa" title="Microsoft Active Accessibility (MSAA)">MSAA</a></cite>] for Windows.</p>
+				</section>
+
+				<section id="NSAccessibility"><div class="header-wrapper"><h4 id="x2-2-11-nsaccessibility"><bdi class="secno">2.2.11 </bdi>NSAccessibility</h4><a class="self-link" href="#NSAccessibility" aria-label="Permalink for Section 2.2.11"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://developer.apple.com/documentation/appkit/nsaccessibility">NSAccessibility
+							API</a> for Apple iOS and tvOS applications built on UIKit.</p>
+				</section>
+
+				<section id="UIAccessibility"><div class="header-wrapper"><h4 id="x2-2-12-uiaccessibility"><bdi class="secno">2.2.12 </bdi>UIAccessibility</h4><a class="self-link" href="#UIAccessibility" aria-label="Permalink for Section 2.2.12"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://developer.apple.com/documentation/objectivec/nsobject/uiaccessibility">UIAccessibility API</a> for macOS applications built on AppKit.</p>
+				</section>
+
+				<section id="UIAutomation"><div class="header-wrapper"><h4 id="x2-2-13-uiautomation"><bdi class="secno">2.2.13 </bdi>UIAutomation</h4><a class="self-link" href="#UIAutomation" aria-label="Permalink for Section 2.2.13"></a></div>
+					
+
+					<p>Indicates the resource is compatible with the <a href="https://docs.microsoft.com/en-us/dotnet/framework/ui-automation/ui-automation-and-microsoft-active-accessibility">User Interface Automation API</a> for Windows.</p>
+				</section>
+			</section>
+		</section>
+		<section id="accessibilityControl"><div class="header-wrapper"><h2 id="x3-the-accessibilitycontrol-property"><bdi class="secno">3. </bdi>The <code>accessibilityControl</code> Property</h2><a class="self-link" href="#accessibilityControl" aria-label="Permalink for Section 3."></a></div>
+			
+
+			<section id="accessibilityControl-application"><div class="header-wrapper"><h3 id="x3-1-application"><bdi class="secno">3.1 </bdi>Application</h3><a class="self-link" href="#accessibilityControl-application" aria-label="Permalink for Section 3.1"></a></div>
+				
+
+				<blockquote>
+					<p>Identifies one or more input methods that allow access to all of the application
+						functionality.</p>
+				</blockquote>
+
+				<p>The <code>accessibilityControl</code> property is used to describe the ability of users to interact
+					with the user interface controls that applications provide.</p>
+
+				<p>The property is not applicable to resources that are not tightly integrated with their user
+					interface. It can describe whether users can control a word processing document that only opens in a
+					specific application, for example, but is not a useful indicator of whether users can control an
+					HTML document, as there are numerous user agent and assistive technology pairings a user could use
+					to access it.</p>
+
+				<p>Setting the property means that the specified control method(s) are compatible with the resource.</p>
+
+				<p>The expected value of the <code>accessibilityControl</code> property is a list of the applicable
+					control methods. For metadata formats incapable of expressing lists, the property should be repeated
+					for each control method.</p>
+
+				<aside class="example ex-group" id="example-accessibilitycontrol"><div class="marker">
+    <a class="self-link" href="#example-accessibilitycontrol">Example<bdi> 2</bdi></a><span class="example-title">: accessibilityControl expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following example shows the metadata for a publication with interactive games that can be
+						controlled by keyboard and mouse input.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"CreativeWork"</span>,
+   …
+   <span class="hljs-string">"accessibilityControl"</span>: [<span class="hljs-string">"fullKeyboardControl"</span>,
+                            <span class="hljs-string">"fullMouseControl"</span>],
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden" aria-busy="false"><code class="hljs">&lt;package …&gt;
+   &lt;metadata&gt;
+      …
+      &lt;meta
+          property="schema:accessibilityControl"&gt;
+         fullKeyboardControl
+      &lt;/meta&gt;
+      &lt;meta
+          property="schema:accessibilityControl"&gt;
+         fullMouseControl
+      &lt;/meta&gt;
+   	…
+   &lt;/metadata&gt;
+   …
+&lt;/package&gt;</code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"CreativeWork"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This word processing document supports
+      user interaction via
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityControl"</span>
+          <span class="hljs-attr">content</span>=<span class="hljs-string">"fullKeyboardControl"</span>&gt;</span>keyboard<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      and
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityControl"</span>
+          <span class="hljs-attr">content</span>=<span class="hljs-string">"fullMouseControl"</span>&gt;</span>mouse<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      input.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/CreativeWork"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This word processing document supports
+      user interaction via
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityControl"</span>
+          <span class="hljs-attr">content</span>=<span class="hljs-string">"fullKeyboardControl"</span>&gt;</span>
+      keyboard and
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityControl"</span>
+          <span class="hljs-attr">content</span>=<span class="hljs-string">"fullMouseControl"</span>&gt;</span>
+      mouse input.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessibilityControl-vocabulary"><div class="header-wrapper"><h3 id="x3-2-vocabulary"><bdi class="secno">3.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessibilityControl-vocabulary" aria-label="Permalink for Section 3.2"></a></div>
+				
+
+				<section id="fullKeyboardControl"><div class="header-wrapper"><h4 id="x3-2-1-fullkeyboardcontrol"><bdi class="secno">3.2.1 </bdi>fullKeyboardControl</h4><a class="self-link" href="#fullKeyboardControl" aria-label="Permalink for Section 3.2.1"></a></div>
+					
+
+					<p>Users can fully control the resource through keyboard input.</p>
+				</section>
+
+				<section id="fullMouseControl"><div class="header-wrapper"><h4 id="x3-2-2-fullmousecontrol"><bdi class="secno">3.2.2 </bdi>fullMouseControl</h4><a class="self-link" href="#fullMouseControl" aria-label="Permalink for Section 3.2.2"></a></div>
+					
+
+					<p>Users can fully control the resource through mouse input.</p>
+				</section>
+
+				<section id="fullSwitchControl"><div class="header-wrapper"><h4 id="x3-2-3-fullswitchcontrol"><bdi class="secno">3.2.3 </bdi>fullSwitchControl</h4><a class="self-link" href="#fullSwitchControl" aria-label="Permalink for Section 3.2.3"></a></div>
+					
+
+					<p>Users can fully control the resource through switch input.</p>
+				</section>
+
+				<section id="fullTouchControl"><div class="header-wrapper"><h4 id="x3-2-4-fulltouchcontrol"><bdi class="secno">3.2.4 </bdi>fullTouchControl</h4><a class="self-link" href="#fullTouchControl" aria-label="Permalink for Section 3.2.4"></a></div>
+					
+
+					<p>Users can fully control the resource through touch input.</p>
+				</section>
+
+				<section id="fullVideoControl"><div class="header-wrapper"><h4 id="x3-2-5-fullvideocontrol"><bdi class="secno">3.2.5 </bdi>fullVideoControl</h4><a class="self-link" href="#fullVideoControl" aria-label="Permalink for Section 3.2.5"></a></div>
+					
+
+					<p>Users can fully control the resource through video input.</p>
+				</section>
+
+				<section id="fullVoiceControl"><div class="header-wrapper"><h4 id="x3-2-6-fullvoicecontrol"><bdi class="secno">3.2.6 </bdi>fullVoiceControl</h4><a class="self-link" href="#fullVoiceControl" aria-label="Permalink for Section 3.2.6"></a></div>
+					
+
+					<p>Users can fully control the resource through voice input.</p>
+				</section>
+			</section>
+		</section>
+		<section id="accessibilityFeature"><div class="header-wrapper"><h2 id="x4-the-accessibilityfeature-property"><bdi class="secno">4. </bdi>The <code>accessibilityFeature</code> Property</h2><a class="self-link" href="#accessibilityFeature" aria-label="Permalink for Section 4."></a></div>
+			
+
+			<section id="accessibilityFeature-application"><div class="header-wrapper"><h3 id="x4-1-application"><bdi class="secno">4.1 </bdi>Application</h3><a class="self-link" href="#accessibilityFeature-application" aria-label="Permalink for Section 4.1"></a></div>
+				
+
+				<blockquote>
+					<p>Content features of the resource, such as accessible media, alternatives and supported
+						enhancements for accessibility.</p>
+				</blockquote>
+
+				<p>The <code>accessibilityFeature</code> property provides a list of all the applicable accessibility
+					characteristics of the content. It allows a user agent to discover these characteristics without
+					having to parse or interpret the structure of the content.</p>
+
+				<p>For ease of reading, this section splits the vocabulary into the following distinct groups:</p>
+
+				<ul>
+					<li><a href="#structure-and-navigation-terms">Structure and navigation terms</a> identify navigation
+						aids that are provided to simplify moving around within the media, such as the inclusion of a
+						table of contents or an index.</li>
+
+					<li><a href="#adaptation-terms">Adaptation terms</a> identify content features that provide
+						alternate access to a resource. The inclusion of alternative text in an [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>]
+							<code>alt</code> attribute is one of the most commonly identifiable augmentation
+						features.</li>
+
+					<li><a href="#rendering-control-terms">Rendering control terms</a> identify content rendering
+						features that users have access to or can control. The ability to modify the appearance of the
+						text is one example.</li>
+
+					<li><a href="#specialized-markup-terms">Specialized markup terms</a> identify that content is
+						encoded using domain-specific grammars like MathML and ChemML that can provide users a richer
+						reading experience.</li>
+
+					<li><a href="#clarity-terms">Clarity terms</a> identify ways that the content has been enhanced for
+						clearer readability. Audio with minimized background noise is one example, while content
+						formatted for large print reading is another.</li>
+
+					<li><a href="#tactile-terms">Tactile terms</a> identify content that is formatted for tactile use,
+						such as graphics and objects.</li>
+				</ul>
+
+				<p>The vocabulary also includes <a href="#feature-none">the term "<code>none</code>"</a> that authors
+					can set to indicate that the resource does not contain special enhancements. Similarly, the term
+						"<code>unknown</code>" exists as a placeholder for marking content that authors need to
+					review.</p>
+
+				<p>The expected value of the <code>accessibilityFeature</code> property is a list of the applicable
+					features. For metadata formats incapable of expressing lists, the property should be repeated for
+					each feature.</p>
+
+				<aside class="example ex-group" id="example-accessibilityfeature"><div class="marker">
+    <a class="self-link" href="#example-accessibilityfeature">Example<bdi> 3</bdi></a><span class="example-title">: accessibilityFeature expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following example shows the metadata for a book that provides alternative text, extended
+						descriptions, and transcripts to make embedded image, audio, and video content more accessible
+						to screen reader users.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Book"</span>,
+   …
+   <span class="hljs-string">"accessibilityFeature"</span>: [<span class="hljs-string">"tableOfContents"</span>,
+                            <span class="hljs-string">"alternativeText"</span>,
+                            <span class="hljs-string">"longDescription"</span>,
+                            <span class="hljs-string">"transcript"</span>],
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> …&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:type"</span>&gt;</span>
+         https://schema.org/Book
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityFeature"</span>&gt;</span>
+         tableOfContents
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityFeature"</span>&gt;</span>
+         alternativeText
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityFeature"</span>&gt;</span>
+         longDescription
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityFeature"</span>&gt;</span>
+         transcript
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+   	…
+   <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"Book"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      Included accessibility features:
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityFeature"</span>
+           <span class="hljs-attr">content</span>=<span class="hljs-string">"tableOfContents"</span>&gt;</span>
+          Table of contents
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityFeature"</span>
+           <span class="hljs-attr">content</span>=<span class="hljs-string">"alternativeText"</span>&gt;</span>
+          Alternative text for images
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityFeature"</span>
+           <span class="hljs-attr">content</span>=<span class="hljs-string">"longDescription"</span>&gt;</span>
+          Extended descriptions for images
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityFeature"</span>
+           <span class="hljs-attr">content</span>=<span class="hljs-string">"transcript"</span>&gt;</span>
+          Transcripts for videos
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/Book"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      Included accessibility features:
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+   	   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+             <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span>
+             <span class="hljs-attr">content</span>=<span class="hljs-string">"tableOfContents"</span>&gt;</span>
+          Table of contents
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+   	   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+             <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span>
+             <span class="hljs-attr">content</span>=<span class="hljs-string">"alternativeText"</span>&gt;</span>
+          Alternative text for images
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+   	   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+             <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span>
+             <span class="hljs-attr">content</span>=<span class="hljs-string">"longDescription"</span>&gt;</span>
+          Extended descriptions for images
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+   	   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+             <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span>
+             <span class="hljs-attr">content</span>=<span class="hljs-string">"transcript"</span>&gt;</span>
+          Transcripts for videos
+       <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessibilityFeature-vocabulary"><div class="header-wrapper"><h3 id="x4-2-vocabulary"><bdi class="secno">4.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessibilityFeature-vocabulary" aria-label="Permalink for Section 4.2"></a></div>
+				
+
+				<section id="structure-and-navigation-terms"><div class="header-wrapper"><h4 id="x4-2-1-structure-and-navigation-terms"><bdi class="secno">4.2.1 </bdi>Structure and Navigation Terms</h4><a class="self-link" href="#structure-and-navigation-terms" aria-label="Permalink for Section 4.2.1"></a></div>
+					
+
+					<p>The structure and navigation term identify structuring and navigation aids that facilitate use of
+						a resource.</p>
+
+					<section id="annotations"><div class="header-wrapper"><h5 id="x4-2-1-1-annotations"><bdi class="secno">4.2.1.1 </bdi>annotations</h5><a class="self-link" href="#annotations" aria-label="Permalink for Section 4.2.1.1"></a></div>
+						
+
+						<p>The resource includes annotations from the author, instructor and/or others.</p>
+					</section>
+
+					<section id="ARIA"><div class="header-wrapper"><h5 id="x4-2-1-2-aria"><bdi class="secno">4.2.1.2 </bdi>ARIA</h5><a class="self-link" href="#ARIA" aria-label="Permalink for Section 4.2.1.2"></a></div>
+						
+
+						<p>Indicates the resource includes ARIA roles to organize and improve the structure and
+							navigation.</p>
+
+						<p>The use of this value corresponds to the inclusion of <a href="https://www.w3.org/TR/wai-aria/#document_structure_roles">Document Structure</a>,
+								<a href="https://www.w3.org/TR/wai-aria/#landmark_roles">Landmark</a>, <a href="https://www.w3.org/TR/wai-aria/#live_region_roles">Live Region</a>, and <a href="https://www.w3.org/TR/wai-aria/#window_roles">Window</a> roles [<cite><a class="bibref" data-link-type="biblio" href="#bib-wai-aria" title="Accessible Rich Internet Applications (WAI-ARIA) 1.0">WAI-ARIA</a></cite>].</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="6"><span>Note</span></div><div class="">
+							<p>The <a href="#accessibilityControl"><code>accessibilityControl</code> property</a> can be
+								used to indicate what input devices custom controls are accessible with.</p>
+						</div></div>
+					</section>
+
+					<section id="bookmarks"><div class="header-wrapper"><h5 id="x4-2-1-3-bookmarks-deprecated"><bdi class="secno">4.2.1.3 </bdi>bookmarks (deprecated)</h5><a class="self-link" href="#bookmarks" aria-label="Permalink for Section 4.2.1.3"></a></div>
+						
+
+						<p>The work includes bookmarks to facilitate navigation to key points.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-4" aria-level="6"><span>Note</span></div><div class="">
+							<p>The use of the <code>bookmarks</code> value is now deprecated due to its ambiguity. For
+								PDF bookmarks, the <a href="#tableOfContents"><code>tableOfContents</code></a> value
+								should be used instead. For bookmarks in ebooks, the <a href="#annotations"><code>annotations</code></a> value can be used.</p>
+						</div></div>
+					</section>
+
+					<section id="index-term"><div class="header-wrapper"><h5 id="x4-2-1-4-index"><bdi class="secno">4.2.1.4 </bdi>index</h5><a class="self-link" href="#index-term" aria-label="Permalink for Section 4.2.1.4"></a></div>
+						
+
+						<p>The resource includes an index to the content.</p>
+					</section>
+
+					<section id="pageBreakMarkers"><div class="header-wrapper"><h5 id="x4-2-1-5-pagebreakmarkers"><bdi class="secno">4.2.1.5 </bdi>pageBreakMarkers</h5><a class="self-link" href="#pageBreakMarkers" aria-label="Permalink for Section 4.2.1.5"></a></div>
+						
+						<p class="synonym" id="printPageNumbers">(Formerly <em>printPageNumbers</em>.)</p>
+
+						<p>The resource includes static page markers, such as those identified by the <a href="https://www.w3.org/TR/dpub-aria/#doc-pagebreak"><code>doc-pagebreak</code>
+								role</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpub-aria-1.0" title="Digital Publishing WAI-ARIA Module 1.0">DPUB-ARIA-1.0</a></cite>].</p>
+
+						<p>This value is most commonly used with ebooks for which there is a statically paginated
+							equivalent, such as a print edition, but it is not required that the page markers correspond
+							to another work. The markers may exist solely to facilitate navigation in purely digital
+							works.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-5" aria-level="6"><span>Note</span></div><div class="">
+							<p>The value <code>printPageNumbers</code> is considered a synonym of
+									<code>pageBreakMarkers</code>. Although its use is not formally deprecated, authors
+								are strongly encouraged to use the more general <code>pageBreakMarkers</code>. Whether
+								the markers correspond to a statically paginated alternative can be indicated through
+								other metadata, such as a <code>dc:source</code> declaration.</p>
+						</div></div>
+					</section>
+
+					<section id="pageNavigation"><div class="header-wrapper"><h5 id="x4-2-1-6-pagenavigation"><bdi class="secno">4.2.1.6 </bdi>pageNavigation</h5><a class="self-link" href="#pageNavigation" aria-label="Permalink for Section 4.2.1.6"></a></div>
+						
+
+						<p>The resource includes a means of navigating to static page break locations.</p>
+
+						<p>The most common way of providing page navigation in digital publications is through a page
+							list. The EPUB <a href="https://www.w3.org/TR/epub/#sec-nav-pagelist">page-list navigation
+								feature</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-epub-33" title="EPUB 3.3">EPUB-33</a></cite>] and the <a href="https://www.w3.org/TR/dpub-aria/#doc-pagelist">pagelist</a> role [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpub-aria-1.0" title="Digital Publishing WAI-ARIA Module 1.0">DPUB-ARIA-1.0</a></cite>] are two examples.</p>
+					</section>
+
+					<section id="readingOrder"><div class="header-wrapper"><h5 id="x4-2-1-7-readingorder"><bdi class="secno">4.2.1.7 </bdi>readingOrder</h5><a class="self-link" href="#readingOrder" aria-label="Permalink for Section 4.2.1.7"></a></div>
+						
+
+						<p>The reading order of the content is clearly defined in the markup (e.g., figures, sidebars
+							and other secondary content has been marked up to allow it to be skipped automatically
+							and/or manually escaped from.</p>
+					</section>
+
+					<section id="structuralNavigation"><div class="header-wrapper"><h5 id="x4-2-1-8-structuralnavigation"><bdi class="secno">4.2.1.8 </bdi>structuralNavigation</h5><a class="self-link" href="#structuralNavigation" aria-label="Permalink for Section 4.2.1.8"></a></div>
+						
+
+						<p>The use of headings in the resource fully and accurately reflects the document hierarchy,
+							allowing navigation by assistive technologies.</p>
+					</section>
+
+					<section id="tableOfContents"><div class="header-wrapper"><h5 id="x4-2-1-9-tableofcontents"><bdi class="secno">4.2.1.9 </bdi>tableOfContents</h5><a class="self-link" href="#tableOfContents" aria-label="Permalink for Section 4.2.1.9"></a></div>
+						
+
+						<p>The resource includes a table of contents that provides links to the major sections of the
+							content.</p>
+					</section>
+
+					<section id="taggedPDF"><div class="header-wrapper"><h5 id="x4-2-1-10-taggedpdf"><bdi class="secno">4.2.1.10 </bdi>taggedPDF</h5><a class="self-link" href="#taggedPDF" aria-label="Permalink for Section 4.2.1.10"></a></div>
+						
+
+						<p>The contents of the PDF have been tagged to permit access by assistive technologies.</p>
+					</section>
+				</section>
+
+				<section id="adaptation-terms"><div class="header-wrapper"><h4 id="x4-2-2-adaptation-terms"><bdi class="secno">4.2.2 </bdi>Adaptation Terms</h4><a class="self-link" href="#adaptation-terms" aria-label="Permalink for Section 4.2.2"></a></div>
+					
+
+					<p>The adaptation terms identify provisions in the content that enable reading in alternative access
+						modes.</p>
+
+					<section id="alternativeText"><div class="header-wrapper"><h5 id="x4-2-2-1-alternativetext"><bdi class="secno">4.2.2.1 </bdi>alternativeText</h5><a class="self-link" href="#alternativeText" aria-label="Permalink for Section 4.2.2.1"></a></div>
+						
+
+						<p>Alternative text is provided for visual content (e.g., via the [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-alt"><code>alt</code> attribute</a>).</p>
+					</section>
+
+					<section id="audioDescription"><div class="header-wrapper"><h5 id="x4-2-2-2-audiodescription"><bdi class="secno">4.2.2.2 </bdi>audioDescription</h5><a class="self-link" href="#audioDescription" aria-label="Permalink for Section 4.2.2.2"></a></div>
+						
+
+						<p>Audio descriptions are available (e.g., via an [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] <a href="https://html.spec.whatwg.org/multipage/media.html#the-track-element"><code>track</code></a> element with its <code>kind</code> attribute set to
+								"<code>descriptions</code>").</p>
+					</section>
+
+					<section id="captions"><div class="header-wrapper"><h5 id="x4-2-2-3-captions"><bdi class="secno">4.2.2.3 </bdi>captions</h5><a class="self-link" href="#captions" aria-label="Permalink for Section 4.2.2.3"></a></div>
+						
+
+						<p>Indicates that synchronized captions are available for audio and video content.</p>
+					</section>
+
+					<section id="describedMath"><div class="header-wrapper"><h5 id="x4-2-2-4-describedmath"><bdi class="secno">4.2.2.4 </bdi>describedMath</h5><a class="self-link" href="#describedMath" aria-label="Permalink for Section 4.2.2.4"></a></div>
+						
+
+						<p>Textual descriptions of math equations are included, whether in the alt attribute for
+							image-based equations, using the <a href="https://www.w3.org/TR/MathML3/chapter2.html#interf.toplevel.atts"><code>alttext</code> attribute</a> for [<cite><a class="bibref" data-link-type="biblio" href="#bib-mathml" title="Mathematical Markup Language (MathML™) 1.01 Specification">MathML</a></cite>] equations, or by other means.</p>
+					</section>
+
+					<section id="longDescription"><div class="header-wrapper"><h5 id="x4-2-2-5-longdescription"><bdi class="secno">4.2.2.5 </bdi>longDescription</h5><a class="self-link" href="#longDescription" aria-label="Permalink for Section 4.2.2.5"></a></div>
+						
+
+						<p>Descriptions are provided for image-based visual content and/or complex structures such as
+							tables, mathematics, diagrams, and charts.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="6"><span>Note</span></div><div class="">
+							<p>Authors may set this property independent of the method they use to provide the extended
+								descriptions (i.e., it is not required to use the obsolete [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] <a href="https://html.spec.whatwg.org/multipage/obsolete.html#attr-img-longdesc"><code>longdesc</code> attribute</a>).</p>
+						</div></div>
+					</section>
+
+					<section id="rubyAnnotations"><div class="header-wrapper"><h5 id="x4-2-2-6-rubyannotations"><bdi class="secno">4.2.2.6 </bdi>rubyAnnotations</h5><a class="self-link" href="#rubyAnnotations" aria-label="Permalink for Section 4.2.2.6"></a></div>
+						
+
+						<p>Indicates that <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-ruby-element"><code>ruby</code> annotations</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] are provided in the content. Ruby
+							annotations are used as pronunciation guides for the logographic characters for languages
+							like Chinese or Japanese. It makes difficult Kanji or CJK ideographic characters more
+							accessible.</p>
+
+						<p>The absence of <code>rubyAnnotations</code> implies that no CJK ideographic characters have
+							ruby.</p>
+					</section>
+
+					<section id="signLanguage"><div class="header-wrapper"><h5 id="x4-2-2-7-signlanguage"><bdi class="secno">4.2.2.7 </bdi>signLanguage</h5><a class="self-link" href="#signLanguage" aria-label="Permalink for Section 4.2.2.7"></a></div>
+						
+
+						<p>Sign language interpretation is available for audio and video content.</p>
+
+
+						<div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-7" aria-level="6"><span>Note</span></div><div class="">
+							<p>Information about the sign language code used should be provided in the <a href="#accessibilitySummary">accessibility summary</a>.</p>
+						</div></div>
+					</section>
+
+					<section id="transcript"><div class="header-wrapper"><h5 id="x4-2-2-8-transcript"><bdi class="secno">4.2.2.8 </bdi>transcript</h5><a class="self-link" href="#transcript" aria-label="Permalink for Section 4.2.2.8"></a></div>
+						
+
+						<p>Indicates that a transcript of the audio content is available.</p>
+					</section>
+				</section>
+
+				<section id="rendering-control-terms"><div class="header-wrapper"><h4 id="x4-2-3-rendering-control-terms"><bdi class="secno">4.2.3 </bdi>Rendering Control Terms</h4><a class="self-link" href="#rendering-control-terms" aria-label="Permalink for Section 4.2.3"></a></div>
+					
+
+					<p>The rendering control values identify that access to a resource and rendering and playback of its
+						content can be controlled for easier reading.</p>
+
+					<section id="displayTransformability"><div class="header-wrapper"><h5 id="x4-2-3-1-displaytransformability"><bdi class="secno">4.2.3.1 </bdi>displayTransformability</h5><a class="self-link" href="#displayTransformability" aria-label="Permalink for Section 4.2.3.1"></a></div>
+						
+
+						<p>Display properties are controllable by the user. This property can be set, for example, if
+							custom CSS style sheets can be applied to the content to control the appearance. It can also
+							be used to indicate that styling in document formats like Word and PDF can be modified.</p>
+					</section>
+
+					<section id="synchronizedAudioText"><div class="header-wrapper"><h5 id="x4-2-3-2-synchronizedaudiotext"><bdi class="secno">4.2.3.2 </bdi>synchronizedAudioText</h5><a class="self-link" href="#synchronizedAudioText" aria-label="Permalink for Section 4.2.3.2"></a></div>
+						
+
+						<p>Describes a resource that offers both audio and text, with information that allows them to be
+							rendered simultaneously. The granularity of the synchronization is not specified. This term
+							is not recommended when the only material that is synchronized is the document headings.</p>
+					</section>
+
+					<section id="timingControl"><div class="header-wrapper"><h5 id="x4-2-3-3-timingcontrol"><bdi class="secno">4.2.3.3 </bdi>timingControl</h5><a class="self-link" href="#timingControl" aria-label="Permalink for Section 4.2.3.3"></a></div>
+						
+
+						<p>For content with timed interaction, this value indicates that the user can control the timing
+							to meet their needs (e.g., pause and reset)</p>
+					</section>
+
+					<section id="unlocked"><div class="header-wrapper"><h5 id="x4-2-3-4-unlocked"><bdi class="secno">4.2.3.4 </bdi>unlocked</h5><a class="self-link" href="#unlocked" aria-label="Permalink for Section 4.2.3.4"></a></div>
+						
+
+						<p>No digital rights management or other content restriction protocols have been applied to the
+							resource.</p>
+					</section>
+				</section>
+
+				<section id="specialized-markup-terms"><div class="header-wrapper"><h4 id="x4-2-4-specialized-markup-terms"><bdi class="secno">4.2.4 </bdi>Specialized Markup Terms</h4><a class="self-link" href="#specialized-markup-terms" aria-label="Permalink for Section 4.2.4"></a></div>
+					
+
+					<p>The specialized markup terms identify content available in specialized markup grammars. These
+						grammars typically provide users with enhanced structure and navigation capabilities.</p>
+
+					<section id="ChemML"><div class="header-wrapper"><h5 id="x4-2-4-1-chemml"><bdi class="secno">4.2.4.1 </bdi>ChemML</h5><a class="self-link" href="#ChemML" aria-label="Permalink for Section 4.2.4.1"></a></div>
+						
+
+						<p>Identifies that chemical information is encoded using the <a href="https://hachmannlab.github.io/chemml/">ChemML markup language</a>.</p>
+					</section>
+
+					<section id="latex"><div class="header-wrapper"><h5 id="x4-2-4-2-latex"><bdi class="secno">4.2.4.2 </bdi>latex</h5><a class="self-link" href="#latex" aria-label="Permalink for Section 4.2.4.2"></a></div>
+						
+
+						<p>Identifies that mathematical equations and formulas are encoded in the <a href="https://www.latex-project.org/">LaTeX typesetting system</a>.</p>
+					</section>
+
+					<section id="mathml"><div class="header-wrapper"><h5 id="x4-2-4-3-mathml"><bdi class="secno">4.2.4.3 </bdi>MathML</h5><a class="self-link" href="#mathml" aria-label="Permalink for Section 4.2.4.3"></a></div>
+						
+
+						<p>Identifies that mathematical equations and formulas are encoded in [<cite><a class="bibref" data-link-type="biblio" href="#bib-mathml" title="Mathematical Markup Language (MathML™) 1.01 Specification">MathML</a></cite>].</p>
+					</section>
+
+					<section id="ttsMarkup"><div class="header-wrapper"><h5 id="x4-2-4-4-ttsmarkup"><bdi class="secno">4.2.4.4 </bdi>ttsMarkup</h5><a class="self-link" href="#ttsMarkup" aria-label="Permalink for Section 4.2.4.4"></a></div>
+						
+
+						<p>One or more of [<cite><a class="bibref" data-link-type="biblio" href="#bib-ssml" title="Speech Synthesis Markup Language (SSML) Version 1.1">SSML</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-pronunciation-lexicon" title="Pronunciation Lexicon Specification (PLS) Version 1.0">Pronunciation-Lexicon</a></cite>], and [<cite><a class="bibref" data-link-type="biblio" href="#bib-css3-speech" title="CSS Speech Module Level 1">CSS3-Speech</a></cite>] properties has been
+							used to enhance text-to-speech playback quality.</p>
+					</section>
+				</section>
+
+				<section id="clarity-terms"><div class="header-wrapper"><h4 id="x4-2-5-clarity-terms"><bdi class="secno">4.2.5 </bdi>Clarity Terms</h4><a class="self-link" href="#clarity-terms" aria-label="Permalink for Section 4.2.5"></a></div>
+					
+
+					<p>The clarity terms identify ways that the content has been enhanced for improved auditory or
+						visual clarity.</p>
+
+					<section id="highContrastAudio"><div class="header-wrapper"><h5 id="x4-2-5-1-highcontrastaudio"><bdi class="secno">4.2.5.1 </bdi>highContrastAudio</h5><a class="self-link" href="#highContrastAudio" aria-label="Permalink for Section 4.2.5.1"></a></div>
+						
+
+						<p>Audio content with speech in the foreground meets the contrast thresholds set out in <a href="https://www.w3.org/WAI/WCAG21/Understanding/low-or-no-background-audio">WCAG
+								Success Criteria 1.4.7</a>.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-8" aria-level="6"><span>Note</span></div><div class="">
+							<p>Information about the how the audio meets the requirement should be provided in the <a href="#accessibilitySummary">accessibility summary</a> (i.e., there is no background
+								noise, at least 20db difference between foreground speech and background noise, or the
+								background noise can be turned off.)</p>
+						</div></div>
+					</section>
+
+					<section id="highContrastDisplay"><div class="header-wrapper"><h5 id="x4-2-5-2-highcontrastdisplay"><bdi class="secno">4.2.5.2 </bdi>highContrastDisplay</h5><a class="self-link" href="#highContrastDisplay" aria-label="Permalink for Section 4.2.5.2"></a></div>
+						
+
+						<p>Content meets the visual contrast threshold set out in <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced">WCAG Success
+								Criteria 1.4.6</a>.</p>
+					</section>
+
+					<section id="largePrint"><div class="header-wrapper"><h5 id="x4-2-5-3-largeprint"><bdi class="secno">4.2.5.3 </bdi>largePrint</h5><a class="self-link" href="#largePrint" aria-label="Permalink for Section 4.2.5.3"></a></div>
+						
+
+						<p>The content has been formatted to meet large print guidelines.</p>
+
+						<p>The property is not set if the font size can be increased. See <a href="#displayTransformability"><code>displayTransformability</code></a>.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-9"><div role="heading" class="note-title marker" id="h-note-9" aria-level="6"><span>Note</span></div><div class="">
+							<p>Information about the type of large print (e.g., the font size) should be provided in the
+									<a href="#accessibilitySummary">accessibility summary</a>.</p>
+						</div></div>
+					</section>
+				</section>
+
+				<section id="tactile-terms"><div class="header-wrapper"><h4 id="x4-2-6-tactile-terms"><bdi class="secno">4.2.6 </bdi>Tactile Terms</h4><a class="self-link" href="#tactile-terms" aria-label="Permalink for Section 4.2.6"></a></div>
+					
+
+					<p>The tactile terms identify content that is available in tactile form.</p>
+
+					<section id="braille"><div class="header-wrapper"><h5 id="x4-2-6-1-braille"><bdi class="secno">4.2.6.1 </bdi>braille</h5><a class="self-link" href="#braille" aria-label="Permalink for Section 4.2.6.1"></a></div>
+						
+
+						<p>The content is in braille format, or alternatives are available in braille.</p>
+
+
+						<div class="note" role="note" id="issue-container-generatedID-10"><div role="heading" class="note-title marker" id="h-note-10" aria-level="6"><span>Note</span></div><div class="">
+							<p>Information about the type of braille (e.g., ASCII, unicode, nemeth), whether the braille
+								is contracted or not, and what code the braille conforms to should be provided in the <a href="#accessibilitySummary">accessibility summary</a>.</p>
+						</div></div>
+					</section>
+
+					<section id="tactileGraphic"><div class="header-wrapper"><h5 id="x4-2-6-2-tactilegraphic"><bdi class="secno">4.2.6.2 </bdi>tactileGraphic</h5><a class="self-link" href="#tactileGraphic" aria-label="Permalink for Section 4.2.6.2"></a></div>
+						
+
+						<p>When used with creative works such as books, indicates that the resource includes tactile
+							graphics.</p>
+
+						<p>When used to describe an image resource or physical object, indicates that the resource is a
+							tactile graphic.</p>
+
+						<div class="note" role="note" id="issue-container-generatedID-11"><div role="heading" class="note-title marker" id="h-note-11" aria-level="6"><span>Note</span></div><div class="">
+							<p>Refer to the <a href="http://www.brailleauthority.org/tg/">BANA Guidelines and Standards
+									for Tactile Graphics</a> for more information about tactile graphic formats and
+								formatting.</p>
+						</div></div>
+					</section>
+
+					<section id="tactileObject"><div class="header-wrapper"><h5 id="x4-2-6-3-tactileobject"><bdi class="secno">4.2.6.3 </bdi>tactileObject</h5><a class="self-link" href="#tactileObject" aria-label="Permalink for Section 4.2.6.3"></a></div>
+						
+
+						<p>When used with creative works such as books, indicates that the resource includes models to
+							generate tactile 3D objects.</p>
+
+						<p>When used to describe a physical object, indicates that the resource is a tactile 3D
+							object.</p>
+					</section>
+				</section>
+
+				<section id="feature-none"><div class="header-wrapper"><h4 id="x4-2-7-none"><bdi class="secno">4.2.7 </bdi>none</h4><a class="self-link" href="#feature-none" aria-label="Permalink for Section 4.2.7"></a></div>
+					
+
+					<p>Indicates that the resource does not contain any accessibility features.</p>
+
+					<p>The <code>none</code> value must not be set with any other feature value.</p>
+				</section>
+
+				<section id="feature-unknown"><div class="header-wrapper"><h4 id="x4-2-8-unknown"><bdi class="secno">4.2.8 </bdi>unknown</h4><a class="self-link" href="#feature-unknown" aria-label="Permalink for Section 4.2.8"></a></div>
+					
+
+					<p>Indicates that the author has not yet checked if the resource contains accessibility features.
+						This value is only intended as a placeholder until an accessibility review can be completed.</p>
+
+					<p>The <code>unknown</code> value must not be set with any other feature value.</p>
+				</section>
+			</section>
+		</section>
+		<section id="accessibilityHazard"><div class="header-wrapper"><h2 id="x5-the-accessibilityhazard-property"><bdi class="secno">5. </bdi>The <code>accessibilityHazard</code> Property</h2><a class="self-link" href="#accessibilityHazard" aria-label="Permalink for Section 5."></a></div>
+			
+
+			<section id="accessibilityHazard-application"><div class="header-wrapper"><h3 id="x5-1-application"><bdi class="secno">5.1 </bdi>Application</h3><a class="self-link" href="#accessibilityHazard-application" aria-label="Permalink for Section 5.1"></a></div>
+				
+
+				<blockquote>
+					<p>A characteristic of the described resource that is physiologically dangerous to some users.
+						Related to <a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/seizure.html">WCAG 2.0 guideline
+							2.3</a>.</p>
+				</blockquote>
+
+				<p>Identifying potential hazards that a resource poses allows users to determine if a resource poses a
+					risk to them and to potentially filter out content that could be harmful.</p>
+
+				<p>If no hazards are known to exist, it is recommended to use the value "<code>none</code>". If the
+					content has hazard(s), include positive assertions for the hazards it has and negative assertions
+					(the values that begin with "no") for the others.</p>
+
+				<p>If this property is not set for a resource, it is not possible to state whether it presents hazards
+					or not. Similarly, if an author sets the value <code>unknown</code>, they are stating that they do
+					not know whether hazards are present (e.g., because they do not know how, or are unable, to assess
+					them).</p>
+
+				<p>The expected value of the <code>accessibilityHazard</code> property is a list of the applicable
+					hazards. For metadata formats incapable of expressing lists, the property should be repeated for
+					each hazard.</p>
+
+				<aside class="example ex-group" id="example-accessibilityhazard"><div class="marker">
+    <a class="self-link" href="#example-accessibilityhazard">Example<bdi> 4</bdi></a><span class="example-title">: accessibilityHazard expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following example shows the metadata for a video with a flashing hazard.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"MediaObject"</span>,
+   …
+   <span class="hljs-string">"accessibilityHazard"</span>: [<span class="hljs-string">"flashingHazard"</span>,
+                           <span class="hljs-string">"noMotionSimulationHazard"</span>,
+                           <span class="hljs-string">"noSoundHazard"</span>],
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> …&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityHazard"</span>&gt;</span>
+         flashing
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityHazard"</span>&gt;</span>
+         noMotionSimulationHazard
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilityHazard"</span>&gt;</span>
+         noSoundHazard
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+  	…
+   <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"MediaObject"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This video contains
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityHazard"</span>&gt;</span>
+         flashing
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      sequences that may affect photosensitive
+      readers. There are no known
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityHazard"</span>
+            <span class="hljs-attr">content</span>=<span class="hljs-string">"noMotionSimulationHazard"</span>&gt;</span>
+      motion simulation<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> or
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilityHazard"</span>
+            <span class="hljs-attr">content</span>=<span class="hljs-string">"noSoundHazard"</span>&gt;</span>sound<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+      hazards.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/MediaObject"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This video contains
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityHazard"</span>&gt;</span>
+         flashing
+      <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      sequences that may affect photosensitive
+      readers. There are no known
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityHazard"</span>
+            <span class="hljs-attr">content</span>=<span class="hljs-string">"noMotionSimulationHazard"</span>&gt;</span>
+      motion simulation<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> or
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityHazard"</span>
+            <span class="hljs-attr">content</span>=<span class="hljs-string">"noSoundHazard"</span>&gt;</span>sound<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+      hazards.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessibilityHazard-vocabulary"><div class="header-wrapper"><h3 id="x5-2-vocabulary"><bdi class="secno">5.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessibilityHazard-vocabulary" aria-label="Permalink for Section 5.2"></a></div>
+				
+
+				<section id="flashing"><div class="header-wrapper"><h4 id="x5-2-1-flashing"><bdi class="secno">5.2.1 </bdi>flashing</h4><a class="self-link" href="#flashing" aria-label="Permalink for Section 5.2.1"></a></div>
+					
+
+					<p>Indicates that the resource presents a flashing hazard for photosensitive persons.</p>
+
+					<p>This value should be set when the content meets the hazard thresholds described in <a href="https://www.w3.org/TR/WCAG21/#three-flashes-or-below-threshold">Success Criterion
+							2.3.1 Three Flashes or Below Threshold</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2" title="Web Content Accessibility Guidelines (WCAG) 2">WCAG2</a></cite>].</p>
+
+					<p>The <code>flashing</code> value must not be set when any of the <a href="#noFlashingHazard"><code>noFlashingHazard</code></a>, <a href="#hazard-none"><code>none</code></a>, or <a href="#hazard-unknown"><code>unknown</code></a> values are set.</p>
+				</section>
+
+				<section id="noFlashingHazard"><div class="header-wrapper"><h4 id="x5-2-2-noflashinghazard"><bdi class="secno">5.2.2 </bdi>noFlashingHazard</h4><a class="self-link" href="#noFlashingHazard" aria-label="Permalink for Section 5.2.2"></a></div>
+					
+
+					<p>Indicates that the resource does not present a flashing hazard.</p>
+
+					<p>This value should be set when the content conforms to <a href="https://www.w3.org/TR/WCAG21/#three-flashes-or-below-threshold">Success Criterion
+							2.3.1 Three Flashes or Below Threshold</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2" title="Web Content Accessibility Guidelines (WCAG) 2">WCAG2</a></cite>].</p>
+
+					<p>The <code>noFlashingHazard</code> value must not be set when either of the <a href="#flashing"><code>flashing</code></a> or <a href="#hazard-unknown"><code>unknown</code></a> values
+						is set. It should not be set when the <a href="#hazard-none"><code>none</code></a> value is
+						set.</p>
+				</section>
+
+				<section id="motionSimulation"><div class="header-wrapper"><h4 id="x5-2-3-motionsimulation"><bdi class="secno">5.2.3 </bdi>motionSimulation</h4><a class="self-link" href="#motionSimulation" aria-label="Permalink for Section 5.2.3"></a></div>
+					
+
+					<p>Indicates that the resource contains instances of motion simulation that may affect some
+						individuals.</p>
+
+					<p>Some examples of motion simulation include video games with a first-person perspective and
+						CSS-controlled backgrounds that move when a user scrolls a page.</p>
+
+					<p>The <code>motionSimulation</code> value must not be set when any of the <a href="#noMotionSimulationHazard"><code>noMotionSimulationHazard</code></a>, <a href="#hazard-none"><code>none</code></a>, or <a href="#hazard-unknown"><code>unknown</code></a> values are set.</p>
+				</section>
+
+				<section id="noMotionSimulationHazard"><div class="header-wrapper"><h4 id="x5-2-4-nomotionsimulationhazard"><bdi class="secno">5.2.4 </bdi>noMotionSimulationHazard</h4><a class="self-link" href="#noMotionSimulationHazard" aria-label="Permalink for Section 5.2.4"></a></div>
+					
+
+					<p>Indicates that the resource does not contain instances of motion simulation.</p>
+
+					<p>The <code>noMotionSimulation</code> value must not be set when either of the <a href="#motionSimulation"><code>motionSimulation</code></a> or <a href="#hazard-unknown"><code>unknown</code></a> values is set. It should not be set when the <a href="#hazard-none"><code>none</code></a> value is set.</p>
+				</section>
+
+				<section id="sound"><div class="header-wrapper"><h4 id="x5-2-5-sound"><bdi class="secno">5.2.5 </bdi>sound</h4><a class="self-link" href="#sound" aria-label="Permalink for Section 5.2.5"></a></div>
+					
+
+					<p>Indicates that the resource contains auditory sounds that may affect some individuals.</p>
+
+					<div class="note" id="issue-container-generatedID-12"><div role="heading" class="ednote-title marker" id="h-ednote" aria-level="5"><span>Editor's note</span></div><p class="">The application of this value is currently under discussion as its application is
+						underspecified.</p></div>
+
+					<p>The <code>sound</code> value must not be set when any of the <a href="#noSoundHazard"><code>noSoundHazard</code></a>, <a href="#hazard-none"><code>none</code></a>, or <a href="#hazard-unknown"><code>unknown</code></a> values are set.</p>
+				</section>
+
+				<section id="noSoundHazard"><div class="header-wrapper"><h4 id="x5-2-6-nosoundhazard"><bdi class="secno">5.2.6 </bdi>noSoundHazard</h4><a class="self-link" href="#noSoundHazard" aria-label="Permalink for Section 5.2.6"></a></div>
+					
+
+					<p>Indicates that the resource does not contain auditory hazards.</p>
+
+					<div class="note" id="issue-container-generatedID-13"><div role="heading" class="ednote-title marker" id="h-ednote-0" aria-level="5"><span>Editor's note</span></div><p class="">The application of this value is currently under discussion as its application is
+						underspecified.</p></div>
+
+					<p>The <code>noSoundHazard</code> value must not be set when either of the <a href="#sound"><code>sound</code></a> or <a href="#hazard-unknown"><code>unknown</code></a> values is
+						set. It should not be set when the <a href="#hazard-none"><code>none</code></a> value is
+						set.</p>
+				</section>
+
+				<section id="hazard-unknown"><div class="header-wrapper"><h4 id="x5-2-7-unknown"><bdi class="secno">5.2.7 </bdi>unknown</h4><a class="self-link" href="#hazard-unknown" aria-label="Permalink for Section 5.2.7"></a></div>
+					
+
+					<p>Indicates that the author is not able to determine if the resource presents any hazards.</p>
+
+					<p>The <code>unknown</code> value must not be set with any other hazard value.</p>
+				</section>
+
+				<section id="hazard-none"><div class="header-wrapper"><h4 id="x5-2-8-none"><bdi class="secno">5.2.8 </bdi>none</h4><a class="self-link" href="#hazard-none" aria-label="Permalink for Section 5.2.8"></a></div>
+					
+
+					<p>Indicates that the resource does not contain any hazards.</p>
+
+					<p>The <code>none</code> value must not be set when specifying either a known hazard or the <a href="#hazard-unknown"><code>unknown</code></a> value. It should not be set when negative
+						hazard claims are made.</p>
+				</section>
+			</section>
+		</section>
+		<section id="accessibilitySummary"><div class="header-wrapper"><h2 id="x6-the-accessibilitysummary-property"><bdi class="secno">6. </bdi>The <code>accessibilitySummary</code> Property</h2><a class="self-link" href="#accessibilitySummary" aria-label="Permalink for Section 6."></a></div>
+			
+
+			<blockquote>
+				<p>A human-readable summary of specific accessibility features or deficiencies, consistent with the
+					other accessibility metadata but expressing subtleties such as "short descriptions are present but
+					long descriptions will be needed for non-visual users" or "short descriptions are present and no
+					long descriptions are needed."</p>
+			</blockquote>
+
+			<p>The <code>accessibilitySummary</code> property is a free-form field that allows authors to describe the
+				accessible properties of the resource. As a result, it does not have an associated vocabulary.</p>
+
+			<aside class="example ex-group" id="example-accessibilitysummary"><div class="marker">
+    <a class="self-link" href="#example-accessibilitysummary">Example<bdi> 5</bdi></a><span class="example-title">: accessibilitySummary expressed in <span class="format">JSON-LD</span></span>
+  </div>
+				<p>The following example shows a basic accessibility summary that indicates a book meets WCAG 2.1 Level
+					AA.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+				<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Book"</span>,
+   …
+   <span class="hljs-string">"accessibilitySummary"</span>: <span class="hljs-string">"This publication meets WCAG 2.1 Level AA."</span>,
+   …
+}</code></pre>
+
+				<pre class="epub" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> …&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:type"</span>&gt;</span>
+         Book
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilitySummary"</span>&gt;</span>
+         This publication meets the
+         requirements of WCAG 2.1 Level AA.
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+   	…
+   <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+
+				<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"Book"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Accessibility Summary:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span> 
+         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"accessibilitySummary"</span>&gt;</span>This
+            publication meets the requirements of
+            WCAG 2.1 Level AA.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+				<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/Book"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Accessibility Summary:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span> 
+         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilitySummary"</span>&gt;</span>This 
+            publication meets the requirements of
+            WCAG 2.1 Level AA …<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+			</aside>
+		</section>
+		<section id="accessMode"><div class="header-wrapper"><h2 id="x7-the-accessmode-property"><bdi class="secno">7. </bdi>The <code>accessMode</code> Property</h2><a class="self-link" href="#accessMode" aria-label="Permalink for Section 7."></a></div>
+			
+
+			<section id="accessMode-application"><div class="header-wrapper"><h3 id="x7-1-application"><bdi class="secno">7.1 </bdi>Application</h3><a class="self-link" href="#accessMode-application" aria-label="Permalink for Section 7.1"></a></div>
+				
+
+				<blockquote>
+					<p>The human sensory perceptual system or cognitive faculty through which a person may process or
+						perceive information.</p>
+				</blockquote>
+
+				<p>The <code>accessMode</code> property describes the ways information is encoded in the resource, where
+					information is defined as any content that contributes to the understanding of the resource.</p>
+
+				<p>The expected value of the <code>accessMode</code> property is a list of the applicable access modes.
+					For metadata formats incapable of expressing lists, the property should be repeated for each access
+					mode.</p>
+
+				<div class="note" role="note" id="issue-container-generatedID-14"><div role="heading" class="note-title marker" id="h-note-12" aria-level="4"><span>Note</span></div><div class="">
+					<p>The access modes do not tell users if all the specified modes are necessary to consume the
+						information or if only individual modes or combinations are necessary (e.g., in a book with
+						audio content, the ability to read textual content may be sufficient if transcripts are
+						provided).</p>
+
+					<p>The <a href="#accessModeSufficient"><code>accessModeSufficient</code> property</a> is designed to
+						fill this gap of understanding the combinations of modes necessary to fully consume the
+						information.</p>
+				</div></div>
+
+				<aside class="example ex-group" id="example-accessmode"><div class="marker">
+    <a class="self-link" href="#example-accessmode">Example<bdi> 6</bdi></a><span class="example-title">: accessMode expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following example shows the metadata for a publication that contains both text and
+						images.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"CreativeWork"</span>,
+   …
+   <span class="hljs-string">"accessMode"</span>: [<span class="hljs-string">"textual"</span>,
+                  <span class="hljs-string">"visual"</span>],
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> …&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessMode"</span>&gt;</span>
+         textual
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessMode"</span>&gt;</span>
+         visual
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+   	…
+   <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"CreativeWork"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This book contains both
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessMode"</span>&gt;</span>textual<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      and
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"accessMode"</span>&gt;</span>visual<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+         content.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/CreativeWork"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This book contains both
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessMode"</span>&gt;</span>textual<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      and
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>
+          <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessMode"</span>&gt;</span>visual<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+         content.
+   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessMode-vocabulary"><div class="header-wrapper"><h3 id="x7-2-vocabulary"><bdi class="secno">7.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessMode-vocabulary" aria-label="Permalink for Section 7.2"></a></div>
+				
+
+				<section id="auditory"><div class="header-wrapper"><h4 id="x7-2-1-auditory"><bdi class="secno">7.2.1 </bdi>auditory</h4><a class="self-link" href="#auditory" aria-label="Permalink for Section 7.2.1"></a></div>
+					
+
+					<p>Indicates that the resource contains information encoded in auditory form.</p>
+
+					<div class="note" role="note" id="issue-container-generatedID-15"><div role="heading" class="note-title marker" id="h-note-13" aria-level="5"><span>Note</span></div><div class="">
+						<p>This value is not set when the auditory content conveys no information. For example, an
+							instructional video might include background music while all the necessary information to
+							complete the task is conveyed visually and/or through text captions.</p>
+					</div></div>
+				</section>
+
+				<section id="chartOnVisual"><div class="header-wrapper"><h4 id="x7-2-2-chartonvisual"><bdi class="secno">7.2.2 </bdi>chartOnVisual</h4><a class="self-link" href="#chartOnVisual" aria-label="Permalink for Section 7.2.2"></a></div>
+					
+
+					<p>Indicates that the resource contains charts encoded in visual form.</p>
+				</section>
+
+				<section id="chemOnVisual"><div class="header-wrapper"><h4 id="x7-2-3-chemonvisual"><bdi class="secno">7.2.3 </bdi>chemOnVisual</h4><a class="self-link" href="#chemOnVisual" aria-label="Permalink for Section 7.2.3"></a></div>
+					
+
+					<p>Indicates that the resource contains chemical equations encoded in visual form.</p>
+				</section>
+
+				<section id="colorDependent"><div class="header-wrapper"><h4 id="x7-2-4-colordependent"><bdi class="secno">7.2.4 </bdi>colorDependent</h4><a class="self-link" href="#colorDependent" aria-label="Permalink for Section 7.2.4"></a></div>
+					
+
+					<p>Indicates that the resource contains information encoded such that color perception is
+						necessary.</p>
+				</section>
+
+				<section id="diagramOnVisual"><div class="header-wrapper"><h4 id="x7-2-5-diagramonvisual"><bdi class="secno">7.2.5 </bdi>diagramOnVisual</h4><a class="self-link" href="#diagramOnVisual" aria-label="Permalink for Section 7.2.5"></a></div>
+					
+
+					<p>Indicates that the resource contains diagrams encoded in visual form.</p>
+				</section>
+
+				<section id="mathOnVisual"><div class="header-wrapper"><h4 id="x7-2-6-mathonvisual"><bdi class="secno">7.2.6 </bdi>mathOnVisual</h4><a class="self-link" href="#mathOnVisual" aria-label="Permalink for Section 7.2.6"></a></div>
+					
+
+					<p>Indicates that the resource contains mathematical notations encoded in visual form.</p>
+				</section>
+
+				<section id="musicOnVisual"><div class="header-wrapper"><h4 id="x7-2-7-musiconvisual"><bdi class="secno">7.2.7 </bdi>musicOnVisual</h4><a class="self-link" href="#musicOnVisual" aria-label="Permalink for Section 7.2.7"></a></div>
+					
+
+					<p>Indicates that the resource contains musical notation encoded in visual form.</p>
+				</section>
+
+				<section id="tactile"><div class="header-wrapper"><h4 id="x7-2-8-tactile"><bdi class="secno">7.2.8 </bdi>tactile</h4><a class="self-link" href="#tactile" aria-label="Permalink for Section 7.2.8"></a></div>
+					
+
+					<p>Indicates that the resource contains information encoded in tactile form.</p>
+
+					<p>Note that although an indication of a tactile mode often indicates the content is encoded using a
+						braille system, this is not always the case. Tactile perception may also indicate, for example,
+						the use of tactile graphics to convey information.</p>
+				</section>
+
+				<section id="textOnVisual"><div class="header-wrapper"><h4 id="x7-2-9-textonvisual"><bdi class="secno">7.2.9 </bdi>textOnVisual</h4><a class="self-link" href="#textOnVisual" aria-label="Permalink for Section 7.2.9"></a></div>
+					
+
+					<p>Indicates that the resource contains text encoded in visual form.</p>
+				</section>
+
+				<section id="textual"><div class="header-wrapper"><h4 id="x7-2-10-textual"><bdi class="secno">7.2.10 </bdi>textual</h4><a class="self-link" href="#textual" aria-label="Permalink for Section 7.2.10"></a></div>
+					
+
+					<p>Indicates that the resource contains information encoded in textual form.</p>
+
+					<div class="note" role="note" id="issue-container-generatedID-16"><div role="heading" class="note-title marker" id="h-note-14" aria-level="5"><span>Note</span></div><div class="">
+						<p>This value is not set if the only textual content is for navigational purposes. For example,
+							an audiobook might include a table of contents, but it is not necessary to read the table of
+							contents to read the work. Likewise, books with synchronized text-audio playback may only
+							include headings to allow structured navigation.</p>
+					</div></div>
+				</section>
+
+				<section id="visual"><div class="header-wrapper"><h4 id="x7-2-11-visual"><bdi class="secno">7.2.11 </bdi>visual</h4><a class="self-link" href="#visual" aria-label="Permalink for Section 7.2.11"></a></div>
+					
+
+					<p>Indicates that the resource contains information encoded in visual form.</p>
+
+					<div class="note" role="note" id="issue-container-generatedID-17"><div role="heading" class="note-title marker" id="h-note-15" aria-level="5"><span>Note</span></div><div class="">
+						<p>This value is not set if the only visual imagery is presentational or not directly relevant
+							to understanding the content. Examples of this type of imagery include cover images for
+							publications, corporate logos, and purely decorative images.</p>
+					</div></div>
+				</section>
+			</section>
+		</section>
+		<section id="accessModeSufficient"><div class="header-wrapper"><h2 id="x8-the-accessmodesufficient-property"><bdi class="secno">8. </bdi>The <code>accessModeSufficient</code> property</h2><a class="self-link" href="#accessModeSufficient" aria-label="Permalink for Section 8."></a></div>
+			
+
+			<section id="accessModeSufficient-application"><div class="header-wrapper"><h3 id="x8-1-application"><bdi class="secno">8.1 </bdi>Application</h3><a class="self-link" href="#accessModeSufficient-application" aria-label="Permalink for Section 8.1"></a></div>
+				
+
+				<blockquote>
+					<p>A list of single or combined accessModes that are sufficient to understand all the intellectual
+						content of a resource.</p>
+				</blockquote>
+
+				<p>Although the <a href="#accessMode">access modes</a> indicate how the information is encoded in its
+					default form, knowing the encoding only describes one possible perceptual pathway through the
+					content. For example, a book with textual and visual content will, at the most basic level, require
+					an individual who can read text and view images.</p>
+
+				<p>The author of the content may, however, provide alternatives to a specific access mode that allow the
+					content to be wholly consumed in another manner. The use of alternative text and extended
+					descriptions, for example, can allow a user who cannot perceive visual content to read all the
+					information in textual form (e.g., through text-to-speech playback).</p>
+
+				<p>In such a case, a resource with textual and visual access modes could have both a textual and visual
+					sufficient access mode <em>and</em> a purely textual access mode — because there are text
+					equivalents for the visual content. Specifying there is an additional textual-only pathway through
+					the content allows users of screen readers, for example, to recognize that the content will be
+					readable by them.</p>
+
+				<p>It is for this reason that content that has multiple access modes may have one or more sets of
+					sufficient access modes: each listing of sufficient access modes provides users with one possible
+					combination of reading modes that allow the content to be read in full.</p>
+
+				<p>Although listing the combinations of access modes that allow a user to read all the content is
+					helpful, the most important sufficient access modes to list are the single-value ones. Users looking
+					for an alternative to the default encoding of the content typically are looking for a single
+					presentation mode (e.g., a fully textual pathway to use with a text-to-speech renderer or a fully
+					auditory pathway to listen to).</p>
+
+				<p>The expected value of the <code>accessModeSufficient</code> property is an <a href="https://schema.org/ItemList">ItemList</a>. Each entry in the ItemList must be a list of
+					one or more access modes representing one pathway.</p>
+
+				<p>For formats incapable of expressing lists, the property should be repeated for each set of sufficient
+					access modes. In these cases, it is recommended to use a comma-separated list of values.</p>
+
+				<aside class="example ex-group" id="example-accessmodesufficient"><div class="marker">
+    <a class="self-link" href="#example-accessmodesufficient">Example<bdi> 7</bdi></a><span class="example-title">: accessModeSufficient expressed in <span class="format">JSON-LD</span></span>
+  </div>
+					<p>The following metadata shows that a publication has two ways in which the information can be
+						read: one is via the ability to read the text and perceive the images, and the other via text
+						only.</p><div class="ex-buttons"><fieldset>	<legend>Select example format</legend>	<input type="button" class="active" value="JSON-LD" onclick="changeExamples(this)">	<input type="button" value="EPUB" onclick="changeExamples(this)">	<input type="button" value="RDFa" onclick="changeExamples(this)">	<input type="button" value="Microdata" onclick="changeExamples(this)"></fieldset></div>
+					<pre class="json-ld"><code aria-busy="false" class="hljs javascript">{
+   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"schema.org"</span>,
+   <span class="hljs-string">"@type"</span>: <span class="hljs-string">"CreativeWork"</span>,
+   …
+   <span class="hljs-string">"accessModeSufficient"</span>: [
+      {
+         <span class="hljs-string">"@type"</span>: <span class="hljs-string">"ItemList"</span>,
+         <span class="hljs-string">"itemListElement"</span>: [<span class="hljs-string">"textual"</span>,<span class="hljs-string">"visual"</span>],
+         <span class="hljs-string">"description"</span>: <span class="hljs-string">"Text and images"</span>
+      },
+      {
+         <span class="hljs-string">"@type"</span>: <span class="hljs-string">"ItemList"</span>,
+         <span class="hljs-string">"itemListElement"</span>: [<span class="hljs-string">"textual"</span>],
+         <span class="hljs-string">"description"</span>: <span class="hljs-string">"Text only"</span>
+      }
+   ]
+   …
+}</code></pre>
+
+					<pre class="epub" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> …&gt;</span>
+      …
+   <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessModeSufficient"</span>&gt;</span>
+         textual,visual
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+          <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessModeSufficient"</span>&gt;</span>
+         textual
+      <span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+  	…
+   <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+
+					<pre class="rdfa" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">vocab</span>=<span class="hljs-string">"https://schema.org"</span>
+    <span class="hljs-attr">typeof</span>=<span class="hljs-string">"CreativeWork"</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Sufficient Access Modes:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"accessModeSufficient"</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+            	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"ItemList"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"textual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"visual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"description"</span>&gt;</span>Text and Images<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+            	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"ItemList"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"textual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"description"</span>&gt;</span>Text<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+         <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
+					<pre class="microdata" hidden="hidden"><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"https://schema.org/CreativeWork"</span>
+    <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   …
+   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      …
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Sufficient Access Modes:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessModeSufficient"</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+            	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"ItemList"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"textual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"visual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"description"</span>&gt;</span>Text and Images<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+            	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"ItemList"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"itemListElement"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"textual"</span>&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"description"</span>&gt;</span>Text<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+         <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+   …
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</aside>
+			</section>
+
+			<section id="accessModeSufficient-vocabulary"><div class="header-wrapper"><h3 id="x8-2-vocabulary"><bdi class="secno">8.2 </bdi>Vocabulary</h3><a class="self-link" href="#accessModeSufficient-vocabulary" aria-label="Permalink for Section 8.2"></a></div>
+				
+
+				<section id="ams-auditory"><div class="header-wrapper"><h4 id="x8-2-1-auditory"><bdi class="secno">8.2.1 </bdi>auditory</h4><a class="self-link" href="#ams-auditory" aria-label="Permalink for Section 8.2.1"></a></div>
+					
+
+					<p>Indicates that auditory perception is necessary to consume the information.</p>
+				</section>
+
+				<section id="ams-tactile"><div class="header-wrapper"><h4 id="x8-2-2-tactile"><bdi class="secno">8.2.2 </bdi>tactile</h4><a class="self-link" href="#ams-tactile" aria-label="Permalink for Section 8.2.2"></a></div>
+					
+
+					<p>Indicates that tactile perception is necessary to consume the information.</p>
+				</section>
+
+				<section id="ams-textual"><div class="header-wrapper"><h4 id="x8-2-3-textual"><bdi class="secno">8.2.3 </bdi>textual</h4><a class="self-link" href="#ams-textual" aria-label="Permalink for Section 8.2.3"></a></div>
+					
+
+					<p>Indicates that the ability to read textual content is necessary to consume the information.</p>
+
+					<p>Note that reading textual content does not require visual perception, as textual content can be
+						rendered as audio using a text-to-speech capable device or assistive technology.</p>
+				</section>
+
+				<section id="ams-visual"><div class="header-wrapper"><h4 id="x8-2-4-visual"><bdi class="secno">8.2.4 </bdi>visual</h4><a class="self-link" href="#ams-visual" aria-label="Permalink for Section 8.2.4"></a></div>
+					
+
+					<p>Indicates that visual perception is necessary to consume the information.</p>
+				</section>
+			</section>
+		</section>
+		<section id="examples"><div class="header-wrapper"><h2 id="x9-examples"><bdi class="secno">9. </bdi>Examples</h2><a class="self-link" href="#examples" aria-label="Permalink for Section 9."></a></div>
+			
+
+			<section id="ex-book"><div class="header-wrapper"><h3 id="x9-1-book"><bdi class="secno">9.1 </bdi>Book</h3><a class="self-link" href="#ex-book" aria-label="Permalink for Section 9.1"></a></div>
+				
+
+				<p>The following example shows how accessibility metadata could be used to enhance a library record
+					available on the Web.</p>
+
+				<div class="example">
+					<pre aria-busy="false"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"http://schema.org/Book"</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"bookFormat"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"EBook/DAISY3"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"ARIA"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"largePrint"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"highContrastDisplay"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"displayTransformability/resizeText"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"longDescription"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"alternativeText"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"readingOrder"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"structuralNavigation"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"tableOfContents"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityControl"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"fullKeyboardControl"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityControl"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"fullMouseControl"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityHazard"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"none"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Name:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"name"</span>&gt;</span>Holt Physical Science<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Brief Synopsis:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"description"</span>&gt;</span>NIMAC-sourced textbook<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Long Synopsis:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>N/A<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Book Quality:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>Publisher Quality<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Book Size:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"numberOfPages"</span>&gt;</span>598 Pages<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>ISBN-13:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"isbn"</span>&gt;</span>9780030426599<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Publisher:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"publisher"</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"http://schema.org/Organization"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>Holt, Rinehart
+         and Winston<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Date of Addition:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>06/08/10<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Copyright Date:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"copyrightYear"</span>&gt;</span>2007<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Copyrighted By:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"copyrightHolder"</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"http://schema.org/Organization"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>Holt,
+         Rinehart and Winston<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Adult content:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"isFamilyFriendly"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"true"</span> /&gt;</span>No<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Language:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"inLanguage"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"en-US"</span> /&gt;</span>English US<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Essential Images:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>861<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Described Images:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>910<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Categories:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"genre"</span>&gt;</span>Educational Materials<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Grade Levels:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>Sixth grade, Seventh grade, Eighth grade<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>NIMAC:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>This book is currently only available to public K-12 schools and organizations in the United
+         States for use with students with an IEP, because it was created from files supplied by the
+         NIMAC under these restrictions. Learn more in the NIMAC Support Center.<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+   
+   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bookReviews"</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"aggregateRating"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>
+      <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"http://schema.org/AggregateRating"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Reviews of Holt Physical Science (<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"reviewCount"</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> reviews)<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bookReviewScore"</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"ratingValue"</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> - No Rating Yet<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				</div>
+			</section>
+
+			<section id="ex-video"><div class="header-wrapper"><h3 id="x9-2-video"><bdi class="secno">9.2 </bdi>Video</h3><a class="self-link" href="#ex-video" aria-label="Permalink for Section 9.2"></a></div>
+				
+
+				<p>This example shows how the accessibility metadata could be used to augment a record for a video.</p>
+
+				<div class="example">
+					<pre aria-busy="false"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dl</span> <span class="hljs-attr">itemtype</span>=<span class="hljs-string">"http://schema.org/VideoObject"</span> <span class="hljs-attr">itemscope</span>=<span class="hljs-string">""</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Title:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"name"</span>&gt;</span>Arctic Climate Perspectives<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Description:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"description"</span>&gt;</span>This video, adapted from material provided by the ECHO
+      partners, describes how global climate change is affecting Barrow, Alaska.<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Adaptation Type:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"accessibilityFeature"</span>&gt;</span>captions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Access Mode:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>auditory, visual<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>URL:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"url"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.example.org/asset/echo07_vid_climate"</span>
+      &gt;</span>http://www.example.org/asset/echo07_vid_climate<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>/<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Has Adaptation:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>http://www.example.org/asset/echo07_vid_climate_dvs/<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Subjects:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"about"</span>&gt;</span>National K-12 Subject::Science::Earth and Space
+      Science::Water Cycle, Weather, and Climate::Structure and Composition of the
+      Atmosphere, National K-12 Subject::Science::Earth and Space Science::Water Cycle,
+      Weather, and Climate::Climate<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Education Level:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>Grade 6, Grade 7, Grade 8, Grade 9<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Audience:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"intendedEndUserRole"</span>&gt;</span>Learner<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Resource Type:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"genre"</span>&gt;</span>Audio/Visual<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>,
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"genre"</span>&gt;</span>Movie/Animation<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Language:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"inLanguage"</span>&gt;</span>en-US<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Publication Date:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"datePublished"</span>&gt;</span>2007-02-12<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Rights:<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>Download and Share, <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">itemprop</span>=<span class="hljs-string">"useRightsUrl"</span>
+      <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.example.org/oerlicense/2/"</span>
+      &gt;</span>http://www.example.org/oerlicense/2/<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span></code></pre>
+				</div>
+			</section>
+		</section>
+		<section id="change-log" class="appendix"><div class="header-wrapper"><h2 id="a-change-log"><bdi class="secno">A. </bdi>Change Log</h2><a class="self-link" href="#change-log" aria-label="Permalink for Appendix A."></a></div>
+			
+
+			<p>Note that this change log only identifies substantive changes to the vocabulary — those that add or
+				deprecate terms, or are similarly noteworthy.</p>
+
+			<p>For a list of all issues addressed (typos, minor definition modifications, etc.), refer to the <a href="https://github.com/w3c/a11y-discov-vocab/issues?q=is%3Aissue+is%3Aclosed">Community Group's
+					issue tracker</a>.</p>
+
+			
+
+			<details open="">
+				<summary>Changes made in 2023</summary>
+				<ul>
+					<li>27-Mar-2023: Add <code>unknown</code> feature for placeholder use. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/17">issue 17</a>.</li>
+					<li>06-Feb-2023: Add <code>pageNavigation</code> feature for indicating that a resource has a page
+						list. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/6">issue 6</a>.</li>
+					<li>06-Feb-2023: Add <code>pageBreakMarkers</code> feature for indicating that a resource includes
+						static page break markers. <code>printPageNumbers</code> is retained as a synonym but no longer
+						recommended for use. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/6">issue
+						6</a>.</li>
+				</ul>
+			</details>
+
+			<details>
+				<summary>Changes made in 2022</summary>
+				<ul>
+					<li>10-June-2022: Removed references to using the slash syntax to extend terms and recommend against
+						using the mechanism any more. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/5">issue 5</a>.</li>
+					<li>10-June-2022: Clarify that access modes do not apply to presentational content. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/38">issue 38</a>.</li>
+					<li>10-June-2022: Clarify that single-value sufficient access modes are the most important to list.
+						See <a href="https://github.com/w3c/a11y-discov-vocab/pull/49">pull request 49</a>.</li>
+					<li>10-June-2022: Identify hazard and feature property values that must not be specified together to
+						avoid ambiguity. See <a href="https://github.com/w3c/a11y-discov-vocab/pull/49">pull request
+							49</a>.</li>
+					<li>10-June-2022: Ensure all properties identify their expected values and describe how to handle
+						less expressive formats like EPUB. See <a href="https://github.com/w3c/a11y-discov-vocab/pull/49">pull request 49</a>.</li>
+					<li>09-June-2022: Deprecated the <code>bookmarks</code> feature due to its ambiguous definition. The
+							<code>tableOfContents</code> and <code>annotations</code> values are recommended in its
+						place. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/5">issue 5</a>.</li>
+					<li>08-June-2022: Marked the BlackberryAccessibility API as obsolete. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/12">issue 12</a>.</li>
+					<li>31-May-2022: Clarify the definition of taggedPDF to indicate it is critical for access to the
+						content not just for improved navigation. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/40">issue 40</a>.</li>
+					<li>07-Feb-2022: Restore the "tableOfContents" value for <code>accessibilityFeature</code>. See <a href="https://github.com/w3c/a11y-discov-vocab/pull/39">pull request 39</a>.</li>
+					<li>04-Feb-2022: The <code>accessibilityAPI</code> value "ARIA" is deprecated. It is replaced by a
+						new "ARIA" value for <code>accessibilityFeature</code> for indicating the use of roles of
+						enhanced structural and landmark navigation. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/4">issue 4</a>.</li>
+					<li>26-Jan-2022: The accessibility features have been restructured to better organize them by
+						purpose. See <a href="https://github.com/w3c/a11y-discov-vocab/issues/10">issue 10</a>.</li>
+				</ul>
+			</details>
+		</section>
+		<section id="acknowledgments" class="appendix"><div class="header-wrapper"><h2 id="b-acknowledgments"><bdi class="secno">B. </bdi>Acknowledgments</h2><a class="self-link" href="#acknowledgments" aria-label="Permalink for Appendix B."></a></div>
+			
+
+			<p>The editors would like to thank the <a href="https://www.w3.org/community/a11y-discov-vocab/participants">Accessibility Discoverability Vocabulary for Schema.org Community Group participants</a> for their
+				ongoing input and suggestions to improve this vocabulary.</p>
+
+			<p>Additional thanks go to the original participants of the <a href="http://www.a11ymetadata.org">Accessibility Metadata Project</a> for their work bringing the properties and vocabularies to
+				reality.</p>
+		</section>
+		<script>
+			// <![CDATA[
+			var pre = document.querySelectorAll('pre.json-ld, pre.epub, pre.rdfa, pre.microdata');
+			
+			function changeExamples(elem) {
+			
+				// hide the non-epub examples
+				var type = elem.value.toLowerCase();
+				
+				for (var i = 0; i < pre.length; i++) {
+					if (!pre[i].classList.contains(type)) {
+						pre[i].setAttribute('hidden', 'hidden');
+					}
+					else {
+						pre[i].removeAttribute('hidden');
+					}
+				}
+				
+				// set the active button
+				var button = document.querySelectorAll('input[type="button"]');
+				
+				for (var j = 0; j < button.length; j++) {
+					if (button[j].value.toLowerCase() !== type) {
+						button[j].classList.remove('active');
+					}
+					else {
+						button[j].classList.add('active');
+					}	
+				}
+				
+				var format = document.querySelectorAll('aside.ex-group > div.marker > span.example-title > span.format');
+				
+				for (var k = 0; k < format.length; k++) {
+					format[k].innerHTML = elem.value;
+				}
+			}
+			// ]]>
+		</script>
+	
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="c-references"><bdi class="secno">C. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix C."></a></div><section id="informative-references"><div class="header-wrapper"><h3 id="c-1-informative-references"><bdi class="secno">C.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix C.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-at-spi">[AT-SPI]</dt><dd>
+      <a href="https://developer-old.gnome.org/libatspi/stable/"><cite>Assistive Technology Service Provider Interface</cite></a>.  The GNOME Project. URL: <a href="https://developer-old.gnome.org/libatspi/stable/">https://developer-old.gnome.org/libatspi/stable/</a>
+    </dd><dt id="bib-atk">[ATK]</dt><dd>
+      <a href="https://developer.gnome.org/atk/stable/"><cite>ATK - Accessibility Toolkit</cite></a>.  The GNOME Project. URL: <a href="https://developer.gnome.org/atk/stable/">https://developer.gnome.org/atk/stable/</a>
+    </dd><dt id="bib-css3-speech">[CSS3-Speech]</dt><dd>
+      <a href="https://www.w3.org/TR/css-speech-1/"><cite>CSS Speech Module Level 1</cite></a>. Léonie Watson; Elika Etemad.  W3C. 14 February 2023. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-speech-1/">https://www.w3.org/TR/css-speech-1/</a>
+    </dd><dt id="bib-dpub-aria-1.0">[DPUB-ARIA-1.0]</dt><dd>
+      <a href="https://www.w3.org/TR/dpub-aria-1.0/"><cite>Digital Publishing WAI-ARIA Module 1.0</cite></a>. Matt Garrish; Tzviya Siegman; Markus Gylling; Shane McCarron.  W3C. 14 December 2017. W3C Recommendation. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
+    </dd><dt id="bib-epub-33">[EPUB-33]</dt><dd>
+      <a href="https://www.w3.org/TR/epub-33/"><cite>EPUB 3.3</cite></a>. Ivan Herman; Matt Garrish; Dave Cramer.  W3C. 21 February 2023. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/epub-33/">https://www.w3.org/TR/epub-33/</a>
+    </dd><dt id="bib-html">[HTML]</dt><dd>
+      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+    </dd><dt id="bib-iaccessible2">[IAccessible2]</dt><dd>
+      <a href="https://wiki.linuxfoundation.org/accessibility/iaccessible2/"><cite>IAccessible2</cite></a>.  Linux Foundation. URL: <a href="https://wiki.linuxfoundation.org/accessibility/iaccessible2/">https://wiki.linuxfoundation.org/accessibility/iaccessible2/</a>
+    </dd><dt id="bib-japi">[JAPI]</dt><dd>
+      <a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140174.html"><cite>Java Accessibility API</cite></a>.  Oracle. URL: <a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140174.html">http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140174.html</a>
+    </dd><dt id="bib-mathml">[MathML]</dt><dd>
+      <a href="https://www.w3.org/TR/REC-MathML/"><cite>Mathematical Markup Language (MathML™) 1.01 Specification</cite></a>. Patrick D F Ion; Robert R Miner.  W3C. 7 March 2023. W3C Recommendation. URL: <a href="https://www.w3.org/TR/REC-MathML/">https://www.w3.org/TR/REC-MathML/</a>
+    </dd><dt id="bib-msaa">[MSAA]</dt><dd>
+      <a href="https://docs.microsoft.com/en-us/windows/win32/winauto/microsoft-active-accessibility"><cite>Microsoft Active Accessibility (MSAA)</cite></a>.  Microsoft Corporation. URL: <a href="https://docs.microsoft.com/en-us/windows/win32/winauto/microsoft-active-accessibility">https://docs.microsoft.com/en-us/windows/win32/winauto/microsoft-active-accessibility</a>
+    </dd><dt id="bib-pronunciation-lexicon">[Pronunciation-Lexicon]</dt><dd>
+      <a href="https://www.w3.org/TR/pronunciation-lexicon/"><cite>Pronunciation Lexicon Specification (PLS) Version 1.0</cite></a>. Paolo Baggia.  W3C. 14 October 2008. W3C Recommendation. URL: <a href="https://www.w3.org/TR/pronunciation-lexicon/">https://www.w3.org/TR/pronunciation-lexicon/</a>
+    </dd><dt id="bib-schema-org">[schema-org]</dt><dd>
+      <a href="https://schema.org/"><cite>Schema.org</cite></a>. W3C Schema.org Community Group.  W3C. 6.0. URL: <a href="https://schema.org/">https://schema.org/</a>
+    </dd><dt id="bib-ssml">[SSML]</dt><dd>
+      <a href="https://www.w3.org/TR/speech-synthesis11/"><cite>Speech Synthesis Markup Language (SSML) Version 1.1</cite></a>. Daniel Burnett; Zhi Wei Shuang.  W3C. 7 September 2010. W3C Recommendation. URL: <a href="https://www.w3.org/TR/speech-synthesis11/">https://www.w3.org/TR/speech-synthesis11/</a>
+    </dd><dt id="bib-wai-aria">[WAI-ARIA]</dt><dd>
+      <a href="https://www.w3.org/TR/wai-aria/"><cite>Accessible Rich Internet Applications (WAI-ARIA) 1.0</cite></a>. James Craig; Michael Cooper et al.  W3C. 20 March 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/wai-aria/">https://www.w3.org/TR/wai-aria/</a>
+    </dd><dt id="bib-wcag2">[WCAG2]</dt><dd>
+      <a href="https://www.w3.org/TR/WCAG2/"><cite>Web Content Accessibility Guidelines (WCAG) 2</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/WCAG2/">https://www.w3.org/TR/WCAG2/</a>
+    </dd><dt id="bib-wcag21">[WCAG21]</dt><dd>
+      <a href="https://www.w3.org/TR/WCAG21/"><cite>Web Content Accessibility Guidelines (WCAG) 2.1</cite></a>. Andrew Kirkpatrick; Joshue O'Connor; Alastair Campbell; Michael Cooper.  W3C. 5 June 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/WCAG21/">https://www.w3.org/TR/WCAG21/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
