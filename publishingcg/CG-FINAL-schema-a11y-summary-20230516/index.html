@@ -1,0 +1,834 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 34.1.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+.example pre{background-color:rgba(0,0,0,.03)}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>Accessibility Summary Authoring Guidelines for EPUB Publications</title>
+		
+		
+		
+<style type="text/css">
+
+			/* Table zebra style... */
+
+			table.zebra {
+				font-size:inherit;
+				font:90%;
+				margin:1em;
+			}
+
+			table.zebra td {
+				padding-left: 0.3em;
+			}
+
+			table.zebra th {
+				font-weight: bold;
+				text-align: center;
+				background-color: rgb(0,0,128) !important;
+				font-size: 110%;
+				background: hsl(180, 30%, 50%);
+				color: #fff;
+			}
+
+			table.zebra th a:link {
+			  color: #fff;
+			}
+
+			table.zebra th a:visited {
+			  color: #aaa;
+			}
+
+			table.zebra tr:nth-child(even) {
+				background-color: hsl(180, 30%, 93%) !important;
+			}
+
+			table.zebra th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+			table.zebra td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+		
+</style>
+	
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="description" content="The Accessibility Summary  adds additional information, clarifications,  and refinements to other accessibility metadata. In creating the Accessibility Summary, one should assume that the other accessibility metadata has already been presented, and the Accessibility Summary serves to enhance the metadata.  In the &quot;EPUB Accessibility Conformance and Discoverability Specification 1.0,&quot; the accessibilitySummary was a required field, and it would present the essential accessibility metadata. However, in version 1.1, it changed to be an optional field.  The accessibilitySummary now eliminates the duplication of information presented by other accessibility metadata. If there are features or shortcomings in the publication that are not expressed in other accessibility metadata, then the Accessibility Summary is the correct place to include this information. The remainder of these guidelines explains some considerations, and provides some examples of Accessibility Summaries.">
+<link rel="canonical" href="https://www.w3.org/publishing/a11y/schema-a11y-summary/">
+<style>
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
+.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
+.hljs-literal{color:#0b76c5}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "group": "publishingcg",
+  "shortName": "schema-a11y-summary",
+  "edDraftURI": "https://w3c.github.io/publ-a11y/drafts/schema-a11y-summary/",
+  "latestVersion": "https://www.w3.org/publishing/a11y/schema-a11y-summary/",
+  "specStatus": "CG-FINAL",
+  "noRecTrack": true,
+  "copyrightStart": "2022",
+  "editors": [
+    {
+      "name": "George Kerscher",
+      "company": "DAISY Consortium",
+      "companyURL": "http://daisy.org",
+      "w3cid": 1460
+    },
+    {
+      "name": "Charles LaPierre",
+      "company": "Benetech",
+      "companyURL": "http://benetech.org",
+      "w3cid": 72055
+    },
+    {
+      "name": "Gregorio Pellegrino",
+      "company": "Fondazione LIA",
+      "companyURL": "https://www.fondazionelia.org",
+      "w3cid": 97111
+    }
+  ],
+  "processVersion": 2020,
+  "includePermalinks": true,
+  "permalinkEdge": true,
+  "permalinkHide": false,
+  "github": {
+    "repoURL": "https://github.com/w3c/publ-a11y",
+    "branch": "main"
+  },
+  "publishDate": "2023-05-16",
+  "publishISODate": "2023-05-16T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 16 May 2023"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+	<body class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Accessibility Summary Authoring Guidelines for EPUB Publications</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2023-05-16">16 May 2023</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/publishingcg/CG-FINAL-schema-a11y-summary-20230516/">https://www.w3.org/community/reports/publishingcg/CG-FINAL-schema-a11y-summary-20230516/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/publishing/a11y/schema-a11y-summary/">https://www.w3.org/publishing/a11y/schema-a11y-summary/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/drafts/schema-a11y-summary/">https://w3c.github.io/publ-a11y/drafts/schema-a11y-summary/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="1460">
+    <span class="p-name fn">George Kerscher</span> (<a class="p-org org h-org" href="http://daisy.org">DAISY Consortium</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="72055">
+    <span class="p-name fn">Charles LaPierre</span> (<a class="p-org org h-org" href="http://benetech.org">Benetech</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="97111">
+    <span class="p-name fn">Gregorio Pellegrino</span> (<a class="p-org org h-org" href="https://www.fondazionelia.org">Fondazione LIA</a>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/publ-a11y/">GitHub w3c/publ-a11y</a>
+        (<a href="https://github.com/w3c/publ-a11y/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/">open issues</a>)
+      </dd>
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+          ©
+          2022-2023
+          
+          the Contributors to the Accessibility Summary Authoring Guidelines for EPUB Publications
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>The Accessibility Summary  adds additional information, clarifications,  and refinements to other accessibility metadata. In creating the Accessibility Summary, one should assume that the other accessibility metadata has already been presented, and the Accessibility Summary serves to enhance the metadata.  In the "EPUB Accessibility Conformance and Discoverability Specification 1.0," the accessibilitySummary was a required field, and it would present the essential accessibility metadata. However, in version 1.1, it changed to be an optional field.  The accessibilitySummary now eliminates the duplication of information presented by other accessibility metadata. If there are features or shortcomings in the publication that are not expressed in other accessibility metadata, then the Accessibility Summary is the correct place to include this information. The remainder of these guidelines explains some considerations, and provides some examples of Accessibility Summaries.</p>
+		</section>
+		<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p><p>
+    <a href="https://github.com/w3c/publ-a11y/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#before-writing"><bdi class="secno">2. </bdi>Before you start writing</a></li><li class="tocline"><a class="tocxref" href="#high-level-considerations"><bdi class="secno">3. </bdi>Some High-Level Considerations</a></li><li class="tocline"><a class="tocxref" href="#what-to-include"><bdi class="secno">4. </bdi>What to Include in the <code>AccessibilitySummary</code></a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibility-conformance"><bdi class="secno">4.1 </bdi>Accessibility Conformance Related Statements</a></li><li class="tocline"><a class="tocxref" href="#accessibility-features"><bdi class="secno">4.2 </bdi>Accessibility Features</a></li><li class="tocline"><a class="tocxref" href="#accessibility-hazards"><bdi class="secno">4.3 </bdi>Accessibility Hazards</a></li></ol></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">5. </bdi>Examples</a></li><li class="tocline"><a class="tocxref" href="#acknowledgments"><bdi class="secno">6. </bdi>Acknowledgments</a></li></ol></nav>
+		<section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+			
+
+			<p>The <a href="https://www.w3.org/TR/epub-a11y-11/">EPUB Accessibility Conformance and
+					Discovery Specification defines a schema.org metadata term called "accessibilitySummary."</a> This
+				piece of metadata is  important in that it provides   additional accessibility information or refines the accessibility metadata provided by other fields. Online Library and retail catalogues should present the accessibility metadata and the accessibilitySummary to
+				assist in making the decision to select a title.  Selection of content should include accessibility considerations of products.</p>
+
+			<div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div><p class="">Refer to the <a href="https://www.w3.org/2021/09/UX-Guide-metadata-1.0/principles/">User
+					Experience Guide for Displaying Accessibility Metadata 1.0</a> for libraries and retailers.</p></div>
+			<div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div><p class="">Please note that the accessibility summary is written from the perspective of the content provider 
+				and some features and functions will vary depending on the reading system or
+				the environment the end user is operating within.</p></div>
+		</section>
+		<section id="before-writing"><div class="header-wrapper"><h2 id="x2-before-you-start-writing"><bdi class="secno">2. </bdi>Before you start writing</h2><a class="self-link" href="#before-writing" aria-label="Permalink for Section 2."></a></div>
+			
+
+			<p>The <a href="https://daisy.github.io/ace/">Accessibility Checker for EPUB (Ace by DAISY)</a> is a tool
+				which can be used to help you determine some of the accessibility features within the publication.  This will help you determine
+				what should be included in the accessibilitySummary.</p>
+
+			<p>Next read the accessibility metadata in the EPUB package.opf file before you begin to write. Make note of
+				the features listed in the metadata as you prepare to write. One should always truthfully represent the
+				accessibility of the publication and point out shortcomings of the publication; students may be able to
+				get assistance from their school or university if some aspects of the publication are not accessible.
+				For example, if complex graphics that convey information do not have an extended description, let people
+				know that extended descriptions are not available.</p>
+		</section>
+		<section id="high-level-considerations"><div class="header-wrapper"><h2 id="x3-some-high-level-considerations"><bdi class="secno">3. </bdi>Some High-Level Considerations</h2><a class="self-link" href="#high-level-considerations" aria-label="Permalink for Section 3."></a></div>
+			
+
+			<ul>
+				<li>There should only be one accessibility summary. Do not include multiple accessibility summaries in
+					different languages.</li>
+				<li>The language of the accessibility summary should be in the primary language of the publication. For
+					example, a publication in French should have the accessibility summary also in French. While some
+					publications may have many passages in another language, the primary language should be determined.
+					For example, a publication intended to teach Spanish to English speaking students would have the
+					primary language as English.</li>
+				<li>Ensure the language of the accessibility summary is declared in the metadata.</li>
+				<li>It should be noted that markup in metadata is not allowed. While it may be tempting to use headings, bullets, bold, or  other markup, this must not be used.</li>
+
+				<li>Use simple language that communicates effectively to a non-technical and a non-accessibility aware
+					community.</li>
+				<li>Avoid terms that are only known in a specific knowledge domain, or explain the term in a simple
+					way.</li>
+					<li>The use of jargon or language that is not commonly understood should be avoided. It is better to explain what is meant. </li>
+
+					
+				<li>Write out the words of the acronym before using the abbreviation, e.g. Web Content Accessibility
+					Guidelines (WCAG).</li>
+				
+				<li>The length of the Accessibility Summary is important. Ideally the accessibilitySummary should be
+					under 500 characters in
+					length. The ONIX guideline suggests less than 500 characters. </li>
+				<li>The Accessibility Summary should be succinct and place the most essential information at the
+					beginning. We have no way of knowing how many characters various systems will display, and it is
+					possible that the Accessibility Summary would be truncated after a system-dependent number of characters.
+					Also, we believe people will be reading quickly and if the Accessibility Summary is long, people may
+					read only the beginning section.</li>
+				<li>If content of a similar type goes through the same workflow and quality assurance process, the same accessabilitySummary may be reused.  However, make sure that the <code>accessibilitySummary</code> metadata that ships with the
+					publication is accurate and applies to this particular publication.</li>
+			</ul>
+		</section>
+		<section id="what-to-include"><div class="header-wrapper"><h2 id="x4-what-to-include-in-the-accessibilitysummary"><bdi class="secno">4. </bdi>What to Include in the <code>AccessibilitySummary</code></h2><a class="self-link" href="#what-to-include" aria-label="Permalink for Section 4."></a></div>
+			
+
+			<p>Here is a list of areas that the summary should address :</p>
+
+			<section id="accessibility-conformance"><div class="header-wrapper"><h3 id="x4-1-accessibility-conformance-related-statements"><bdi class="secno">4.1 </bdi>Accessibility Conformance Related Statements</h3><a class="self-link" href="#accessibility-conformance" aria-label="Permalink for Section 4.1"></a></div>
+				
+
+				<p>The group of conformance statements are listed below. The level of conformance should be identified
+					such as AA or A. There is also the possibility of referencing conformance to an "optomized"
+					specification, which might not meet WCAG guidelines, such as an audio only specification. It is
+					possible for the publisher to self-certify and not having third party certification should be noted.
+					It has been brought up that WCAG A and AA conformance is a difficult or impossible claim to make,
+					and will be addressed in WCAG 3.0. For this reason, some organizations plan to qualify their claim
+					by saying, "as far as we know" or "it strives to" in their statement. The suggested summary below
+					contains this language.</p>
+
+				<table class="zebra">
+					<thead>
+						<tr>
+							<th>Accessibility Metadata</th>
+							<th>Priority</th>
+							<th>Example Statement</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Conformance statement </td>
+							<td>1</td>
+							<td>This publication strives to meet accepted Web Content Accessibility Guidelines (WCAG) at
+								the AA level.</td>
+
+						</tr>
+						<tr>
+							<td>Organization that certifies</td>
+							<td>1</td>
+							<td>This publication was certified by a third party, XYZ certifiers.</td>
+
+						</tr>
+						<tr>
+							<td>Credentials of certifier</td>
+							<td>2</td>
+							<td>XYZ certifiers is endorsed by the certifiers guild.</td>
+						</tr>
+						
+
+					</tbody>
+				</table>
+			</section>
+
+			
+			<section id="accessibility-features"><div class="header-wrapper"><h3 id="x4-2-accessibility-features"><bdi class="secno">4.2 </bdi>Accessibility Features</h3><a class="self-link" href="#accessibility-features" aria-label="Permalink for Section 4.2"></a></div>
+				
+<p>Features that have been included in metadata may benefit from additional information that more clearly explains the feature.  Some examples have been provided in the table below.</p>
+
+<p>For a complete list of features see: <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityFeature">Schema.org Accessibility Properties for Discoverability Vocabulary</a></p>
+
+				<table class="zebra">
+					<thead>
+						<tr>
+							<th>Accessibility Feature</th>
+							
+							<th>Example Text</th>
+							<th>Information</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><em>alternativeText</em></td>
+<td>Subject experts were used to create the ALT text.</td>
+							<td>WCAG requires alt text, and including additional information is suggested if there is something to add.</td>
+							
+						</tr>
+					
+						<tr>
+							<td><em>braille</em></td>
+
+							<td>The text is encoded as grade 2 UEB braille.</td>
+							<td>If the text is encoded as braille characters, this should be noted with the type and if it is contracted by stating it is grade 1 or 2, etc.</td>
+						</tr>
+
+						
+						<tr>
+							<td><em>displayTransformability</em></td>
+							
+							<td>The initial chapter headings are highly stylized and are provided as images. These are marked as proper headings, and alt text is provided, which should minimize the issue of having text represented as images.<br>
+							<br>
+							The tables are represented as images, and the full text of the table is provided below the image within the details element, which can be expanded.</td>
+							<td>Sometimes contented is formatted in such a way that it cannot be reflowed or other features cannot be adjusted. Tables, which cannot be encoded and are presented as images is one common example of this. Another case is where a highly stylized chapter heading is used that cannot be enlarged or transformed. These shortcomings should be noted and if there is any work around, such as  a long description provided in addition to the image.</td>
+						</tr>
+											<tr>
+							<td><em>index</em></td>
+							
+							<td>A comprehensive index is included with links to the top of the page.<br>
+							<br>
+							A comprehensive index is included with links to the paragraph being referenced.</td>
+							<td>Provide information about the index other than it is present. A comprehensive list and where the words link to is worth highlighting.</td>
+						</tr>
+						<tr>
+							<td><em>longDescription</em></td>
+
+							<td>Extended descriptions are provided for complex graphical content that conveys important
+								information for understanding of the content. The description is contained in a details element immediately below the image, which can be expanded.</td>
+							<td>Extended descriptions: Extended (or long) descriptions are used when complex graphics or
+								other highly visual components convey information. The extended description communicates
+								the equivalent information through text, tables, etc. The technique for providing the description should be included, such as in a details element or through a link to another part of the book with a link back to the exact spot.</td>
+						</tr>
+						<tr>
+							<td><em>longDescription</em> is missing</td>
+							
+							<td>This publication contains graphical content that conveys significant information. This
+								graphical material is not explained and the reader who cannot interpret the graphics
+								should seek assistance.</td>
+							<td>Extended Descriptions are not provided when needed, for example if there is a complex
+								image that needs a longer description to understand what the image is portraying..</td>
+						</tr>
+						<tr>
+							<td><em>MathML</em></td>
+
+							<td>All displayed Math is represented with MathML. <br>
+							<br>
+							The chemical formulae are displayed and encoded as MathML with the proper labels for Chemistry.</td>
+							<td>The presence of MathML is important especially in STEM materials. The amount is also important. If there is a mix of math as plain text  and MathML, it should be noted. Also if Chemistry isencoded as MathML using the newer mechanisms for indicating these semantics, it should be noted.</td>
+						</tr>
+						<tr>
+							<td><em>printPageNumbers</em> and <em>dc:source</em> is
+								present</td>
+							
+							<td>Page numbers are present and navigation to pages is supported.</td>
+							<td>Page navigation provided and matches the print book</td>
+						</tr>
+						<tr>
+							<td><em>printPageNumbers</em> and <em>dc:source</em> is
+								not present or refers to this EPUB</td>
+
+							<td>There is no print version of this publication, but digital page numbers are provided for
+								ease of use.</td>
+							<td>Page navigation provided but no equivalent print book. Since there is no print
+								equivalent book these page breaks are set by the publisher to aid in navigating to a
+								specific digital or "virtual" page within the EPUB.</td>
+						</tr>
+						<tr>
+							<td><em>printPageNumbers</em> is missing</td>
+							
+							<td>This publication does not contain page numbers that can be navigated.</td>
+							<td>If no page navigation is provided, it should be noted.</td>
+						</tr>
+						<tr>
+							<td><em>readingOrder</em></td>
+
+							<td>This title has choose your own ending through the content, and the sequential reading order would be confusing.   </td>
+							<td> If thenormal reading order would be confusing, an explanation should be provided.</td>
+						</tr>
+						<tr>
+							<td><em>rubyAnnotations</em></td>
+							
+							<td>Some CJK ideographic characters in this publication have phonetic ruby.</td>
+							<td>CJK ideographic characters may be difficult to read for some users.  Attaching
+							  ruby to CJK ideographic characters makes them more accessible.  It may be helpful
+							  to state whether phonetic ruby is present and further state whether all of the CJK
+							  ideographic characters in the given publication or some of them have ruby annotations.</td>
+						</tr>
+						<tr>
+							<td><em>signLanguage</em></td>
+
+							<td>There are several short videos in Amerigan Sign Language that explains key concepts.</td>
+							<td>If sign language access through a video or some other mechanism is provided, it should be described along with the type of sign language, e.g., American Sign Language (ASL).</td>
+						</tr>
+						<tr>
+							<td><em>structuralNavigation</em> and
+									<em>tableOfContents</em></td>
+							
+							<td>This publication contains a comprehensive multi-level table of contents for navigation through the various
+								chapters and sections.</td>
+							<td>The table of Contents is normally present, and include information if there is something exceptional, such as it is comprehensive and multi-level, or if there is only minimal navigation.</td>
+						</tr>
+						<tr>
+							<td><em>synchronizedAudioText</em></td>
+
+							<td>This picture book with recorded audio does not contain the text included in the pictures.</td>
+							<td>When synchronized audio and text is provided, if there any accessibility issues, they should be noted.</td>
+						</tr>
+						<tr>
+							<td><em>transcript</em></td>
+							
+							<td>Video has a transcript.</td>
+							<td>if transcripts of audio or video are provided, it should be noted.</td>
+						</tr>
+						<tr>
+							<td><em>ttsMarkup</em></td>
+
+							<td>Text-To-Speech markup is included to help with proper pronunciation of nouns. </td>
+							<td>If markup is provided to assist TTS pronunciation, it should be included.</td>
+						</tr>
+						</tbody>
+				</table>
+			</section>
+
+			<section id="accessibility-hazards"><div class="header-wrapper"><h3 id="x4-3-accessibility-hazards"><bdi class="secno">4.3 </bdi>Accessibility Hazards</h3><a class="self-link" href="#accessibility-hazards" aria-label="Permalink for Section 4.3"></a></div>
+				
+
+				<p>Accessibility hazards: Some content, especially videos, may contain elements that have been found to
+					be problematic. Most common items are motion effects that make some people motion sick, flashing
+					that can cause severe distractions or even seizures, or loud sharp noises like a gunshot which can
+					cause hearing issues. It is only necessary to include this information if more information about the hazard is wanted to be communicated. </p>
+<p>If available, specific information about the hazard should be provided. The specific information will help to determine if the content is suitable for people with certain conditions.  It is also advisable to explain if by not watching the video or other content is essential to the understanding of the content. For example, watching a video of a rollercoaster may cause motion sickness, but the video is not essential to understanding of the material. It is also suggested that the location of the hazard be provided to enable the reader to avoid that content. If there are multiple hazards, each instance should be explained.</p>
+
+
+
+<p>For example, “This publication contains a motion hazard in chapter 8 page 202. There is a video showing a rollercoaster going up and down rapidly. Watching the video is interesting, but not essential for understanding the concept of elevation loss and gain.”</p>
+
+
+			</section>
+		</section>
+		<section id="examples"><div class="header-wrapper"><h2 id="x5-examples"><bdi class="secno">5. </bdi>Examples</h2><a class="self-link" href="#examples" aria-label="Permalink for Section 5."></a></div>
+			
+
+			<aside class="example" id="example-1"><div class="marker">
+    <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
+  </div>
+				<pre><code aria-busy="false" class="hljs javascript">&lt;meta property=<span class="hljs-string">"schema:accessibilitySummary"</span>&gt;
+	 This publication strives to meet accepted Web Content Accessibility Guidelines (WCAG) at the AA level. Subject experts were used to create the ALT text. A comprehensive index is included <span class="hljs-keyword">with</span> links to the top <span class="hljs-keyword">of</span> the page. All <span class="hljs-built_in">Math</span> is represented <span class="hljs-keyword">with</span> MathML. Page numbers are present and navigation to pages is supported. This publication contains a comprehensive multi-level table <span class="hljs-keyword">of</span> contents <span class="hljs-keyword">for</span> navigation through the various chapters and sections.
+&lt;/meta&gt;</code></pre>
+			</aside>
+
+			<p>Here is another example in Japanese:</p>
+			
+			<aside class="example" id="example-2"><div class="marker">
+    <a class="self-link" href="#example-2">Example<bdi> 2</bdi></a>
+  </div>
+				<pre><code aria-busy="false" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:accessibilitySummary"</span>&gt;</span>
+	  この出版物は，ウェブアクセシビリティ規格JIS X 8341-3のAAレベルに適合するように作成されている．代替テキストは専門家が作成している。漢字はJIS X 0213:2012にあるものが使われており，それ以外の漢字は含まれていない．ページ番号が埋め込まれており，ページへのナビゲーションがサポートされている．この出版物は，様々な章や節をナビゲーションするための包括的なマルチレベルの目次を含んでいる．
+<span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span></code></pre>
+			</aside>
+		</section>
+		<section id="acknowledgments"><div class="header-wrapper"><h2 id="x6-acknowledgments"><bdi class="secno">6. </bdi>Acknowledgments</h2><a class="self-link" href="#acknowledgments" aria-label="Permalink for Section 6."></a></div>
+			
+
+			<p>The editors would like to thank the following individuals for their contributions to this document:</p>
+
+			<ul>
+				<li>Avneesh Singh</li>
+				<li>Jason White</li>
+				<li>Madeleine Rothberg</li>
+				<li>Sarah Runcie</li>
+				<li>Charles LaPierre</li>
+				<li>George Kerscher</li>
+				<li>Zheng Xu </li>
+				<li>Tzviya Siegman </li>
+				<li>Gregorio Pellegrino</li>
+				<li>Matt Garrish</li>
+				<li>John Foliot</li>
+				<li>Gautier Chomel</li>
+				<li>Makoto Murata</li>
+				
+				
+			</ul>
+		</section>
+	
+
+<p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
