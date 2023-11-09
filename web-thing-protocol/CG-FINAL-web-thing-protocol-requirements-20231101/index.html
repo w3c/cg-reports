@@ -1,0 +1,772 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="ReSpec 34.2.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+  .issue-label{text-transform:initial}
+  .warning>p:first-child{margin-top:0}
+  .warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+  span.warning{padding:.1em .5em .15em}
+  .issue.closed span.issue-number{text-decoration:line-through}
+  .issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+  .warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+  .warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+  li.task-list-item{list-style:none}
+  input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+  .issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+  </style>
+  <style>
+  dfn{cursor:pointer}
+  .dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+  .dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+  .dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+  .dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+  .dfn-panel *{margin:0}
+  .dfn-panel b{display:block;color:#000;margin-top:.25em}
+  .dfn-panel ul a[href]{color:#333}
+  .dfn-panel>div{display:flex}
+  .dfn-panel a.self-link{font-weight:700;margin-right:auto}
+  .dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+  .dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+  .dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+  .dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+  .dfn-panel a[href]:hover{border-bottom-width:1px}
+  .dfn-panel ul{padding:0}
+  .dfn-panel li{margin-left:1em}
+  .dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+  </style>
+      
+      
+  <title>Web Thing Protocol</title>
+      
+      
+    
+  <style id="respec-mainstyle">
+  @keyframes pop{
+  0%{transform:scale(1,1)}
+  25%{transform:scale(1.25,1.25);opacity:.75}
+  100%{transform:scale(1,1)}
+  }
+  :is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+  dfn{font-weight:700}
+  a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+  a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+  a.bibref{text-decoration:none}
+  .respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+  .respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+  @supports not (text-decoration:red wavy underline){
+  .respec-offending-element:not(pre){display:inline-block}
+  .respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+  }
+  #references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+  cite .bibref{font-style:normal}
+  a[href].orcid{padding-left:4px;padding-right:4px}
+  a[href].orcid>svg{margin-bottom:-2px}
+  .toc a,.tof a{text-decoration:none}
+  a .figno,a .secno{color:#000}
+  ol.tof,ul.tof{list-style:none outside none}
+  .caption{margin-top:.5em;font-style:italic}
+  table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+  .simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+  .simple th a{color:#fff;padding:3px 5px;text-align:left}
+  .simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+  .simple td{padding:3px 10px;border-top:1px solid #ddd}
+  .simple tr:nth-child(even){background:#f0f6ff}
+  .section dd>p:first-child{margin-top:0}
+  .section dd>p:last-child{margin-bottom:0}
+  .section dd{margin-bottom:1em}
+  .section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+  #issue-summary>ul{column-count:2}
+  #issue-summary li{list-style:none;display:inline-block}
+  details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+  details.respec-tests-details>*{padding-right:2em}
+  details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+  details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+  details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+  details.respec-tests-details>li{padding-left:1em}
+  .self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+  aside.example .marker>a.self-link{color:inherit}
+  .header-wrapper{display:flex;align-items:baseline}
+  :is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+  :is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+  :is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+  :is(h2,h3)+a.self-link{top:-.2em}
+  :is(h4,h5,h6)+a.self-link::before{color:#000}
+  @media (max-width:767px){
+  dd{margin-left:0}
+  }
+  @media print{
+  .removeOnSave{display:none}
+  }
+  </style>
+  <meta name="description" content="This document outlines the use cases and requirements for a common sub-protocol for the Web of Things to enable ad-hoc interoperability between Web Things and their Consumers. This includes requirements for an HTTP sub-protocol and a WebSocket sub-protocol which define a standard way to monitor and control a connected device over the World Wide Web.">
+  <link rel="canonical" href="https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/">
+  <style>
+  var{position:relative;cursor:pointer}
+  var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+  var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+  var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+  var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+  </style>
+  <script id="initialUserConfig" type="application/json">{
+    "specStatus": "CG-FINAL",
+    "editors": [
+      {
+        "name": "Ben Francis",
+        "company": "Krellian",
+        "mailto": "ben@krellian.com",
+        "companyURL": "https://krellian.com",
+        "w3cid": "51527",
+        "url": "mailto:ben@krellian.com"
+      }
+    ],
+    "subtitle": "Use Cases & Requirements",
+    "github": "w3c/web-thing-protocol",
+    "shortName": "web-thing-protocol-requirements",
+    "group": "web-thing-protocol",
+    "xref": true,
+    "wgPublicList": "public-web-thing-protocol",
+    "publishDate": "2023-11-01",
+    "latestVersion": "https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/",
+    "edDraftURI": "https://w3c.github.io/web-thing-protocol/requirements/",
+    "publishISODate": "2023-11-01T00:00:00.000Z",
+    "generatedSubtitle": "Final Community Group Report 01 November 2023"
+  }</script>
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+    <body class="h-entry"><div class="head">
+      
+      <h1 id="title" class="title">Web Thing Protocol</h1> <h2 id="subtitle" class="subtitle">Use Cases &amp; Requirements</h2>
+      <p id="w3c-state">
+        <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+        <time class="dt-published" datetime="2023-11-01">01 November 2023</time>
+      </p>
+      <dl>
+        <dt>This version:</dt><dd>
+                <a class="u-url" href="https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/">https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/</a>
+              </dd>
+        <dt>Latest published version:</dt><dd>
+                <a href="https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/">https://www.w3.org/community/reports/web-thing-protocol/CG-FINAL-web-thing-protocol-requirements-20231101/</a>
+              </dd>
+        <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/web-thing-protocol/requirements/">https://w3c.github.io/web-thing-protocol/requirements/</a></dd>
+        
+        
+        
+        
+        <dt>Editor:</dt><dd class="editor p-author h-card vcard" data-editor-id="51527">
+      <a class="ed_mailto u-email email p-name" href="mailto:ben@krellian.com">Ben Francis</a> (<a class="p-org org h-org" href="https://krellian.com">Krellian</a>)
+    </dd>
+        
+        
+        <dt>Feedback:</dt><dd>
+          <a href="https://github.com/w3c/web-thing-protocol/">GitHub w3c/web-thing-protocol</a>
+          (<a href="https://github.com/w3c/web-thing-protocol/pulls/">pull requests</a>,
+          <a href="https://github.com/w3c/web-thing-protocol/issues/new/choose">new issue</a>,
+          <a href="https://github.com/w3c/web-thing-protocol/issues/">open issues</a>)
+        </dd><dd><a href="mailto:public-web-thing-protocol@w3.org?subject=%5Bweb-thing-protocol-requirements%5D%20YOUR%20TOPIC%20HERE">public-web-thing-protocol@w3.org</a> with subject line <kbd>[web-thing-protocol-requirements] <em>… message topic …</em></kbd> (<a rel="discussion" href="https://lists.w3.org/Archives/Public/public-web-thing-protocol">archives</a>)</dd>
+        
+      </dl>
+      
+      <p class="copyright">
+            <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+            ©
+            2023
+            
+            the Contributors to the Web Thing Protocol
+            Specification, published by the
+            <a href="https://www.w3.org/groups/cg/web-thing-protocol">Web Thing Protocol Community Group</a> under the
+            <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                  <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                  is available.
+                
+          </p>
+      <hr title="Separator for header">
+    </div>
+      <section id="abstract" class="introductory"><h2>Abstract</h2>
+        <p>This document outlines the use cases and requirements for a common sub-protocol for the <a href="https://www.w3.org/WoT/">Web of Things</a> to enable ad-hoc interoperability between <a href="https://www.w3.org/TR/wot-architecture/#dfn-web-thing">Web Things</a> and their <a href="https://www.w3.org/TR/wot-architecture/#dfn-consumer">Consumers</a>. This includes requirements for an HTTP sub-protocol and a WebSocket sub-protocol which define a standard way to monitor and control a connected device over the World Wide Web.</p>
+      </section>
+      <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+        This specification was published by the
+        <a href="https://www.w3.org/groups/cg/web-thing-protocol">Web Thing Protocol Community Group</a>. It is not a W3C Standard nor is it
+        on the W3C Standards Track.
+        
+              Please note that under the
+              <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+              other conditions apply.
+            
+        Learn more about
+        <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+      </p>
+      <p>
+      <a href="https://github.com/w3c/web-thing-protocol/issues/">GitHub Issues</a> are preferred for
+            discussion of this specification.
+          
+      Alternatively, you can send comments to our mailing list.
+            Please send them to
+            <a href="mailto:public-web-thing-protocol@w3.org">public-web-thing-protocol@w3.org</a>
+            (<a href="mailto:public-web-thing-protocol-request@w3.org?subject=subscribe">subscribe</a>,
+            <a href="https://lists.w3.org/Archives/Public/public-web-thing-protocol/">archives</a>).
+          
+    </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">2. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#use-cases"><bdi class="secno">3. </bdi>Use Cases</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#use-cases-smart-home"><bdi class="secno">3.1 </bdi>Smart Home</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#use-cases-smart-home-devices"><bdi class="secno">3.1.1 </bdi>Smart Home Devices</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-home-hubs"><bdi class="secno">3.1.2 </bdi>Smart Home Hubs</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-home-cloud-services"><bdi class="secno">3.1.3 </bdi>Smart Home Cloud Services</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-home-apps"><bdi class="secno">3.1.4 </bdi>Smart Home Software Applications</a></li></ol></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-buildings"><bdi class="secno">3.2 </bdi>Smart Buildings</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#use-cases-smart-building-devices"><bdi class="secno">3.2.1 </bdi>Smart Building Devices</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-building-hubs"><bdi class="secno">3.2.2 </bdi>Smart Building Hubs</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-building-cloud-services"><bdi class="secno">3.2.3 </bdi>Smart Building Cloud Services</a></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-building-apps"><bdi class="secno">3.2.4 </bdi>Smart Building Software Applications</a></li></ol></li><li class="tocline"><a class="tocxref" href="#use-cases-smart-cities"><bdi class="secno">3.3 </bdi>Smart Cities</a></li><li class="tocline"><a class="tocxref" href="#use-cases-manufacturing"><bdi class="secno">3.4 </bdi>Manufacturing</a></li><li class="tocline"><a class="tocxref" href="#use-cases-energy"><bdi class="secno">3.5 </bdi>Energy</a></li><li class="tocline"><a class="tocxref" href="#use-cases-transportation"><bdi class="secno">3.6 </bdi>Transportation</a></li><li class="tocline"><a class="tocxref" href="#use-cases-agriculture"><bdi class="secno">3.7 </bdi>Agriculture</a></li></ol></li><li class="tocline"><a class="tocxref" href="#deployment-models"><bdi class="secno">4. </bdi>Deployment Models</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#deployment-model-direct"><bdi class="secno">4.1 </bdi>Direct</a></li><li class="tocline"><a class="tocxref" href="#deployment-model-gateway"><bdi class="secno">4.2 </bdi>Gateway</a></li><li class="tocline"><a class="tocxref" href="#deployment-model-cloud"><bdi class="secno">4.3 </bdi>Cloud</a></li></ol></li><li class="tocline"><a class="tocxref" href="#requirements"><bdi class="secno">5. </bdi>Requirements</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#http-sub-protocol"><bdi class="secno">5.1 </bdi>HTTP Sub-Protocol</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#http-sub-protocol-mechanism"><bdi class="secno">5.1.1 </bdi>Sub-Protocol Mechanism</a></li><li class="tocline"><a class="tocxref" href="#http-sub-protocol-properties"><bdi class="secno">5.1.2 </bdi>Properties</a></li><li class="tocline"><a class="tocxref" href="#http-sub-protocol-actions"><bdi class="secno">5.1.3 </bdi>Actions</a></li><li class="tocline"><a class="tocxref" href="#http-sub-protocol-events"><bdi class="secno">5.1.4 </bdi>Events</a></li><li class="tocline"><a class="tocxref" href="#http-sub-protocol-errors"><bdi class="secno">5.1.5 </bdi>Errors</a></li></ol></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol"><bdi class="secno">5.2 </bdi>WebSocket Sub-Protocol</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-mechanism"><bdi class="secno">5.2.1 </bdi>Sub-Protocol Mechanism</a></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-properties"><bdi class="secno">5.2.2 </bdi>Properties</a></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-actions"><bdi class="secno">5.2.3 </bdi>Actions</a></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-events"><bdi class="secno">5.2.4 </bdi>Events</a></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-errors"><bdi class="secno">5.2.5 </bdi>Errors</a></li><li class="tocline"><a class="tocxref" href="#websocket-sub-protocol-other-messages"><bdi class="secno">5.2.6 </bdi>Other Messages</a></li></ol></li><li class="tocline"><a class="tocxref" href="#discovery"><bdi class="secno">5.3 </bdi>Discovery</a></li><li class="tocline"><a class="tocxref" href="#links"><bdi class="secno">5.4 </bdi>Links</a></li><li class="tocline"><a class="tocxref" href="#security"><bdi class="secno">5.5 </bdi>Security</a></li><li class="tocline"><a class="tocxref" href="#privacy"><bdi class="secno">5.6 </bdi>Privacy</a></li><li class="tocline"><a class="tocxref" href="#accessibility"><bdi class="secno">5.7 </bdi>Accessibility</a></li></ol></li><li class="tocline"><a class="tocxref" href="#out-of-scope"><bdi class="secno">6. </bdi>Out of Scope</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+      <section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+        
+        
+        <p>The goal of the <a href="https://www.w3.org/WoT/">Web of Things</a> (WoT) is to counter the fragmentation of the <a href="https://en.wikipedia.org/wiki/Internet_of_things">Internet of Things</a> (IoT) using web technologies. By providing standardised metadata and other re-usable technological building blocks, W3C WoT enables easy integration across IoT platforms and application domains.</p>
+        <p>The W3C WoT Thing Description [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-thing-description" title="Web of Things (WoT) Thing Description">wot-thing-description</a></cite>] specification defines the first building block of the Web of Things, by defining an information model and JSON-based representation format for describing the capabilities of connected devices and the interfaces with which to communicate with them.</p>
+        <p>The Thing Description specification is designed to be protocol-agnostic and flexible enough to describe a wide range of existing ("brownfield") IoT devices, rather than specifying a fixed protocol or application programming interface (API) which all devices must implement. The downside of this open ended flexibility is that it makes ad-hoc interoperability on the Web of Things very difficult, because it's nearly impossible to create a single <a href="https://www.w3.org/TR/wot-architecture/#dfn-consumer"></a>WoT Consumer which is guaranteed to be able to communicate with any <a href="https://www.w3.org/TR/wot-architecture/#dfn-web-thing"></a>Web Thing [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-architecture" title="Web of Things (WoT) Architecture">wot-architecture</a></cite>] out of the box.</p>
+        <p>The Web Thing Protocol specification will be designed to complement the WoT Thing Description specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-thing-description" title="Web of Things (WoT) Thing Description">wot-thing-description</a></cite>] by defining a common sub-protocol for the Web of Things such that any WoT Consumer and Web Thing which implement the specification will be guaranteed to be able to communicate with each other other out of the box, without device-specific customisation.</p>
+        <p>The Web Thing Protocol specification (or specifications) will define:</p>
+        <ul>
+          <li>An <a href="#http-sub-protocol">HTTP sub-protocol</a> (REST API) which defines a standard way to communicate with a Web Thing using the HTTP protocol [<cite><a class="bibref" data-link-type="biblio" href="#bib-http11" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">HTTP11</a></cite>]</li>
+          <li>A <a href="#websocket-sub-protocol">WebSocket sub-protocol</a> which defines how to communicate with a Web Thing over the WebSockets protocol [<cite><a class="bibref" data-link-type="biblio" href="#bib-websockets-protocol" title="The WebSocket Protocol">WEBSOCKETS-PROTOCOL</a></cite>]</li>
+       </ul>
+       <p>This document outlines the use cases and requirements for such a specification, based on existing Web of Things implementations and the collective experience of members of the Web Thing Protocol Community Group.</p>
+       <p>In addition to the WoT Thing Description, the Web Thing Protocol Community Group should aim for the Web Thing Protocol specification to complement other deliverables in progress by the <a href="https://www.w3.org/WoT/WG/">WoT Working Group</a> where possible, including WoT Discovery [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-discovery" title="Web of Things (WoT) Discovery">wot-discovery</a></cite>], WoT Binding Templates [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-binding-templates" title="Web of Things (WoT) Binding Templates">wot-binding-templates</a></cite>] and WoT Profile [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-profile" title="Web of Things (WoT) Profile">wot-profile</a></cite>]. It's possible some of the requirements below may be fulfilled by those specifications. The Web Thing Protocol specification itself, or subsections of it, are intended to eventually join a standards track at the W3C or another standards body such as the IETF.</p>
+      </section>
+      <section id="conformance"><div class="header-wrapper"><h2 id="x2-conformance"><bdi class="secno">2. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 2."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+          The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, and <em class="rfc2119">SHOULD</em> in this document
+          are to be interpreted as described in
+          <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+          [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+          when, and only when, they appear in all capitals, as shown here.
+        </p>
+      </section>
+      <section id="use-cases"><div class="header-wrapper"><h2 id="x3-use-cases"><bdi class="secno">3. </bdi>Use Cases</h2><a class="self-link" href="#use-cases" aria-label="Permalink for Section 3."></a></div>
+        
+        <p>Below are a selection of use cases of the Web Thing Protocol from a range of different application domains.</p>
+        <p>A larger set of use cases for the Web of Things in general can also be found in Web of Things (WoT): Use Cases and Requirements [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-usecases" title="Web of Things (WoT): Use Cases and Requirements">wot-usecases</a></cite>].</p>
+        <section id="use-cases-smart-home"><div class="header-wrapper"><h3 id="x3-1-smart-home"><bdi class="secno">3.1 </bdi>Smart Home</h3><a class="self-link" href="#use-cases-smart-home" aria-label="Permalink for Section 3.1"></a></div>
+          
+          <section id="use-cases-smart-home-devices"><div class="header-wrapper"><h4 id="x3-1-1-smart-home-devices"><bdi class="secno">3.1.1 </bdi>Smart Home Devices</h4><a class="self-link" href="#use-cases-smart-home-devices" aria-label="Permalink for Section 3.1.1"></a></div>
+            
+            <p>As the manufacturer of a smart home device I want to know that any compliant smart home software application will be able to communicate with my device without device-specific customisation, so that I can maximise the size of the market for my product.</p>
+            <p>As a retailer of smart home devices I want to be able to tell my customers that a device will work with their existing smart home app, hub or cloud service so that I can sell more devices.</p>
+            <p>As a customer looking to buy a smart home device, I want to be sure that the device is compatible with my existing smart home app, hub or cloud service.</p>
+          </section>
+          <section id="use-cases-smart-home-hubs"><div class="header-wrapper"><h4 id="x3-1-2-smart-home-hubs"><bdi class="secno">3.1.2 </bdi>Smart Home Hubs</h4><a class="self-link" href="#use-cases-smart-home-hubs" aria-label="Permalink for Section 3.1.2"></a></div>
+            
+            <p>As the manufacturer of a smart home hub I want my hub to be compatible with as many devices as possible in order to maximise the size of the market for my product.</p>
+            <p>As the manufacturer of a smart home hub, I want to bridge a wide range of different smart home protocols to a single standardised interface so that they can be consumed by a single client software application.</p>
+            <p>As the user of a smart home hub, I want my hub to be compatible with as many devices as possible so that I'm not locked in to a single hardware vendor and can easily integrate devices from different vendors together in order to automate my home.</p>
+          </section>
+          <section id="use-cases-smart-home-cloud-services"><div class="header-wrapper"><h4 id="x3-1-3-smart-home-cloud-services"><bdi class="secno">3.1.3 </bdi>Smart Home Cloud Services</h4><a class="self-link" href="#use-cases-smart-home-cloud-services" aria-label="Permalink for Section 3.1.3"></a></div>
+            
+            <p>As the developer of a smart home cloud service I want to be able to monitor and control a wide range of smart home devices from different vendors in order to maximise the size of the market for my service.</p>
+            <p>As a smart home user I want to have a choice of third party services to help monitor and automate my home so that I am not locked into a single service provider and can find the best value service for my needs.</p>
+          </section>
+          <section id="use-cases-smart-home-apps"><div class="header-wrapper"><h4 id="x3-1-4-smart-home-software-applications"><bdi class="secno">3.1.4 </bdi>Smart Home Software Applications</h4><a class="self-link" href="#use-cases-smart-home-apps" aria-label="Permalink for Section 3.1.4"></a></div>
+            
+            <p>As the developer of an IoT software library, I want my library to work with a wide range of different IoT devices without needing per-device customisation so that I can maximise the audience for my software.</p>
+            <p>As the developer of a smart home mobile app I want to offer my users out-of-the-box interoperability with a wide range of smart home devices so that I can maximise the audience for my app.</p>
+            <p>As a user of a smart home mobile app I want to know that I will be able to monitor and control any conformant smart home device so that I don't need a different app per device or device-specific customisations.</p>
+          </section>
+        </section>
+        <section id="use-cases-smart-buildings"><div class="header-wrapper"><h3 id="x3-2-smart-buildings"><bdi class="secno">3.2 </bdi>Smart Buildings</h3><a class="self-link" href="#use-cases-smart-buildings" aria-label="Permalink for Section 3.2"></a></div>
+          
+          <section id="use-cases-smart-building-devices"><div class="header-wrapper"><h4 id="x3-2-1-smart-building-devices"><bdi class="secno">3.2.1 </bdi>Smart Building Devices</h4><a class="self-link" href="#use-cases-smart-building-devices" aria-label="Permalink for Section 3.2.1"></a></div>
+            
+            <p>As the manufacturer of a smart building device I want to know that any compliant building management system will be able to communicate with my device without device-specific customisation, so that I can maximise the size of the market for my product.</p>
+            <p>As a facilities manager of a commercial building, I want to know that a given IoT device will seamlessly integrate with my existing building management system without device-specific customisation.</p>
+          </section>
+          <section id="use-cases-smart-building-hubs"><div class="header-wrapper"><h4 id="x3-2-2-smart-building-hubs"><bdi class="secno">3.2.2 </bdi>Smart Building Hubs</h4><a class="self-link" href="#use-cases-smart-building-hubs" aria-label="Permalink for Section 3.2.2"></a></div>
+            
+            <p>As the manufacturer of a smart building hub for commercial buildings, I want my hub to be compatible with as many devices as possible in order to maximise the size of the market for my product.</p>
+            <p>As the manufacturer of a smart building hub for commercial buildings, I want to bridge a wide range of different building management systems to a single standardised interface that my smart building software can consume.</p>
+            <p>As a facilities manager of a commercial building I want to consolidate my multi-vendor building management system into a single standardised interface that I can use for command, control, automation and analytics for my building.</p>
+          </section>
+          <section id="use-cases-smart-building-cloud-services"><div class="header-wrapper"><h4 id="x3-2-3-smart-building-cloud-services"><bdi class="secno">3.2.3 </bdi>Smart Building Cloud Services</h4><a class="self-link" href="#use-cases-smart-building-cloud-services" aria-label="Permalink for Section 3.2.3"></a></div>
+            
+            <p>As the developer of a cloud service which provides digital twins of commercial buildings, I want to be able to consume data from a wide range of devices and building management systems in order to maximise the size of the market for my service.</p>
+            <p>As a facilities manager of a commercial building, I want to have a choice of third party services which can provide analytics for the data from my building management system so that I am not locked into a single service provider and can find the best value service for my needs.</p>
+          </section>
+          <section id="use-cases-smart-building-apps"><div class="header-wrapper"><h4 id="x3-2-4-smart-building-software-applications"><bdi class="secno">3.2.4 </bdi>Smart Building Software Applications</h4><a class="self-link" href="#use-cases-smart-building-apps" aria-label="Permalink for Section 3.2.4"></a></div>
+            
+            <p>As the developer of an IoT software library, I want my library to work with a wide range of different IoT devices without needing per-device customisation so that I can maximise the audience for my software.</p>
+            <p>As a facilities manager of a commercial building I want to monitor and control the HVAC, lighting, safety and security systems of my building all through a single desktop or tablet application, so that I don't have to piece together information from multiple separate systems in order to get a full picture of the operations of my building.</p>
+          </section>
+        </section>
+        <section id="use-cases-smart-cities"><div class="header-wrapper"><h3 id="x3-3-smart-cities"><bdi class="secno">3.3 </bdi>Smart Cities</h3><a class="self-link" href="#use-cases-smart-cities" aria-label="Permalink for Section 3.3"></a></div>
+          
+          <p>As a technician working on a smart city project for a public body, I want to be able to consolidate data from a wide range of different public and private sources into a standardised format in order to create a real time digital twin of a whole city to be used for city planning.</p>
+        </section>
+        <section id="use-cases-manufacturing"><div class="header-wrapper"><h3 id="x3-4-manufacturing"><bdi class="secno">3.4 </bdi>Manufacturing</h3><a class="self-link" href="#use-cases-manufacturing" aria-label="Permalink for Section 3.4"></a></div>
+          
+          <p>As a factory worker I want to be able to consume data from all of the devices on my factory floor in a single standardised format so that I can build a digital twin of the factory in order to model how it's running and identify optimisations.</p>
+        </section>
+        <section id="use-cases-energy"><div class="header-wrapper"><h3 id="x3-5-energy"><bdi class="secno">3.5 </bdi>Energy</h3><a class="self-link" href="#use-cases-energy" aria-label="Permalink for Section 3.5"></a></div>
+          
+          <p>As a technician at a renewable energy company, I want to create digital twins of a range of different assets in order to monitor the performance and efficiency of my energy network in real time and carry out predictive maintenance.</p>
+        </section>
+        <section id="use-cases-transportation"><div class="header-wrapper"><h3 id="x3-6-transportation"><bdi class="secno">3.6 </bdi>Transportation</h3><a class="self-link" href="#use-cases-transportation" aria-label="Permalink for Section 3.6"></a></div>
+          
+          <p>As an operations manager at a bus company, I want to monitor the location and condition of a range of different assets over the internet in order to monitor the efficiency of my bus network and carry out predictive maintenance.</p>
+        </section>
+        <section id="use-cases-agriculture"><div class="header-wrapper"><h3 id="x3-7-agriculture"><bdi class="secno">3.7 </bdi>Agriculture</h3><a class="self-link" href="#use-cases-agriculture" aria-label="Permalink for Section 3.7"></a></div>
+          
+          <p>As a farmer I want to integrate a range of different sensors (e.g. temperature, light, soil moisture) and actuators (e.g. sprinklers and window openers) from different vendors in order to automate a greenhouse on my farm and maximise crop yields.</p>
+        </section>
+      </section>
+      <section id="deployment-models"><div class="header-wrapper"><h2 id="x4-deployment-models"><bdi class="secno">4. </bdi>Deployment Models</h2><a class="self-link" href="#deployment-models" aria-label="Permalink for Section 4."></a></div>
+        
+        <p>The Web Thing Protocol will need to operate within three key deployment models depending on whether a Web Thing is hosted by a connected device, by an on-premises Web of Things gateway, or an off-premises Web of Things cloud service.</p>
+        <p>These three deployment models are common across a range of different application domains.</p>
+        <p>For a broader discussion of deployment models for the Web of Things in general, see <a href="https://w3c.github.io/wot-architecture/#sec-common-deployment-patterns">Common Deployment Patterns</a> in Web of Things (WoT) Architecture 1.1 [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-architecture11" title="Web of Things (WoT) Architecture 1.1">wot-architecture11</a></cite>].</p>
+        <section id="deployment-model-direct"><div class="header-wrapper"><h3 id="x4-1-direct"><bdi class="secno">4.1 </bdi>Direct</h3><a class="self-link" href="#deployment-model-direct" aria-label="Permalink for Section 4.1"></a></div>
+          
+          <p>The direct deployment model is when a Consumer communicates directly with an IoT device using the Web Thing Protocol.</p>
+          <figure id="fig-direct-deployment-model">
+            <img src="images/direct_deployment_model.png" alt="A diagram showing a WoT Consumer directly communicating with a collection of connected devices using the Web Thing Protocol.">
+            <figcaption><a class="self-link" href="#fig-direct-deployment-model">Figure <bdi class="figno">1</bdi></a> <span class="fig-title">Direct deployment model</span></figcaption>
+          </figure>
+          <p>In this deployment model, the IoT device itself must act as an HTTP server which serves its own Thing Description and can respond to HTTP requests or maintain a WebSocket connection with a Consumer.</p>
+        </section>
+        <section id="deployment-model-gateway"><div class="header-wrapper"><h3 id="x4-2-gateway"><bdi class="secno">4.2 </bdi>Gateway</h3><a class="self-link" href="#deployment-model-gateway" aria-label="Permalink for Section 4.2"></a></div>
+          
+          <p>The gateway deployment model is when a Consumer communicates with a connected device via a gateway on the same premises as the device, which bridges another protocol to the Web Thing Protocol.</p>
+          <figure id="fig-gateway-deployment-model">
+            <img src="images/gateway_deployment_model.png" alt="A diagram showing a WoT Consumer communicating with a collection of Web Things via a Web of Things gateway using the Web Thing Protocol.">
+            <figcaption><a class="self-link" href="#fig-gateway-deployment-model">Figure <bdi class="figno">2</bdi></a> <span class="fig-title">Gateway deployment model</span></figcaption>
+          </figure>
+          <p>In this deployment model, a gateway acts as an HTTP server which exposes a Web Thing for a connected device and translates HTTP and/or WebSocket messages into messages of the device's native protocol (e.g. Zigbee, Z-Wave, HomeKit, Modbus or BACnet) over a local area network (LAN) or personal area network (PAN).</p>
+          <p>A gateway can also act as a Consumer which consumes Web Things using the direct deployment model, and can be used to proxy a Web Thing from one network to another.</p>
+          <figure id="fig-gateway-deployment-model-with-gateway-also-acting-as-a-consumer">
+            <img src="images/gateway_deployment_model2.png" alt="A diagram showing a WoT Consumer communicating with a Web of Things gateway using the Web Thing protocol and the gateway also communicating with a collection of connected devices using the Web Thing Protocol.">
+            <figcaption><a class="self-link" href="#fig-gateway-deployment-model-with-gateway-also-acting-as-a-consumer">Figure <bdi class="figno">3</bdi></a> <span class="fig-title">Gateway deployment model with gateway also acting as a Consumer</span></figcaption>
+          </figure>
+        </section>
+        <section id="deployment-model-cloud"><div class="header-wrapper"><h3 id="x4-3-cloud"><bdi class="secno">4.3 </bdi>Cloud</h3><a class="self-link" href="#deployment-model-cloud" aria-label="Permalink for Section 4.3"></a></div>
+          
+          <p>The cloud deployment model is when a Consumer communicates with an IoT device via cloud service on the internet, which communicates with the device using some other protocol on the back end.</p>
+        </section>
+        <figure id="fig-cloud-deployment-model">
+          <img src="images/cloud_deployment_model.png" alt="A diagram showing a WoT Consumer communicating with a collection of connected devices via cloud service using the Web Thing Protocol.">
+          <figcaption><a class="self-link" href="#fig-cloud-deployment-model">Figure <bdi class="figno">4</bdi></a> <span class="fig-title">Cloud deployment model</span></figcaption>
+        </figure>
+        <p>In this deployment model, a cloud service hosted in a data centre acts as an HTTP server which exposes a Web Thing for an IoT device and translates HTTP and/or WebSocket messages into messages using another IoT protocol (e.g. AMQP or MQTT).</p>
+        <p>The cloud deployment model differs from the gateway deployment model in that the Web Thing is hosted on different premises to the IoT device it represents and communicates with the device over the internet.</p>
+        <p>A cloud service can also act as a Consumer which consumes Web Things that use the direct or gateway deployment model, and can be used to proxy a Web Thing from one origin to another.</p>
+        <figure id="fig-cloud-deployment-model-with-cloud-service-also-acting-as-a-consumer">
+          <img src="images/cloud_deployment_model2.png" alt="A diagram showing a WoT Consumer communicating with a Web of Things cloud service using the Web Thing protocol and the cloud service also communicating with a collection of connected devices and a Web of Things Gateway using the Web Thing Protocol.">
+          <figcaption><a class="self-link" href="#fig-cloud-deployment-model-with-cloud-service-also-acting-as-a-consumer">Figure <bdi class="figno">5</bdi></a> <span class="fig-title">Cloud deployment model with cloud service also acting as a Consumer</span></figcaption>
+        </figure>
+  
+      </section>
+      <section id="requirements"><div class="header-wrapper"><h2 id="x5-requirements"><bdi class="secno">5. </bdi>Requirements</h2><a class="self-link" href="#requirements" aria-label="Permalink for Section 5."></a></div>
+        
+        <section id="http-sub-protocol"><div class="header-wrapper"><h3 id="x5-1-http-sub-protocol"><bdi class="secno">5.1 </bdi>HTTP Sub-Protocol</h3><a class="self-link" href="#http-sub-protocol" aria-label="Permalink for Section 5.1"></a></div>
+          
+          <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><p class="">The HTTP Sub-protocol may be defined by the W3C WoT Profile specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-profile" title="Web of Things (WoT) Profile">wot-profile</a></cite>].</p></div>
+          <p>The HTTP sub-protocol <em class="rfc2119">SHOULD</em> define the [<cite><a class="bibref" data-link-type="biblio" href="#bib-http11" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">HTTP11</a></cite>] requests and responses a WoT Consumer and Web Thing would use in order to carry out the set of operations described below, including methods, headers, payloads and expected response codes. Resources <em class="rfc2119">SHOULD</em> be retrieved using the HTTP protocol [<cite><a class="bibref" data-link-type="biblio" href="#bib-http11" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">HTTP11</a></cite>] and serialised in JSON [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>].</p>
+          <section id="http-sub-protocol-mechanism"><div class="header-wrapper"><h4 id="x5-1-1-sub-protocol-mechanism"><bdi class="secno">5.1.1 </bdi>Sub-Protocol Mechanism</h4><a class="self-link" href="#http-sub-protocol-mechanism" aria-label="Permalink for Section 5.1.1"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a mechanism by which the Thing Description of a Web Thing can denote that the Web Thing uses the Web Thing Protocol’s HTTP sub-protocol</li>
+            </ol>
+          </section>
+          <section id="http-sub-protocol-properties"><div class="header-wrapper"><h4 id="x5-1-2-properties"><bdi class="secno">5.1.2 </bdi>Properties</h4><a class="self-link" href="#http-sub-protocol-properties" aria-label="Permalink for Section 5.1.2"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to read the current value of a property of a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to write the value of a property of a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to read the values of all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to write the values of multiple properties of a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to read the values of multiple properties of a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to write the values of all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to observe a property of a Web Thing so that it gets notified when the value of the property changes</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to stop observing a property of a Web Thing so that it no longer gets notified when the value of the property changes</li>
+              <li><em class="rfc2119">MUST</em> define a way to observe all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way to stop observing all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to resume a dropped connection and catch up on missed property changes</li>
+            </ol>
+          </section>
+          <section id="http-sub-protocol-actions"><div class="header-wrapper"><h4 id="x5-1-3-actions"><bdi class="secno">5.1.3 </bdi>Actions</h4><a class="self-link" href="#http-sub-protocol-actions" aria-label="Permalink for Section 5.1.3"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to invoke an action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to query the status of an ongoing action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to cancel an ongoing action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to query the status of all ongoing actions on a Web Thing</li>
+            </ol>
+          </section>
+          <section id="http-sub-protocol-events"><div class="header-wrapper"><h4 id="x5-1-4-events"><bdi class="secno">5.1.4 </bdi>Events</h4><a class="self-link" href="#http-sub-protocol-events" aria-label="Permalink for Section 5.1.4"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to subscribe to an event on a Web Thing so that it gets notified whenever an event is emitted </li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to unsubscribe from an event on a Web Thing so that it stops getting notified whenever an event is emitted</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to subscribe to all events on a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to unsubscribe from all events on a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to resume a dropped connection and catch up on missed events</li>
+            </ol>
+          </section>
+          <section id="http-sub-protocol-errors"><div class="header-wrapper"><h4 id="x5-1-5-errors"><bdi class="secno">5.1.5 </bdi>Errors</h4><a class="self-link" href="#http-sub-protocol-errors" aria-label="Permalink for Section 5.1.5"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a standardised format for a sending error messages to a WoT Consumer when an operation is not successful</li>
+              <li><em class="rfc2119">SHOULD</em> define common error responses for all operations on a Web Thing</li>
+            </ol>
+          </section>
+        </section>
+        <section id="websocket-sub-protocol"><div class="header-wrapper"><h3 id="x5-2-websocket-sub-protocol"><bdi class="secno">5.2 </bdi>WebSocket Sub-Protocol</h3><a class="self-link" href="#websocket-sub-protocol" aria-label="Permalink for Section 5.2"></a></div>
+          
+          <p>The WebSocket sub-protocol <em class="rfc2119">SHOULD</em> define the WebSocket [<cite><a class="bibref" data-link-type="biblio" href="#bib-websockets-protocol" title="The WebSocket Protocol">websockets-protocol</a></cite>] messages that a WoT Consumer and Web Thing would use to carry out the following set of operations, including the messages types, payloads, error conditions and how they should be used. Messages <em class="rfc2119">SHOULD</em> be serialised in JSON [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>].</p>
+          <section id="websocket-sub-protocol-mechanism"><div class="header-wrapper"><h4 id="x5-2-1-sub-protocol-mechanism"><bdi class="secno">5.2.1 </bdi>Sub-Protocol Mechanism</h4><a class="self-link" href="#websocket-sub-protocol-mechanism" aria-label="Permalink for Section 5.2.1"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a mechanism by which the Thing Description of a Web Thing can denote that the Web Thing uses the Web Thing Protocol's WebSocket sub-protocol</li>
+              <li><em class="rfc2119">SHOULD</em> describe the protocol handshake process for a WoT Consumer to request that a Web Thing use the Web Thing Protocol's WebSocket sub-protocol</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a single WebSocket endpoint to be shared by all interaction affordances of a Web Thing (e.g. so that a Consumer can subscribe to multiple events from the same Thing without needing to open a separate socket for each)</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a single WebSocket endpoint to be shared by multiple Web Things (e.g. so that a Consumer can authenticate and communicate with multiple Things from the same origin, without needing to open a separate socket for each)</li>
+              <li><em class="rfc2119">MAY</em> define a way for a Web Thing to act as a WebSocket client rather than a WebSocket server in certain deployment models</li>
+            </ol>
+          </section>
+          <section id="websocket-sub-protocol-properties"><div class="header-wrapper"><h4 id="x5-2-2-properties"><bdi class="secno">5.2.2 </bdi>Properties</h4><a class="self-link" href="#websocket-sub-protocol-properties" aria-label="Permalink for Section 5.2.2"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to request a reading of the current value of a property of a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to write the value of a property of a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to request a reading of the values of all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to write the values of multiple properties of a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to request a reading of the values of multiple properties of a Web Thing at once</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to write the values of all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to observe a property of a Web Thing so that it gets notified when the value of the property changes</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to stop observing a property of a Web Thing so that it no longer gets notified when the value of the property changes</li>
+              <li><em class="rfc2119">MUST</em> define a way to observe all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way to stop observing all properties of a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a Web Thing to send a reading of a property value to a WoT Consumer</li>
+              <li><em class="rfc2119">MUST</em> define a way for a Web Thing to send readings of the values of multiple properties at once to a WoT Consumer</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to resume a dropped connection and catch up on missed property changes</li>
+            </ol>
+          </section>
+          <section id="websocket-sub-protocol-actions"><div class="header-wrapper"><h4 id="x5-2-3-actions"><bdi class="secno">5.2.3 </bdi>Actions</h4><a class="self-link" href="#websocket-sub-protocol-actions" aria-label="Permalink for Section 5.2.3"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to invoke an action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to query the status of an ongoing action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to cancel an ongoing action on a Web Thing</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to query the status of all ongoing actions on a Web Thing
+              </li>
+              <li><em class="rfc2119">MUST</em> define a way for a Web Thing to send the status of an ongoing action to a WoT Consumer</li>
+              <li><em class="rfc2119">MUST</em> define a way for a Web Thing to send the status of all ongoing actions to a WoT Consumer at once</li>
+            </ol>
+          </section>
+          <section id="websocket-sub-protocol-events"><div class="header-wrapper"><h4 id="x5-2-4-events"><bdi class="secno">5.2.4 </bdi>Events</h4><a class="self-link" href="#websocket-sub-protocol-events" aria-label="Permalink for Section 5.2.4"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to subscribe to an event on a Web Thing so that it gets notified whenever an event is emitted </li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to unsubscribe from an event on a Web Thing so that it stops getting notified whenever an event is emitted</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to subscribe to all events on a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a WoT Consumer to unsubscribe from all events on a Web Thing at once</li>
+              <li><em class="rfc2119">MUST</em> define a way for a Web Thing to send an event to a WoT Consumer</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to resume a dropped connection and catch up on missed events</li>
+            </ol>
+          </section>
+          <section id="websocket-sub-protocol-errors"><div class="header-wrapper"><h4 id="x5-2-5-errors"><bdi class="secno">5.2.5 </bdi>Errors</h4><a class="self-link" href="#websocket-sub-protocol-errors" aria-label="Permalink for Section 5.2.5"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">MUST</em> define a standardised format for sending error messages to a WoT Consumer when an operation is not successful</li>
+              <li><em class="rfc2119">SHOULD</em> define common error responses for all operations on a Web Thing</li>
+            </ol>
+          </section>
+          <section id="websocket-sub-protocol-other-messages"><div class="header-wrapper"><h4 id="x5-2-6-other-messages"><bdi class="secno">5.2.6 </bdi>Other Messages</h4><a class="self-link" href="#websocket-sub-protocol-other-messages" aria-label="Permalink for Section 5.2.6"></a></div>
+            
+            <ol>
+              <li><em class="rfc2119">SHOULD</em> define a way for a WoT Consumer to send a “ping” message to a Web Thing in order to keep a WebSocket connection open</li>
+              <li><em class="rfc2119">SHOULD</em> define a way for a Web Thing to send a “pong” response message to a WoT Consumer to confirm that a “ping” message was received</li>
+            </ol>
+          </section>
+        </section>
+        <section id="discovery"><div class="header-wrapper"><h3 id="x5-3-discovery"><bdi class="secno">5.3 </bdi>Discovery</h3><a class="self-link" href="#discovery" aria-label="Permalink for Section 5.3"></a></div>
+          
+          <ol>
+            <li><em class="rfc2119">SHOULD</em> define a list of <a href="https://w3c.github.io/wot-discovery/#introduction-mech">discovery mechanisms</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-discovery" title="Web of Things (WoT) Discovery">wot-discovery</a></cite>] which Web Things may use and WoT Consumers must support</li>
+          </ol>
+        </section>
+        <section id="links"><div class="header-wrapper"><h3 id="x5-4-links"><bdi class="secno">5.4 </bdi>Links</h3><a class="self-link" href="#links" aria-label="Permalink for Section 5.4"></a></div>
+          
+          <ol>
+            <li><em class="rfc2119">SHOULD</em> define a list of <a href="https://w3c.github.io/wot-thing-description/#link">link relation types</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-thing-description" title="Web of Things (WoT) Thing Description">wot-thing-description</a></cite>] which Web Things may use and WoT Consumers must support</li>
+          </ol>
+        </section>
+        <section id="security"><div class="header-wrapper"><h3 id="x5-5-security"><bdi class="secno">5.5 </bdi>Security</h3><a class="self-link" href="#security" aria-label="Permalink for Section 5.5"></a></div>
+          
+          <ol>
+            <li><em class="rfc2119">SHOULD</em> define a list of <a href="https://w3c.github.io/wot-thing-description/#sec-security-vocabulary-definition">security schemes</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-thing-description" title="Web of Things (WoT) Thing Description">wot-thing-description</a></cite>] which conformant Web Things may use and all conformant WoT Consumers must support</li>
+            <li><em class="rfc2119">MAY</em> require that conformant Web Things and WoT Consumers support <a href="https://w3c.github.io/wot-discovery/#exploration-secboot">security bootstrapping</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-discovery" title="Web of Things (WoT) Discovery">wot-discovery</a></cite>]</li>
+            <li><em class="rfc2119">MUST</em> document any security considerations which are identified</li>
+          </ol>
+        </section>
+        <section id="privacy"><div class="header-wrapper"><h3 id="x5-6-privacy"><bdi class="secno">5.6 </bdi>Privacy</h3><a class="self-link" href="#privacy" aria-label="Permalink for Section 5.6"></a></div>
+          
+          <ol>
+            <li><em class="rfc2119">MUST</em> document any privacy considerations which are identified</li>
+          </ol>
+        </section>
+        <section id="accessibility"><div class="header-wrapper"><h3 id="x5-7-accessibility"><bdi class="secno">5.7 </bdi>Accessibility</h3><a class="self-link" href="#accessibility" aria-label="Permalink for Section 5.7"></a></div>
+          
+          <ol>
+            <li><em class="rfc2119">MUST</em> document any accessibility considerations which are identified</li>
+          </ol>
+        </section>
+      </section>
+      <section id="out-of-scope"><div class="header-wrapper"><h2 id="x6-out-of-scope"><bdi class="secno">6. </bdi>Out of Scope</h2><a class="self-link" href="#out-of-scope" aria-label="Permalink for Section 6."></a></div>
+        
+        <p>The following requirements are considered out of scope for the Web Thing Protocol specification:</p>
+        <ol>
+          <li>Defining or constraining an information model for describing the capabilities of connected devices (covered by WoT Thing Description [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-thing-description" title="Web of Things (WoT) Thing Description">wot-thing-description</a></cite>])</li>
+          <li>Describing protocol bindings for existing (“brownfield”) IoT devices (covered by WoT Protocol Binding Templates [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-binding-templates" title="Web of Things (WoT) Binding Templates">wot-binding-templates</a></cite>])</li>
+          <li>Defining an API for managing a collection of Web Things (covered by WoT Discovery [<cite><a class="bibref" data-link-type="biblio" href="#bib-wot-discovery" title="Web of Things (WoT) Discovery">wot-discovery</a></cite>])</li>
+        </ol>
+      </section>
+    
+  
+  <section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+      
+      <dl class="bibliography"><dt id="bib-http11">[HTTP11]</dt><dd>
+        <a href="https://httpwg.org/specs/rfc7230.html"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. R. Fielding, Ed.; J. Reschke, Ed..  IETF. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7230.html">https://httpwg.org/specs/rfc7230.html</a>
+      </dd><dt id="bib-json">[JSON]</dt><dd>
+        <a href="https://www.rfc-editor.org/rfc/rfc8259"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed..  IETF. December 2017. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
+      </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+        <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+      </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+        <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+      </dd><dt id="bib-websockets-protocol">[WEBSOCKETS-PROTOCOL]</dt><dd>
+        <a href="https://www.rfc-editor.org/rfc/rfc6455"><cite>The WebSocket Protocol</cite></a>. I. Fette; A. Melnikov.  IETF. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6455">https://www.rfc-editor.org/rfc/rfc6455</a>
+      </dd><dt id="bib-wot-architecture">[wot-architecture]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-architecture/"><cite>Web of Things (WoT) Architecture</cite></a>. Matthias Kovatsch; Ryuichi Matsukura; Michael Lagally; Toru Kawaguchi; Kunihiko Toumura; Kazuo Kajimoto.  W3C. 9 April 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/wot-architecture/">https://www.w3.org/TR/wot-architecture/</a>
+      </dd><dt id="bib-wot-architecture11">[wot-architecture11]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-architecture11/"><cite>Web of Things (WoT) Architecture 1.1</cite></a>. Michael Lagally; Ryuichi Matsukura; Kunihiko Toumura; Michael McCool.  W3C. 11 July 2023. W3C Proposed Recommendation. URL: <a href="https://www.w3.org/TR/wot-architecture11/">https://www.w3.org/TR/wot-architecture11/</a>
+      </dd><dt id="bib-wot-binding-templates">[wot-binding-templates]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-binding-templates/"><cite>Web of Things (WoT) Binding Templates</cite></a>. Michael Koster; Ege Korkan.  W3C. 28 September 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/wot-binding-templates/">https://www.w3.org/TR/wot-binding-templates/</a>
+      </dd><dt id="bib-wot-discovery">[wot-discovery]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-discovery/"><cite>Web of Things (WoT) Discovery</cite></a>. Kunihiko Toumura; Michael McCool; Andrea Cimmino; Farshid Tavakolizadeh.  W3C. 11 July 2023. W3C Proposed Recommendation. URL: <a href="https://www.w3.org/TR/wot-discovery/">https://www.w3.org/TR/wot-discovery/</a>
+      </dd><dt id="bib-wot-profile">[wot-profile]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-profile/"><cite>Web of Things (WoT) Profile</cite></a>. Michael Lagally; Ben Francis; Michael McCool; Ryuichi Matsukura; Sebastian Käbisch; Tomoaki Mizushima.  W3C. 18 January 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/wot-profile/">https://www.w3.org/TR/wot-profile/</a>
+      </dd><dt id="bib-wot-thing-description">[wot-thing-description]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-thing-description/"><cite>Web of Things (WoT) Thing Description</cite></a>. Sebastian Käbisch; Takuki Kamiya; Michael McCool; Victor Charpenay; Matthias Kovatsch.  W3C. 9 April 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/wot-thing-description/">https://www.w3.org/TR/wot-thing-description/</a>
+      </dd><dt id="bib-wot-usecases">[wot-usecases]</dt><dd>
+        <a href="https://www.w3.org/TR/wot-usecases/"><cite>Web of Things (WoT): Use Cases and Requirements</cite></a>. Michael Lagally; Michael McCool; Ryuichi Matsukura; Tomoaki Mizushima.  W3C. 7 March 2022. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/wot-usecases/">https://www.w3.org/TR/wot-usecases/</a>
+      </dd></dl>
+    </section></section><p role="navigation" id="back-to-top">
+      <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+    </p><script id="respec-dfn-panel">(() => {
+  // @ts-check
+  if (document.respec) {
+    document.respec.ready.then(setupPanel);
+  } else {
+    setupPanel();
+  }
+  
+  function setupPanel() {
+    const listener = panelListener();
+    document.body.addEventListener("keydown", listener);
+    document.body.addEventListener("click", listener);
+  }
+  
+  function panelListener() {
+    /** @type {HTMLElement} */
+    let panel = null;
+    return event => {
+      const { target, type } = event;
+  
+      if (!(target instanceof HTMLElement)) return;
+  
+      // For keys, we only care about Enter key to activate the panel
+      // otherwise it's activated via a click.
+      if (type === "keydown" && event.key !== "Enter") return;
+  
+      const action = deriveAction(event);
+  
+      switch (action) {
+        case "show": {
+          hidePanel(panel);
+          /** @type {HTMLElement} */
+          const dfn = target.closest("dfn, .index-term");
+          panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+          const coords = deriveCoordinates(event);
+          displayPanel(dfn, panel, coords);
+          break;
+        }
+        case "dock": {
+          panel.style.left = null;
+          panel.style.top = null;
+          panel.classList.add("docked");
+          break;
+        }
+        case "hide": {
+          hidePanel(panel);
+          panel = null;
+          break;
+        }
+      }
+    };
+  }
+  
+  /**
+   * @param {MouseEvent|KeyboardEvent} event
+   */
+  function deriveCoordinates(event) {
+    const target = /** @type HTMLElement */ (event.target);
+  
+    // We prevent synthetic AT clicks from putting
+    // the dialog in a weird place. The AT events sometimes
+    // lack coordinates, so they have clientX/Y = 0
+    const rect = target.getBoundingClientRect();
+    if (
+      event instanceof MouseEvent &&
+      event.clientX >= rect.left &&
+      event.clientY >= rect.top
+    ) {
+      // The event probably happened inside the bounding rect...
+      return { x: event.clientX, y: event.clientY };
+    }
+  
+    // Offset to the middle of the element
+    const x = rect.x + rect.width / 2;
+    // Placed at the bottom of the element
+    const y = rect.y + rect.height;
+    return { x, y };
+  }
+  
+  /**
+   * @param {Event} event
+   */
+  function deriveAction(event) {
+    const target = /** @type {HTMLElement} */ (event.target);
+    const hitALink = !!target.closest("a");
+    if (target.closest("dfn:not([data-cite]), .index-term")) {
+      return hitALink ? "none" : "show";
+    }
+    if (target.closest(".dfn-panel")) {
+      if (hitALink) {
+        return target.classList.contains("self-link") ? "hide" : "dock";
+      }
+      const panel = target.closest(".dfn-panel");
+      return panel.classList.contains("docked") ? "hide" : "none";
+    }
+    if (document.querySelector(".dfn-panel:not([hidden])")) {
+      return "hide";
+    }
+    return "none";
+  }
+  
+  /**
+   * @param {HTMLElement} dfn
+   * @param {HTMLElement} panel
+   * @param {{ x: number, y: number }} clickPosition
+   */
+  function displayPanel(dfn, panel, { x, y }) {
+    panel.hidden = false;
+    // distance (px) between edge of panel and the pointing triangle (caret)
+    const MARGIN = 20;
+  
+    const dfnRects = dfn.getClientRects();
+    // Find the `top` offset when the `dfn` can be spread across multiple lines
+    let closestTop = 0;
+    let minDiff = Infinity;
+    for (const rect of dfnRects) {
+      const { top, bottom } = rect;
+      const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+      if (diffFromClickY < minDiff) {
+        minDiff = diffFromClickY;
+        closestTop = top;
+      }
+    }
+  
+    const top = window.scrollY + closestTop + dfnRects[0].height;
+    const left = x - MARGIN;
+    panel.style.left = `${left}px`;
+    panel.style.top = `${top}px`;
+  
+    // Find if the panel is flowing out of the window
+    const panelRect = panel.getBoundingClientRect();
+    const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+    if (panelRect.right > SCREEN_WIDTH) {
+      const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+      const newCaretOffset = left - newLeft;
+      panel.style.left = `${newLeft}px`;
+      /** @type {HTMLElement} */
+      const caret = panel.querySelector(".caret");
+      caret.style.left = `${newCaretOffset}px`;
+    }
+  
+    // As it's a dialog, we trap focus.
+    // TODO: when <dialog> becomes a implemented, we should really
+    // use that.
+    trapFocus(panel, dfn);
+  }
+  
+  /**
+   * @param {HTMLElement} panel
+   * @param {HTMLElement} dfn
+   * @returns
+   */
+  function trapFocus(panel, dfn) {
+    /** @type NodeListOf<HTMLAnchorElement> elements */
+    const anchors = panel.querySelectorAll("a[href]");
+    // No need to trap focus
+    if (!anchors.length) return;
+  
+    // Move focus to first anchor element
+    const first = anchors.item(0);
+    first.focus();
+  
+    const trapListener = createTrapListener(anchors, panel, dfn);
+    panel.addEventListener("keydown", trapListener);
+  
+    // Hiding the panel releases the trap
+    const mo = new MutationObserver(records => {
+      const [record] = records;
+      const target = /** @type HTMLElement */ (record.target);
+      if (target.hidden) {
+        panel.removeEventListener("keydown", trapListener);
+        mo.disconnect();
+      }
+    });
+    mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+  }
+  
+  /**
+   *
+   * @param {NodeListOf<HTMLAnchorElement>} anchors
+   * @param {HTMLElement} panel
+   * @param {HTMLElement} dfn
+   * @returns
+   */
+  function createTrapListener(anchors, panel, dfn) {
+    const lastIndex = anchors.length - 1;
+    let currentIndex = 0;
+    return event => {
+      switch (event.key) {
+        // Hitting "Tab" traps us in a nice loop around elements.
+        case "Tab": {
+          event.preventDefault();
+          currentIndex += event.shiftKey ? -1 : +1;
+          if (currentIndex < 0) {
+            currentIndex = lastIndex;
+          } else if (currentIndex > lastIndex) {
+            currentIndex = 0;
+          }
+          anchors.item(currentIndex).focus();
+          break;
+        }
+  
+        // Hitting "Enter" on an anchor releases the trap.
+        case "Enter":
+          hidePanel(panel);
+          break;
+  
+        // Hitting "Escape" returns focus to dfn.
+        case "Escape":
+          hidePanel(panel);
+          dfn.focus();
+          return;
+      }
+    };
+  }
+  
+  /** @param {HTMLElement} panel */
+  function hidePanel(panel) {
+    if (!panel) return;
+    panel.hidden = true;
+    panel.classList.remove("docked");
+  }
+  })()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
