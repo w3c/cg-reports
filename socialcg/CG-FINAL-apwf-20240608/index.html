@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style">
+
+</style><style lang="en" type="text/css" id="dark-mode-native-style">
+
+</style><style lang="en" type="text/css" id="dark-mode-native-sheet">
+
+</style><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+<title>ActivityPub and WebFinger</title>
+  
+  
+
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="color-scheme" content="light">
+<meta name="description" content="Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in [RFC7033]) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.">
+<link rel="canonical" href="https://www.w3.org/community/reports/socialcg/apwf/">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-FINAL",
+  "editors": [
+    {
+      "name": "a",
+      "url": "https://trwnh.com"
+    },
+    {
+      "name": "Evan Prodromou",
+      "url": "https://evanp.me/"
+    }
+  ],
+  "github": "swicg/activitypub-webfinger",
+  "shortName": "apwf",
+  "xref": "web-platform",
+  "group": "socialcg",
+  "publishISODate": "2024-06-08T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 08 June 2024"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+
+<body class="h-entry" data-cite="HTML INFRA URL WEBIDL DOM FETCH"><div class="head">
+    
+    <h1 id="title" class="title">ActivityPub and WebFinger</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2024-06-08">08 June 2024</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/socialcg/CG-FINAL-apwf-20240608/">https://www.w3.org/community/reports/socialcg/CG-FINAL-apwf-20240608/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/community/reports/socialcg/apwf/">https://www.w3.org/community/reports/socialcg/apwf/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://swicg.github.io/activitypub-webfinger/">https://swicg.github.io/activitypub-webfinger/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://trwnh.com">a</a>
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://evanp.me/">Evan Prodromou</a>
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/swicg/activitypub-webfinger/">GitHub swicg/activitypub-webfinger</a>
+        (<a href="https://github.com/swicg/activitypub-webfinger/pulls/">pull requests</a>,
+        <a href="https://github.com/swicg/activitypub-webfinger/issues/new/choose">new issue</a>,
+        <a href="https://github.com/swicg/activitypub-webfinger/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2024
+          
+          the Contributors to the ActivityPub and WebFinger
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/socialcg">Social Web Incubator Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+  <section id="abstract" class="introductory"><h2>Abstract</h2>
+    <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7033" title="WebFinger">RFC7033</a></cite>]) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
+  </section>
+  <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/socialcg">Social Web Incubator Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+  <p>
+    <a href="https://github.com/swicg/activitypub-webfinger/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#motivation"><bdi class="secno">1. </bdi>Motivation</a></li><li class="tocline"><a class="tocxref" href="#discovery"><bdi class="secno">2. </bdi>Discovery</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#forward-discovery"><bdi class="secno">2.1 </bdi>Forward discovery of an actor document given a WebFinger address</a></li><li class="tocline"><a class="tocxref" href="#reverse-discovery"><bdi class="secno">2.2 </bdi>Reverse discovery of a WebFinger address given an actor document</a></li></ol></li><li class="tocline"><a class="tocxref" href="#encoding"><bdi class="secno">3. </bdi>Encoding</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#names"><bdi class="secno">3.1 </bdi>Limitations on usernames and hostnames</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#rules"><bdi class="secno">3.1.1 </bdi>Current implementation rules</a></li><li class="tocline"><a class="tocxref" href="#usernames"><bdi class="secno">3.1.2 </bdi>Recommendations for handling usernames</a></li></ol></li><li class="tocline"><a class="tocxref" href="#link"><bdi class="secno">3.2 </bdi>Establishing a link between the WebFinger resource and the actor document</a></li></ol></li><li class="tocline"><a class="tocxref" href="#other"><bdi class="secno">4. </bdi>Other uses of WebFinger</a></li><li class="tocline"><a class="tocxref" href="#security"><bdi class="secno">5. </bdi>Security Considerations</a></li><li class="tocline"><a class="tocxref" href="#future"><bdi class="secno">6. </bdi>Future Enhancements</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">7. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+  <section class="informative" id="motivation"><div class="header-wrapper"><h2 id="x1-motivation"><bdi class="secno">1. </bdi>Motivation</h2><a class="self-link" href="#motivation" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>Consider an HTTPS URI of the form <code>https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80</code> being used as an identifier for an actor associated with a user account. Communicating this digitally may be done by simply using the HTTPS URI as-is, as a hyperlink reference. However, communicating this verbally or in a space-constrained visual format can be difficult. WebFinger allows communicating aliases of the form <code>alyssa@social.example</code>, which are easier to work with in the previously-cited cases.</p>
+    <p>Additional benefits of using WebFinger include smoothing over the differences between varying actor URI schemas. Different softwares may provide human-friendly URLs for an actor's profile, but these URLs may take several different forms:</p>
+    <ul>
+      <li><code>https://social.example/alyssa</code></li>
+      <li><code>https://social.example/@alyssa</code></li>
+      <li><code>https://social.example/~alyssa</code></li>
+      <li><code>https://social.example/u/alyssa</code></li>
+      <li>...and so on.</li>
+    </ul>
+    <p>Conventionally, people can be identified by their user@domain address, while documents can be identified by their HTTPS location.</p>
+  </section>
+  <section class="normative" id="discovery"><div class="header-wrapper"><h2 id="x2-discovery"><bdi class="secno">2. </bdi>Discovery</h2><a class="self-link" href="#discovery" aria-label="Permalink for Section 2."></a></div>
+    
+    <p>Discovery can occur in one of two directions:</p>
+    <ul>
+      <li>Given a WebFinger address, one can resolve it to an actor document;</li>
+      <li>Given an actor document with a preferredUsername, one can reconstruct a WebFinger address that should link back to the same actor document.</li>
+    </ul>
+    <p>The former will be referred to as "forward discovery" and the latter will be referred to as "reverse discovery".</p>
+    <section id="forward-discovery"><div class="header-wrapper"><h3 id="x2-1-forward-discovery-of-an-actor-document-given-a-webfinger-address"><bdi class="secno">2.1 </bdi>Forward discovery of an actor document given a WebFinger address</h3><a class="self-link" href="#forward-discovery" aria-label="Permalink for Section 2.1"></a></div>
+      
+      <p>Given a username and hostname in the form <code>user@domain</code>:</p>
+      <ol>
+        <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code> (as defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7565" title="The 'acct' URI Scheme">RFC7565</a></cite>])</li>
+        <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter (as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7033" title="WebFinger">RFC7033</a></cite>])</li>
+      </ol>
+      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (which is <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> when percent-encoded). This request <em class="rfc2119">MUST</em> returns a JRD (JSON Resource Descriptor, as defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc6415" title="Web Host Metadata">RFC6415</a></cite>]) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
+      <p>The WebFinger request and response may look like this:</p>
+<pre class="example" title="Sample JRD response" aria-busy="false"><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/.well-known/webfinger?resource=acct:alyssa@social.example</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>social.example
+
+<span class="http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/jrd+json
+
+<span class="json">{
+  <span class="hljs-attr">"subject"</span>: <span class="hljs-string">"acct:alyssa@social.example"</span>,
+  <span class="hljs-attr">"aliases"</span>: [
+    <span class="hljs-string">"https://social.example/@alyssa"</span>,
+    <span class="hljs-string">"https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80"</span>
+  ],
+  <span class="hljs-attr">"links"</span>: [
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"http://webfinger.net/rel/profile-page"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text/html"</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://social.example/@alyssa"</span>
+    },
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"self"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"application/activity+json"</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80"</span>
+    }
+  ]
+}</span></span></code></pre>
+      <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation). See <a href="#link" class="sec-ref"><bdi class="secno">3.2 </bdi>Establishing a link between the WebFinger resource and the actor document</a> for more information about this.</p>
+    </section>
+    <section id="reverse-discovery"><div class="header-wrapper"><h3 id="x2-2-reverse-discovery-of-a-webfinger-address-given-an-actor-document"><bdi class="secno">2.2 </bdi>Reverse discovery of a WebFinger address given an actor document</h3><a class="self-link" href="#reverse-discovery" aria-label="Permalink for Section 2.2"></a></div>
+      
+      <p>Given an actor with an <code>id</code> and a <code>preferredUsername</code>:</p>
+      <ol>
+        <li>Take the hostname of the <code>id</code> to discover the WebFinger domain</li>
+        <li>Combine the <code>preferredUsername</code> and the WebFinger domain in order to form a WebFinger address</li>
+        <li>Verify that this WebFinger address links back to the same actor when performing discovery as described in <a href="#forward-discovery" class="sec-ref"><bdi class="secno">2.1 </bdi>Forward discovery of an actor document given a WebFinger address</a></li>
+        <li>Optionally: If the JRD from the previous step has a <code>subject</code> and it contains an <code>acct:</code> URI different from the one you constructed, perform a verification discovery against that <code>acct:</code> URI afterward. (In such cases, the <code>subject</code> of the JRD denotes the expected canonical identifier.)</li>
+      </ol>
+      <p>For example, given an actor document at <code>https://activitypub.example.com/actor/1</code> like so:</p>
+<pre class="example" title="Sample actor document" aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.w3.org/ns/activitystreams"</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://activitypub.example.com/actor/1"</span>,
+  <span class="hljs-attr">"preferredUsername"</span>: <span class="hljs-string">"alice"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Alice P. Hacker"</span>
+}</code></pre>
+      <p>The reverse discovery process would extract <code>alice</code> and <code>activitypub.example.com</code>, construct the <code>acct:</code> URI <code>acct:alice@activitypub.example.com</code>, then request <code>https://activitypub.example.com/.well-known/webfinger?resource=acct:alice@activitypub.example.com</code> like so:</p>
+<pre class="example" title="Verifying the constructed WebFinger address" aria-busy="false"><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/.well-known/webfinger?resource=acct:alice@activitypub.example.com</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>activitypub.example.com
+
+<span class="http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/jrd+json
+
+<span class="json">{
+  <span class="hljs-attr">"subject"</span>: <span class="hljs-string">"acct:alice@example.com"</span>,
+  <span class="hljs-attr">"aliases"</span>: [
+    <span class="hljs-string">"https://example.com/@alice"</span>,
+    <span class="hljs-string">"https://activitypub.example.com/actors/1"</span>
+  ],
+  <span class="hljs-attr">"links"</span>: [
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"http://webfinger.net/rel/profile-page"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text/html"</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://example.com/@alice"</span>
+    },
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"self"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\""</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://activitypub.example.com/actors/1"</span>
+    }
+  ]
+}</span></span></code></pre>
+      <p>At this point, we have validated that <code>alice@activitypub.example.com</code> links back to our actor document, but we can optionally verify that the canonical WebFinger address of <code>alice@example.com</code> also links back to the same actor document:</p>
+<pre class="example" title="Verifying the canonical WebFinger address discovered from the constructed WebFinger address" aria-busy="false"><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/.well-known/webfinger?resource=acct:alice@example.com</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>example.com
+
+<span class="http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">307</span> Temporary Redirect
+<span class="hljs-attribute">Location</span><span class="hljs-punctuation">: </span>https://activitypub.example.com/.well-known/webfinger?resource=acct:alice@example.com
+
+<span class="http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/.well-known/webfinger?resource=acct:alice@example.com</span> <span class="hljs-meta">HTTP/1.1</span>
+<span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>activitypub.example.com
+
+<span class="http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/jrd+json
+
+<span class="json">{
+  <span class="hljs-attr">"subject"</span>: <span class="hljs-string">"acct:alice@example.com"</span>,
+  <span class="hljs-attr">"aliases"</span>: [
+    <span class="hljs-string">"https://example.com/@alice"</span>,
+    <span class="hljs-string">"https://activitypub.example.com/actors/1"</span>
+  ],
+  <span class="hljs-attr">"links"</span>: [
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"http://webfinger.net/rel/profile-page"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text/html"</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://example.com/@alice"</span>
+    },
+    {
+      <span class="hljs-attr">"rel"</span>: <span class="hljs-string">"self"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\""</span>,
+      <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://activitypub.example.com/actors/1"</span>
+    }
+  ]
+}</span></span></span></span></code></pre>
+    </section>
+  </section>
+  <section class="normative" id="encoding"><div class="header-wrapper"><h2 id="x3-encoding"><bdi class="secno">3. </bdi>Encoding</h2><a class="self-link" href="#encoding" aria-label="Permalink for Section 3."></a></div>
+    
+    <p>To ensure smooth operation of the WebFinger discovery flows, identifiers and responses should follow certain guidelines for encoding.</p>
+    <section class="normative" id="names"><div class="header-wrapper"><h3 id="x3-1-limitations-on-usernames-and-hostnames"><bdi class="secno">3.1 </bdi>Limitations on usernames and hostnames</h3><a class="self-link" href="#names" aria-label="Permalink for Section 3.1"></a></div>
+      
+      <p>The <code>acct:</code> URI scheme is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7565" title="The 'acct' URI Scheme">RFC7565</a></cite>], which contains ABNF ([<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5234" title="Augmented BNF for Syntax Specifications: ABNF">RFC5234</a></cite>]) for allowed characters (inheriting from [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc3986" title="Uniform Resource Identifier (URI): Generic Syntax">RFC3986</a></cite>] as well):</p>
+<pre title="acct: URI ABNF" aria-busy="false"><code class="hljs abnf"><span class="hljs-attribute">acctURI</span>      = <span class="hljs-string">"acct"</span> <span class="hljs-string">":"</span> userpart <span class="hljs-string">"@"</span> host
+<span class="hljs-attribute">userpart</span>     = unreserved / sub-delims
+               <span class="hljs-number">0</span>*( unreserved / pct-encoded / sub-delims )
+<span class="hljs-comment">; userpart regex: [A-Za-z0-9\-\.\_\~\!\$\&amp;\'\(\)\*\+\,\;\=](?:[A-Za-z0-9\-\.\_\~\!\$\&amp;\'\(\)\*\+\,\;\=]|(?:%[0-9A-Fa-f]{2}))*</span>
+<span class="hljs-attribute">unreserved</span>   = <span class="hljs-keyword">ALPHA</span> / <span class="hljs-keyword">DIGIT</span> / <span class="hljs-string">"-"</span> / <span class="hljs-string">"."</span> / <span class="hljs-string">"_"</span> / <span class="hljs-string">"~"</span>
+<span class="hljs-attribute">sub-delims</span>   = <span class="hljs-string">"!"</span> / <span class="hljs-string">"$"</span> / <span class="hljs-string">"&amp;"</span> / <span class="hljs-string">"'"</span> / <span class="hljs-string">"("</span> / <span class="hljs-string">")"</span> / <span class="hljs-string">"*"</span> / <span class="hljs-string">"+"</span> / <span class="hljs-string">","</span> / <span class="hljs-string">";"</span> / <span class="hljs-string">"="</span>
+<span class="hljs-attribute">pct-encoded</span>  = <span class="hljs-string">"%"</span> <span class="hljs-keyword">HEXDIG</span> <span class="hljs-keyword">HEXDIG</span>
+
+<span class="hljs-attribute">host</span>         = IP-literal / IPv4address / reg-name
+<span class="hljs-attribute">reg-name</span>     = *( unreserved / pct-encoded / sub-delims )
+<span class="hljs-comment">; reg-name regex: (?:[A-Za-z0-9\-\.\_\~\!\$\&amp;\'\(\)\*\+\,\;\=]|(?:%[0-9A-Fa-f]{2}))*</span></code></pre>
+      <p>Further restrictions are specified in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7565" title="The 'acct' URI Scheme">RFC7565</a></cite>]:</p>
+      <ul>
+        <li>Per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc3986" title="Uniform Resource Identifier (URI): Generic Syntax">RFC3986</a></cite>] Section 6.2.2.1 "Case Normalization", the scheme and host are case-insensitive and <em class="rfc2119">SHOULD</em> therefore be normalized to lowercase.</li>
+        <li>Per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc3986" title="Uniform Resource Identifier (URI): Generic Syntax">RFC3986</a></cite>] Section 6.2.2.2 "Percent-Encoding Normalization", any <code>unreserved</code> characters <em class="rfc2119">SHOULD</em> be decoded if encountered as a percent-encoded octet.</li>
+        <li>Before percent-encoding anything, the userpart <em class="rfc2119">MUST</em> consist only of Unicode code points that are part of the [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7564" title="PRECIS Framework: Preparation, Enforcement, and Comparison of Internationalized Strings in Application Protocols">RFC7564</a></cite>] PRECIS <code>IdentifierClass</code>
+        </li>
+        <li>Before percent-encoding anything, the hostname <em class="rfc2119">MUST</em> conform to IDNA rules specified in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5982" title="IP Flow Information Export (IPFIX) Mediation: Problem Statement">RFC5982</a></cite>] and [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5980" title="NSIS Protocol Operation in Mobile Environments">RFC5980</a></cite>] for A-label (ASCII-Compatible Encoding, or Punycode)</li>
+      </ul>
+      <section class="informative" id="rules"><div class="header-wrapper"><h4 id="x3-1-1-current-implementation-rules"><bdi class="secno">3.1.1 </bdi>Current implementation rules</h4><a class="self-link" href="#rules" aria-label="Permalink for Section 3.1.1"></a></div><p><em>This section is non-normative.</em></p>
+        
+        <p>Note that while there are several symbols allowed in the userpart, the de facto limits set by some current implementers are much more restrictive.</p>
+        <p>At the time of this writing, Mastodon enforces the following rules:</p>
+        <ul>
+          <li>The username must be at least one character</li>
+          <li>ASCII alphanumeric characters (<code>A</code> through <code>Z</code>, <code>a</code> through <code>z</code>, <code>0</code> through <code>9</code>) and underscores (<code>_</code>) are generally allowed anywhere in the username</li>
+          <li>Dots (<code>.</code>) and dashes (<code>-</code>) are allowed in the middle of a username, but not as the first character or the last character</li>
+          <li>All other symbols are disallowed</li>
+          <li>Usernames are case-insensitive</li>
+        </ul>
+        <p>In other words, Mastodon will accept the regular expression or the following ABNF:</p>
+<pre title="Mastodon username ABNF" aria-busy="false"><code class="hljs abnf"><span class="hljs-comment">; As a regular expression, this can be expressed as follows:</span>
+<span class="hljs-comment">; /[a-z0-9_]+([a-z0-9_.-]+[a-z0-9_]+)?/i</span>
+
+<span class="hljs-attribute">username</span> = word
+           *( rest )
+<span class="hljs-attribute">word</span>     = <span class="hljs-keyword">ALPHA</span> / <span class="hljs-keyword">DIGIT</span> / <span class="hljs-string">"_"</span>
+<span class="hljs-attribute">rest</span>     = *( extended )
+           word
+<span class="hljs-attribute">extended</span> = word / <span class="hljs-string">"."</span> / <span class="hljs-string">"-"</span></code></pre>
+        <p>Similarly at the time of this writing, Misskey is subject to the following limitations:</p>
+        <ul>
+          <li>Usernames are limited to 128 characters</li>
+          <li>Hostnames are limited to 128 characters</li>
+        </ul>
+      </section>
+      <section class="normative" id="usernames"><div class="header-wrapper"><h4 id="x3-1-2-recommendations-for-handling-usernames"><bdi class="secno">3.1.2 </bdi>Recommendations for handling usernames</h4><a class="self-link" href="#usernames" aria-label="Permalink for Section 3.1.2"></a></div>
+        
+        <ul>
+          <li>Implementers <em class="rfc2119">SHOULD</em> treat local usernames as case-insensitive.</li>
+          <li>Implementers <em class="rfc2119">SHOULD NOT</em> assume case insensitivity for external usernames.</li>
+          <li>Implementers <em class="rfc2119">SHOULD NOT</em> treat usernames as stable identifiers that will always map to the same actor, and <em class="rfc2119">SHOULD</em> use the actor <code>id</code> in any references to an actor.(Implementers that currently treat usernames as canonical identifiers <em class="rfc2119">SHOULD</em> take steps to avoid doing so in the future.)</li>
+          <li>Implementers <em class="rfc2119">SHOULD</em> limit the length of local usernames. The exact limit is not specified, but it is noteworthy that similar systems such as email often limit the localpart to 64 characters (per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2821" title="Simple Mail Transfer Protocol">RFC2821</a></cite>]).</li>
+          <li>Implementers <em class="rfc2119">SHOULD</em> support remote usernames containing valid characters per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7565" title="The 'acct' URI Scheme">RFC7565</a></cite>]. For short-term compatibility, implementers <em class="rfc2119">SHOULD NOT</em> use characters other than alphanumeric (<code>A-Z, a-z, 0-9</code>) and underscores (<code>_</code>).</li>
+        </ul>
+      </section>
+    </section>
+    <section class="normative" id="link"><div class="header-wrapper"><h3 id="x3-2-establishing-a-link-between-the-webfinger-resource-and-the-actor-document"><bdi class="secno">3.2 </bdi>Establishing a link between the WebFinger resource and the actor document</h3><a class="self-link" href="#link" aria-label="Permalink for Section 3.2"></a></div>
+      
+      <p>As discussed in <a href="#forward-discovery" class="sec-ref"><bdi class="secno">2.1 </bdi>Forward discovery of an actor document given a WebFinger address</a>, the link to the actor associated with a given WebFinger address will have the following qualifiers:</p>
+      <ul>
+        <li><code>rel</code> <em class="rfc2119">MUST</em> be <code>self</code></li>
+        <li><code>type</code> <em class="rfc2119">MUST</em> be either <code>application/activity+json</code> or <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code></li>
+      </ul>
+      <p>Publishers <em class="rfc2119">SHOULD</em> include only one such link.</p>
+      <p>Due to the prevailing use of WebFinger addresses as canonical primary identifiers for users, implementations that require WebFinger for compatibility will often also deduplicate actors based on the WebFinger address. Therefore, it is generally expected that there is only one <code>self</code> link to an Activity Streams document, in a unary relationship. However, some implementations do not follow this expectation, and there might be multiple links to ActivityStreams documents for the same WebFinger <code>acct:</code> resource. In such cases, one of the following strategies may be employed:</p>
+      <ul>
+        <li>Take the first matching entry in <code>links</code></li>
+        <li>Deduplicate all matching entries in <code>links</code> by their <code>href</code></li>
+        <li>Check for additional information, such as the presence of <code>properties</code> which may give further hints as to which entry of <code>links</code> is appropriate to follow</li>
+      </ul>
+    </section>
+  </section>
+  <section class="informative" id="other"><div class="header-wrapper"><h2 id="x4-other-uses-of-webfinger"><bdi class="secno">4. </bdi>Other uses of WebFinger</h2><a class="self-link" href="#other" aria-label="Permalink for Section 4."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>Aside from the self-link to the associated actor, resolving a WebFinger query may expose some other links of potential interest. The following link relations are currently common among WebFinger implementers, and are recommended for use especially when the actor document is not publicly available:</p>
+    <ul>
+      <li><code>http://webfinger.net/rel/profile-page</code> (for quickly getting the HTML profile page of a user without resolving their actor document and checking for the <code>url</code>)</li>
+      <li><code>http://webfinger.net/rel/avatar</code> (for quickly getting the avatar of a user without resolving their actor document and checking for the <code>icon</code>)</li>
+    </ul>
+    <p>The following link relations are less common, but offer useful information to ActivityPub implementers:</p>
+    <ul>
+      <li><code>http://ostatus.org/schema/1.0/subscribe</code> (used to power features like Mastodon's remote follow buttons)</li>
+      <li><code>http://schemas.google.com/g/2010#updates-from</code> (used by some implementations to link to an Atom feed)</li>
+      <li><code>feed</code> (used by some implementations to link to one or more feeds; feeds can be disambiguated by checking <code>type</code> and/or <code>title</code> properties of the link)</li>
+      <li><code>http://a9.com/-/spec/opensearch/1.1/</code> (for custom search bars)</li>
+    </ul>
+    <p>Also uncommon but supported by at least one implementation (Wordpress) is the ability to query non-actor, non-user resources via WebFinger. The following link relations are exposed:</p>
+    <ul>
+      <li><code>shortlink</code></li>
+      <li><code>author</code></li>
+      <li><code>alternate</code></li>
+      <li><code>license</code></li>
+      <li><code>canonical</code></li>
+      <li><code>webmention</code></li>
+    </ul>
+  </section>
+  <section class="informative" id="security"><div class="header-wrapper"><h2 id="x5-security-considerations"><bdi class="secno">5. </bdi>Security Considerations</h2><a class="self-link" href="#security" aria-label="Permalink for Section 5."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>Using WebFinger can provide proof of existence of an associated actor document, as well as make it easier to discover that associated actor document; following this, an actor's inbox can be likewise discovered, and spam or other unwanted messages can be delivered to that actor's inbox. It may be desirable for some systems to not publicly expose an actor's existence and instead rely on the user manually entering their actor's HTTPS URI, or maintaining a "contact list" of bookmarked actors or resources. For such systems, the use of WebFinger is not advisable.</p>
+  </section>
+  <section class="informative" id="future"><div class="header-wrapper"><h2 id="x6-future-enhancements"><bdi class="secno">6. </bdi>Future Enhancements</h2><a class="self-link" href="#future" aria-label="Permalink for Section 6."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>The current use of WebFinger with ActivityPub could be improved in several ways:</p>
+    <ul>
+      <li>Back-linking an actor to a WebFinger address could be more explicit. Current use of <code>preferredUsername</code> is not ideal for constructing WebFinger addresses, and it also does not allow for expressing actual "preferred usernames". An explicit property for denoting the user's "canonical" WebFinger address would ease reverse-discovery concerns.</li>
+      <li>Implementers could ease their de facto WebFinger requirements by treating WebFinger addresses purely as aliases for the actor's HTTPS identifier, rather than as the canonical identifier. This would make WebFinger address mappings mutable and no longer unary.</li>
+      <li>WebFinger could be used to expose certain properties or qualified links more directly, skipping the resolution of the actor resource.</li>
+      <li>An ActivityStreams profile of WebFinger can be defined in order to redirect or directly resolve the actor document if the <code>Accept</code> header specifies the correct media type, skipping the resolution of the JRD.</li>
+      <li>A convention could be adopted for identifying users by a DNS name instead of an acct: URI.</li>
+    </ul>
+  </section>
+  <section id="conformance"><div class="header-wrapper"><h2 id="x7-conformance"><bdi class="secno">7. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 7."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MUST</em>, <em class="rfc2119">SHOULD</em>, and <em class="rfc2119">SHOULD NOT</em> in this document
+        are to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+        when, and only when, they appear in all capitals, as shown here.
+      </p>
+  </section>
+
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc2821">[RFC2821]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2821"><cite>Simple Mail Transfer Protocol</cite></a>. J. Klensin, Ed..  IETF. April 2001. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2821">https://www.rfc-editor.org/rfc/rfc2821</a>
+    </dd><dt id="bib-rfc3986">[RFC3986]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc3986"><cite>Uniform Resource Identifier (URI): Generic Syntax</cite></a>. T. Berners-Lee; R. Fielding; L. Masinter.  IETF. January 2005. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc3986">https://www.rfc-editor.org/rfc/rfc3986</a>
+    </dd><dt id="bib-rfc5234">[RFC5234]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5234"><cite>Augmented BNF for Syntax Specifications: ABNF</cite></a>. D. Crocker, Ed.; P. Overell.  IETF. January 2008. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5234">https://www.rfc-editor.org/rfc/rfc5234</a>
+    </dd><dt id="bib-rfc5980">[RFC5980]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5980"><cite>NSIS Protocol Operation in Mobile Environments</cite></a>. T. Sanda, Ed.; X. Fu; S. Jeong; J. Manner; H. Tschofenig.  IETF. March 2011. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc5980">https://www.rfc-editor.org/rfc/rfc5980</a>
+    </dd><dt id="bib-rfc5982">[RFC5982]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5982"><cite>IP Flow Information Export (IPFIX) Mediation: Problem Statement</cite></a>. A. Kobayashi, Ed.; B. Claise, Ed..  IETF. August 2010. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc5982">https://www.rfc-editor.org/rfc/rfc5982</a>
+    </dd><dt id="bib-rfc6415">[RFC6415]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc6415"><cite>Web Host Metadata</cite></a>. E. Hammer-Lahav, Ed.; B. Cook.  IETF. October 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6415">https://www.rfc-editor.org/rfc/rfc6415</a>
+    </dd><dt id="bib-rfc7033">[RFC7033]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7033"><cite>WebFinger</cite></a>. P. Jones; G. Salgueiro; M. Jones; J. Smarr.  IETF. September 2013. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7033">https://www.rfc-editor.org/rfc/rfc7033</a>
+    </dd><dt id="bib-rfc7564">[RFC7564]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7564"><cite>PRECIS Framework: Preparation, Enforcement, and Comparison of Internationalized Strings in Application Protocols</cite></a>. P. Saint-Andre; M. Blanchet.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7564">https://www.rfc-editor.org/rfc/rfc7564</a>
+    </dd><dt id="bib-rfc7565">[RFC7565]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7565"><cite>The 'acct' URI Scheme</cite></a>. P. Saint-Andre.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7565">https://www.rfc-editor.org/rfc/rfc7565</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
+  
