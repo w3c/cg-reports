@@ -1,72 +1,261 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
-	<head>
-		<meta charset="utf-8" />
-		<title>TDM Reservation Protocol (TDMRep)</title>
-		<script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"  defer></script>
-		<script class="remove">
-          var respecConfig = {
-              group: "tdmrep",
-              shortName: "tdmrep",
-              specStatus: "CG-FINAL",
-              copyrightStart: "2021",
-              otherLinks: [
-                {
-                  key: "Previous version",
-                  data: [
-                    {
-                      value: "TDMRep, Second Version",
-                      href: "https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240202/"
-                    }
-                  ]
-                },   
-                {
-                  key: "Useful links",
-                  data: [
-                    {
-                      value: "TDMRep Documents",
-                      href: "https://w3c.github.io/tdm-reservation-protocol/"
-                    },
-                    {
-                      value: "TDMRep CG Home Page",
-                      href: "https://www.w3.org/community/tdmrep/"
-                    }
-                  ]
-                }
-              ],
-              editors: [
-              	{
-              		name: "Laurent Le Meur",
-              		company: "EDRLab",
-              		companyURL: "https://www.edrlab.org",
-									w3cid: 91888
-              	}
-              ],
-              formerEditors: [
-              ],
-              wgPublicList: "public-tdmrep",
-							github: "https://github.com/w3c/tdm-reservation-protocol"
-          };
-      </script>
-	</head>
-	<body>
-		<section id="abstract">
-			<p>This specification defines a simple and practical Web protocol, capable of expressing the reservation of rights relative to text & data mining (TDM) applied to lawfully accessible Web content, and to ease the discovery of TDM licensing policies associated with such content.</p>
-      <p>This initiative is a technical answer to the constraints set by the Article 4 of the new <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L0790&from=EN">European Directive on copyright and related rights in the Digital Single Market</a>.</p>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.1.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>TDM Reservation Protocol (TDMRep)</title>
+		
+		
+	
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="color-scheme" content="light">
+<meta name="description" content="This specification defines a simple and practical Web protocol, capable of expressing the reservation of rights relative to text &amp; data mining (TDM) applied to lawfully accessible Web content, and to ease the discovery of TDM licensing policies associated with such content.">
+<link rel="canonical" href="https://www.w3.org/community/reports/tdmrep/tdmrep/">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "group": "tdmrep",
+  "shortName": "tdmrep",
+  "specStatus": "CG-FINAL",
+  "copyrightStart": "2021",
+  "otherLinks": [
+    {
+      "key": "Previous version",
+      "data": [
+        {
+          "value": "TDMRep, Second Version",
+          "href": "https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240202/"
+        }
+      ]
+    },
+    {
+      "key": "Useful links",
+      "data": [
+        {
+          "value": "TDMRep Documents",
+          "href": "https://w3c.github.io/tdm-reservation-protocol/"
+        },
+        {
+          "value": "TDMRep CG Home Page",
+          "href": "https://www.w3.org/community/tdmrep/"
+        }
+      ]
+    }
+  ],
+  "editors": [
+    {
+      "name": "Laurent Le Meur",
+      "company": "EDRLab",
+      "companyURL": "https://www.edrlab.org",
+      "w3cid": 91888
+    }
+  ],
+  "formerEditors": [],
+  "wgPublicList": "public-tdmrep",
+  "github": "https://github.com/w3c/tdm-reservation-protocol",
+  "publishISODate": "2024-05-10T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 10 May 2024"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+	<body class="h-entry"><div class="head">
+    
+    <h1 id="title" class="title">TDM Reservation Protocol (TDMRep)</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2024-05-10">10 May 2024</time>
+    </p>
+    <dl>
+      <dt>This version:</dt>
+      <dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/">https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240510/</a>
+            </dd>
+      
+      
+      <dt>Editor:</dt><dd class="editor p-author h-card vcard" data-editor-id="91888">
+    <span class="p-name fn">Laurent Le Meur</span> (<a class="p-org org h-org" href="https://www.edrlab.org">EDRLab</a>)
+  </dd>
+
+  <dt>Previous version</dt>
+  <dd>
+    <a href="https://www.w3.org/community/reports/tdmrep/CG-FINAL-tdmrep-20240202/">TDMRep, Second Version</a>
+  </dd>
+  <dt>Useful links</dt>
+  <dd>
+    <a href="https://w3c.github.io/tdm-reservation-protocol/">TDMRep Documents</a>
+  </dd>
+  <dd>
+    <a href="https://www.w3.org/community/tdmrep/">TDMRep CG Home Page</a>
+  </dd>      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/tdm-reservation-protocol/">GitHub w3c/tdm-reservation-protocol</a>
+        (<a href="https://github.com/w3c/tdm-reservation-protocol/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/tdm-reservation-protocol/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/tdm-reservation-protocol/issues/">open issues</a>)
+      </dd><dd><a href="mailto:public-tdmrep@w3.org?subject=%5Btdmrep%5D%20YOUR%20TOPIC%20HERE">public-tdmrep@w3.org</a> with subject line <kbd>[tdmrep] <em>… message topic …</em></kbd> (<a rel="discussion" href="https://lists.w3.org/Archives/Public/public-tdmrep">archives</a>)</dd>
+
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2021-2024
+          
+          the Contributors to the TDM Reservation Protocol (TDMRep)
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/tdmrep">Text and Data Mining Reservation Protocol Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>This specification defines a simple and practical Web protocol, capable of expressing the reservation of rights relative to text &amp; data mining (TDM) applied to lawfully accessible Web content, and to ease the discovery of TDM licensing policies associated with such content.</p>
+      <p>This initiative is a technical answer to the constraints set by the Article 4 of the new <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L0790&amp;from=EN">European Directive on copyright and related rights in the Digital Single Market</a>.</p>
 		</section>
 
-		<section class="informative" id="sotd">
-		</section>
+		<section class="informative introductory" id="sotd"><h2>Status of This Document</h2><p><em>This section is non-normative.</em></p><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/tdmrep">Text and Data Mining Reservation Protocol Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+		<p>
+    <a href="https://github.com/w3c/tdm-reservation-protocol/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    Alternatively, you can send comments to our mailing list.
+          Please send them to
+          <a href="mailto:public-tdmrep@w3.org">public-tdmrep@w3.org</a>
+          (<a href="mailto:public-tdmrep-request@w3.org?subject=subscribe">subscribe</a>,
+          <a href="https://lists.w3.org/Archives/Public/public-tdmrep/">archives</a>).
+        
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#sec-introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#sec-terminology"><bdi class="secno">2. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">3. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#sec-requirements"><bdi class="secno">4. </bdi>Requirements</a></li><li class="tocline"><a class="tocxref" href="#sec-properties"><bdi class="secno">5. </bdi>Declaring the reservation of TDM Rights</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-tdm-reservation"><bdi class="secno">5.1 </bdi>tdm-reservation</a></li><li class="tocline"><a class="tocxref" href="#sec-tdm-policy"><bdi class="secno">5.2 </bdi>tdm-policy</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sec-protocol"><bdi class="secno">6. </bdi>Protocol</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-tdm-file"><bdi class="secno">6.1 </bdi>TDM File on the Origin Server</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-tdm-file-regexp"><bdi class="secno">6.1.1 </bdi>Use of regular expressions</a></li><li class="tocline"><a class="tocxref" href="#sec-tdm-file-example"><bdi class="secno">6.1.2 </bdi>Examples</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sec-tdm-header"><bdi class="secno">6.2 </bdi>TDM Header Field in HTTP Responses</a></li><li class="tocline"><a class="tocxref" href="#sec-tdm-html-meta"><bdi class="secno">6.3 </bdi>TDM Metadata in HTML Content</a></li><li class="tocline"><a class="tocxref" href="#sec-epub2"><bdi class="secno">6.4 </bdi>TDM Metadata in EPUB 2 files</a></li><li class="tocline"><a class="tocxref" href="#sec-epub3"><bdi class="secno">6.5 </bdi>TDM Metadata in EPUB 3 files</a></li><li class="tocline"><a class="tocxref" href="#sec-pdf"><bdi class="secno">6.6 </bdi>TDM Metadata in PDF files</a></li><li class="tocline"><a class="tocxref" href="#sec-processing-priority"><bdi class="secno">6.7 </bdi>Processing priority</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sec-policy"><bdi class="secno">7. </bdi>Expressing a TDM Policy</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-odrl-profile"><bdi class="secno">7.1 </bdi>Specification of the TDM Policy</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-context"><bdi class="secno">7.1.1 </bdi>JSON-LD context and identifier of a Policy</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-type"><bdi class="secno">7.1.2 </bdi>Type of a Policy</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-identification"><bdi class="secno">7.1.3 </bdi>Identification of the profile</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-assigner"><bdi class="secno">7.1.4 </bdi>Assigner</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-permissions"><bdi class="secno">7.1.5 </bdi>Permissions</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-permission-target-action"><bdi class="secno">7.1.5.1 </bdi>Expressing the target of a permission</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#expressing-the-action-of-a-permission"><bdi class="secno">7.1.5.1.1 </bdi>Expressing the action of a permission</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#tdm-mine"><bdi class="secno">7.1.5.1.1.1 </bdi>tdm:mine</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-permission-obtainconsent"><bdi class="secno">7.1.5.2 </bdi>Expressing the duty to contact the rightsholder before getting a permission</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-permission-compensate"><bdi class="secno">7.1.5.3 </bdi>Expressing the duty to compensate financially the rightsholder</a></li><li class="tocline"><a class="tocxref" href="#sec-odrl-profile-permission-constraint"><bdi class="secno">7.1.5.4 </bdi>Expressing a constraint on the type of usage</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#tdm-research"><bdi class="secno">7.1.5.4.1 </bdi>tdm:research</a></li><li class="tocline"><a class="tocxref" href="#tdm-non-research"><bdi class="secno">7.1.5.4.2 </bdi>tdm:non-research</a></li></ol></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#sec-policy-examples"><bdi class="secno">7.2 </bdi>Full Examples</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li></ol></li></ol></nav>
 
-		<section class="informative" id="sec-introduction">
-			<h1>Introduction</h1>
+		<section class="informative" id="sec-introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#sec-introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
+			
       <p>In addition to their significance in the context of scientific research, text and data mining techniques (TDM) are widely used both by private and public entities to analyse large amounts of data (including copyright protected content like text, images, video etc.) in different areas of life and for various purposes, including for government services, complex business decisions and the development of new applications or technologies.</p>
 
       <p>In a digital environment, TDM usage of copyright protected works can be subject to different terms and conditions, depending on the legal framework. In generic terms, an act of reproduction is required before TDM can be applied on content accessible on the Web; international laws stipulate that such act of reproduction is subject to authorization by rightsholders. So far, analyzing and processing the terms and conditions of a website, contacting rightsholders, seeking for permission and concluding licensing agreements require time and resources.</p>
 
       <p>In such context, a machine-readable solution which streamlines the communication of TDM rights and licenses available for online copyrighted content is necessary to facilitate the development of TDM applications and reduce the risks of legal uncertainty for TDM actors. Such a solution, that shall rely on a consensus by rightsholders and TDM actors, will optimize the capacity of TDM actors to lawfully access and process useful content at large scale.</p>
 
-      <p>The Directive on copyright and related rights in the Digital Single Market or <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L0790&from=EN">EU Directive 2019/790</a>, better known as the "CDSM Directive" (CDSM meaning Copryright in the Digital Single Market), introduces two exceptions or limitations to the rights of rightsholders on lawfully accessible content, for reproductions and extractions for the purposes of TDM:</p>
+      <p>The Directive on copyright and related rights in the Digital Single Market or <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L0790&amp;from=EN">EU Directive 2019/790</a>, better known as the "CDSM Directive" (CDSM meaning Copryright in the Digital Single Market), introduces two exceptions or limitations to the rights of rightsholders on lawfully accessible content, for reproductions and extractions for the purposes of TDM:</p>
 
       <p>In its Article 3, a mandatory exception for research organisations and cultural heritage institutions which carry out TDM for the purposes of scientific research.</p>
 
@@ -77,136 +266,142 @@
       <p>The “opt-out” mechanism introduced by the CDSM Directive is therefore a real opportunity for TDM actors and publishers across countries to define a machine-readable technique able to express not only if TDM rights on specific Web content are reserved or not, but also how rightsholders can be contacted and which licenses are available, if any. This is a tremendous help for TDM actors from all countries looking for legal certainty.</p>
 		</section>
 
-		<section class="informative" id="sec-terminology">
-			<h1>Terminology</h1>
+		<section class="informative" id="sec-terminology"><div class="header-wrapper"><h2 id="x2-terminology"><bdi class="secno">2. </bdi>Terminology</h2><a class="self-link" href="#sec-terminology" aria-label="Permalink for Section 2."></a></div><p><em>This section is non-normative.</em></p>
+			
 
 			<dl class="termlist">
-				<dt><dfn id="dfn-rightsholder">Rightsholder</dfn></dt>
+				<dt><dfn id="dfn-rightsholder" data-plurals="rightsholders" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Rightsholder</dfn></dt>
 				<dd>
 					<p>Person or organization that owns the legal rights to something, in our case Web resources <a href="https://en.wiktionary.org/wiki/rightsholder">Wiktionary</a>.</p>
 				</dd>
-				<dt><dfn id="dfn-publisher">Publisher</dfn></dt>
+				<dt><dfn id="dfn-publisher" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Publisher</dfn></dt>
 				<dd>
 					<p>Person or organization that makes Web resources available to the public.</p>
 				</dd>
-				<dt><dfn id="dfn-tdm-actor" data-lt="TDM Actors">TDM Actor</dfn></dt>
+				<dt><dfn id="dfn-tdm-actor" data-lt="TDM Actors|TDM Actor" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">TDM Actor</dfn></dt>
 				<dd>
 					<p>Person or organization practicing TDM (on Web resources in our case).</p>
 				</dd>
-				<dt><dfn id="dfn-tdm-agent" data-lt="TDM Agents">TDM Agent</dfn></dt>
+				<dt><dfn id="dfn-tdm-agent" data-lt="TDM Agents|TDM Agent" data-plurals="tdm agents" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">TDM Agent</dfn></dt>
 				<dd>
 					<p>Software accessing Web resources for TDM purposes.</p>
 				</dd>
-				<dt><dfn id="dfn-tdm-license" data-lt="TDM Licenses">TDM License</dfn></dt>
+				<dt><dfn id="dfn-tdm-license" data-lt="TDM Licenses|TDM License" data-plurals="tdm licenses" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">TDM License</dfn></dt>
 				<dd>
-					<p>Description of the terms and conditions by which a <a>TDM Actor</a> can process a given Web resource. </p>
+					<p>Description of the terms and conditions by which a <a href="#dfn-tdm-actor" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-actor-1">TDM Actor</a> can process a given Web resource. </p>
 				</dd>
-				<dt><dfn id="dfn-tdm-policy">TDM Policy</dfn></dt>
+				<dt><dfn id="dfn-tdm-policy" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">TDM Policy</dfn></dt>
 				<dd>
-					<p>Description of the kind of <a>TDM Licenses</a> a <a>TDM Actor</a> may obtain from a <a>Rightsholder</a>. </p>
+					<p>Description of the kind of <a href="#dfn-tdm-license" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-license-1">TDM Licenses</a> a <a href="#dfn-tdm-actor" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-actor-2">TDM Actor</a> may obtain from a <a href="#dfn-rightsholder" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-rightsholder-1">Rightsholder</a>. </p>
 				</dd>
-				<dt><dfn id="dfn-tdm-rights">TDM Rights</dfn></dt>
+				<dt><dfn id="dfn-tdm-rights" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">TDM Rights</dfn></dt>
 				<dd>
 					<p>Rights to process a Web resource via TDM techniques, for a certain purpose (e.g scientific research, commercial).</p>
 				</dd>
-				<dt><dfn id="dfn-web-resource">Web Resource</dfn></dt>
+				<dt><dfn id="dfn-web-resource" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Web Resource</dfn></dt>
 				<dd>
 					<p>Identifiable thing available on the Web <a href="https://en.wikipedia.org/wiki/Web_resource">Wikipedia</a>. Web resources are located using URLs.</p>
 				</dd>
-				<dt><dfn id="dfn-web-page" class="lint-ignore">Web page</dfn></dt>
+				<dt><dfn id="dfn-web-page" class="lint-ignore" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Web page</dfn></dt>
 				<dd>
-					<p><a>Web resource</a> formatted in HTML.</p>
+					<p><a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-web-resource-1">Web resource</a> formatted in HTML.</p>
 				</dd>
 			</dl>
 
 		</section>
 
-		<section class="informative" id="conformance">
-			<!-- boilerplate will be added here -->
+		<section class="informative" id="conformance"><div class="header-wrapper"><h2 id="x3-conformance"><bdi class="secno">3. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 3."></a></div><p><em>This section is non-normative.</em></p><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">SHOULD</em>, and <em class="rfc2119">SHOULD NOT</em> in this document
+        are to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+        when, and only when, they appear in all capitals, as shown here.
+      </p>
+			
 		</section>
 
-		<section class="informative" id="sec-requirements">
+		<section class="informative" id="sec-requirements"><div class="header-wrapper"><h2 id="x4-requirements"><bdi class="secno">4. </bdi>Requirements</h2><a class="self-link" href="#sec-requirements" aria-label="Permalink for Section 4."></a></div><p><em>This section is non-normative.</em></p>
 
-				<h1>Requirements</h1>
+				
 
 				<p>The technical specification shall:</p>
 
         <ul>
-          <li>Specify how <a>rightsholders</a> can declare the reservation of <a>TDM Rights</a> on each individual <a>Web resource</a> they controls.</li>
-          <li>Specify how rightsholders can indicate the location of a <a>TDM Policy</a> associated with each individual Web resource they controls.</li>
+          <li>Specify how <a href="#dfn-rightsholder" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-rightsholder-2">rightsholders</a> can declare the reservation of <a href="#dfn-tdm-rights" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-rights-1">TDM Rights</a> on each individual <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-web-resource-2">Web resource</a> they controls.</li>
+          <li>Specify how rightsholders can indicate the location of a <a href="#dfn-tdm-policy" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-policy-1">TDM Policy</a> associated with each individual Web resource they controls.</li>
           <li>Specify a machine-readable format for TDM Policies.</li>
       </ul>
 
 		</section>
 
-		<section id="sec-properties">
+		<section id="sec-properties"><div class="header-wrapper"><h2 id="x5-declaring-the-reservation-of-tdm-rights"><bdi class="secno">5. </bdi>Declaring the reservation of TDM Rights</h2><a class="self-link" href="#sec-properties" aria-label="Permalink for Section 5."></a></div>
 
-				<h1>Declaring the reservation of TDM Rights</h1>
+				
 
-				<p>The goal of this protocol is to allow a rightsholder to declare his choice regarding text & data mining of Web resources he controls, thereby allowing recipients of that declaration to adjust their scraping behavior, or to reach a separate agreement with the rightsholder that satisfies all parties.</p>
+				<p>The goal of this protocol is to allow a rightsholder to declare his choice regarding text &amp; data mining of Web resources he controls, thereby allowing recipients of that declaration to adjust their scraping behavior, or to reach a separate agreement with the rightsholder that satisfies all parties.</p>
 
-        <p>Such a preference is expressed via two complementary properties, `tdm-reservation` and `tdm-policy`.</p>
+        <p>Such a preference is expressed via two complementary properties, <code>tdm-reservation</code> and <code>tdm-policy</code>.</p>
 
-        <section id="sec-tdm-reservation">
+        <section id="sec-tdm-reservation"><div class="header-wrapper"><h3 id="x5-1-tdm-reservation"><bdi class="secno">5.1 </bdi>tdm-reservation</h3><a class="self-link" href="#sec-tdm-reservation" aria-label="Permalink for Section 5.1"></a></div>
 
-          <h2>tdm-reservation</h2>
+          
 
-          <p>`tdm-reservation` is an boolean value.</p>
+          <p><code>tdm-reservation</code> is an boolean value.</p>
           
           <table class="simple">
-            <tr><th>tdm-reservation</th>
+            <tbody><tr><th>tdm-reservation</th>
                 <th>meaning</th>
             </tr>
             <tr><td>1</td>
-              <td>TDM rights are reserved. If a TDM Policy is set, <a>TDM Agents</a> MAY use it to get information on how they can acquire from the rightsholder an authorization to mine the content.</td>
+              <td>TDM rights are reserved. If a TDM Policy is set, <a href="#dfn-tdm-agent" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-agent-1">TDM Agents</a> <em class="rfc2119">MAY</em> use it to get information on how they can acquire from the rightsholder an authorization to mine the content.</td>
             </tr>
             <tr><td>0</td>
                 <td>TDM rights are not reserved. TDM agents can mine the content for TDM purposes without having to contact the rightsholder.</td>
             </tr>
-          </table>
+          </tbody></table>
 
-          <p>Other values are considered protocol errors. In such a case the TDM Agents MUST consider that `tdm-reservation` is <code>unset</code>.</p>
+          <p>Other values are considered protocol errors. In such a case the TDM Agents <em class="rfc2119">MUST</em> consider that <code>tdm-reservation</code> is <code>unset</code>.</p>
 
-          <div class="note">
-            <p>The "opt-out" option specified by the Article 4 of the CDSM Directive is expressed by the use of `tdm-reservation` with value equal <code>1</code>.</p>
-          </div>
+          <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><div class="">
+            <p>The "opt-out" option specified by the Article 4 of the CDSM Directive is expressed by the use of <code>tdm-reservation</code> with value equal <code>1</code>.</p>
+          </div></div>
         
         </section>
-        <section id="sec-tdm-policy">
+        <section id="sec-tdm-policy"><div class="header-wrapper"><h3 id="x5-2-tdm-policy"><bdi class="secno">5.2 </bdi>tdm-policy</h3><a class="self-link" href="#sec-tdm-policy" aria-label="Permalink for Section 5.2"></a></div>
 
-          <h2>tdm-policy</h2>
           
-          <p>`tdm-policy` is a URL pointing to a TDM Policy set by the rightsholder.</p>
           
-          <div class="note">
-            <p>The presence of `tdm-policy` when the value of `tdm-reservation` is <code>0</code> is not considered a protocol error. TDM Agents SHOULD NOT process `tdm-policy` in this case.</p>
-          </div>
+          <p><code>tdm-policy</code> is a URL pointing to a TDM Policy set by the rightsholder.</p>
+          
+          <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><div class="">
+            <p>The presence of <code>tdm-policy</code> when the value of <code>tdm-reservation</code> is <code>0</code> is not considered a protocol error. TDM Agents <em class="rfc2119">SHOULD NOT</em> process <code>tdm-policy</code> in this case.</p>
+          </div></div>
 
           <p>A TDM Policy is considered human readable if its content-type is <code>text/html</code>. It is considered machine-readable if its content-type is either <code>application/json</code> or <code>application/ld+json</code>.</p>
 
-          <div class="note">
-            <p>Being unable to access or parse a TDM Policy is not considered a protocol error. In such a case, the TDM Agent MUST consider that there is no way to know at this time which conditions would allow it to process the resource.</p>
-          </div>
+          <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="4"><span>Note</span></div><div class="">
+            <p>Being unable to access or parse a TDM Policy is not considered a protocol error. In such a case, the TDM Agent <em class="rfc2119">MUST</em> consider that there is no way to know at this time which conditions would allow it to process the resource.</p>
+          </div></div>
   
   		</section>
 
 		</section>
 
-		<section id="sec-protocol">
+		<section id="sec-protocol"><div class="header-wrapper"><h2 id="x6-protocol"><bdi class="secno">6. </bdi>Protocol</h2><a class="self-link" href="#sec-protocol" aria-label="Permalink for Section 6."></a></div>
 
-      <h1>Protocol</h1>
+      
 
-      <p>This specification provides four complementary techniques for expressing rightsholders' choices. These  techniques correspond to different situations and technical skills a <a>Publisher</a> may have. The first two techniques are independant from the nature and format of the content on which an "opt-out" is applied. The other one refer to formats seen as particularly important in the publishing industry: HTML and EPUB.</p>
+      <p>This specification provides four complementary techniques for expressing rightsholders' choices. These  techniques correspond to different situations and technical skills a <a href="#dfn-publisher" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-publisher-1">Publisher</a> may have. The first two techniques are independant from the nature and format of the content on which an "opt-out" is applied. The other one refer to formats seen as particularly important in the publishing industry: HTML and EPUB.</p>
 
-      <section id="sec-tdm-file">
+      <section id="sec-tdm-file"><div class="header-wrapper"><h3 id="x6-1-tdm-file-on-the-origin-server"><bdi class="secno">6.1 </bdi>TDM File on the Origin Server</h3><a class="self-link" href="#sec-tdm-file" aria-label="Permalink for Section 6.1"></a></div>
 
-        <h2>TDM File on the Origin Server</h2>
+        
 
         <p>The TDM file on the origin server is a mechanism for declaring site-wide righsholder's choices in a file hosted on the Web server a TDM Agent wishes to mine. Checking this file is the first thing an TDM Agent must do (see section <a href="#sec-processing-priority">Processing Priority</a>).</p>
 
-        <p>An origin server that receives a valid GET request targeting this resource MUST send either a successful response containing a machine-readable representation of the site-wide righsholder's choices, as defined below, or a sequence of redirects that leads to such a representation. Failure to provide access to such a representation implies that the origin server does not implement this protocol.</p>
+        <p>An origin server that receives a valid GET request targeting this resource <em class="rfc2119">MUST</em> send either a successful response containing a machine-readable representation of the site-wide righsholder's choices, as defined below, or a sequence of redirects that leads to such a representation. Failure to provide access to such a representation implies that the origin server does not implement this protocol.</p>
 
-        <p>This specification defines a JSON file named <code>tdmrep.json</code>, which MUST be hosted in the <code>/.well-known</code> repository of a Web server.</p>
+        <p>This specification defines a JSON file named <code>tdmrep.json</code>, which <em class="rfc2119">MUST</em> be hosted in the <code>/.well-known</code> repository of a Web server.</p>
         
         <p>This file contains an array of JSON objects; each object represents a rule and accepts three properties:</p> 
 
@@ -216,26 +411,26 @@
           <li><em>tdm-policy</em>: an optional TDM Policy value associated with the current pattern.</li>
         </ul>
 
-        <div class="note">
-          <p>In each rule, `location` and `tdm-reservation` are mandatory, `tdm-policy` is optional.</p>
-        </div>  
+        <div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-2" aria-level="4"><span>Note</span></div><div class="">
+          <p>In each rule, <code>location</code> and <code>tdm-reservation</code> are mandatory, <code>tdm-policy</code> is optional.</p>
+        </div></div>  
 
-        <p>To evaluate if the URL of a Web resource is subject to a given pattern, a TDM Agent MUST match the paths inferred from the pattern against the URL. The matching SHOULD be case sensitive. The most specific match found MUST be used. The most specific match is the first in sequence.</p>
+        <p>To evaluate if the URL of a Web resource is subject to a given pattern, a TDM Agent <em class="rfc2119">MUST</em> match the paths inferred from the pattern against the URL. The matching <em class="rfc2119">SHOULD</em> be case sensitive. The most specific match found <em class="rfc2119">MUST</em> be used. The most specific match is the first in sequence.</p>
 
-        <p>If no match is found, a TDM Agent MUST consider that `tdm-reservation` is <code>unset</code> for the given URL.</p>
+        <p>If no match is found, a TDM Agent <em class="rfc2119">MUST</em> consider that <code>tdm-reservation</code> is <code>unset</code> for the given URL.</p>
 
-        <p>If a percent-encoded US-ASCII character is encountered in the URI, it MUST be unencoded prior to comparison, unless it is a reserved character in the URI as defined by RFC3986 or the character is outside the unreserved character range.  The match evaluates positively if and only if the end of the path from the rule is reached before a difference in octets is encountered.</p>
+        <p>If a percent-encoded US-ASCII character is encountered in the URI, it <em class="rfc2119">MUST</em> be unencoded prior to comparison, unless it is a reserved character in the URI as defined by RFC3986 or the character is outside the unreserved character range.  The match evaluates positively if and only if the end of the path from the rule is reached before a difference in octets is encountered.</p>
       
-        <section id="sec-tdm-file-regexp">
+        <section id="sec-tdm-file-regexp"><div class="header-wrapper"><h4 id="x6-1-1-use-of-regular-expressions"><bdi class="secno">6.1.1 </bdi>Use of regular expressions</h4><a class="self-link" href="#sec-tdm-file-regexp" aria-label="Permalink for Section 6.1.1"></a></div>
 
-          <h3>Use of regular expressions</h3>
+          
 
           <p>There are many variants of regular expressions. In order to simplify the work of TDM Agents, this specification is re-using the specification and wording of the <a href="https://tools.ietf.org/html/draft-koster-rep-00#section-2.2.3">robots.txt draft-koster-rep-00 2.2.3</a>.</p>
 
-          <p>TDM Agents MUST allow the following special characters:</p>
+          <p>TDM Agents <em class="rfc2119">MUST</em> allow the following special characters:</p>
 
           <table class="simple">
-            <tr><th>Character</th>
+            <tbody><tr><th>Character</th>
                 <th>Description</th>
                 <th>Example</th>
             </tr>
@@ -247,328 +442,350 @@
                 <td>Designates 0 or more instances of any character.</td>
                 <td>"tdm-policy: /this/*/then"</td>
             </tr>
-          </table>
+          </tbody></table>
   
-          <p>If TDM Agents match special characters verbatim in the URI, they MUST use "%" encoding.  For example:</p>
+          <p>If TDM Agents match special characters verbatim in the URI, they <em class="rfc2119">MUST</em> use "%" encoding.  For example:</p>
 
           <table class="simple">
-            <tr><th>Pattern</th>
+            <tbody><tr><th>Pattern</th>
                 <th>URI</th>
             </tr>
             <tr><td>/path/foo-%24</td>
                 <td>https://provider.com/path/foo-$</td>
             </tr>
-          </table>
+          </tbody></table>
 
-          <div class="note">
+          <div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="5"><span>Note</span></div><div class="">
             <p>This URL matching notation is subject to interpretation. For the sake of interoperability, TDM Agents should follow the rules detailed by Google in <a href="https://developers.google.com/search/docs/advanced/robots/robots_txt">How Google interprets the robots.txt specification</a>, section "URL matching based on path values".</p>
-          </div>  
+          </div></div>  
         
         </section>
 
-        <section class="informative" id="sec-tdm-file-example">
+        <section class="informative" id="sec-tdm-file-example"><div class="header-wrapper"><h4 id="x6-1-2-examples"><bdi class="secno">6.1.2 </bdi>Examples</h4><a class="self-link" href="#sec-tdm-file-example" aria-label="Permalink for Section 6.1.2"></a></div><p><em>This section is non-normative.</em></p>
 
-          <h3>Examples</h3>
+          
 
           <p>In the following example, a rightsholder wants to "opt-out" for every file present on a Web server.</p>
 
-          <p>`tdmrep.json` is therefore simply structured as:</p> 
+          <p><code>tdmrep.json</code> is therefore simply structured as:</p> 
 
-          <pre class="example">
-          [
-            {
-            "location": "/",
-            "tdm-reservation": 1
-            }
-          ]
-          </pre>
+          <div class="example" id="example-1">
+        <div class="marker">
+    <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">[
+  {
+  <span class="hljs-attr">"location"</span>: <span class="hljs-string">"/"</span>,
+  <span class="hljs-attr">"tdm-reservation"</span>: <span class="hljs-number">1</span>
+  }
+]</code></pre>
+      </div>
 
-          <div class="note">
+          <div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-4" aria-level="5"><span>Note</span></div><div class="">
             <p>Note the brackets at the start and end of the file. They indicate that this is a JSON array, and they are mandatory even if you express only one rule. In this example, the provider has decided not to offer a TDM policy. </p>
-          </div>  
+          </div></div>  
   
-          <p>In the following example, a Web server is hosting three groups of files. The rightsholder of the first group of files (PDF documents) wants to express that TDM rights are reserved on these files with no way to acquire a <a>TDM License</a>. The rightsholder of the second group of files (html pages) wants to express that TDM rights are reserved with a TDM Policy. TDM rights are not reserved for all JPEG images contained in the third group.</p>
+          <p>In the following example, a Web server is hosting three groups of files. The rightsholder of the first group of files (PDF documents) wants to express that TDM rights are reserved on these files with no way to acquire a <a href="#dfn-tdm-license" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-tdm-license-2">TDM License</a>. The rightsholder of the second group of files (html pages) wants to express that TDM rights are reserved with a TDM Policy. TDM rights are not reserved for all JPEG images contained in the third group.</p>
 
           <p>In this example, the first group is a set of files stored in /directory-a; the second group is stored in /directory-b/html and the third group in /directory-b/images.</p>
 
-          <p>`tdmrep.json` is therefore structured as:</p> 
+          <p><code>tdmrep.json</code> is therefore structured as:</p> 
 
-          <pre class="example">
-          [
-            {
-            "location": "/directory-a/",
-            "tdm-reservation": 1
-            },
-            {
-            "location": "/directory-b/html/",
-            "tdm-reservation": 1,
-            "tdm-policy":"https://provider.com/policies/policy.json"
-            },
-            {
-            "location": "/directory-b/images/*.jpg",
-            "tdm-reservation": 0
-            }
-          ]
-          </pre>
+          <div class="example" id="example-2">
+        <div class="marker">
+    <a class="self-link" href="#example-2">Example<bdi> 2</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">[
+  {
+  <span class="hljs-attr">"location"</span>: <span class="hljs-string">"/directory-a/"</span>,
+  <span class="hljs-attr">"tdm-reservation"</span>: <span class="hljs-number">1</span>
+  },
+  {
+  <span class="hljs-attr">"location"</span>: <span class="hljs-string">"/directory-b/html/"</span>,
+  <span class="hljs-attr">"tdm-reservation"</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">"tdm-policy"</span>:<span class="hljs-string">"https://provider.com/policies/policy.json"</span>
+  },
+  {
+  <span class="hljs-attr">"location"</span>: <span class="hljs-string">"/directory-b/images/*.jpg"</span>,
+  <span class="hljs-attr">"tdm-reservation"</span>: <span class="hljs-number">0</span>
+  }
+]</code></pre>
+      </div>
 
         </section>
 
       </section>
 
-      <section id="sec-tdm-header">
+      <section id="sec-tdm-header"><div class="header-wrapper"><h3 id="x6-2-tdm-header-field-in-http-responses"><bdi class="secno">6.2 </bdi>TDM Header Field in HTTP Responses</h3><a class="self-link" href="#sec-tdm-header" aria-label="Permalink for Section 6.2"></a></div>
 
-        <h2>TDM Header Field in HTTP Responses</h2>
-
-        <p>The TDM Header Field is a mechanism for declaring a choice in an HTTP response ([[RFC7230]]).</p>
-
-        <p>`tdm-reservation` and the optional `tdm-policy` are two properties added to the HTTP header of the response to a GET or HEAD request.</p>
-
-        <div class="note">
-          <p>This is currently the preferred technique for implementing the protocol, as it is simple and already integrated in the swpawning.ai API.</p>
-        </div>  
-
-        <p>In the following example, the rightsholder expresses that TDM rights are reserved on these files with no way to acquire a TDM License. The server returns a `tdm-reservation` header field with value <code>1</code>.
         
-        <pre class="example">
-        HTTP/1.1 200 OK
-        Date: Wed, 14 Jul 2021 12:07:48 GMT
-        Content-type: image/jpg
-        tdm-reservation: 1
-        </pre>
 
-        <p>In the following example, a TDM License may be acquired. The server returns a `tdm-reservation` header field with value <code>1</code> and a `tdm-policy` header field pointing to a TDM Policy.</p>
+        <p>The TDM Header Field is a mechanism for declaring a choice in an HTTP response ([<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7230" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">RFC7230</a></cite>]).</p>
 
-        <pre class="example">
-        HTTP/1.1 200 OK
-        Date: Wed, 14 Jul 2021 12:07:48 GMT
-        Content-type: text/html
-        tdm-reservation: 1
-        tdm-policy: https://provider.com/policies/policy.json
-        </pre>
+        <p><code>tdm-reservation</code> and the optional <code>tdm-policy</code> are two properties added to the HTTP header of the response to a GET or HEAD request.</p>
+
+        <div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><div class="">
+          <p>This is currently the preferred technique for implementing the protocol, as it is simple and already integrated in the swpawning.ai API.</p>
+        </div></div>  
+
+        <p>In the following example, the rightsholder expresses that TDM rights are reserved on these files with no way to acquire a TDM License. The server returns a <code>tdm-reservation</code> header field with value <code>1</code>.
+        
+        </p><div class="example" id="example-3">
+        <div class="marker">
+    <a class="self-link" href="#example-3">Example<bdi> 3</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Date</span><span class="hljs-punctuation">: </span>Wed, 14 Jul 2021 12:07:48 GMT
+<span class="hljs-attribute">Content-type</span><span class="hljs-punctuation">: </span>image/jpg
+<span class="hljs-attribute">tdm-reservation</span><span class="hljs-punctuation">: </span>1</code></pre>
+      </div>
+
+        <p>In the following example, a TDM License may be acquired. The server returns a <code>tdm-reservation</code> header field with value <code>1</code> and a <code>tdm-policy</code> header field pointing to a TDM Policy.</p>
+
+        <div class="example" id="example-4">
+        <div class="marker">
+    <a class="self-link" href="#example-4">Example<bdi> 4</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs http"><span class="hljs-meta">HTTP/1.1</span> <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Date</span><span class="hljs-punctuation">: </span>Wed, 14 Jul 2021 12:07:48 GMT
+<span class="hljs-attribute">Content-type</span><span class="hljs-punctuation">: </span>text/html
+<span class="hljs-attribute">tdm-reservation</span><span class="hljs-punctuation">: </span>1
+<span class="hljs-attribute">tdm-policy</span><span class="hljs-punctuation">: </span>https://provider.com/policies/policy.json</code></pre>
+      </div>
 
       </section>
 
-      <section id="sec-tdm-html-meta">
+      <section id="sec-tdm-html-meta"><div class="header-wrapper"><h3 id="x6-3-tdm-metadata-in-html-content"><bdi class="secno">6.3 </bdi>TDM Metadata in HTML Content</h3><a class="self-link" href="#sec-tdm-html-meta" aria-label="Permalink for Section 6.3"></a></div>
 
-        <h2>TDM Metadata in HTML Content</h2>
+        
 
         <p>This technique provides a way to embed the righsholder's choice in html content.</p>
 
-        <p>`tdm-reservation` is expressed as value of the `name` attribute of a `meta` element and `tdm-policy` is expressed as value of the `name` attribute of a second `meta` element.</p>
+        <p><code>tdm-reservation</code> is expressed as value of the <code>name</code> attribute of a <code>meta</code> element and <code>tdm-policy</code> is expressed as value of the <code>name</code> attribute of a second <code>meta</code> element.</p>
 
         <p>In the following example, an html document is associated with a TDM Policy:</p>
 
-        <pre class="example">
-          &lt;!DOCTYPE html>
-          &lt;html lang="en">
-            &lt;head>
-              &lt;meta charset="utf-8">
-              &lt;meta name="tdm-reservation" content="1">
-              &lt;meta name="tdm-policy" content="https://provider.com/policies/policy.json">
-              &lt;title>Document title&lt;/title>
-            &lt;/head>
-            &lt;body>
-              ...
-              &lt;!-- body content -->
-              ...
-            &lt;/body>
-          &lt;/html>
-        </pre>
+        <div class="example" id="example-5">
+        <div class="marker">
+    <a class="self-link" href="#example-5">Example<bdi> 5</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"tdm-reservation"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"1"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"tdm-policy"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"https://provider.com/policies/policy.json"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    ...
+    <span class="hljs-comment">&lt;!-- body content --&gt;</span>
+    ...
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+      </div>
 
 		  </section>
 
-      <section id="sec-epub2">
+      <section id="sec-epub2"><div class="header-wrapper"><h3 id="x6-4-tdm-metadata-in-epub-2-files"><bdi class="secno">6.4 </bdi>TDM Metadata in EPUB 2 files</h3><a class="self-link" href="#sec-epub2" aria-label="Permalink for Section 6.4"></a></div>
 
-        <h2>TDM Metadata in EPUB 2 files</h2>
+        
 
         <p>This technique provides a way to embed the rightsholder's choice into an EPUB 2 file.</p>
 
-        <p>`tdm:reservation` and the optional `tdm:policy` are two metadata elements added to the metadata section of the EPUB Package Document, using the &lt;meta> element and the associated `name` and `content` properties.</p>
+        <p><code>tdm:reservation</code> and the optional <code>tdm:policy</code> are two metadata elements added to the metadata section of the EPUB Package Document, using the &lt;meta&gt; element and the associated <code>name</code> and <code>content</code> properties.</p>
 
         <p>These properties cover TDM rights for every resource in the package, and this specification does not cover the definition of specific TDM rights for the different resources present in the package.</p>
 
         <p>In the following example, the rightsowner signals that he reserves TDM rights on every resource of the EPUB file, but a TDM License may be acquired.</p>
 
-        <pre class="example">
-          &lt;package version="2.0" ...>
-            &lt;metadata ...>
-              &lt;dc:title>Document title&lt;/dc:title>
-              &lt;meta name="tdm:reservation" content="1" />
-              &lt;meta name="tdm:policy" content="https://provider.com/policies/policy.json" />
-            &lt;/metadata>
-          &lt;/package>
-        </pre>
+        <div class="example" id="example-6">
+        <div class="marker">
+    <a class="self-link" href="#example-6">Example<bdi> 6</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">version</span>=<span class="hljs-string">"2.0"</span> <span class="hljs-attr">...</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span> <span class="hljs-attr">...</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dc:title</span>&gt;</span>Document title<span class="hljs-tag">&lt;/<span class="hljs-name">dc:title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"tdm:reservation"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"1"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"tdm:policy"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"https://provider.com/policies/policy.json"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+      </div>
 
       </section>
 
-      <section id="sec-epub3">
+      <section id="sec-epub3"><div class="header-wrapper"><h3 id="x6-5-tdm-metadata-in-epub-3-files"><bdi class="secno">6.5 </bdi>TDM Metadata in EPUB 3 files</h3><a class="self-link" href="#sec-epub3" aria-label="Permalink for Section 6.5"></a></div>
 
-        <h2>TDM Metadata in EPUB 3 files</h2>
+        
 
         <p>This technique provides a way to embed the rightsholder's choice into an EPUB 3 file.</p>
 
-        <p>`tdm:reservation` and the optional `tdm:policy` are two properties added to the metadata section of the EPUB Package Document, using the &lt;meta> element and the associated `property` attribute. They both use the `tdm` prefix, which is a shorthand mapping for the `http://www.w3.org/ns/tdmrep#` URL.</p>
+        <p><code>tdm:reservation</code> and the optional <code>tdm:policy</code> are two properties added to the metadata section of the EPUB Package Document, using the &lt;meta&gt; element and the associated <code>property</code> attribute. They both use the <code>tdm</code> prefix, which is a shorthand mapping for the <code>http://www.w3.org/ns/tdmrep#</code> URL.</p>
 
         <p>These properties cover TDM rights for every resource in the package, and this specification does not cover the definition of specific TDM rights for the different resources present in the package.</p>
 
         <p>In the following example, the rightsowner signals that he reserves TDM rights on every resource of the EPUB file, but a TDM License may be acquired.</p>
 
-        <pre class="example">
-          &lt;package prefix="tdm: http://www.w3.org/ns/tdmrep#" ...>
-            &lt;metadata ...>
-              &lt;dc:title>Document title&lt;/dc:title>
-              &lt;meta property="tdm:reservation">1&lt;/meta>
-              &lt;meta property="tdm:policy">https://provider.com/policies/policy.json&lt;/meta>
-            &lt;/metadata>
-          &lt;/package>
-        </pre>
+        <div class="example" id="example-7">
+        <div class="marker">
+    <a class="self-link" href="#example-7">Example<bdi> 7</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">prefix</span>=<span class="hljs-string">"tdm: http://www.w3.org/ns/tdmrep#"</span> <span class="hljs-attr">...</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">metadata</span> <span class="hljs-attr">...</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dc:title</span>&gt;</span>Document title<span class="hljs-tag">&lt;/<span class="hljs-name">dc:title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"tdm:reservation"</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"tdm:policy"</span>&gt;</span>https://provider.com/policies/policy.json<span class="hljs-tag">&lt;/<span class="hljs-name">meta</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">package</span>&gt;</span></code></pre>
+      </div>
 
       </section>
 
-      <section id="sec-pdf">
+      <section id="sec-pdf"><div class="header-wrapper"><h3 id="x6-6-tdm-metadata-in-pdf-files"><bdi class="secno">6.6 </bdi>TDM Metadata in PDF files</h3><a class="self-link" href="#sec-pdf" aria-label="Permalink for Section 6.6"></a></div>
 
-        <h2>TDM Metadata in PDF files</h2>
+        
 
         <p>This technique provides a way to embed the rightsholder's choice into a PDF file.</p>
 
-        <p>`tdm:reservation` and the optional `tdm:policy` are two elements added to the XMP metadata section of the PDF. They both use the `tdm` namespace prefix, which is a shorthand mapping for the `http://www.w3.org/ns/tdmrep/` URL.</p>
+        <p><code>tdm:reservation</code> and the optional <code>tdm:policy</code> are two elements added to the XMP metadata section of the PDF. They both use the <code>tdm</code> namespace prefix, which is a shorthand mapping for the <code>http://www.w3.org/ns/tdmrep/</code> URL.</p>
 
         <p>These properties cover TDM rights for every page in the document.</p>
 
         <p>In the following example, the rightsowner signals that he reserves TDM rights on the PDF document, but a TDM License may be acquired.</p>
 
-        <pre class="example">
-          &lt;rdf:RDF xmlns:rdf=http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-          &lt;rdf:Description rdf:about=""
-            ...
-            xmlns:tdm="http://www.w3.org/ns/tdmrep/">
-                &lt;tdm:reservation>1&lt;/tdm:reservation>
-                &lt;tdm:policy>https://publisher.com/policies/policy.json&lt;/tdm:policy>
-              &lt;/rdf:Description>
-            &lt;/rdf:RDF>
-        </pre>
+        <div class="example" id="example-8">
+        <div class="marker">
+    <a class="self-link" href="#example-8">Example<bdi> 8</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">rdf:RDF</span> <span class="hljs-attr">xmlns:rdf</span>=<span class="hljs-string">http://www.w3.org/1999/02/22-rdf-syntax-ns#</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">rdf:Description</span> <span class="hljs-attr">rdf:about</span>=<span class="hljs-string">""</span>
+  <span class="hljs-attr">...</span>
+  <span class="hljs-attr">xmlns:tdm</span>=<span class="hljs-string">"http://www.w3.org/ns/tdmrep/"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tdm:reservation</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">tdm:reservation</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tdm:policy</span>&gt;</span>https://publisher.com/policies/policy.json<span class="hljs-tag">&lt;/<span class="hljs-name">tdm:policy</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">rdf:Description</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">rdf:RDF</span>&gt;</span></code></pre>
+      </div>
 
-        <div class="note">
+        <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><div class="">
           <p>A PDF/A validator will raise errors if TDMRep properties are present in the XMP metadata section of a PDF document.</p>
-        </div>  
+        </div></div>  
 
       </section>
 
-      <section id="sec-processing-priority">
+      <section id="sec-processing-priority"><div class="header-wrapper"><h3 id="x6-7-processing-priority"><bdi class="secno">6.7 </bdi>Processing priority</h3><a class="self-link" href="#sec-processing-priority" aria-label="Permalink for Section 6.7"></a></div>
 
-        <h2>Processing priority</h2>
+        
 
-        <p>Rightsholders SHOULD only use one of the techniques specified in the previous section. In case TDM rights are expressed using several techniques on a given Web Server, TDM Agents need a way to unambiguously define rightsholder's choices. This is why the following processing rules are specified.</p>
+        <p>Rightsholders <em class="rfc2119">SHOULD</em> only use one of the techniques specified in the previous section. In case TDM rights are expressed using several techniques on a given Web Server, TDM Agents need a way to unambiguously define rightsholder's choices. This is why the following processing rules are specified.</p>
 
-        <p>A TDM Agent MUST check the presence of a TDM file on the origin server before it starts scraping the content of the Web server.</p>
+        <p>A TDM Agent <em class="rfc2119">MUST</em> check the presence of a TDM file on the origin server before it starts scraping the content of the Web server.</p>
 
-        <div class="note">
+        <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-7" aria-level="4"><span>Note</span></div><div class="">
           <p>A TDM Agent must keep in cache the content of the TDM file, usually as an in-memory object, to optimize further processing.</p>
-        </div>
+        </div></div>
 
-        <p>A TDM Agent MUST check the presence of a TDM Header Field in every http header it gets from fetching a resource on the Web server. The values of `tdm-reservation` and `tdm-policy` found in this header supercede any value inferred from a TDM file on the origin server.</p>
+        <p>A TDM Agent <em class="rfc2119">MUST</em> check the presence of a TDM Header Field in every http header it gets from fetching a resource on the Web server. The values of <code>tdm-reservation</code> and <code>tdm-policy</code> found in this header supercede any value inferred from a TDM file on the origin server.</p>
 
-        <p>A TDM Agent MUST check the presence of TDM Metadata in every html file fetched from the Web server. The values of `tdm-reservation` and `tdm-policy` found here supercede previous values.</p>
+        <p>A TDM Agent <em class="rfc2119">MUST</em> check the presence of TDM Metadata in every html file fetched from the Web server. The values of <code>tdm-reservation</code> and <code>tdm-policy</code> found here supercede previous values.</p>
 
-        <p>A TDM Agent MUST check the presence of TDM Metadata in every EPUB or PDF file fetched from the Web server. The values of `tdm:reservation` and `tdm:policy` found here supercede previous values.</p>
+        <p>A TDM Agent <em class="rfc2119">MUST</em> check the presence of TDM Metadata in every EPUB or PDF file fetched from the Web server. The values of <code>tdm:reservation</code> and <code>tdm:policy</code> found here supercede previous values.</p>
 
-        <p>At every step, the absence of `tdm-reservation` and `tdm-policy` MUST not reset current values.</p>
+        <p>At every step, the absence of <code>tdm-reservation</code> and <code>tdm-policy</code> <em class="rfc2119">MUST</em> not reset current values.</p>
 
       </section>
 
     </section>
 
-    <section id="sec-policy">
+    <section id="sec-policy"><div class="header-wrapper"><h2 id="x7-expressing-a-tdm-policy"><bdi class="secno">7. </bdi>Expressing a TDM Policy</h2><a class="self-link" href="#sec-policy" aria-label="Permalink for Section 7."></a></div>
 
-      <h1>Expressing a TDM Policy</h1>
+      
 
-      <p>Policies are machine-readable structures referenced from the `tdm-policy` property defined in the specification. They provide ways for TDM Actors to contact content rightsholder and they offer details about available TDM licenses. Thus, they facilitate the acquisition of TDM licenses from rightsholders by TDM Actors.</p>
+      <p>Policies are machine-readable structures referenced from the <code>tdm-policy</code> property defined in the specification. They provide ways for TDM Actors to contact content rightsholder and they offer details about available TDM licenses. Thus, they facilitate the acquisition of TDM licenses from rightsholders by TDM Actors.</p>
 
-      <p>The format of policies defined in this specification is a profile of the Open Digital Rights Language 2.2 [[ODRL]]. </p> 
+      <p>The format of policies defined in this specification is a profile of the Open Digital Rights Language 2.2 [<cite><a class="bibref" data-link-type="biblio" href="#bib-odrl" title="Open Digital Rights Language (ODRL) Version 1.1">ODRL</a></cite>]. </p> 
 
-      <div class="note">
+      <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-8" aria-level="3"><span>Note</span></div><div class="">
         <p>This specification assumes basic knowledge of JSON-LD and the ODRL model and vocabulary.</p>
-      </div>  
+      </div></div>  
 
-      <section id="sec-odrl-profile">
+      <section id="sec-odrl-profile"><div class="header-wrapper"><h3 id="x7-1-specification-of-the-tdm-policy"><bdi class="secno">7.1 </bdi>Specification of the TDM Policy</h3><a class="self-link" href="#sec-odrl-profile" aria-label="Permalink for Section 7.1"></a></div>
 
-        <h2>Specification of the TDM Policy</h2>
+        
 
-        <section id="sec-odrl-profile-context">
+        <section id="sec-odrl-profile-context"><div class="header-wrapper"><h4 id="x7-1-1-json-ld-context-and-identifier-of-a-policy"><bdi class="secno">7.1.1 </bdi>JSON-LD context and identifier of a Policy</h4><a class="self-link" href="#sec-odrl-profile-context" aria-label="Permalink for Section 7.1.1"></a></div>
 
-          <h3>JSON-LD context and identifier of a Policy</h3>
+          
 
-          <p>The `@context` of a Policy MUST be an array of two values: `http://www.w3.org/ns/odrl.jsonld` and `http://www.w3.org/ns/tdmrep.jsonld`.</p>
+          <p>The <code>@context</code> of a Policy <em class="rfc2119">MUST</em> be an array of two values: <code>http://www.w3.org/ns/odrl.jsonld</code> and <code>http://www.w3.org/ns/tdmrep.jsonld</code>.</p>
 
-          <p>A policy identifier MUST also be added to the policy, expressed as a URI.</p>
+          <p>A policy identifier <em class="rfc2119">MUST</em> also be added to the policy, expressed as a URI.</p>
 
-          <div class="note">
+          <div class="note" role="note" id="issue-container-generatedID-9"><div role="heading" class="note-title marker" id="h-note-9" aria-level="5"><span>Note</span></div><div class="">
             <p>It is not required that the policy identifier is dereferencable. Our recommendation is to use the domain name of the Web server, add "/policies/", and add a number to it, just in case you decided later to manage different license policies. An alternative solution is to use as identifier the URL of the Terms of Use of the Web Site, where the TDM policy is described in human language.</p>
-          </div>
+          </div></div>
 
-          <pre class="example">
-          {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-            ]
-            "uid": "https://provider.com/policies/1",
-            ...
-          }
-          </pre>
-
-        </section>
-
-        <section id="sec-odrl-profile-type">
-
-          <h3>Type of a Policy</h3>
-
-          <p>The `@type` of a Policy MUST have `Offer` as value.</p>
-
-          <pre class="example">
-          {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-            ],
-            "uid": "https://provider.com/policies/1",
-            "@type": "Offer",
-            ...
-          }
-          </pre>
+          <div class="example" id="example-9">
+        <div class="marker">
+    <a class="self-link" href="#example-9">Example<bdi> 9</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ]
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...
+}</code></pre>
+      </div>
 
         </section>
 
-        <section id="sec-odrl-profile-identification">
+        <section id="sec-odrl-profile-type"><div class="header-wrapper"><h4 id="x7-1-2-type-of-a-policy"><bdi class="secno">7.1.2 </bdi>Type of a Policy</h4><a class="self-link" href="#sec-odrl-profile-type" aria-label="Permalink for Section 7.1.2"></a></div>
 
-          <h3>Identification of the profile</h3>
+          
 
-          <p>A Policy MUST have a `profile` property with value `http://www.w3.org/ns/tdmrep`</p>
+          <p>The <code>@type</code> of a Policy <em class="rfc2119">MUST</em> have <code>Offer</code> as value.</p>
 
-          <pre class="example">
-          {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-            ],
-            "uid": "https://provider.com/policies/1",
-            "@type": "Offer",
-            "profile": "http://www.w3.org/ns/tdmrep",
-            ...
-          }
-          </pre>
-
-          <div class="note">
-            <p>The value of the `profile` property is not dereferencable. This is simply an identifier in the form of a URL.</p>
-          </div>
+          <div class="example" id="example-10">
+        <div class="marker">
+    <a class="self-link" href="#example-10">Example<bdi> 10</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  ...
+}</code></pre>
+      </div>
 
         </section>
 
-        <section id="sec-odrl-profile-assigner">
+        <section id="sec-odrl-profile-identification"><div class="header-wrapper"><h4 id="x7-1-3-identification-of-the-profile"><bdi class="secno">7.1.3 </bdi>Identification of the profile</h4><a class="self-link" href="#sec-odrl-profile-identification" aria-label="Permalink for Section 7.1.3"></a></div>
 
-          <h3>Assigner</h3>
+          
 
-          <p>A Policy MUST contain one `assigner` property. The `assigner` property of the Offer MUST use a limited number of vCard properties ([[vcard-rdf]]):</p> 
+          <p>A Policy <em class="rfc2119">MUST</em> have a <code>profile</code> property with value <code>http://www.w3.org/ns/tdmrep</code></p>
+
+          <div class="example" id="example-11">
+        <div class="marker">
+    <a class="self-link" href="#example-11">Example<bdi> 11</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  ...
+}</code></pre>
+      </div>
+
+          <div class="note" role="note" id="issue-container-generatedID-10"><div role="heading" class="note-title marker" id="h-note-10" aria-level="5"><span>Note</span></div><div class="">
+            <p>The value of the <code>profile</code> property is not dereferencable. This is simply an identifier in the form of a URL.</p>
+          </div></div>
+
+        </section>
+
+        <section id="sec-odrl-profile-assigner"><div class="header-wrapper"><h4 id="x7-1-4-assigner"><bdi class="secno">7.1.4 </bdi>Assigner</h4><a class="self-link" href="#sec-odrl-profile-assigner" aria-label="Permalink for Section 7.1.4"></a></div>
+
+          
+
+          <p>A Policy <em class="rfc2119">MUST</em> contain one <code>assigner</code> property. The <code>assigner</code> property of the Offer <em class="rfc2119">MUST</em> use a limited number of vCard properties ([<cite><a class="bibref" data-link-type="biblio" href="#bib-vcard-rdf" title="vCard Ontology - for describing People and Organizations">vcard-rdf</a></cite>]):</p> 
           
           <ul>
             <li>"fn": full name of the rightsholder, as a string</li>
@@ -579,173 +796,183 @@
             <li>"hasURL": URL of a Web page containing information about TDM License acquisition.</li>
           </ul>
 
-          <pre class="example">
-          {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-            ],
-            "uid": "https://provider.com/policies/1",
-            "@type": "Offer",
-            "profile": "http://www.w3.org/ns/tdmrep",
-            "assigner": {
-              "uid": "https://provider.com",
-              "vcard:fn": "Provider Name",
-              "vcard:nickname": "PRV",
-              "vcard:hasEmail": "mailto:contact@provider.com",
-              "vcard:hasAddress": {
-                "vcard:street-address": "111 Street Address",
-                "vcard:postal-code": "5555",
-                "vcard:locality": "Espérance",
-                "vcard:country-name": "France"
-              },
-              "vcard:hasTelephone": "tel:+61755555555",
-              "vcard:hasURL": "https://provider.com/tdm/licensing.html" 
-            }
-            ...,
-          }
-          </pre>
+          <div class="example" id="example-12">
+        <div class="marker">
+    <a class="self-link" href="#example-12">Example<bdi> 12</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-attr">"assigner"</span>: {
+    <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com"</span>,
+    <span class="hljs-attr">"vcard:fn"</span>: <span class="hljs-string">"Provider Name"</span>,
+    <span class="hljs-attr">"vcard:nickname"</span>: <span class="hljs-string">"PRV"</span>,
+    <span class="hljs-attr">"vcard:hasEmail"</span>: <span class="hljs-string">"mailto:contact@provider.com"</span>,
+    <span class="hljs-attr">"vcard:hasAddress"</span>: {
+      <span class="hljs-attr">"vcard:street-address"</span>: <span class="hljs-string">"111 Street Address"</span>,
+      <span class="hljs-attr">"vcard:postal-code"</span>: <span class="hljs-string">"5555"</span>,
+      <span class="hljs-attr">"vcard:locality"</span>: <span class="hljs-string">"Espérance"</span>,
+      <span class="hljs-attr">"vcard:country-name"</span>: <span class="hljs-string">"France"</span>
+    },
+    <span class="hljs-attr">"vcard:hasTelephone"</span>: <span class="hljs-string">"tel:+61755555555"</span>,
+    <span class="hljs-attr">"vcard:hasURL"</span>: <span class="hljs-string">"https://provider.com/tdm/licensing.html"</span> 
+  }
+  ...,
+}</code></pre>
+      </div>
 
         </section>
 
-        <section id="sec-odrl-profile-permissions">
+        <section id="sec-odrl-profile-permissions"><div class="header-wrapper"><h4 id="x7-1-5-permissions"><bdi class="secno">7.1.5 </bdi>Permissions</h4><a class="self-link" href="#sec-odrl-profile-permissions" aria-label="Permalink for Section 7.1.5"></a></div>
 
-          <h3>Permissions</h3>
+          
 
-          <p>A Policy MUST contain one `permission` property, which represents an array of permissions. A Policy SHOULD not contain any `obligation` or `prohibition` property.</p> 
+          <p>A Policy <em class="rfc2119">MUST</em> contain one <code>permission</code> property, which represents an array of permissions. A Policy <em class="rfc2119">SHOULD</em> not contain any <code>obligation</code> or <code>prohibition</code> property.</p> 
 
-          <section id="sec-odrl-profile-permission-target-action">
+          <section id="sec-odrl-profile-permission-target-action"><div class="header-wrapper"><h5 id="x7-1-5-1-expressing-the-target-of-a-permission"><bdi class="secno">7.1.5.1 </bdi>Expressing the target of a permission</h5><a class="self-link" href="#sec-odrl-profile-permission-target-action" aria-label="Permalink for Section 7.1.5.1"></a></div>
 
-            <h4>Expressing the target of a permission</h4>
+            
 
-            <p>A permission MAY have a `target` property. If present, the `target` property MUST be a URI identifying the collection of resources associated with the permission.</p>
+            <p>A permission <em class="rfc2119">MAY</em> have a <code>target</code> property. If present, the <code>target</code> property <em class="rfc2119">MUST</em> be a URI identifying the collection of resources associated with the permission.</p>
 
-            <div class="note">
+            <div class="note" role="note" id="issue-container-generatedID-11"><div role="heading" class="note-title marker" id="h-note-11" aria-level="6"><span>Note</span></div><div class="">
               <p>This property is optional. It can be used by a publisher to identify a collection of resources on which a specific permission applies. If present, it should be used by TDM Agents in their messages to publishers.</p>
               <p>The target URI is not necessarily dereferenceable, even if it is a URL. Accessing such URL may end with an http error: this is not a processing error.</p>
-            </div>
+            </div></div>
 
-            <pre class="example">
-              {
-                "@context": [
-                  "http://www.w3.org/ns/odrl.jsonld",
-                  "http://www.w3.org/ns/tdmrep.jsonld"
-                ],
-                "@type": "Offer",
-                "profile": "http://www.w3.org/ns/tdmrep",
-                "uid": "https://provider.com/policies/1",
-                ...
-                "permission": [{
-                  "target": "https://provider.com/research-papers",
-                  ...
-                  }
-                ]
-              }
-            </pre>
+            <div class="example" id="example-13">
+        <div class="marker">
+    <a class="self-link" href="#example-13">Example<bdi> 13</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...
+  <span class="hljs-string">"permission"</span>: [{
+    <span class="hljs-string">"target"</span>: <span class="hljs-string">"https://provider.com/research-papers"</span>,
+    ...
+    }
+  ]
+}</code></pre>
+      </div>
   
-            <h4>Expressing the action of a permission</h4>
+            <section id="expressing-the-action-of-a-permission"><div class="header-wrapper"><h6 id="x7-1-5-1-1-expressing-the-action-of-a-permission"><bdi class="secno">7.1.5.1.1 </bdi>Expressing the action of a permission</h6><a class="self-link" href="#expressing-the-action-of-a-permission" aria-label="Permalink for Section 7.1.5.1.1"></a></div>
 
-            <p>The mandatory action of a permission, which is expressed via the `action` property, MUST be the following:</p>
+            <p>The mandatory action of a permission, which is expressed via the <code>action</code> property, <em class="rfc2119">MUST</em> be the following:</p>
 
-            <h5>tdm:mine</h5>
+            <section id="tdm-mine"><div class="header-wrapper"><h6 id="x7-1-5-1-1-1-tdm-mine"><bdi class="secno">7.1.5.1.1.1 </bdi>tdm:mine</h6><a class="self-link" href="#tdm-mine" aria-label="Permalink for Section 7.1.5.1.1.1"></a></div>
 
             <p><em>Definition</em>: analyse, via automated analytical technique, text and data in digital form in order to generate information which includes but is not limited to patterns, trends and correlations.</p>
 
-            <p><em>Label</em>: Text & Data Mine</p>
+            <p><em>Label</em>: Text &amp; Data Mine</p>
 
             <p><em>Identifier</em>: http://www.w3.org/ns/tdmrep#mine</p>
 
             <p><em>Included in</em>: http://www.w3.org/ns/odrl/2/use</p>
 
-            <pre class="example">
-            {
-              "@context": [
-                "http://www.w3.org/ns/odrl.jsonld",
-                "http://www.w3.org/ns/tdmrep.jsonld"
-              ],
-              "@type": "Offer",
-              "profile": "http://www.w3.org/ns/tdmrep",
-              "uid": "https://provider.com/policies/1",
-              ...
-              "permission": [{
-                "action": "tdm:mine"
-                }
-              ]
-            }
-            </pre>
+            <div class="example" id="example-14">
+        <div class="marker">
+    <a class="self-link" href="#example-14">Example<bdi> 14</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...
+  <span class="hljs-string">"permission"</span>: [{
+    <span class="hljs-string">"action"</span>: <span class="hljs-string">"tdm:mine"</span>
+    }
+  ]
+}</code></pre>
+      </div>
+          
+          </section></section></section>
+
+          <section id="sec-odrl-profile-permission-obtainconsent"><div class="header-wrapper"><h5 id="x7-1-5-2-expressing-the-duty-to-contact-the-rightsholder-before-getting-a-permission"><bdi class="secno">7.1.5.2 </bdi>Expressing the duty to contact the rightsholder before getting a permission</h5><a class="self-link" href="#sec-odrl-profile-permission-obtainconsent" aria-label="Permalink for Section 7.1.5.2"></a></div>
+
+            
+
+            <p>The duty to obtain verifiable consent before performing TDM on content is expressed by adding an <code>duty</code> property to the Policy. The duty is expressed as an <code>action</code> property with an <code>obtainConsent</code> value.</p>
+
+            <div class="example" id="example-15">
+        <div class="marker">
+    <a class="self-link" href="#example-15">Example<bdi> 15</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...
+  <span class="hljs-string">"permission"</span>: [{
+      <span class="hljs-string">"action"</span>: <span class="hljs-string">"tdm:mine"</span>,
+      <span class="hljs-string">"duty"</span>: [{
+        <span class="hljs-string">"action"</span>: <span class="hljs-string">"obtainConsent"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
+      </div>
+
+          </section>
+
+          <section id="sec-odrl-profile-permission-compensate"><div class="header-wrapper"><h5 id="x7-1-5-3-expressing-the-duty-to-compensate-financially-the-rightsholder"><bdi class="secno">7.1.5.3 </bdi>Expressing the duty to compensate financially the rightsholder</h5><a class="self-link" href="#sec-odrl-profile-permission-compensate" aria-label="Permalink for Section 7.1.5.3"></a></div>
+
+            
+
+            <p>The duty to compensate financially the mining of content is expressed by adding a <code>duty</code> property to the Permission. The duty is expressed as an <code>action</code> property with a <code>compensate</code> value.</p>
+
+            <div class="example" id="example-16">
+        <div class="marker">
+    <a class="self-link" href="#example-16">Example<bdi> 16</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...,
+  <span class="hljs-string">"permission"</span>: [{
+      <span class="hljs-string">"action"</span>: <span class="hljs-string">"tdm:mine"</span>,
+      <span class="hljs-string">"duty"</span>: [{
+        <span class="hljs-string">"action"</span>: <span class="hljs-string">"compensate"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
+      </div>
           
           </section>
 
-          <section id="sec-odrl-profile-permission-obtainconsent">
+          <section id="sec-odrl-profile-permission-constraint"><div class="header-wrapper"><h5 id="x7-1-5-4-expressing-a-constraint-on-the-type-of-usage"><bdi class="secno">7.1.5.4 </bdi>Expressing a constraint on the type of usage</h5><a class="self-link" href="#sec-odrl-profile-permission-constraint" aria-label="Permalink for Section 7.1.5.4"></a></div>
 
-            <h4>Expressing the duty to contact the rightsholder before getting a permission</h4>
+            
 
-            <p>The duty to obtain verifiable consent before performing TDM on content is expressed by adding an `duty` property to the Policy. The duty is expressed as an `action` property with an `obtainConsent` value.</p>
+            <p>The permission to mine content for a given type of usage only is expressed by adding a <code>constraint</code> property to the Policy. The usage type is expressed as a <code>purpose</code> value on a <code>leftOperand</code> property, the <code>operator</code> property takes <code>eq</code> as value and the <code>rightOperand</code> property takes one of the following values:</p>
 
-            <pre class="example">
-            {
-              "@context": [
-                "http://www.w3.org/ns/odrl.jsonld",
-                "http://www.w3.org/ns/tdmrep.jsonld"
-              ],
-              "@type": "Offer",
-              "profile": "http://www.w3.org/ns/tdmrep",
-              "uid": "https://provider.com/policies/1",
-              ...
-              "permission": [{
-                  "action": "tdm:mine",
-                  "duty": [{
-                    "action": "obtainConsent"
-                    }
-                  ]
-                }
-              ]
-            }
-            </pre>
-
-          </section>
-
-          <section id="sec-odrl-profile-permission-compensate">
-
-            <h4>Expressing the duty to compensate financially the rightsholder</h4>
-
-            <p>The duty to compensate financially the mining of content is expressed by adding a `duty` property to the Permission. The duty is expressed as an `action` property with a `compensate` value.</p>
-
-            <pre class="example">
-            {
-              "@context": [
-                "http://www.w3.org/ns/odrl.jsonld",
-                "http://www.w3.org/ns/tdmrep.jsonld"
-              ],
-              "@type": "Offer",
-              "profile": "http://www.w3.org/ns/tdmrep",
-              "uid": "https://provider.com/policies/1",
-              ...,
-              "permission": [{
-                  "action": "tdm:mine",
-                  "duty": [{
-                    "action": "compensate"
-                    }
-                  ]
-                }
-              ]
-            }
-            </pre>
-          
-          </section>
-
-          <section id="sec-odrl-profile-permission-constraint">
-
-            <h4>Expressing a constraint on the type of usage</h4>
-
-            <p>The permission to mine content for a given type of usage only is expressed by adding a `constraint` property to the Policy. The usage type is expressed as a `purpose` value on a `leftOperand` property, the `operator` property takes `eq` as value and the `rightOperand` property takes one of the following values:</p>
-
-            <div class="note">
-              <p>The following properties, `tdm:research` and `tdm:non-research`, are experimental at this point. They have been discussed in the context of the use of the TDM Reservation Protocol outside Europe, where TDM by scientific research organizations and for research purposes is legally allowed without restriction. They may well be soon replaced by other kinds of constraints of mining purposes.</p>
-            </div>
+            <div class="note" role="note" id="issue-container-generatedID-12"><div role="heading" class="note-title marker" id="h-note-12" aria-level="6"><span>Note</span></div><div class="">
+              <p>The following properties, <code>tdm:research</code> and <code>tdm:non-research</code>, are experimental at this point. They have been discussed in the context of the use of the TDM Reservation Protocol outside Europe, where TDM by scientific research organizations and for research purposes is legally allowed without restriction. They may well be soon replaced by other kinds of constraints of mining purposes.</p>
+            </div></div>
 
 
-            <h5>tdm:research</h5>
+            <section id="tdm-research"><div class="header-wrapper"><h6 id="x7-1-5-4-1-tdm-research"><bdi class="secno">7.1.5.4.1 </bdi>tdm:research</h6><a class="self-link" href="#tdm-research" aria-label="Permalink for Section 7.1.5.4.1"></a></div>
 
             <p><em>Definition</em>: designates research purposes.</p>
 
@@ -755,7 +982,7 @@
 
             <p><em>Included in</em>: http://www.w3.org/ns/odrl/2/rightOperand</p>
 
-            <h5>tdm:non-research</h5>
+            </section><section id="tdm-non-research"><div class="header-wrapper"><h6 id="x7-1-5-4-2-tdm-non-research"><bdi class="secno">7.1.5.4.2 </bdi>tdm:non-research</h6><a class="self-link" href="#tdm-non-research" aria-label="Permalink for Section 7.1.5.4.2"></a></div>
 
             <p><em>Definition</em>: designates non-research purposes, including commercial ones.</p>
 
@@ -765,116 +992,472 @@
 
             <p><em>Included in</em>: http://www.w3.org/ns/odrl/2/rightOperand</p>
 
-            <pre class="example">
-            {
-              "@context": [
-                "http://www.w3.org/ns/odrl.jsonld",
-                "http://www.w3.org/ns/tdmrep.jsonld"
-              ],
-              "@type": "Offer",
-              "profile": "http://www.w3.org/ns/tdmrep",
-              "uid": "https://provider.com/policies/1",
-              ...
-              "permission": [{
-                  "action": "tdm:mine",
-                  "constraint": [{
-                    "leftOperand": "purpose",
-                    "operator": "eq",
-                    "rightOperand": "tdm:research"
-                    }
-                  ]
-                }
-              ]
-            }
-            </pre>
+            <div class="example" id="example-17">
+        <div class="marker">
+    <a class="self-link" href="#example-17">Example<bdi> 17</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript">{
+  <span class="hljs-string">"@context"</span>: [
+    <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+    <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
+  <span class="hljs-string">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-string">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-string">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  ...
+  <span class="hljs-string">"permission"</span>: [{
+      <span class="hljs-string">"action"</span>: <span class="hljs-string">"tdm:mine"</span>,
+      <span class="hljs-string">"constraint"</span>: [{
+        <span class="hljs-string">"leftOperand"</span>: <span class="hljs-string">"purpose"</span>,
+        <span class="hljs-string">"operator"</span>: <span class="hljs-string">"eq"</span>,
+        <span class="hljs-string">"rightOperand"</span>: <span class="hljs-string">"tdm:research"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
+      </div>
  
-          </section>
+          </section></section>
 
         </section>
 
       </section>
 
-      <section class="informative" id="sec-policy-examples">
+      <section class="informative" id="sec-policy-examples"><div class="header-wrapper"><h3 id="x7-2-full-examples"><bdi class="secno">7.2 </bdi>Full Examples</h3><a class="self-link" href="#sec-policy-examples" aria-label="Permalink for Section 7.2"></a></div><p><em>This section is non-normative.</em></p>
 
-        <h2>Full Examples</h2>
+        
 
         <p>In this example, the rightsholder requires TDM Actors to contact him for obtaining licensing rights. The rightsholder provides detailed contact information using the W3C vCard Ontology.</p>
         <p>Important note: TDM Actors which benefit from the Article 3 of the CDSM Directive do not have to comply to this requirement.</p>
 
-        <pre class="example">
-        {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-          ],
+        <div class="example" id="example-18">
+        <div class="marker">
+    <a class="self-link" href="#example-18">Example<bdi> 18</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">  {
+      <span class="hljs-attr">"@context"</span>: [
+        <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+        <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+    ],
 
-          "@type": "Offer",
-          "profile": "http://www.w3.org/ns/tdmrep",
-          "uid": "https://provider.com/policies/1",
-          "assigner": {
-            "uid": "https://provider.com",
-            "vcard:fn": "Provider",
-            "vcard:hasEmail": "mailto:contact@provider.com",
-            "vcard:hasAddress": {
-              "vcard:street-address": "111 Street Address",
-              "vcard:postal-code": "5555",
-              "vcard:locality": "Espérance",
-              "vcard:country-name": "France"
-            },
-            "vcard:hasTelephone": "tel:+61755555555",
-            "vcard:hasURL": "https://provider.com/tdm/licensing.html" 
-          },
-          "permission": [{
-            "action": "tdm:mine",
-            "duty": [{
-              "action": "obtainConsent"
-              }
-            ]
-          }
-        ]
-      }
-      </pre>
-
-      <div class="note">
-        <p>There is no mandatory property in the previous example. Just keep the properties you really see as useful. The `vcard:hasURL` property is especially useful if a Web page explains in human language what is the publisher's TDM policy.</p>
+    <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+    <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+    <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+    <span class="hljs-attr">"assigner"</span>: {
+      <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com"</span>,
+      <span class="hljs-attr">"vcard:fn"</span>: <span class="hljs-string">"Provider"</span>,
+      <span class="hljs-attr">"vcard:hasEmail"</span>: <span class="hljs-string">"mailto:contact@provider.com"</span>,
+      <span class="hljs-attr">"vcard:hasAddress"</span>: {
+        <span class="hljs-attr">"vcard:street-address"</span>: <span class="hljs-string">"111 Street Address"</span>,
+        <span class="hljs-attr">"vcard:postal-code"</span>: <span class="hljs-string">"5555"</span>,
+        <span class="hljs-attr">"vcard:locality"</span>: <span class="hljs-string">"Espérance"</span>,
+        <span class="hljs-attr">"vcard:country-name"</span>: <span class="hljs-string">"France"</span>
+      },
+      <span class="hljs-attr">"vcard:hasTelephone"</span>: <span class="hljs-string">"tel:+61755555555"</span>,
+      <span class="hljs-attr">"vcard:hasURL"</span>: <span class="hljs-string">"https://provider.com/tdm/licensing.html"</span> 
+    },
+    <span class="hljs-attr">"permission"</span>: [{
+      <span class="hljs-attr">"action"</span>: <span class="hljs-string">"tdm:mine"</span>,
+      <span class="hljs-attr">"duty"</span>: [{
+        <span class="hljs-attr">"action"</span>: <span class="hljs-string">"obtainConsent"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
       </div>
+
+      <div class="note" role="note" id="issue-container-generatedID-13"><div role="heading" class="note-title marker" id="h-note-13" aria-level="4"><span>Note</span></div><div class="">
+        <p>There is no mandatory property in the previous example. Just keep the properties you really see as useful. The <code>vcard:hasURL</code> property is especially useful if a Web page explains in human language what is the publisher's TDM policy.</p>
+      </div></div>
 
 
         <p>In this example, the rightsholder expresses that non-research Actors from any country can mine its content if they agree to pay a fee.</p>
 
-        <pre class="example">
-        {
-            "@context": [
-              "http://www.w3.org/ns/odrl.jsonld",
-              "http://www.w3.org/ns/tdmrep.jsonld"
-          ],
+        <div class="example" id="example-19">
+        <div class="marker">
+    <a class="self-link" href="#example-19">Example<bdi> 19</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+    <span class="hljs-attr">"@context"</span>: [
+      <span class="hljs-string">"http://www.w3.org/ns/odrl.jsonld"</span>,
+      <span class="hljs-string">"http://www.w3.org/ns/tdmrep.jsonld"</span>
+  ],
 
-          "@type": "Offer",
-          "profile": "http://www.w3.org/ns/tdmrep",
-          "uid": "https://provider.com/policies/1",
-          "assigner": {
-            "uid": "https://provider.com",
-            "vcard:fn": "Provider",
-            "vcard:hasEmail": "mailto:contact@provider.com",
-          },
-          "permission": [{
-              "action": "tdm:mine",
-              "duty": [{
-                "action": "compensate"
-                }
-              ],
-              "constraint": [{
-                "leftOperand": "purpose",
-                "operator": "eq",
-                "rightOperand": "tdm:non-research"
-                }
-              ]
-            }
-          ]
+  <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"Offer"</span>,
+  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"http://www.w3.org/ns/tdmrep"</span>,
+  <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com/policies/1"</span>,
+  <span class="hljs-attr">"assigner"</span>: {
+    <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"https://provider.com"</span>,
+    <span class="hljs-attr">"vcard:fn"</span>: <span class="hljs-string">"Provider"</span>,
+    <span class="hljs-attr">"vcard:hasEmail"</span>: <span class="hljs-string">"mailto:contact@provider.com"</span>,
+  },
+  <span class="hljs-attr">"permission"</span>: [{
+      <span class="hljs-attr">"action"</span>: <span class="hljs-string">"tdm:mine"</span>,
+      <span class="hljs-attr">"duty"</span>: [{
+        <span class="hljs-attr">"action"</span>: <span class="hljs-string">"compensate"</span>
         }
-        </pre>
+      ],
+      <span class="hljs-attr">"constraint"</span>: [{
+        <span class="hljs-attr">"leftOperand"</span>: <span class="hljs-string">"purpose"</span>,
+        <span class="hljs-attr">"operator"</span>: <span class="hljs-string">"eq"</span>,
+        <span class="hljs-attr">"rightOperand"</span>: <span class="hljs-string">"tdm:non-research"</span>
+        }
+      ]
+    }
+  ]
+}</code></pre>
+      </div>
 
     </section>
 
-  </body>
-</html>
+  
+
+</section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-odrl">[ODRL]</dt><dd>
+      <a href="https://www.w3.org/TR/odrl"><cite>Open Digital Rights Language (ODRL) Version 1.1</cite></a>. Renato Iannella.  W3C. 19 September 2002. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/odrl">https://www.w3.org/TR/odrl</a>
+    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc7230">[RFC7230]</dt><dd>
+      <a href="https://httpwg.org/specs/rfc7230.html"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. R. Fielding, Ed.; J. Reschke, Ed..  IETF. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7230.html">https://httpwg.org/specs/rfc7230.html</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd><dt id="bib-vcard-rdf">[vcard-rdf]</dt><dd>
+      <a href="https://www.w3.org/TR/vcard-rdf/"><cite>vCard Ontology - for describing People and Organizations</cite></a>. Renato Iannella; James McKinney.  W3C. 22 May 2014. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vcard-rdf/">https://www.w3.org/TR/vcard-rdf/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-rightsholder" aria-label="Links in this document to definition: Rightsholder">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-rightsholder" aria-label="Permalink for definition: Rightsholder. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-rightsholder-1" title="§ 2. Terminology">§ 2. Terminology</a> 
+    </li><li>
+      <a href="#ref-for-dfn-rightsholder-2" title="§ 4. Requirements">§ 4. Requirements</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-publisher" aria-label="Links in this document to definition: Publisher">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-publisher" aria-label="Permalink for definition: Publisher. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-publisher-1" title="§ 6. Protocol">§ 6. Protocol</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-tdm-actor" aria-label="Links in this document to definition: TDM Actor">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-tdm-actor" aria-label="Permalink for definition: TDM Actor. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-tdm-actor-1" title="§ 2. Terminology">§ 2. Terminology</a> <a href="#ref-for-dfn-tdm-actor-2" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-tdm-agent" aria-label="Links in this document to definition: TDM Agent">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-tdm-agent" aria-label="Permalink for definition: TDM Agent. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-tdm-agent-1" title="§ 5.1 tdm-reservation">§ 5.1 tdm-reservation</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-tdm-license" aria-label="Links in this document to definition: TDM License">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-tdm-license" aria-label="Permalink for definition: TDM License. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-tdm-license-1" title="§ 2. Terminology">§ 2. Terminology</a> 
+    </li><li>
+      <a href="#ref-for-dfn-tdm-license-2" title="§ 6.1.2 Examples">§ 6.1.2 Examples</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-tdm-policy" aria-label="Links in this document to definition: TDM Policy">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-tdm-policy" aria-label="Permalink for definition: TDM Policy. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-tdm-policy-1" title="§ 4. Requirements">§ 4. Requirements</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-tdm-rights" aria-label="Links in this document to definition: TDM Rights">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-tdm-rights" aria-label="Permalink for definition: TDM Rights. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-tdm-rights-1" title="§ 4. Requirements">§ 4. Requirements</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-web-resource" aria-label="Links in this document to definition: Web Resource">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-web-resource" aria-label="Permalink for definition: Web Resource. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-web-resource-1" title="§ 2. Terminology">§ 2. Terminology</a> 
+    </li><li>
+      <a href="#ref-for-dfn-web-resource-2" title="§ 4. Requirements">§ 4. Requirements</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-web-page" aria-label="Links in this document to definition: Web page">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-web-page" aria-label="Permalink for definition: Web page. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
