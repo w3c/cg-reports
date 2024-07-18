@@ -1,0 +1,610 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+<meta name="generator" content="ReSpec 34.5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>Recommendations for accessible captions in 360 degree video</title>
+		
+    
+	
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="description" content="This document presents findings of the Immersive Captions Community Group after initial research into the requirements for captioned content in virtual and augmented reality. The group intends to produce design guidance starting from these findings.">
+<link rel="canonical" href="https://www.w3.org/community/reports/immersive-captions/360-captions/">
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-FINAL",
+  "editors": [
+    {
+      "name": "Frances Baum"
+    },
+    {
+      "name": "Meryl K. Evans"
+    },
+    {
+      "name": "Chrisopher Patnoe",
+      "company": "Google LLC"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Howard A. Rosenblum",
+      "company": "National Association of the Deaf"
+    }
+  ],
+  "github": "w3c/immersive-captions-cg",
+  "shortName": "360-captions",
+  "group": "immersive-captions",
+  "latestVersion": "https://www.w3.org/community/reports/immersive-captions/360-captions/",
+  "publishISODate": "2024-04-12T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 12 April 2024"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+	<body data-new-gr-c-s-check-loaded="14.1167.0" data-gr-ext-installed="" class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Recommendations for accessible captions in 360 degree video</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2024-04-12">12 April 2024</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/immersive-captions/CG-FINAL-360-captions-20240412/">https://www.w3.org/community/reports/immersive-captions/CG-FINAL-360-captions-20240412/</a>
+            </dd>
+      
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/immersive-captions-cg/360-captions/">https://w3c.github.io/immersive-captions-cg/360-captions/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Frances Baum</span>
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Meryl K. Evans</span>
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Chrisopher Patnoe</span> (<span class="p-org org h-org">Google LLC</span>)
+  </dd>
+      
+      <dt>Author:</dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Howard A. Rosenblum</span> (<span class="p-org org h-org">National Association of the Deaf</span>)
+  </dd>
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/immersive-captions-cg/">GitHub w3c/immersive-captions-cg</a>
+        (<a href="https://github.com/w3c/immersive-captions-cg/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/immersive-captions-cg/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/immersive-captions-cg/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2024
+          
+          the Contributors to the Recommendations for accessible captions in 360 degree video
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/immersive-captions">Immersive Captions Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>This document presents findings of the <a href="https://www.w3.org/community/immersive-captions/">Immersive Captions Community Group</a> after initial research into the requirements for captioned content in virtual and augmented reality. The group intends to produce design guidance starting from these findings.</p>
+		</section>
+		<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/immersive-captions">Immersive Captions Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+			<p>This is a Community Group Final Report from the <a href="https://www.w3.org/community/immersive-captions/">Immersive Captions Community Group</a>.</p>
+		<p>
+    <a href="https://github.com/w3c/immersive-captions-cg/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-need"><bdi class="secno">1.1 </bdi>The Need</a></li><li class="tocline"><a class="tocxref" href="#who-we-are"><bdi class="secno">1.2 </bdi>Who We Are </a></li><li class="tocline"><a class="tocxref" href="#aligned-efforts"><bdi class="secno">1.3 </bdi>Aligned efforts</a></li><li class="tocline"><a class="tocxref" href="#disclaimers"><bdi class="secno">1.4 </bdi>Disclaimers</a></li></ol></li><li class="tocline"><a class="tocxref" href="#recommended-features-and-suggestions"><bdi class="secno">2. </bdi>Recommended Features and Suggestions</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">2.1 </bdi>Scope</a></li><li class="tocline"><a class="tocxref" href="#speaker-identification"><bdi class="secno">2.2 </bdi>Speaker Identification</a></li><li class="tocline"><a class="tocxref" href="#immersivebill"><bdi class="secno">2.3 </bdi>Immersivebill</a></li><li class="tocline"><a class="tocxref" href="#additional-audio-source-identification"><bdi class="secno">2.4 </bdi>Additional Audio Source Identification</a></li><li class="tocline"><a class="tocxref" href="#interactive-captions-and-transcript-view"><bdi class="secno">2.5 </bdi>Interactive Captions and Transcript View</a></li><li class="tocline"><a class="tocxref" href="#seek-by-captions"><bdi class="secno">2.6 </bdi>Seek-by Captions</a></li><li class="tocline"><a class="tocxref" href="#headlocked-and-non-headlocked-options"><bdi class="secno">2.7 </bdi>Headlocked and Non-Headlocked Options</a></li><li class="tocline"><a class="tocxref" href="#captions-anchoring"><bdi class="secno">2.8 </bdi>Captions Anchoring</a></li><li class="tocline"><a class="tocxref" href="#usability-and-user-interface"><bdi class="secno">2.9 </bdi>Usability and User Interface</a></li><li class="tocline"><a class="tocxref" href="#caption-display-and-formatting"><bdi class="secno">2.10 </bdi>Caption Display and Formatting</a></li></ol></li><li class="tocline"><a class="tocxref" href="#physical-considerations"><bdi class="secno">3. </bdi>Physical Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vestibular-disorders"><bdi class="secno">3.1 </bdi>Vestibular Disorders</a></li><li class="tocline"><a class="tocxref" href="#mental-processing"><bdi class="secno">3.2 </bdi>Mental Processing</a></li></ol></li><li class="tocline"><a class="tocxref" href="#where-we-are-going"><bdi class="secno">4. </bdi>Where We Are Going</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">A. </bdi>Acknowledgements</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#credits"><bdi class="secno">A.1 </bdi>Credits</a></li><li class="tocline"><a class="tocxref" href="#iccg-contributors"><bdi class="secno">A.2 </bdi>ICCG contributors</a></li></ol></li></ol></nav>
+		<section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+			
+			<section id="the-need"><div class="header-wrapper"><h3 id="x1-1-the-need"><bdi class="secno">1.1 </bdi>The Need</h3><a class="self-link" href="#the-need" aria-label="Permalink for Section 1.1"></a></div>
+				
+				<p>Technology moves at an increasingly fast pace, yet accessibility has often been an afterthought—if it is one at all. Immersive video experiences, still in their infancy, give us an opportunity to ensure accessibility is built in from the start. It is our hope that this shift brings innovation to captioning in all relevant tech areas. After all, <a href="https://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss">WHO (World Health Organization) predicts that by 2050</a> nearly 2.5 billion people are projected to have some degree of hearing loss and at least 700 million will require hearing rehabilitation. Over 1 billion young adults are at risk of permanent, avoidable hearing loss due to unsafe listening practices.</p>
+				<p>XR experiences are moving toward the mainstream, and there’s a growing realization within the tech industry of the importance of accessibility in all emergent technology. “XR” is the abbreviation for extended reality and to represent both virtual reality (starting with the Sensorama in 1956) and augmented reality (first demonstrated by USAF Armstrong’s Research Lab by Louis Rosenberg in 1992). XR is powering the widespread reach of immersive technologies, and with the support of the tech industry, accessibility is finally being discussed before the technology has reached real adoption. </p>
+				<p>Though there is a need for innovative captioning across all immersive experiences, this paper will focus on immersive and 360 video. In virtual reality (VR), interesting questions arise about how to effectively provide captioning because, for on example, the source of sound in the virtual experience may not be in the viewer’s field of view. In that scenario, a deaf participant would not understand what is happening if there are no captions or if the captions have significant limitations.</p>
+			</section>
+			<section id="who-we-are"><div class="header-wrapper"><h3 id="x1-2-who-we-are"><bdi class="secno">1.2 </bdi>Who We Are </h3><a class="self-link" href="#who-we-are" aria-label="Permalink for Section 1.2"></a></div>
+				
+				<p>In July 2019, Cornell Tech and Verizon Media sponsored the inaugural XR Access Symposium held in New York City. A collection of tech companies, educators, creators, and advocates attended breakout sessions and presentations on accessibility in XR. Several of the participants banded together in an effort to create immersive captioning.</p>
+				<p>Christopher Patnoe of Google volunteered to found and chair the community group and connected with Judy Brewer of World Wide Web Consortium (W3C). Together they formed an <a href="https://www.w3.org/community/immersive-captions/">Immersive Captions Community Group (ICCG)</a> under the Web Accessibility Initiative (WAI). The group is a broad coalition of people who identify as d/Deaf, hard of hearing, and hearing. We are made up of industry (Google, Meta Platform - formerly known as Facebook, etc.), advocates (National Association of the Deaf), educators (Brandeis University, Gallaudet University, Rochester Institute of Technology, University of Salford), and technologists.</p>
+				<p>We have spent the past two years exploring immersive technology and captioning opportunities. Our goal has been to break the boundaries of the little black box inherited from TV and find new ways to make virtual reality more inclusive. This paper represents our narrow but critical effort to document our insights and ideas for accessible 360 video, and the seeds of this effort will impact future research.</p>
+			</section>
+			<section id="aligned-efforts"><div class="header-wrapper"><h3 id="x1-3-aligned-efforts"><bdi class="secno">1.3 </bdi>Aligned efforts</h3><a class="self-link" href="#aligned-efforts" aria-label="Permalink for Section 1.3"></a></div>
+				
+				<p>No important work is ever done in a vacuum. Other organizations are also engaged in this discussion, including the XR Access initiative that started this effort. There is also the ImAc effort out of the EU whose research was core to our work. </p>
+				<p>At this time in the W3C, there are other initiatives working in the caption space such as: </p>
+				<ul>
+					<li>XAUR — XR Accessibility User Requirements</li>
+					<li>RAUR — Real-time Communications (RTC) Accessibility User Requirements</li>
+					<li>RTC specs like <a href="https://www.w3.org/TR/webrtc/">WebRTC</a> and the <a href="https://tools.ietf.org/html/rfc7478">IETF RFC 7478 'Web Real-Time Communication Use Cases and Requirements'</a> document.</li>
+				</ul>
+			</section>
+			<section id="disclaimers"><div class="header-wrapper"><h3 id="x1-4-disclaimers"><bdi class="secno">1.4 </bdi>Disclaimers</h3><a class="self-link" href="#disclaimers" aria-label="Permalink for Section 1.4"></a></div>
+				
+				<p>This group does not intend to declare how something is to look; we have taken great efforts to avoid this. Instead, we’ve tried to focus on what functionality will solve problems of situational awareness and to provide recommendations on functionality that will make the experience of the deaf or hard of hearing viewer more equal through technology. It is important to remember that there is no single solution that will work for everyone, so it’s ideal to offer flexibility and tools that enable a user to customize the functionality to meet their own needs. </p>
+			</section>
+		</section>
+		<section id="recommended-features-and-suggestions"><div class="header-wrapper"><h2 id="x2-recommended-features-and-suggestions"><bdi class="secno">2. </bdi>Recommended Features and Suggestions</h2><a class="self-link" href="#recommended-features-and-suggestions" aria-label="Permalink for Section 2."></a></div>
+			
+			<p>Our group has identified a number of features as critical and advisory recommendations. We hope these considerations inspire best practices for content creators.</p>
+			<section id="scope"><div class="header-wrapper"><h3 id="x2-1-scope"><bdi class="secno">2.1 </bdi>Scope</h3><a class="self-link" href="#scope" aria-label="Permalink for Section 2.1"></a></div>
+				
+				<p>Our group agreed that captioning within VR must encompass all sounds and speech so that any deaf or hard of hearing user can perceive, understand, and fully participate in the experience to the same extent as everyone else. Therefore, the captioning must include localized speech from an identified speaker (human or otherwise) and non-localized speech, i.e. “Voice of God” audio content. Captioning must include all <a href="https://dl.acm.org/doi/abs/10.1145/3461778.3462106">spatial sounds</a> including inanimate objects sounds (e.g. weapons, appliances), animate objects sounds (e.g. footsteps, animal calls), point ambience sounds (spatialized ambient sounds that are diegetic such as a river near the user), surrounding ambience sounds (diegetic non-spatialized ambient sounds such as a crowd), and music sounds (non-diegetic background music).</p>
+			</section>
+			<section id="speaker-identification"><div class="header-wrapper"><h3 id="x2-2-speaker-identification"><bdi class="secno">2.2 </bdi>Speaker Identification</h3><a class="self-link" href="#speaker-identification" aria-label="Permalink for Section 2.2"></a></div>
+				
+				<p>In 360 video, the viewer defines their own viewing area and may not be looking at the source of sound(s). It is critical in 360 space to have indicators of speaker identification and/or audio location to help equalize the experiences of all users, regardless of disabilities. One example is to provide a speaker’s identification as text ahead of each caption; users can have the option to only display the speaker identification when the source changes. In the spirit of keeping the experience similar to all users, care must also be taken to avoid caption “spoilers” such as pre-announcing the arrival of a character before they should be known. This may apply to keeping mystery around certain characters if it is appropriate in the storytelling. We noted an example where a character arrived to the film with the label “The Snitch” in the captioning long before that information was revealed to other viewers.</p>
+			</section>
+			<section id="immersivebill"><div class="header-wrapper"><h3 id="x2-3-immersivebill"><bdi class="secno">2.3 </bdi>Immersivebill</h3><a class="self-link" href="#immersivebill" aria-label="Permalink for Section 2.3"></a></div>
+				
+				<p>Identifying speakers is critical, but frequently using additional text in captioning affects the experience in other ways. We propose the ability for users to choose other methods for distinguishing speakers, such as options to use text labels, names, icons, and/or colors to represent each character as shown in figure 1. Note that using color representation is not enough on its own as it requires users to remember the colors and this could also affect usability for someone with color blindness. </p>
+				<figure id="fig-examples-of-speaker-identification-include-name-icon-color">
+					<img alt="" src="images/image1.png" title="">
+					<img alt="" src="images/image5.png" title="">
+					<img alt="" src="images/image4.png" title="">
+					<figcaption><a class="self-link" href="#fig-examples-of-speaker-identification-include-name-icon-color">Figure <bdi class="figno">1</bdi></a> <span class="fig-title">Examples of speaker Identification, include name, icon, color.</span></figcaption>
+				</figure>
+				<p>Our prototype presents these options prior to playing the video. Our group calls this the Immersivebill feature. Inspired by Playbill’s Cast List, this feature shows pictures of the characters (speakers) before the start of the 360 video. By default, each character in the 360 video has a text color assigned to them. If a viewer wants to assign certain colors to characters or background sounds, they can customize their preferences. Users can also customize the speaker ID to represent characters by text or image. See figure 2 for a sample of the Immersivebill from our working prototype. (W. Dannels, personal communication, coined the term “immersivebill” on April 1, 2021.)</p>
+				<figure id="fig-list-of-where-the-audio-comes-from-preview-captions-and-selected-colors">
+					<img alt="" src="images/image2.png" title="">
+					<figcaption><a class="self-link" href="#fig-list-of-where-the-audio-comes-from-preview-captions-and-selected-colors">Figure <bdi class="figno">2</bdi></a> <span class="fig-title">List of where the audio comes from, preview captions and selected colors.</span></figcaption>
+				</figure>
+			</section>
+			<section id="additional-audio-source-identification"><div class="header-wrapper"><h3 id="x2-4-additional-audio-source-identification"><bdi class="secno">2.4 </bdi>Additional Audio Source Identification</h3><a class="self-link" href="#additional-audio-source-identification" aria-label="Permalink for Section 2.4"></a></div>
+				
+				<p>Identifying the source and location of audio besides speakers is critical to equalizing the experience for all content viewers. To assist in communicating where specific audio is coming from, one solution could be guide arrows. These helpful indicators should point towards the location of the audio, speaking character, or object. For consideration, different arrows could be used to identify different characters or sound sources, and the size and location of the arrow could be used to indicate the relative distance to the source. Content creators should consider the relative prominence of specific audio in their assistive design to ensure these visuals do not overwhelm the primary content. The key here is that the solution must provide visualization to indicate and locate sound coming from anywhere rather than just those in the user’s current field of view. Covered spatial sounds should be enabled by default with an option to disable.</p>
+			</section>
+			<section id="interactive-captions-and-transcript-view"><div class="header-wrapper"><h3 id="x2-5-interactive-captions-and-transcript-view"><bdi class="secno">2.5 </bdi>Interactive Captions and Transcript View</h3><a class="self-link" href="#interactive-captions-and-transcript-view" aria-label="Permalink for Section 2.5"></a></div>
+				
+				<p>Our group proposes that users have options for different captioning modes that we refer to as interactive captions (IC) and transcript view. IC, as shown in figure 3, provides a few seconds of captioned conversation that can be used as dialogue-based navigation. The user can seek backwards and forwards by caption rather than by time. Although this is not in our “critical” selections, we find that interactive captions provide an aspirational framework for truly innovative captioning. </p>
+				<p>The interactive caption feature is an intermediate between captions and full transcripts. The goal of using interactive captioning is to give the user an option to follow the conversation in a way that is less rushed because captions generally only stay on the screen for 1-2 seconds. While having full transcripts is very useful for users such as deafblind users, it is too long to display on screen for all platforms and lacks the ability to communicate spatial sound information. </p>
+				<p>Interactive captions can be enabled when a user wants to follow the conversation in more than one line of caption at a time. If a user chooses to preview 3-7 lines of captions at once, this makes it possible for each line to clearly demonstrate the unique speaker ID, speaker caption color, and the relative location of the speaker with the use of triangles pointing toward the person saying the line or other indicators. One interesting discovery was that slowing down playback makes it easier to follow captions. Currently our recommended playback speed is 75%, but a user could adjust the speed according to their needs.</p>
+			</section>
+			<section id="seek-by-captions"><div class="header-wrapper"><h3 id="x2-6-seek-by-captions"><bdi class="secno">2.6 </bdi>Seek-by Captions</h3><a class="self-link" href="#seek-by-captions" aria-label="Permalink for Section 2.6"></a></div>
+				
+				<p>A seek-by captions feature, as shown in figure 4, allows users to click on a caption to jump to the time in video or media where that specific caption occurred. Since viewers pay attention to what is said rather than time in video when that said line occurred, this feature makes it easier to find a specific part of the video. One can use the next/previous caption buttons to move between captions. Combined with interactive captions, this one-click navigation method allows users to more easily get to the section of media they wish to access. (Credit to Chris Hughes.)</p>
+				<figure id="fig-a-sample-image-of-interactive-captions">
+					<img alt="" src="images/image3.png" title="">
+					<figcaption><a class="self-link" href="#fig-a-sample-image-of-interactive-captions">Figure <bdi class="figno">3</bdi></a> <span class="fig-title">A sample image of interactive captions</span></figcaption>
+				</figure>
+				<p>2. W. Dannels (personal communication) recommended to reduce playback rate to either .50 or .75 on April 1, 2021.</p>
+				<figure id="fig-a-sample-image-of-seek-by-captions-to-navigate-content">
+					<img alt="" src="images/image6.png" title="">
+					<figcaption><a class="self-link" href="#fig-a-sample-image-of-seek-by-captions-to-navigate-content">Figure <bdi class="figno">4</bdi></a> <span class="fig-title">A sample image of seek-by captions to navigate content</span></figcaption>
+				</figure>
+				<p>In contrast, the transcript view is a scrollable view of the entire dialogue and key sounds during the entire pre-recorded media session. It is not our intention to replace transcripts. Transcripts are useful for consuming the content via other technologies like Braille displays for deafblind users and screen readers for people with low vision. The transcript should always be available separately to aid in integration with a braille display, but may also be integrated in the UI of the video. The transcript must be well-formatted with clear speaker identification and broken into reasonable-sized paragraphs. The transcript view could be modified for interactivity on its own, yet the interface must allow for easy activation of the controls and settings.</p>
+			</section>
+			<section id="headlocked-and-non-headlocked-options"><div class="header-wrapper"><h3 id="x2-7-headlocked-and-non-headlocked-options"><bdi class="secno">2.7 </bdi>Headlocked and Non-Headlocked Options</h3><a class="self-link" href="#headlocked-and-non-headlocked-options" aria-label="Permalink for Section 2.7"></a></div>
+				
+				<div class="note" id="issue-container-generatedID"><div role="heading" class="ednote-title marker" id="h-ednote" aria-level="4"><span>Editor's note</span></div><p class="">Think there needs to be a definition and explanation of headlocked and non-headlocked captions. And how is it different from "anchoring" -- next paragraph (2.8).</p></div>
+				<p>In terms of the visual display, our group generally preferred for the captions to persist within the user’s field of view (FOV), which allows the deaf or hard of hearing user to understand via captioning while being able to look around. However, the user needs to have the ability to customize captions and adjust them for personal needs without complex barriers to configure those choices. It is also preferable to limit the visual movement of the captions.</p>
+				<p>There is no “right” answer for how captions should be presented in immersive video experiences. Platform and experience designers should allow for maximum flexibility. In our group, some people liked having the captions headlocked, while others liked having them anchored so they knew where to look or so they could avoid physical discomfort (see section on vestibular disorders). Thus, the optimal design allowed options for the user to customize.</p>
+			</section>
+			<section id="captions-anchoring"><div class="header-wrapper"><h3 id="x2-8-captions-anchoring"><bdi class="secno">2.8 </bdi>Captions Anchoring</h3><a class="self-link" href="#captions-anchoring" aria-label="Permalink for Section 2.8"></a></div>
+				
+				<p>We experimented with a captions-anchoring feature that displayed captions next to their speaker and followed the speaker throughout the video. While adding too many moving components to a media could be overwhelming, some in our group wanted an option to “anchor” captions to the speaker rather than moving the caption with the user’s field of view. The practicality of this feature could vary depending on the type of content and the amount of motion. It’s also worth noting that most existing captioning formats do not support the type of metadata needed to include location information for captions. Still, this is an interesting opportunity to innovate existing captioning formats and add important metadata such as coordinates of characters to be able to anchor captions in immersive videos. This work could lead to other non-caption related features we haven’t even considered. (Credit to ImAc)</p>
+			</section>
+			<section id="usability-and-user-interface"><div class="header-wrapper"><h3 id="x2-9-usability-and-user-interface"><bdi class="secno">2.9 </bdi>Usability and User Interface</h3><a class="self-link" href="#usability-and-user-interface" aria-label="Permalink for Section 2.9"></a></div>
+				
+				<p>The user interface (UI) must allow for easy activation of each of the controls and settings, such as the ability to enable and disable both the captions and interactive captions mode. It must also provide customization for the UI including font, color, and playback speed (1.0x, 0.75x, and 0.5x). The UI for immersive captions (IC) should also have customization options for speaker identification such as through the use of text, icons, or colors.</p>
+				<p>Key recommendations also include further customization for appearance (font, color, size, background, etc.), number of lines, and length of display time (time to live - TTL), which can be set to the caption end time, a fixed time, or a fixed extension time. This can also be managed through the option to set a number of captions which can remain on the screen at one time, with the oldest only being removed once the maximum number has been exceeded. There should also be an option for a pan and scan mode, but this mode should have the option to be disabled by users who may have motion sickness.</p>
+				<p>As with any long list of options, there should be easy methods for users to set their choices. There should be logical and intuitive groupings of features that belong together so it’s easy to choose. A user experience professional could assist in these design considerations. Accessibility features should not be difficult to locate or adjust.</p>
+			</section>
+			<section id="caption-display-and-formatting"><div class="header-wrapper"><h3 id="x2-10-caption-display-and-formatting"><bdi class="secno">2.10 </bdi>Caption Display and Formatting</h3><a class="self-link" href="#caption-display-and-formatting" aria-label="Permalink for Section 2.10"></a></div>
+				
+				<p>Captions should always comply with the guidelines for the specific display type (e.g. TV, HMD). With respect to latency, it is critical that each segment of caption starts no more than 70ms from the start of the dialogue segment. The appearance of the captions should follow the regulations of the Federal Communications Commission (<a href="https://www.fcc.gov/general/closed-captioning-video-programming-television">FCC</a>) which require appropriate usage of background and foreground color, text size, and positioning. </p>
+				<p>Content creators may wish to consider that reading captions when there are multiple speakers can be very challenging for caption readers because speakers can rapidly take turns in any order. This is especially true in immersive video, where the viewer has full control of their FOV but may not know where to focus their attention. The caption reader is usually focused on reading the captions and cannot anticipate who will speak next. As a result, the reader usually looks back and forth between captions and the speakers, and they become tired or distracted. Additionally, readers can feel left out of the conversation.</p>
+			</section>
+		</section>
+		<section id="physical-considerations"><div class="header-wrapper"><h2 id="x3-physical-considerations"><bdi class="secno">3. </bdi>Physical Considerations</h2><a class="self-link" href="#physical-considerations" aria-label="Permalink for Section 3."></a></div>
+			
+			<section id="vestibular-disorders"><div class="header-wrapper"><h3 id="x3-1-vestibular-disorders"><bdi class="secno">3.1 </bdi>Vestibular Disorders</h3><a class="self-link" href="#vestibular-disorders" aria-label="Permalink for Section 3.1"></a></div>
+				
+				<p>Immersive experiences can be challenging for those with vestibular disorders, and the additional movement of captions, including headlocked captions, can be difficult for some users. One study has found an estimated <a href="https://hearingreview.com/hearing-loss/patient-care/pediatric-care/update-2015-pediatric-vestibular-balance-hearing-disorders">70 percent of deaf and hard of hearing children</a> with sensorineural hearing loss have a vestibular disorder. Vestibular disorders affect many people, not just those who are deaf or hard of hearing. The Vestibular Disorders Association says more than <a href="https://vestibular.org/article/what-is-vestibular/about-vestibular-disorders/">35 percent of US adults aged 40</a> and older experience vestibular dysfunction at some point in their lives. It’s always a better user experience to let viewers have control over any motion.</p>
+			</section>
+			<section id="mental-processing"><div class="header-wrapper"><h3 id="x3-2-mental-processing"><bdi class="secno">3.2 </bdi>Mental Processing</h3><a class="self-link" href="#mental-processing" aria-label="Permalink for Section 3.2"></a></div>
+				
+				<p>Meaningful understanding of audiovisual information requires mental processing for both aural and visual information and for understanding connections between them. Deaf and hard of hearing viewers often have to choose between watching visuals or aural-to-visual translation — the captions. Regardless of the choice, some information may be lost. They rarely have enough time to perceive and understand both visuals. Consequently, information needs to be presented in a way that gives sufficient time to process both effectively. In addition, viewers often encounter visual noise, such as line of sight interference, obstruction, or poor lighting. Visual noise tends to be a mere annoyance for hearing users, but it can significantly interfere with visual access for deaf and hard of hearing users.</p>
+				<p>Reading captions when there are multiple speakers can be very challenging for caption readers because speakers can rapidly take turns in any order. This is especially true in immersive video, where the viewer has full control of their FOV but may not know where to focus their attention. The caption reader is usually focused on reading the captions and cannot anticipate who will speak next. As a result, the reader usually looks back and forth between captions and the speakers, and they become tired or distracted. Additionally, readers can feel left out of the conversation.</p>
+				<p>While the traditional method of inserting the speaker’s name in captions for speaker identification has been shown to be useful for viewers who are hard of hearing, studies have also found that viewers who were deaf did not view it as useful. One reason why deaf viewers may not view traditional captions as useful is that captions that stay in one location do not show the location of the speaker. Furthermore, if the speaker moves around, this creates distance between the visual information and captions, which forces the viewer to move his/her eyes or head constantly. As a result, the student will focus only on the captions or visuals to his/her detriment.</p>
+				<p>Viewers often use captions to confirm or correct what they heard because they can review spoken information by reviewing captions that are displayed for several seconds. Generally, they prefer to have several lines of captions. On the other hand, viewers who do not listen to speech prefer to have 2-3 lines of text to minimize scanning time for words as they read.</p>
+			</section>
+		</section>
+		<section id="where-we-are-going"><div class="header-wrapper"><h2 id="x4-where-we-are-going"><bdi class="secno">4. </bdi>Where We Are Going</h2><a class="self-link" href="#where-we-are-going" aria-label="Permalink for Section 4."></a></div>
+			
+			<p>The features discussed in this paper are a small portion of the ideas that were discussed to address the many issues that arise from adding immersive captions to 360 media. Before we can find solutions to unexplored issues, we need to share our findings with other groups and get input from other W3C groups who were involved in producing this report.</p>
+			<p>As we continue our research, there are questions that we were unable to answer. This technology is new and we will continue to learn. Here are some of the questions that need to be answered before wide adoption is possible. There is a logical order of operations for the work to be done.</p>
+			<p>Regarding the technology, there are questions about the base spec for making changes. If the goal is to have a consistent interoperability for uses in VR, we would seek for a unified version of the spec so there aren’t the <a href="https://www.rev.com/blog/caption-blog/close-caption-file-format-guide-for-youtube-vimeo-netflix-and-more">myriad of captioning specs</a> that we have to deal with today in 2D video across the internet. Some interesting opportunities could be the files such as SubRip (.srt), Timed Text Markup Language (.ttml), or WebVTT (.vtt). </p>
+			<p>Once we understand the specification, we should settle on the changes themselves. How do we describe the changes when dealing in a 360 environment? Our tool uses latitude/longitude and it works well, but this may not integrate nicely into all of the formats. And of course, as features are developed there will be further changes needed for the spec.</p>
+			<p>Once we have agreed on the spec and how to adapt it, we need to have an authoring environment that supports it. Thanks to the prototyping <a href="https://www.chxr.org/ISdemo2/">tool created by Chris Hughes</a>, we have an excellent place to start. But as anyone who builds prototypes understands, it takes a great deal of effort to go from proof of concept to shipping product. This Community Group seeks for the tool to be open sourced. and we welcome anyone who is willing and able to participate. </p>
+			<p>Similarly, we would like to share our findings with scholarly and academic publishing platforms, as well as technology magazines and publishers to get feedback and create opportunities for research collaborations. We would like to collaborate with our industry partners to explore integrating our features into current VR platforms, devices, and operating systems. This will allow us to fine-tune proposed solutions as well as explore new ideas. </p>
+			<p>Another interesting way of getting user feedback is planning Hackathons based around our findings. During these sprint-like events, experts can explore ways of improving our features and show new ways of using these findings to make 360 media accessible to all. The opportunity to innovate existing captioning formats shines brightly!</p>
+			<p>Surely, the more feedback we get, the more refined our solutions will be. Discussing our findings with partners and other passionate minds will invigorate this opportunity to innovate and close the gap between existing captions and then needs of emerging display technologies. </p>
+		</section>
+		
+		<section class="appendix" id="acknowledgements"><div class="header-wrapper"><h2 id="a-acknowledgements"><bdi class="secno">A. </bdi>Acknowledgements</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix A."></a></div>
+			
+			<section id="credits"><div class="header-wrapper"><h3 id="a-1-credits"><bdi class="secno">A.1 </bdi>Credits</h3><a class="self-link" href="#credits" aria-label="Permalink for Appendix A.1"></a></div>
+				
+				<p>We would like to thank Facebook Technologies, LLC for donating Oculus Go devices to the ICCG participants who did not have a head-mounted VR display. This gave the ICCG a common platform for prototyping and experimentation. </p>
+				<p>We would also like to thank Chris Hughes, University of Salford, for building <a href="https://www.chxr.org/immersive_subs2_5/?pn=Barbershop">an immersive captions prototyping tool</a> to support the ICCG’s exploration of immersive captioning approaches, formats and styles. </p>
+				<p>Finally, we would like to thank DSPA (Deaf Services of Palo Alto) for providing the ASL interpreters, and for Google for paying for their services every meeting. We also want to thank the talented interpreters themselves, who have been critical for our work.</p>
+				<ul>
+					<li>Leah Bartell</li>
+					<li>Peter Bolesh</li>
+					<li>Lisa Kalsbeek</li>
+					<li>Debra Kajiyama</li>
+				</ul>
+			</section>
+			<section id="iccg-contributors"><div class="header-wrapper"><h3 id="a-2-iccg-contributors"><bdi class="secno">A.2 </bdi>ICCG contributors</h3><a class="self-link" href="#iccg-contributors" aria-label="Permalink for Appendix A.2"></a></div>
+				
+				<p>Chair: Christopher Patnoe, Google LLC</p>
+				<p>Contributing participants:</p>
+				<ul>
+					<li>Bill Curtis-Davidson, Partnership on Employment &amp; Accessible Technology (Cadmus Group)</li>
+					<li>Brenden Gilbert, Meta</li>
+					<li>Chris Hainsworth, Blind Burners</li>
+					<li>Chris Hughes, University of Salford</li>
+					<li>Delbert Whetter, Exodus Film Group</li>
+					<li>Dylan Fox, XR Access</li>
+					<li>Frances Baum</li>
+					<li>George Karalis, Strivr</li>
+					<li>Hannah Barrett</li>
+					<li>Hazal (H) Uzunkaya, Brandeis University</li>
+					<li>Howard A. Rosenblum, National Association of the Deaf</li>
+					<li>Ian Hamilton</li>
+					<li>Johan Verstraete</li>
+					<li>Judy Brewer, W3C</li>
+					<li>Ken Harrenstien, Google LLC</li>
+					<li>Larry Goldberg, Yahoo Inc.</li>
+					<li>Lonnie Ko, Meta Platforms, Inc. (formerly Facebook Technologies, LLC)</li>
+					<li>Matthew Johnston, Thoughtworks LTD</li>
+					<li>Meryl K. Evans</li>
+					<li>Myles de Bastion</li>
+					<li>Raja Kushalnagar, Gallaudet University</li>
+					<li>Samir Jain</li>
+					<li>Wendy Dannels, Rochester Institute of Technology/National Technical Institute for the Deaf</li>
+				</ul>
+			</section>
+		</section>
+	
+
+<p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
