@@ -1,0 +1,1375 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.1.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+
+
+<title>ODRL V2.2 Profile Best Practices</title>
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/2016/base.css">
+
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="color-scheme" content="light">
+<meta name="description" content="This document presents good practices in developing, defining and
+    making public an ODRL V2.2 Profile.">
+<link rel="canonical" href="https://www.w3.org/community/reports/odrl/profile-bp/">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-FINAL",
+  "publishDate": "2024-08-08",
+  "shortName": "profile-bp",
+  "editors": [
+    {
+      "name": "Michael Steidl,",
+      "url": "https://uk.linkedin.com/in/michaelwsteidl",
+      "company": "NewsIT",
+      "companyURL": "https://newsit.biz"
+    }
+  ],
+  "group": "odrl",
+  "wgPublicList": "public-odrl",
+  "inlineCSS": true,
+  "noIDLIn": true,
+  "noLegacyStyle": false,
+  "noRecTrack": true,
+  "lint": true,
+  "github": {
+    "repoURL": "https://github.com/w3c/odrl/",
+    "branch": "master"
+  },
+  "publishISODate": "2024-08-08T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 08 August 2024"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+<body class="h-entry"><div class="head">
+    
+    <h1 id="title" class="title">ODRL V2.2 Profile Best Practices</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2024-08-08">08 August 2024</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/odrl/CG-FINAL-profile-bp-20240808/">https://www.w3.org/community/reports/odrl/CG-FINAL-profile-bp-20240808/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/community/reports/odrl/profile-bp/">https://www.w3.org/community/reports/odrl/profile-bp/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/odrl/">https://w3c.github.io/odrl/</a></dd>
+      
+      
+      
+      
+      <dt>Editor:</dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://uk.linkedin.com/in/michaelwsteidl">Michael Steidl,</a> (<a class="p-org org h-org" href="https://newsit.biz">NewsIT</a>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/odrl/">GitHub w3c/odrl</a>
+        (<a href="https://github.com/w3c/odrl/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/odrl/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/odrl/issues/">open issues</a>)
+      </dd><dd><a href="mailto:public-odrl@w3.org?subject=%5Bprofile-bp%5D%20YOUR%20TOPIC%20HERE">public-odrl@w3.org</a> with subject line <kbd>[profile-bp] <em>… message topic …</em></kbd> (<a rel="discussion" href="https://lists.w3.org/Archives/Public/public-odrl">archives</a>)</dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2024
+          
+          the Contributors to the ODRL V2.2 Profile Best Practices
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/odrl">ODRL Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+<section id="abstract" class="introductory"><h2>Abstract</h2>
+  <p>This document presents good practices in developing, defining and
+    making public an ODRL V2.2 Profile.</p>
+</section>
+<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/odrl">ODRL Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p> <p>
+    <a href="https://github.com/w3c/odrl/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    Alternatively, you can send comments to our mailing list.
+          Please send them to
+          <a href="mailto:public-odrl@w3.org">public-odrl@w3.org</a>
+          (<a href="mailto:public-odrl-request@w3.org?subject=subscribe">subscribe</a>,
+          <a href="https://lists.w3.org/Archives/Public/public-odrl/">archives</a>).
+        
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#intro"><bdi class="secno">2. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#usedids"><bdi class="secno">3. </bdi>Identifiers and Annotations used in Examples</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#namespaces"><bdi class="secno">3.1 </bdi>Namespaces:</a></li><li class="tocline"><a class="tocxref" href="#profile-identifiers"><bdi class="secno">3.2 </bdi>Profile Identifiers:</a></li><li class="tocline"><a class="tocxref" href="#annotations"><bdi class="secno">3.3 </bdi> Annotations:</a></li></ol></li><li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">4. </bdi>What an ODRL Profile can define</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#action"><bdi class="secno">4.1 </bdi>Additional Actions for Rules</a></li><li class="tocline"><a class="tocxref" href="#leftoperand"><bdi class="secno">4.2 </bdi>Additional Constraint Left Operands</a></li><li class="tocline"><a class="tocxref" href="#operator"><bdi class="secno">4.3 </bdi>Additional Constraint Operators</a></li><li class="tocline"><a class="tocxref" href="#partyfunct"><bdi class="secno">4.4 </bdi>Additional Party Functions</a></li><li class="tocline"><a class="tocxref" href="#assetrel"><bdi class="secno">4.5 </bdi>Additional Asset Relationships</a></li><li class="tocline"><a class="tocxref" href="#rightoperand"><bdi class="secno">4.6 </bdi>Additional Constraint Right Operands</a></li><li class="tocline"><a class="tocxref" href="#logicalconstraintoperands"><bdi class="secno">4.7 </bdi>Additional Logical Constraints operands</a></li><li class="tocline"><a class="tocxref" href="#conflictstrategy"><bdi class="secno">4.8 </bdi>Additional Policy Conflict Strategy Preferences</a></li><li class="tocline"><a class="tocxref" href="#rule"><bdi class="secno">4.9 </bdi>Additional Rule Subclasses</a></li><li class="tocline"><a class="tocxref" href="#policy"><bdi class="secno">4.10 </bdi>Additional Policy Subclasses</a></li><li class="tocline"><a class="tocxref" href="#constraints"><bdi class="secno">4.11 </bdi>Additional Constraint Subclasses</a></li><li class="tocline"><a class="tocxref" href="#multihowto"><bdi class="secno">4.12 </bdi>How to use multiple Profiles in a single Policy</a></li></ol></li><li class="tocline"><a class="tocxref" href="#outofscope"><bdi class="secno">5. </bdi>What the Core Profile does not define</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#oos1"><bdi class="secno">5.1 </bdi>What may be ignored, and what not</a></li></ol></li><li class="tocline"><a class="tocxref" href="#prerequ"><bdi class="secno">6. </bdi>Prerequisites for defining an ODRL Profile</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#guid"><bdi class="secno">6.1 </bdi>A globally unique identifier of the Profile</a></li><li class="tocline"><a class="tocxref" href="#webresource"><bdi class="secno">6.2 </bdi>The Profile as a stable web resource</a></li><li class="tocline"><a class="tocxref" href="#addlspecs"><bdi class="secno">6.3 </bdi>Generating additional specifications of this Profile</a></li></ol></li><li class="tocline"><a class="tocxref" href="#profdef"><bdi class="secno">7. </bdi>Resources defining an ODRL Profile</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#humanreadable"><bdi class="secno">7.1 </bdi>Human-readable specification</a></li><li class="tocline"><a class="tocxref" href="#owlontology"><bdi class="secno">7.2 </bdi>OWL Ontology</a></li><li class="tocline"><a class="tocxref" href="#profilevocab"><bdi class="secno">7.3 </bdi>W3C Profile Vocabulary</a></li><li class="tocline"><a class="tocxref" href="#jsonld"><bdi class="secno">7.4 </bdi>JSON-LD context document </a></li></ol></li><li class="tocline"><a class="tocxref" href="#pubavail"><bdi class="secno">8. </bdi>Making an ODRL Profile publicly available</a></li><li class="tocline"><a class="tocxref" href="#regodrlcg"><bdi class="secno">9. </bdi>Registering a profile with the ODRL Community Group</a></li><li class="tocline"><a class="tocxref" href="#inforeferences"><bdi class="secno">10. </bdi>Informative references</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+<section id="conformance"><div class="header-wrapper"><h2 id="x1-conformance"><bdi class="secno">1. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 1."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, and <em class="rfc2119">MUST NOT</em> in this document
+        are to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+        when, and only when, they appear in all capitals, as shown here.
+      </p> </section>
+<section id="intro"><div class="header-wrapper"><h2 id="x2-introduction"><bdi class="secno">2. </bdi>Introduction</h2><a class="self-link" href="#intro" aria-label="Permalink for Section 2."></a></div>
+  
+  
+  <p>The Open Digital Rights Language (ODRL) 2.2 defines an <a href="https://www.w3.org/TR/odrl-model">Information Model</a> for expressing policies which requires classes and concepts
+    for its assertions. A basic set of classes and concepts is defined by the <a href="https://www.w3.org/TR/odrl-vocab/#vocab-core">ODRL Core Vocabulary</a> and the information model permits users of ODRL to define their own subclasses and concepts for a specific use.</p>
+  <p>Specific sets of classes and concepts are named as ODRL Profile and a <a href="https://www.w3.org/TR/odrl-model/#profile">full chapter</a> of
+    the information model recommendation covers its purpose, required conformance
+    and a mechanism for creating new ones.</p>
+  <p>This document walks users through the ODRL Profile chapter, explains
+    how to implement a Profile and provides some examples.&nbsp; A user planning
+    to create an ODRL Profile should start with reading the section about
+    the <a href="https://www.w3.org/TR/odrl-model/#profile-motivation">purpose
+    of an ODRL Profile</a>.</p>
+</section>
+<section id="usedids"><div class="header-wrapper"><h2 id="x3-identifiers-and-annotations-used-in-examples"><bdi class="secno">3. </bdi>Identifiers and Annotations used in Examples</h2><a class="self-link" href="#usedids" aria-label="Permalink for Section 3."></a></div>
+    
+    <p>This section lists namespaces, other identifiers and  annotations used in examples of the following chapters.</p>
+    <section id="namespaces"><div class="header-wrapper"><h3 id="x3-1-namespaces"><bdi class="secno">3.1 </bdi>Namespaces:</h3><a class="self-link" href="#namespaces" aria-label="Permalink for Section 3.1"></a></div>
+    <table class="">
+        <tbody>
+          <tr>
+            <th>Prefix</th>
+            <th>Namespace</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>:</td>
+            <td>http://www.w3.org/ns/odrl/2/</td>
+            <td>ODRL Vocabulary (default namespace)</td>
+          </tr>
+          <tr>
+            <td>odrl</td>
+            <td>http://www.w3.org/ns/odrl/2/</td>
+            <td>ODRL Vocabulary</td>
+          </tr>
+          <tr>
+            <td>exns1</td>
+            <td>https://example.com/ns/ex1/</td>
+            <td>Used by Example Profile 1</td>
+          </tr>
+          <tr>
+            <td>exns2</td>
+            <td>https://example.com/ns/ex2/</td>
+            <td>Used by Example Profile 2</td>
+          </tr>
+          <tr>
+            <td>rdf</td>
+            <td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td>
+            <td>Resource Description Framework (RDF) </td>
+          </tr>
+          <tr>
+            <td>rdfs</td>
+            <td>http://www.w3.org/2000/01/rdf-schema#</td>
+            <td>RDF Schema</td>
+          </tr>
+          <tr>
+            <td>owl</td>
+            <td>http://www.w3.org/2002/07/owl#</td>
+            <td>OWL</td>
+          </tr>
+          <tr>
+            <td>skos</td>
+            <td>http://www.w3.org/2004/02/skos/core#</td>
+            <td>SKOS</td>
+          </tr>
+          <tr>
+            <td>dcterms</td>
+            <td>http://purl.org/dc/terms/</td>
+            <td>Dublin Core Terms</td>
+          </tr>
+      </tbody>
+    </table>
+    </section><section id="profile-identifiers"><div class="header-wrapper"><h3 id="x3-2-profile-identifiers"><bdi class="secno">3.2 </bdi>Profile Identifiers:</h3><a class="self-link" href="#profile-identifiers" aria-label="Permalink for Section 3.2"></a></div>
+    <table class="">
+        <tbody>
+          <tr>
+            <th>Prefix</th>
+            <th>Identifier</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>expf1</td>
+            <td>https://example.com/odrlprofile/ex1</td>
+            <td>Example Profile 1</td>
+          </tr>
+          <tr>
+            <td>expf2</td>
+            <td>https://example.org/odrlprofile/ex2</td>
+            <td>Example Profile 2</td>
+          </tr>
+        </tbody>
+    </table>
+  </section><section id="annotations"><div class="header-wrapper"><h3 id="x3-3-annotations"><bdi class="secno">3.3 </bdi> Annotations:</h3><a class="self-link" href="#annotations" aria-label="Permalink for Section 3.3"></a></div>
+      <ul>
+        <li>In the header of an example, indicating the used syntax
+          <ul>
+            <li>TTL = the RDF syntax Turtle is used</li>
+            <li>JSON-LD = the RDF syntax JSON-LD 1.0 is used</li>
+          </ul>
+        </li>
+      </ul>
+
+</section></section>
+<section id="scope"><div class="header-wrapper"><h2 id="x4-what-an-odrl-profile-can-define"><bdi class="secno">4. </bdi>What an ODRL Profile can define</h2><a class="self-link" href="#scope" aria-label="Permalink for Section 4."></a></div>
+  
+  <p>This section walks through the <a href="https://www.w3.org/TR/odrl-model/#profile-mechanism">ODRL
+    Profile Mechanism</a> of the ODRL Information Model. All items below, except the last one, are about adding an ODRL-related specification. Such a specification does not become part of the ODRL 2.2 Recommendation but an ODRL Processor processing ODRL Policies with a specific Profile must be able to understand this Profile's specification.</p>
+  <p>The sequence of additional specifications follows priorities of use expected by the ODRL Community Group.</p>
+  <section id="action"><div class="header-wrapper"><h3 id="x4-1-additional-actions-for-rules"><bdi class="secno">4.1 </bdi>Additional Actions for Rules</h3><a class="self-link" href="#action" aria-label="Permalink for Section 4.1"></a></div>    
+  
+  <p>An instance of ODRL <a href="https://www.w3.org/TR/odrl-vocab/#term-Action">Action </a>is used as value of the mandatory property <code>action </code>of the <a href="https://www.w3.org/TR/odrl-model/#rule">Rule</a> class, and all its subclasses Permission, Prohibition and Duty (and ones defined by a Profile). The
+    Recommendation defines only two instances of Action: <code>use</code>, covering any
+    use of an asset while the ownership of the asset does not change, and <code>transfer</code>,
+    covering the transfer of the ownership of an asset in perpetuity.</p>
+  <p>If these two core Actions are sufficient, a Profile does not need to add
+    more. But in most cases, additional Action instances are required, and the example
+    shows how to add two to the Example Profile 1:</p>
+  <ul>
+    <li><code>digitize </code>is an Action already <a href="https://www.w3.org/TR/odrl-vocab/#term-digitize">defined </a>by the ODRL Common Vocabulary. But this Common Vocabulary is not
+      part of the ODRL Recommendation; therefore, Actions defined by it must
+      be adopted by the Example Profile 1. <br>
+      Note: an Action defined by the ODRL Common Vocabulary does not have to be included into the specification of a Profile, it is only required to express that it is included into the Profile. Find more about that in 
+    Resources defining an ODRL Profile.</li>
+    <li><code>changecolours </code>is an Action defined for and by this
+      Example Profile 1</li>
+  </ul>
+  <div class="example">
+    <div class="example-title marker"><span>Example 1 (TTL)</span></div>
+    <pre id="exaction1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">odrl:digitize
+  a :Action, skos:Concept ;
+  rdfs:isDefinedBy odrl: ;
+  rdfs:label "Digitize"@en ;
+  :includedIn odrl:use ;
+  skos:definition "To produce a digital copy of (or otherwise digitize) the Asset from its analogue form."@en ;
+  skos:scopeNote "Non-Normative"@en .
+
+exns1:changecolours
+  a :Action, skos:Concept ;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:label "Change Colours"@en ;
+  :includedIn odrl:use ;
+  skos:definition "For using a graphics asset its colours are changed."@en .</code></pre>
+  </div> 
+  </section>
+  <section id="leftoperand"><div class="header-wrapper"><h3 id="x4-2-additional-constraint-left-operands"><bdi class="secno">4.2 </bdi>Additional Constraint Left Operands</h3><a class="self-link" href="#leftoperand" aria-label="Permalink for Section 4.2"></a></div>            
+  
+  <p>An ODRL <a href="https://www.w3.org/TR/odrl-model/#constraint-class">Constraint </a>is a class for applying a constraint to a Rule. One of its
+    mandatory properties is <code>leftOperand</code> and instances of <a href="https://www.w3.org/TR/odrl-vocab/#term-LeftOperand">Left
+    Operand</a> are used as values of this property, the Recommendation does not define any instances.</p>
+  <p>If any Constraint will be used for a Policy using a specific Profile, at
+    least one Left Operand must be defined for the mandatory leftOperand
+    property. The example shows how to define two for the Example Profile 1:</p>
+  <ul>
+    <li><code>elapsedTime </code>is a LeftOperand already <a href="https://www.w3.org/TR/odrl-vocab/#term-elapsedTime">defined </a>by the ODRL Common Vocabulary. But this Common Vocabulary is not
+      part of the ODRL Recommendation; therefore, LeftOperands defined by it
+      must be adopted by the Example Profile 1<br>
+      Note: a LeftOperand defined by the ODRL Common Vocabulary does not have to be included into the specification of a Profile, it is only required to express that it is included into the Profile. Find more about that in 
+    Resources defining an ODRL Profile.    </li>
+    <li><code>aggregatedTime </code>is a LeftOperand defined by the Example
+      Profile 1</li>
+  </ul>
+  <div class="example">
+    <div class="example-title marker"><span>Example 2 (TTL)</span></div>
+    <pre id="exleftop1" class="hljs" aria-busy="false" aria-live="polite">odrl:elapsedTime
+  a :LeftOperand, owl:NamedIndividual, skos:Concept ;
+  rdfs:isDefinedBy odrl: ;
+  rdfs:label "Elapsed Time"@en ;
+  skos:definition "A continuous elapsed time period which may be used for exercising of the action of the Rule. Right operand value MUST be an xsd:duration as defined by [[xmlschema11-2]]."@en ;
+  skos:note "Only the eq, lt, lteq operators SHOULD be used. See also Metered Time. Example: <code aria-busy="false" class="hljs">elpasedTime eq P60M</code> indicates a total elapsed time of 60 Minutes." ;
+  skos:scopeNote "Non-Normative"@en .
+
+exns1:aggregatedTime
+  a :LeftOperand, owl:NamedIndividual, skos:Concept ;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:label "Aggregated Time"@en ;
+  skos:definition "A aggregation of elapsed time periods which may be used for exercising of the action of the Rule. Right operand value MUST be an xsd:duration as defined by [[xmlschema11-2]]."@en ;
+  skos:note "Only the eq, lt, lteq operators SHOULD be used. See also Metered Time. Example: <code aria-busy="false" class="hljs">aggregatedTime eq P800M</code> indicates aggregated elapsed time of 800 Minutes." .</pre>
+  </div>
+  </section>
+  <section id="operator"><div class="header-wrapper"><h3 id="x4-3-additional-constraint-operators"><bdi class="secno">4.3 </bdi>Additional Constraint Operators</h3><a class="self-link" href="#operator" aria-label="Permalink for Section 4.3"></a></div>      
+  
+  <p>An ODRL <a href="https://www.w3.org/TR/odrl-model/#constraint-class">Constraint </a>is a class for applying a constraint to a Rule. One of its
+  mandatory properties is <code>operator</code> and instances of <a href="https://www.w3.org/TR/odrl-vocab/#term-Operator">Operator</a> are used as values of this property, the Recommendation <a href="https://www.w3.org/TR/odrl-vocab/#constraintRelationalOperators">defines</a> 12 instances.</p>
+  <p>The example show how to define an Operator instance for Example Profile 1</p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 3 (TTL)</span></div>
+    <pre id="exconstropor1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:doubleof
+	a :Operator, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy expf1: ;
+	skos:definition "Indicating that a given value is the double of the right operand of the Constraint."@en ;
+	rdfs:label "Double of"@en .</code></pre>
+  </div>
+  </section>
+  <section id="partyfunct"><div class="header-wrapper"><h3 id="x4-4-additional-party-functions"><bdi class="secno">4.4 </bdi>Additional Party Functions</h3><a class="self-link" href="#partyfunct" aria-label="Permalink for Section 4.4"></a></div>      
+  
+  <p>An instance of ODRL <a href="https://www.w3.org/TR/odrl-vocab/#partyRoles">Party
+    Function</a> is used as value of the property <code>function </code>of the
+    <a href="https://www.w3.org/TR/odrl-model/#rule">Rule</a> class, the Recommendation defines 14 instances. <code>function</code> sets the
+    relationship between a subclass of a Rule (Permission, Prohibition,
+    Duty, ...) and a Party or a PartyCollection.</p>
+  <p>The example shows how to define the Party Function <code> toBeNotifiedParty </code>for the Example Profile 1, a party which
+    must be notified in the context of executing the action of a Rule. </p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 4 (TTL)</span></div>
+    <pre id="expartyfunctrole1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:toBeNotifiedParty
+  a rdf:Property , owl:ObjectProperty, skos:Concept ;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:subPropertyOf :function ;
+  rdfs:label "To Be Notified Party"@en ;
+  skos:definition "The Party which must be notified."@en;
+  skos:note "May be specified as part an action requiring the notification of a Party."@en .</code></pre>
+  </div>
+  </section>
+  <section id="assetrel"><div class="header-wrapper"><h3 id="x4-5-additional-asset-relationships"><bdi class="secno">4.5 </bdi>Additional Asset Relationships</h3><a class="self-link" href="#assetrel" aria-label="Permalink for Section 4.5"></a></div>          
+  
+  <p>An ODRL Asset Relationship is a relationship between a subclass of a
+    <a href="https://www.w3.org/TR/odrl-model/#rule">Rule</a> (Permission, Prohibition, Duty, ...) and an Asset, the Recommendation <a href="https://www.w3.org/TR/odrl-vocab/#term-relation">defines </a>only <code> target </code> as sub-property of <code>relation</code>.</p>
+  <p>The example shows how to define the asset relationship <code>input </code>for
+    the Example Profile 1, an asset required as input for the action of a
+    Rule.</p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 5 (TTL)</span></div>
+    <pre id="exrelsubpro1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:input
+  a rdf:Property , owl:ObjectProperty, skos:Concept ;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:subPropertyOf :relation ;
+  rdfs:label "Input"@en ;
+  skos:definition "The input property specifies the Asset which is used as input of the Action."@en ;
+  rdfs:domain :Rule ;
+  rdfs:range :Asset.</code></pre>
+  </div>
+  </section>
+  <section id="rightoperand"><div class="header-wrapper"><h3 id="x4-6-additional-constraint-right-operands"><bdi class="secno">4.6 </bdi>Additional Constraint Right Operands</h3><a class="self-link" href="#rightoperand" aria-label="Permalink for Section 4.6"></a></div>      
+  
+  <p>An ODRL <a href="https://www.w3.org/TR/odrl-model/#constraint-class">Constraint </a>is a class for applying a constraint to a Rule. One of its
+    mandatory properties is <code>rightOperand</code> (or its alternative <code>rightOperandReference</code>)
+    and instances of <a href="https://www.w3.org/TR/odrl-vocab/#term-RightOperand">RightOperand </a>are used as value of this property, the Recommendation does not define any. </p>
+  <p>If any Constraint will be used for a Policy using a specific Profile, it
+    may be required to define one or more RightsOperands. The example shows
+    how to define one for the Example Profile 1:</p>
+  <ul>
+    <li><code>policyUsage </code>is a RightOperand already <a href="%C2%B4https://www.w3.org/TR/odrl-vocab/#term-policyUsage">defined </a>by the ODRL Common Vocabulary. But this Common Vocabulary is not
+      part of the ODRL Recommendation; therefore, RightOperands defined by it
+      must be adopted by the Example Profile 1.<br>
+      Note: a Right Operand defined by the ODRL Common Vocabulary does not have to be included into the specification of a Profile, it is only required to express that it is included into the Profile. Find more about that in 
+    Resources defining an ODRL Profile.    </li>
+  </ul>
+  <div class="example">
+    <div class="example-title marker"><span>Example 6 (TTL)</span></div>
+    <pre id="exrightop1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">odrl:policyUsage
+  a :RightOperand, owl:NamedIndividual, skos:Concept ;
+  rdfs:isDefinedBy odrl: ;
+  rdfs:label "Policy Rule Usage"@en ;
+  skos:definition "Indicates the actual datetime the action of the Rule was exercised."@en ;
+  skos:note "This can be used to express constraints with a LeftOperand relative to the time the rule is exercised. Operators indicate before (lt, lteq), during (eq) or after (gt, gteq) the usage of the rule. Example: 'event lt policyUsage' expresses that the identified event must have happened before the action of the rule is exercised."@en ;
+  skos:scopeNote "Non-Normative"@en .</code></pre>
+  </div>
+  </section>
+  <section id="logicalconstraintoperands"><div class="header-wrapper"><h3 id="x4-7-additional-logical-constraints-operands"><bdi class="secno">4.7 </bdi>Additional Logical Constraints operands</h3><a class="self-link" href="#logicalconstraintoperands" aria-label="Permalink for Section 4.7"></a></div>      
+  
+  <p>An ODRL <a href="https://www.w3.org/TR/odrl-model/#constraint-logical">Logical
+    Constraint</a> is a class for applying a constraint to a Rule. One of
+    its properties must be a sub-property of the <a href="https://www.w3.org/TR/odrl-vocab/#term-operand">operand
+    property</a>, the Recommendation <a href="https://www.w3.org/TR/odrl-vocab/#constraintLogicalOperands">defines
+    four</a> of them: or, xone, and, andSequence.</p>
+  <p>For a Logical Constraint with another operand sub-property a new one
+    must be defined by a specific Profile. The example shows how to define
+    one for the Example Profile 1:</p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 7 (TTL)</span></div>
+    <pre id="exlogconstrop1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:xtwo
+  a rdf:Property , owl:ObjectProperty, skos:Concept ;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:subPropertyOf :operand ;
+  skos:definition "The relation is satisfied when only two, and not less or more, of the Constraints is satisfied"@en ;
+  rdfs:label "Exactly Two"@en ;
+  skos:note "This property MUST only be used for Logical Constraints."@en .</code></pre>
+  </div>
+  </section>
+  <section id="conflictstrategy"><div class="header-wrapper"><h3 id="x4-8-additional-policy-conflict-strategy-preferences"><bdi class="secno">4.8 </bdi>Additional Policy Conflict Strategy Preferences</h3><a class="self-link" href="#conflictstrategy" aria-label="Permalink for Section 4.8"></a></div>      
+  
+  <p>An instance of ODRL <a href="https://www.w3.org/TR/odrl-vocab/#term-ConflictTerm">Conflict
+    Strategy Preference</a> is used as value of the property <code>conflict </code>of
+    the Policy class, the Recommendation defines three instances: perm,
+    prohibit and invalid.&nbsp; </p>
+  <p>The example shows how to define the Conflict Strategy Preference <code>ignore </code>for the Example Profile 1 (may not be of real help ...). </p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 8 (TTL)</span></div>
+    <pre id="exconflstragpref1" class="hljs" aria-busy="false"><code class="hljs">exns1:ignore
+  a :ConflictTerm, owl:NamedIndividual, skos:Concept;
+  rdfs:isDefinedBy expf1: ;
+  rdfs:label "Ignore Conflicts"@en ;
+  skos:definition "Ignore conflicts."@en ;
+  skos:note "Used to determine policy conflict outcomes."@en .</code></pre>
+  </div>
+  </section>
+  <section id="rule"><div class="header-wrapper"><h3 id="x4-9-additional-rule-subclasses"><bdi class="secno">4.9 </bdi>Additional Rule Subclasses</h3><a class="self-link" href="#rule" aria-label="Permalink for Section 4.9"></a></div>      
+  
+  <p>The ODRL Information Model Recommendation defines the <a href="https://www.w3.org/TR/odrl-model/#rule">Rule
+    Class</a> and three subclasses of it: the Permission Class, the Prohibition Class and the Duty Class. The ODRL Profile Mechanism permits to create additional subclassesof the Rule Class or of one of these defined subclasses; their definitions must comply with the
+    design of the basic Rule Class. </p>
+  <ul>
+    <li>A Rule <em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have one <code>action</code> property value of type Action.</li>
+    <li>A Rule <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code><em>relation</em></code> sub-property values of type Asset.</li>
+    <li>A Rule <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one or
+      many <code><em>function</em></code> sub-property values of type
+      Party.</li>
+    <li>A Rule <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one or
+      many <code><em>failure</em></code> sub-property values of type Rule.</li>
+    <li>A Rule <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one or
+      many <code>constraint</code> property values of type
+      Constraint/LogicalConstraint.</li>
+    <li>A Rule <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code>uid</code> property values (of type IRI [<cite><a class="bibref" href="https://www.w3.org/TR/odrl-model/#bib-rfc3987">rfc3987</a></cite>])
+      to identify the Rule so it <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be referenced by other Rules.</li>
+  </ul>
+  <p>Defining a subclass of Rule or of Permission or of Prohibition or of Duty allows:</p>
+  <ul>
+    <li>If the cardinality of a property is defined by its superclass as "<em class="rfc2119">MAY</em> have none or one" a "<em class="rfc2119">MUST</em> have one" or a "<em class="rfc2119">MUST NOT</em> have one" can be defined.</li>
+    <li>If the cardinality of a property is defined by its superclass as "<em class="rfc2119">MAY</em> have none, one or many" a "<em class="rfc2119">MUST</em> have one" or a "<em class="rfc2119">MUST NOT</em> have one" or a "<em class="rfc2119">MUST</em> have many" can be defined.</li>
+    <li>One or more additional properties may be defined. For a property its name (identifier), its occurrence and its value type must be defined.</li>
+  </ul>
+  <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><div class="">
+    <p><strong>Design Strategy</strong></p>
+    <p>The ODRL Community Group highly recommends for Profiles to stick to the basic design of Rule subclasses as defined by the ODRL Information Model: the Rule subclasses Permission, Prohibition and Duty cover the key use cases of an ODRL policy and therefore an ODRL Profile should either adopt any of these three classes as they are or define subclasses of the Permission Class, or the Prohibition Class or the Duty Class. Defining a subclass of Rule should be avoided as this may infringe the information model of ODRL. </p>
+    <p><strong>Design Consideration</strong><br>Please check if a rule required by the use case covered by the Profile can be expressed - in this sequence: <br>1) By the Permission, the Prohibition or the Duty class as defined by ODRL Recommendation (this does not need a definition by a Profile)<br>2) By a new subclass of the Permission or Prohibition or Duty class (the new subclass(es) must be defined by the Profile)<br>3) As a last resort: by a subclass of the Rule class as defined by the ODRL Recommendation as none of the items above fits the needs of the use case. (The new subclass(es) of Rule and a new subclass of Policy with a property for each new Rule subclass must be defined by the Profile.)</p>
+    <p><strong>For the definitions of the following Rules below:</strong> it is not required to create a new subclass of Policy. The requirements that the value of a permission property must be of type Permission (or a subclass of it) and that the value of a prohibition property must be of type Prohibition (or a subclass of it) and that the value of an obligation property must be of type Duty (or a subclass of it) is fulfilled. <br>Only the requirement to use one of the properties permission, prohibition or obligation needs to be fulfilled.</p>
+    <p><strong>How To Define a Subclass of the Permission Class</strong></p>
+    <ul>
+      <li>A new subclass of Permission is defined by the Profile ...</li>
+      <li>... this new subclass can be used with the permission property of the Policy class as defined by the ODRL Recommendation</li>
+      <li>The generic rules of the Rule class for the use of properties are refined by specific rules of the Permission Class:
+        <ul>
+          <li>A Permission <em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have one <code>target</code> property value of type Asset. (Other <code><i>relation</i></code> sub-properties <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li>
+          <li>A Permission <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code>assigner</code> and/or <code>assignee</code> property values (of type Party) for functional roles. (Other <code><i>function</i></code> sub-properties  <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li>
+          <li>A Permission <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one, or more <code>duty</code> property values of type Duty.</li>
+      </ul>
+      </li>
+      <li>The ODRL Profile Mechanism requires to define this new (sub-)class as disjoint with the Prohibition and Duty class</li>
+      <li>Example definition:
+        <pre aria-busy="false"><code class="hljs css">ex:myPermission rdfs:subClassOf odrl:Permission ;
+owl:disjointWith odrl:Prohibition, odrl:Duty .</code></pre></li>
+    </ul>
+    <p><strong>How To Define a Subclass of the Prohibition Class</strong> </p>
+    <ul>
+      <li>A new subclass of Prohibition is defined by the Profile ...</li>
+      <li>... this new subclass can be used with the prohibition property of the Policy class as defined by the ODRL Recommendation</li>
+      <li>The generic rules of the Rule class for the use of properties are refined by specific rules of the Prohibition Class:
+        <ul>
+          <li>A Prohibition <em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have one <code>target</code> property value of type Asset. (Other <code><i>relation</i></code> sub-properties <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li>
+           <li>A Prohibition <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code>assigner</code> and/or <code>assignee</code> property values (of type Party) for functional roles. (Other <code><i>function</i></code> sub-properties <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li>	
+           <li>A Prohibition <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one, or more <code>remedy</code> property values of type Duty.</li>
+       </ul>
+      </li>
+      <li>The ODRL Profile Mechanism requires to define this new (sub-)class as disjoint with the Permission and Duty class</li>
+      <li>Example definition:
+        <pre aria-busy="false"><code class="hljs css">ex:myProhibition rdfs:subClassOf odrl:Prohibition ;
+owl:disjointWith odrl:Permission, odrl:Duty .</code></pre></li>
+    </ul>
+    <p><strong>How To Define a Subclass of the Duty Class</strong> </p>
+    <ul>
+      <li>A new subclass of Duty is defined by the Profile ...</li>
+      <li>... this new subclass can be used with the obligation property of the Policy class as defined by the ODRL Recommendation</li>
+      <li>The generic rules of the Rule class for the use of properties are refined by specific rules of the Duty Class:
+        <ul>
+          <li>A Duty <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code>target</code> property values (of type Asset)  to indicate the Asset that is the primary subject to which the Duty directly applies. (Other <code><i>relation</i></code> sub-properties  <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li>
+         <li>A Duty <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none or one <code>assigner</code> and/or <code>assignee</code> property values (of type Party) for functional roles. (Other <code><i>function</i></code> sub-properties <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> be used.)</li> 
+         <li>A Duty <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one or many <code>consequence</code> property values of type Duty only when the Duty is referenced by a Rule with the duty or obligation properties.</li>
+      </ul>
+      </li>
+      <li>The ODRL Profile Mechanism requires to define this new (sub-)class as disjoint with the Permission and Duty class</li>
+      <li>Example definition:
+        <pre aria-busy="false"><code class="hljs css">ex:myDuty rdfs:subClassOf odrl:Duty ;
+owl:disjointWith odrl:Permission, odrl:Prohibition .</code></pre></li>
+    </ul>
+  </div></div>
+  <p>The example shows how to define of a subclass <code>StraightPermission1 </code>for the  Example Profile 1</p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 9 (TTL)</span></div>
+    <pre id="exrulesubcl1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:StraightPermission1
+  a rdfs:Class , owl:Class, skos:Concept ;
+  rdfs:isDefinedBy expf1:
+  rdfs:subClassOf :Permission ;
+  owl:disjointWith :Prohibition, :Duty ;
+  rdfs:label "Straight Permission 1"@en ;
+  skos:definition "A Rule permitting the use of an Asset"@en ;
+  skos:note "A Straight Permission 1 Rule must not contain any property for expressing a duty."@en .</code></pre>
+  </div>
+  </section>
+  <section id="policy"><div class="header-wrapper"><h3 id="x4-10-additional-policy-subclasses"><bdi class="secno">4.10 </bdi>Additional Policy Subclasses</h3><a class="self-link" href="#policy" aria-label="Permalink for Section 4.10"></a></div>      
+  
+  <p>The ODRL Information Model Recommendation defines the <a href="https://www.w3.org/TR/odrl-model/#policy">Policy
+    Class</a> and three subclasses of it: the Set Class, the Offer Class
+    and the Agreement Class. The ODRL Profile Mechanism permits to create
+    additional subclasses; their definitions must comply with the design of the
+    basic Policy Class:</p>
+  <ul>
+    <li>A Policy <em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have one <code>uid</code> property value (of type IRI [<cite><a class="bibref" href="https://www.w3.org/TR/odrl-model/#bib-rfc3987">rfc3987</a></cite>])
+      to identify the Policy. <br>
+      A subclass must adopt this rule.</li>
+    <li>A Policy <em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have at least
+      one <code>permission</code>, <code>prohibition</code>, or <code>obligation</code> property values of type Rule.<br>
+      A subclass can combine any set of one <code>permission</code>, <code>prohibition</code>,
+      or <code>obligation</code> property values as long as this basic rule
+      is satisfied.<br>
+      Examples:</li>
+    <ul>
+      <li>Only <code>permission </code>property values</li>
+      <li>Only <code>permission </code>property values, five as maximum</li>
+      <li>Only <code>permission </code>or <code>prohibition </code>property
+        values</li>
+      <li>Only at least 1 <code>permission </code>and at least 1&nbsp; <code>prohibition </code>property value</li>
+    </ul>
+    <li>A Policy <em class="rfc2119" title="MAY"><em class="rfc2119">MAY</em></em> have none, one,
+      or many <code>profile</code> property values.<br>
+      This is an implicitly met requirement: if a Profile is defined it must
+      be expressed by a <code>profile </code>property values to become
+      effective.</li>
+  </ul>
+  <p>A new Policy subclass must be defined as disjoint with all other Policy
+    subclasses, except the Set subclass.</p>
+  <p>Defining a subclass of Policy allows:</p>
+  <ul>
+    <li>If the cardinality of a property is defined by the Policy class as "<em class="rfc2119">MAY</em> have none or one" a "<em class="rfc2119">MUST</em> have one" or a "<em class="rfc2119">MUST NOT</em> have one" can be defined.</li>
+    <li>If the cardinality of a property is defined by the Policy class as "<em class="rfc2119">MAY</em> have none, one or many" a "<em class="rfc2119">MUST</em> have one" or a "<em class="rfc2119">MUST NOT</em> have one" or a "<em class="rfc2119">MUST</em> have many" can be defined.</li>
+    <li>If the Policy class defines "<em class="rfc2119" title="MUST"><em class="rfc2119">MUST</em></em> have at least
+    one" with a list of properties to select from a restricted set of properties and/or a specific combination of properties can be defined. (See the examples for <code>permission</code>, <code>prohibition</code>, or <code>obligation</code> property values above.)</li>
+    <li>One or more additional properties may be defined. For a property its name (identifier), its occurrence and its value type must be defined.</li>
+  </ul>
+  <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><div class="">
+    Read the note of the <a href="#rule">Additional Rule Subclasses</a> section. It describes in which cases a new subclass of Policy is required and in which not.
+  </div></div>
+  <p>The example shows a basic definition of a subclass <code>SpecialOffer1 </code>for the 
+    Example Profile 1</p>
+  <div class="example">
+    <div class="example-title marker"><span>Example 10 (TTL)</span></div>
+    <pre id="expolsubcl1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:SpecialOffer1
+  a rdfs:Class , owl:Class, skos:Concept ;
+  rdfs:isDefinedBy expf1:
+  rdfs:subClassOf :Policy ;
+  owl:disjointWith :Agreement, :Privacy, :Request, :Ticket, :Assertion, :Offer ;
+  rdfs:label "Special Offer 1"@en ;
+  skos:definition "A Policy offering a permission of using an asset"@en ;
+  skos:note "A Special Offer 1 Policy MUST contain at least one Permission and a Party with Assigner function (in the same Permission or Prohibition). The Offer Policy MAY contain either a specific Party or a Collection of Parties with Assignee function."@en .</code></pre>
+  </div>
+  </section>
+  <section id="constraints"><div class="header-wrapper"><h3 id="x4-11-additional-constraint-subclasses"><bdi class="secno">4.11 </bdi>Additional Constraint Subclasses</h3><a class="self-link" href="#constraints" aria-label="Permalink for Section 4.11"></a></div>
+    
+    <p>An ODRL <a href="https://www.w3.org/TR/odrl-model/#constraint">Constraint</a> is a class for applying a
+      constraint to a Rule.
+      The ODRL Profile Mechanism permits to create additional subclasses of the Constraint Class; its definition must
+      comply with the design of the basic Constraint Class.
+    </p><ul>
+      <li>A Constraint <em class="rfc2119">MAY</em> have none or one <code>uid</code> property value (of type IRI [<a href="#bib-rfc3987">rfc3987</a>]) to identify the
+        Constraint.
+      </li>
+      <li>A Constraint <em class="rfc2119">MUST</em> have one <code>leftOperand</code> property value of type LeftOperand.</li>
+      <li>A Constraint <em class="rfc2119">MUST</em> have one <code>operator</code> property value of type Operator.</li>
+      <li>A Constraint <em class="rfc2119">MUST</em> have either:
+        <ul>
+          <li>one <code>rightOperand</code> property value of type:
+            <ul>
+              <li>literal, or IRI [<a href="#bib-rfc3987">rfc3987</a>], or RightOperand; or</li>
+              <li>for set-based operators; list of literals, or list of IRIs [<a href="#bib-rfc3987">rfc3987</a>], or list of RightOperands;
+              </li>
+            </ul>
+          </li>
+          <li>one <code>rightOperandReference</code> property value of type:
+            <ul>
+              <li>IRI [<a href="#bib-rfc3987">rfc3987</a>]; or</li>
+              <li>for set-based operators; list of IRIs [<a href="#bib-rfc3987">rfc3987</a>];</li>
+            </ul>
+            for a reference to a right operand value.
+          </li>
+        </ul>
+      </li><li>A Constraint <em class="rfc2119">MAY</em> have none or one <code>dataType</code> property value for the data type of the
+        rightOperand/Reference.
+      </li>
+
+      <li>A Constraint <em class="rfc2119">MAY</em> have none or one <code>unit</code> property value (of type IRI [<a href="#bib-rfc3987">rfc3987</a>]) to set the unit
+        used for the value of the rightOperand/Reference.
+      </li>
+
+      <li>A Constraint <em class="rfc2119">MAY</em> have none or one <code>status</code> property value for a value generated from the
+        leftOperand action or for a value related to the leftOperand set as the reference for the comparison.
+      </li>
+    </ul>
+    <p>Defining a subclass of Constraint allows:</p>
+    <ul>
+      <li>If the cardinality of a property is defined by its superclass as "<em class="rfc2119">MAY</em> have none or one" a "<em class="rfc2119">MUST</em>
+        have one" or a "<em class="rfc2119">MUST NOT</em> have one" can be defined.
+      </li>
+      <li>If the cardinality of a property is defined by its superclass as "<em class="rfc2119">MAY</em> have none, one or many" a
+        "<em class="rfc2119">MUST</em> have one" or a "<em class="rfc2119">MUST NOT</em> have one" or a "<em class="rfc2119">MUST</em> have many" can be defined.
+      </li>
+      <li>One or more additional properties may be defined. For a property its name (identifier), its occurrence and its
+        value type must be defined.
+      </li>
+    </ul>
+    <p>The example shows a basic definition of a subclass SpecialConstraint for the Example Profile 1</p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 11 (TTL)</span></div>
+      <pre id="exconstraint" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">exns1:SpecialConstraint
+        a rdfs:Class , owl:Class, skos:Concept ;
+        rdfs:isDefinedBy expf1:
+        rdfs:subClassOf :Constraint ;
+        rdfs:label "Special Constraint"@en ;
+        skos:definition "A Constraint which requires the unit to be always present."@en ;
+        skos:note "A Special Constraint MUST contain the unit."@en .</code></pre>
+    </div>
+  </section>
+  <section id="multihowto"><div class="header-wrapper"><h3 id="x4-12-how-to-use-multiple-profiles-in-a-single-policy"><bdi class="secno">4.12 </bdi>How to use multiple Profiles in a single Policy</h3><a class="self-link" href="#multihowto" aria-label="Permalink for Section 4.12"></a></div>      
+
+    
+    <p>The <a href="https://www.w3.org/TR/odrl-model/#policy">Policy</a> class defines for the <code>profile</code> property that none, one or many profile identifiers can be applied. This raises the question: what should be considered if more than one Profile is applied to an instance of a Policy:</p>
+    <ul>
+      <li>First it should be considered that applying only one profile identifier to the <code>profile</code> property means that two profiles are in use: the default <a href="https://www.w3.org/TR/odrl-model/#profile-core">ODRL Core Profile</a> and this explicitly defined profile.</li>
+      <li>Subclasses, sub-properties or instances of a class included into a Profile are defined in either a specific namespace  or in the ODRL namespace if this thing is defined already by the <a href="https://www.w3.org/TR/odrl-vocab/#vocab-common">ODRL Common Vocabulary</a>.</li>
+      <li>Subclasses, sub-properties or instances of a class defined in a namespace used for e.g., Example Profile 1 can also be adopted for another Profile, e.g., Example Profile 2. (Note: be aware that the identifier of a Profile and the identifier of a namespace used by it does not have to the same.)</li>
+      <li>If a subclasses, sub-properties or instances of a class is defined in a namespace with an identifier different from the identifier of the Profile this thing can be used by multiple Profiles (with identifiers different from the namespace) but they <em class="rfc2119">MUST</em> be defined by each Profile in exactly the same way. E.g., a Rule subclass exns1:StraightPermission defined by Example Profile 1 as not having any property expressing a Duty must not have in a definition of Example Profile 2 a property expressing a Duty.<br>
+        Note: for this purpose this Best Practices document uses the term "adopt" for including the definition of a thing which may be included by other Profiles. In particular, this term was used for things defined by the ODRL Common Vocabulary is a use of things defined by it by other Profiles has to be expected.
+      </li>
+      <li>For using a thing defined by Example Profile 1 by a Policy using Example Profile 2 it is not strictly required to adopt this thing of Example Profile 1 for Example Profile 2; formally it is sufficient to apply the identifiers for Example Profile 2 and of Example Profile 1 to the <code>profile</code> property of the Policy.</li>
+      <li>If multiple identifiers of Profiles are applied to the <code>profile</code> property of the Policy all the things defined by all of them are valid for this Policy. If only subsets of the things defined by multiple Profiles should be applied to a Policy, a new Profile should be created adopting only the things of this subset.</li>
+      <li>If Party A defines a Profile with things defined by (and in a namespace of) Party B, the adoption must comply with the copyright of these things.</li>
+    </ul>
+  </section>
+</section>
+
+<section id="outofscope"><div class="header-wrapper"><h2 id="x5-what-the-core-profile-does-not-define"><bdi class="secno">5. </bdi>What the Core Profile does not define</h2><a class="self-link" href="#outofscope" aria-label="Permalink for Section 5."></a></div>
+  
+  <p>The <a href="https://www.w3.org/TR/odrl-model/#profile-motivation">ODRL Profile Purpose</a> section of the ODRL Information Model defines the roles of profiles: </p>
+  <ul>
+    <li>The ODRL Core Profile defines a vocabulary of all the terms defined by the ODRL Information Model 2.2. Recommendation</li>
+    <li>All other profiles defined by the rules of an <a href="https://www.w3.org/TR/odrl-model/#profile">ODRL Profile</a> must be considered as a definition of additional terms</li>
+  </ul>
+
+    <p>But it is not mandatory to use all terms of the ODRL Core Profile and of a referenced additional profile in an ODRL Policy instance.
+    <br>Based on this basic rule, a profile may suggest to ignore a term defined by the ODRL Core Profile, e.g. a specific subclass of Policy or Rule, a specific instance of Action, a specific Logical Constraint Operand ... and others, which is not relevant for the use case covered by this profile as long as the <a href="https://www.w3.org/TR/odrl-model">ODRL Information Model</a> does not define its use as mandatory, as a <em class="rfc2119">MUST</em>. (Check the terms defined by the <a href="https://www.w3.org/TR/odrl-vocab/#vocab-core">ODRL Core Vocabulary</a>.) But a profile must not declare an ODRL Core Profile term as prohibited, as <em class="rfc2119">MUST NOT</em> be used!
+    </p>
+  <section id="oos1"><div class="header-wrapper"><h3 id="x5-1-what-may-be-ignored-and-what-not"><bdi class="secno">5.1 </bdi>What may be ignored, and what not</h3><a class="self-link" href="#oos1" aria-label="Permalink for Section 5.1"></a></div>    
+  
+  <p>The <a href="https://www.w3.org/TR/odrl-model">ODRL Information Model</a> claims the use of properties of a class as a <em class="rfc2119">MUST</em> (= as mandatory) or that an ODRL Validator <em class="rfc2119">MUST</em> support the use of specific sub-properties of a defined property. A validator supporting the ODRL Core Profile and a specific additional profile <em class="rfc2119">MUST NOT</em> ignore mandatory ODRL Core requirements but in reverse it may ignore optional ODRL Core requirements.</p>
+  <ul>
+    <li>Regarding Policy: a subclass of Policy must be used, but it is not mandatory to use a subclass defined by the ODRL Core Profile if a related profile defines one. Therefore, the subclasses of Policy defined by the ODRL Core Profile may be ignored if the related profile defines a new subclass of Policy.</li>
+    <li>Regarding the Rule(s) of a Policy: <br>A Policy must use at least one of the properties permission, prohibition or obligation with a corresponding subclass of Rule - Permission Class, or a subclass of it; Prohibition Class, or a subclass of it; Duty Class or a subclass of it - as type, this cannot be omitted.</li>
+    <li>Regarding Action: the ODRL Core Profile defines only <a href="https://www.w3.org/TR/odrl-vocab/#actions">two instances of Action</a>: use and transfer. A profile may ignore them as using them and their narrower terms is not defined as mandatory by the Rule Class or the Action Class.</li>
+    <li>Regarding Party Functions: The Rule Class defines the use of sub-properties of <code>function</code> as optional, it may be ignored. But if a sub-property of the <a href="https://www.w3.org/TR/odrl-model/#function">function property</a> is used, the two terms defined by the ODRL Core Profile, <code>assigner</code> and <code>assignee</code>, must not be ignored.</li>
+    <li>Regarding Asset Relationship: The Rule Class defines the use of sub-properties of <code>relation</code> as optional, it may be ignored. But if a sub-property of the <a href="https://www.w3.org/TR/odrl-model/#relation">relation property</a> is used the single term defined by the ODRL Core Profile, <code>target</code>, must not be ignored.</li>
+  </ul>
+  </section>
+</section>
+
+<section id="prerequ"><div class="header-wrapper"><h2 id="x6-prerequisites-for-defining-an-odrl-profile"><bdi class="secno">6. </bdi>Prerequisites for defining an ODRL Profile</h2><a class="self-link" href="#prerequ" aria-label="Permalink for Section 6."></a></div>
+  
+  <section id="guid"><div class="header-wrapper"><h3 id="x6-1-a-globally-unique-identifier-of-the-profile"><bdi class="secno">6.1 </bdi>A globally unique identifier of the Profile</h3><a class="self-link" href="#guid" aria-label="Permalink for Section 6.1"></a></div>      
+  
+  <p>Each Profile must have a globally unique identifier.
+    Such an identifier 
+  must be of type IRI [<a href="#bib-rfc3987">rfc3987</a>] which is in short a URI [<a href="#bib-rfc3986">rfc3986</a>] with an extended, internationalized character set.</p>
+  <p>Be aware that this Profile identifier should not be used for other purposes like the identifier of a namespace of concepts defined by the Profile as it would be hard to distinguish if a profile or a namespace is identified when using this identifier.  </p>
+  </section>
+  <section id="webresource"><div class="header-wrapper"><h3 id="x6-2-the-profile-as-a-stable-web-resource"><bdi class="secno">6.2 </bdi>The Profile as a stable web resource</h3><a class="self-link" href="#webresource" aria-label="Permalink for Section 6.2"></a></div>
+    
+  <p>If a Profile should be used publicly, its definition and optional usage guidelines should be publicly accessible web resources. Consider defining the unique identifier of the Profile as URL of a web resource providing information about the Profile.</p>
+  </section>
+  <section id="addlspecs"><div class="header-wrapper"><h3 id="x6-3-generating-additional-specifications-of-this-profile"><bdi class="secno">6.3 </bdi>Generating additional specifications of this Profile</h3><a class="self-link" href="#addlspecs" aria-label="Permalink for Section 6.3"></a></div>      
+  
+  <p>This section covers the procedure of generating specifications in addition to the ODRL Core Profile, details of documents resulting from this procedure are covered in <a href="#profdef">section 5</a>, and <a href="#pubavail">section 6</a> covers how to make them publicly available.</p>
+  <p>A Profile should have a semantic technology specification using a SKOS Collection [<a href="#bib-skos">skos</a>] and making all concepts adopted or created by this Profile a member of this Collection. Use the IRI of the Profile as identifier of this Collection.</p>
+  <p><a href="#scope">Section 3</a> explains what a new ODRL Profile can define in addition to the Core Profile. Walking through this section should result in this output:</p>
+  <ul>
+    <li>If a concept from the <a href="https://www.w3.org/TR/odrl-vocab/#vocab-common">ODRL Common Vocabulary</a> is adopted, it should not be specified by this Profile, but it must be made a member of the Profile's Collection.</li>
+    <li>If an existing concept conforming to ODRL 2.2 specifications from a source different from this Profile is adopted: check first if a specification of this concept is publicly accessible. If this is the case this concept should be adopted by adding it as member to the Profile's Collection. If this is not the case it has to be specified like a new concept defined by this Profile, see next item.</li>
+    <li>If a new concept is created for this Profile, it must be specified by the documents of this Profile and made a member of the Profile's Collection.</li>
+    <li>If a concept is adopted or created as ODRL Action, it should be made a member of a SKOS Collection of all Actions defined by this Profile. </li>
+    <li>If a concept is adopted or created as ODRL Constraint Left Operand, it should be made a member of a SKOS Collection of all Constraint Left Operands defined by this Profile. </li>
+    <li>If a concept is adopted or created as ODRL Constraint Operator, it should be made a member of a SKOS Collection of all Constraint Operators defined by this Profile.</li>
+    <li>If a concept is adopted or created as ODRL Party Function, it should be made a member of a SKOS Collection of all Party Functions defined by this Profile.</li>
+    <li>If a concept is adopted or created as ODRL Asset Relationship, it should be made a member of a SKOS Collection of all Asset Relationships defined by this Profile.</li>
+    <li>If a concept is adopted or created as ODRL Constraint Right Operand, it should be made a member of a SKOS Collection of all Constraint Right Operands defined by this Profile.</li>
+    <li>If a concept is adopted or created as ODRL Logical Constraint, it should be made a member of a SKOS Collection of all Logical Constraints defined by this Profile.</li>
+    <li>If a concept is adopted or created as ODRL Policy Conflict Strategy Preference, it should be made a member of a SKOS Collection of all Policy Conflict Strategy Preferences defined by this Profile.</li>
+    <li>If a subclass is adopted or created as ODRL Rule subclass, it should be made a member of a SKOS Collection of all Rule subclasses defined by this Profile.</li>
+    <li>If a subclass is adopted or created as ODRL Policy subclass, it should be made a member of a SKOS Collection of all Policy subclasses defined by this Profile.</li>
+    </ul>
+  <p>Finally: create a W3C Profile Vocabulary [<a href="#bib-dxprof">dx-prof</a>] document. This document sets the normative part of the ODRL Profile - the ODRL 2.2 Information Model and the ODRL 2.2 Core Profile - and lists all documents used for defining this Profile.  </p>
+  <p>&nbsp;</p>
+  </section>
+</section>
+<section id="profdef"><div class="header-wrapper"><h2 id="x7-resources-defining-an-odrl-profile"><bdi class="secno">7. </bdi>Resources defining an ODRL Profile</h2><a class="self-link" href="#profdef" aria-label="Permalink for Section 7."></a></div>
+  
+  <section id="humanreadable"><div class="header-wrapper"><h3 id="x7-1-human-readable-specification"><bdi class="secno">7.1 </bdi>Human-readable specification</h3><a class="self-link" href="#humanreadable" aria-label="Permalink for Section 7.1"></a></div>      
+  
+  <p>Humans taking a decision on using a specific ODRL Profile or not like to read a human-readable document about it.</p>
+  <p>It should include:</p>
+  <ul>
+    <li>The name and the globally unique identifier of the Profile</li>
+    <li>The party creating and maintaining the Profile</li>
+    <li>The latest version of the Profile and its date of release</li>
+    <li>The purpose(s) of the Profile</li>
+    <li>A list of all member concepts of the Profile ...</li>
+    <li>... and a human-readable specification of at least all new concepts defined by the Profile ...</li>
+    <li>... if for adopted concepts of other sources a reasonable human-readable specification is available, their documentation can be referenced. Else a specification created by the owner of this Profile may be created for this document.</li>
+    <li>For each concept or subclass of this Profile, its type as listed in <a href="#scope">section 3</a> should be indicated.</li>
+    <li>For any type of concept or subclass as listed in <a href="#scope">section 3</a> a list of its additional concepts or subclasses defined by this Profile may be included.</li>
+    <li>A list of all used identifiers of namespaces, other ODRL Profiles, vocabularies of ODRL concept and other relevant resources.</li>
+    <li>A list of all standards used by this Profile.</li>
+    <li>This document may show or refer to examples of ODRL Policies using this Profile, they are liked by many users.</li>
+  </ul>
+  </section>
+  <section id="owlontology"><div class="header-wrapper"><h3 id="x7-2-owl-ontology"><bdi class="secno">7.2 </bdi>OWL Ontology</h3><a class="self-link" href="#owlontology" aria-label="Permalink for Section 7.2"></a></div>      
+  
+  <p>An OWL [<a href="#bib-owl">owl</a>] Ontology should define all concepts defined by a Profile, each one's properties and relationships. Different formats can be applied, these are the most widely used: RDF Turtle, RDF/XML, RDF N-Triples, JSON-LD.<br>
+    This ontology should include:</p>
+  <ul>
+    <li>A definition of all used prefixes, if the used syntax supports or requires that.</li>
+    <li>A definition of the ontology as a whole. As identifier of the ontology, the identifier of the Profile must be used.</li>
+    <li>A SKOS [<a href="#bib-skos">skos</a>] Collection of all concepts defined by this Profile, either a concept specified by this ontology or a concept defined by another source.</li>
+    <li>A SKOS Collection for each type of additional concepts or subclasses (see <a href="#scope">section 3</a>) if at least one concept is defined for it.</li>
+    <li>A declaration of all used annotation properties to keep this ontology within OWL DL.</li>
+    </ul>
+  <p>See below an example ontology of the (virtual) ODRL <em>Profile Example Profile 1</em>.<br>
+    It adopts a small set of concepts defined by the ODRL Common Vocabulary and specifies a single concepts on its own.
+  </p>
+  <div class="example">
+    <div class="example-title marker"><span>OWL Ontology Example 1 (TTL)</span></div>
+    <pre id="exowlonto1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">## Definition of used or common namespaces
+@base &lt;http://www.w3.org/ns/odrl/2/&gt; .
+@prefix : &lt;http://www.w3.org/ns/odrl/2/&gt; .
+@prefix odrl: &lt;http://www.w3.org/ns/odrl/2/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix schema: &lt;http://schema.org/&gt; .
+@prefix cc: &lt;http://creativecommons.org/ns#&gt; .
+@prefix exns1: &lt;https://example.com/ns/ex1/&gt; .
+@prefix exprof1: &lt;https://example.com/odrlprofile/exprof1/&gt; .
+
+## Definition of the Profile as OWL Ontology
+exprof1:
+    a owl:Ontology ;
+    rdfs:label "Example Profile 1"@en ;
+    rdfs:label "Beispiel Profil 1"@de ;
+    owl:versionInfo "0.1" ;
+    dct:creator "Joe Doe, Jane Miller";
+    dct:contributor "The Global ODRL Profile Working Group - GOPWG" ;
+    dct:description "The Example Profile 1 Vocabulary defines a set of concepts required by the Any-Industry."@en ;
+    rdfs:comment "This is the RDF ontology for Example Profile 1 as of 2019-08-22"@en ;
+    dct:license &lt;http://creativecommons.org/licenses/by/4.0/&gt; .
+
+
+## SKOS Collection of all concepts defined by this Profile
+&lt;https://example.com/odrlprofile/exprof1/&gt;
+    a skos:Collection ;
+    skos:prefLabel "Example Profile 1 Vocabulary"@en ;
+    skos:scopeNote "All terms of the GOPWG Example Profile 1"@en ;
+ ## all members below are from the ODRL Common Vocabulary, a specification exists
+    skos:member :archive ;
+    skos:member :compensate ;
+    skos:member :display ;
+    skos:member :grantUse ;
+    skos:member :count ;
+    skos:member :dateTime ;
+    skos:member :compensatedParty ;
+    skos:member :compensatingParty ;
+    skos:member :output ;
+## the member below is a concept created for this Profile
+##   it needs to be specified in this ontology
+    skos:member exns1:compensationValue .
+
+
+## SKOS Collection of all Action concepts defined by this Profile
+&lt;https://example.com/odrlprofile/exprof1/#actions&gt;
+    a skos:Collection ;
+    skos:prefLabel "Actions for Rules"@en ;
+    skos:scopeNote "Example Profile 1 Terms"@en ;
+    skos:member :archive ;
+    skos:member :compensate ;
+    skos:member :display ;
+    skos:member :grantUse .
+
+## SKOS Collection of all Left Operand concepts defined by this Profile
+&lt;https://example.com/odrlprofile/exprof1/#constraintLeftOperand&gt;
+    a skos:Collection ;
+    skos:prefLabel "Constraint Left Operands"@en ;
+    skos:scopeNote "Example Profile 1 Vocabulary Terms"@en ;
+    skos:member :count ;
+    skos:member :dateTime ;
+	skos:member exns1:compensationValue .
+
+## SKOS Collection of all Party Function concepts defined by this Profile
+&lt;https://example.com/odrlprofile/exprof1/#partyFunctions&gt;
+    a skos:Collection ;
+    skos:prefLabel "Party Functions"@en ;
+    skos:scopeNote "Example Profile 1 Vocabulary Terms"@en ;
+    skos:member :compensatedParty ;
+    skos:member :compensatingParty .
+
+## SKOS Collection of all Asset Relation concepts defined by this Profile
+&lt;https://example.com/odrlprofile/exprof1/#assetRelations&gt;
+    a skos:Collection ;
+    skos:prefLabel "Asset Relations"@en ;
+    skos:scopeNote "Example Profile 1 Common Vocabulary Terms"@en ;
+    skos:member :output .
+
+## Concept(s) specified by this Profile. 
+
+exns1:compensationValue
+	a :LeftOperand, owl:NamedIndividual, skos:Concept ;
+	rdfs:isDefinedBy exprof1: ;
+	rdfs:label "Compensation Value"@en ;
+	skos:definition "The value of a compensation expressed as a monetary amount. Right operand value MUST be an xsd:decimal. "@en ;
+	skos:note "May be used for other compensations than payments, e.g. barter agreements."@en ;
+  skos:scopeNote "Non-Normative"@en .
+
+
+
+## Declaration of annotation properties to keep this ontology within OWL DL
+	skos:member rdf:type owl:AnnotationProperty .
+	skos:note rdf:type owl:AnnotationProperty .
+	skos:scopeNote rdf:type owl:AnnotationProperty .
+	skos:prefLabel rdf:type owl:AnnotationProperty .
+	skos:definition rdf:type owl:AnnotationProperty .
+	dct:contributor rdf:type owl:AnnotationProperty .
+	dct:license rdf:type owl:AnnotationProperty .
+	dct:issued rdf:type owl:AnnotationProperty .
+	dct:subject rdf:type owl:AnnotationProperty .
+	dct:creator rdf:type owl:AnnotationProperty .
+	dct:description rdf:type owl:AnnotationProperty .
+	dct:isVersionOf rdf:type owl:AnnotationProperty .
+	dct:format rdf:type owl:AnnotationProperty .
+	skos:Collection a owl:Class .
+	skos:Concept a owl:Class .
+	skos:ConceptScheme a owl:Class .</code></pre>
+</div>
+  </section>
+  <section id="profilevocab"><div class="header-wrapper"><h3 id="x7-3-w3c-profile-vocabulary"><bdi class="secno">7.3 </bdi>W3C Profile Vocabulary</h3><a class="self-link" href="#profilevocab" aria-label="Permalink for Section 7.3"></a></div>      
+  
+  <p>A W3C Profile Vocabulary [<a href="#bib-dxprof">dx-prof</a>] asserts all resources - named as artifacts - which are relevant for a Profile:</p>
+  <ul>
+    <li>The base of any ODRL Policy, the W3C ODRL 2.2 Recommendation and its resources:
+      <ul>
+        <li>the specification (HTML) document</li>
+        <li>the Core Profile</li>
+        </ul>
+    </li>
+    <li>The Profile and its resources:
+      <ul>
+        <li>the specification (HTML) document </li>
+        <li>the OWL ontology</li>
+        </ul>
+    </li>
+    </ul>
+  <p>This provides a quick overview like the example below for the (virtual) ODRL <em>Profile Example Profile 1</em>.</p>
+  <div class="example">
+    <div class="example-title marker"><span>Profile Vocabulary Example 1 (TTL)</span></div>
+    <pre id="exprofvocab1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">## Definition of used or common namespaces
+@prefix dct:  &lt;http://purl.org/dc/terms/&gt; .
+@prefix dc:   &lt;http://purl.org/dc/elements/1.1/&gt; .
+@prefix xsd:  &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix odrl: &lt;http://www.w3.org/ns/odrl/2/&gt; .
+@prefix profile: &lt;http://www.w3.org/ns/dx/prof/&gt; .
+@prefix role: &lt;http://www.w3.org/ns/dx/prof/role/&gt; .
+@prefix exprof1: &lt;https://example.com/odrlprofile/exprof1/&gt; .
+
+# Declare the ODRL Core Profile artifacts
+
+&lt;http://www.w3.org/ns/odrl/2/core&gt;
+    a dct:Standard ;
+    dct:title "The ODRL Core Profile Version 2.2" ;
+    profile:hasResource _:1 _:2 .
+   
+_:1  # The normative W3C ODRL Information Model
+    a profile:ResourceDescriptor ;
+    profile:hasRole role:specification ;
+    profile:hasArtifact &lt;https://www.w3.org/TR/odrl-model/&gt; ;
+    dct:title "ODRL Information Model 2.2" ;
+    dct:issued "2018-02-15"^^xsd:date ;
+    dct:publisher "W3C" ;
+    dct:format &lt;https://www.iana.org/assignments/media-types/text/html&gt; ;
+    dct:conformsTo &lt;https://www.w3.org/TR/html/&gt; .
+
+_:2  # The ODRL Core Profile vocabulary terms
+    a profile:ResourceDescriptor ;
+    profile:hasRole role:vocabulary ;
+    profile:hasArtifact &lt;tbd&gt; ;
+    dct:title "ODRL Core Profile Version 2.2" ;
+    dct:issued "tbd"^^xsd:date ;
+    dct:publisher "W3C" ;
+    dct:format &lt;https://www.iana.org/assignments/media-types/text/turtle&gt; ;
+    dct:conformsTo &lt;https://www.w3.org/TR/turtle/&gt; .
+
+## Declare the artifacts of the Example Profile 1
+
+exprof1: # Properties of the Example Profile 1
+    a profile:Profile ;
+    dct:title "Example Profile 1 - ODRL Profile" ;
+    dct:description "An ODRL Profile focusing on rights and licensing requirements from the Any-Industry" ;
+    profile:isProfileOf &lt;http://www.w3.org/ns/odrl/2/core&gt; ;
+    profile:hasResource
+        exprof1:ProfileSpec-html ,
+        exprof1:ProfileVocabulary-ttl ;
+    dct:publisher "Global ODRL Profile Working Group - GOPWG" ;
+    dc:creator "Global ODRL Profile Working Group - GOPWG" ;
+    owl:versionInfo "0.1"^^xsd:string ;    
+    dct:issued "2019-08-23"^^xsd:date ;
+.
+
+exprof1:ProfileSpec-html # The Example Profile 1 specification HTML document
+    a profile:ResourceDescriptor ;
+    profile:hasRole role:specification ;
+    profile:hasArtifact &lt;https://example.com/odrlprofile/exprof1/ExaProf1_0.1.html&gt; ;
+    dct:title "Example Profile 1 version 0.1" ;
+    owl:versionInfo "0.1.1"^^xsd:string ;    
+    dct:issued "2019-08-22"^^xsd:date ;
+    dct:format &lt;https://www.iana.org/assignments/media-types/text/html&gt; ;
+    dct:conformsTo &lt;https://www.w3.org/TR/html/&gt; ;
+.
+
+exprof1:ProfileVocabulary-ttl  # The Example Profile 1 Profile vocabulary terms using RDF Turtle syntax
+    a profile:ResourceDescriptor ;
+    profile:hasRole role:vocabulary ;
+    profile:hasArtifact &lt;https://example.com/odrlprofile/exprof1/ExaProf1_0.1-ontology.ttl&gt; ;
+    dct:title "Example Profile 1 version 0.1" ;
+    owl:versionInfo "0.1.0"^^xsd:string ;    
+    dct:issued "2019-08-22"^^xsd:date ;
+    dct:publisher "Global ODRL Profile Working Group - GOPWG" ;
+    dct:format &lt;https://www.iana.org/assignments/media-types/text/turtle&gt; ;
+    dct:conformsTo &lt;https://www.w3.org/TR/turtle/&gt;;
+.</code></pre>
+</div>
+  </section>
+  <section id="jsonld"><div class="header-wrapper"><h3 id="x7-4-json-ld-context-document"><bdi class="secno">7.4 </bdi>JSON-LD context document </h3><a class="self-link" href="#jsonld" aria-label="Permalink for Section 7.4"></a></div>      
+  
+  <p>Whether the OWL Ontology of a Profile uses JSON-LD [<a href="#bib-jsonld">JSON-LD</a>] as format or if an ODRL Policy is expressed as JSON-LD, the uses of a JSON-LD Context is highly recommended. It is used for mapping short-term aliases of concept identifiers to the original identifier.</p>
+  <p>The Example below covers the concepts of the (virtual) ODRL <em>Profile Example Profile 1</em>.</p>
+  <div class="example">
+    <div class="example-title marker"><span>JSON-LD Context Example 1 (JSON-LD)</span></div>
+    <pre id="exjsonldctx1" class="hljs" aria-busy="false" aria-live="polite"><code class="hljs">{
+ "@context": {
+    "exns1":                 "https://example.com/ns/ex1/",
+    "compensationValue":     "exns1:compensationValue",
+
+    "odrl":                  "http://www.w3.org/ns/odrl/2/",
+    "archive":               "odrl:archive",
+    "attribute":             "odrl:attribute",
+    "compensate":            "odrl:compensate",
+    "display":               "odrl:display",
+    "grantUse":              "odrl:grantUse",
+    "count":                 "odrl:count",
+    "dateTime":              "odrl:dateTime",
+    "compensatedParty":     {"@type": "@id", "@id": "odrl:compensatedParty"},
+    "compensatingParty":    {"@type": "@id", "@id": "odrl:compensatingParty"},
+    "output":               {"@type": "@id", "@id": "odrl:output"}
+    }
+}</code></pre>
+    </div>
+  </section>
+</section>
+<section id="pubavail"><div class="header-wrapper"><h2 id="x8-making-an-odrl-profile-publicly-available"><bdi class="secno">8. </bdi>Making an ODRL Profile publicly available</h2><a class="self-link" href="#pubavail" aria-label="Permalink for Section 8."></a></div>
+  
+  <p> If an ODRL Profile should be used by a public audience, it is highly recommended to make its specifications publicly accessible:</p>
+  <ul>
+    <li>A human-readable specification as an HTML web document</li>
+    <li>An OWL Ontology as resource using a common Semantic Web format, like RDF/Turtle, RDF/XML, RDF/N-Triples, or JSON-LD</li>
+    <li>A resource using the W3C Profile Vocabulary in a common Semantic Web format, like RDF/Turtle, RDF/XML, RDF/N-Triples, or JSON-LD</li>
+    <li>If the JSON-LD form should be supported for ODRL Policies, a JSON-LD Context resource.</li>
+  </ul>
+  <p>All these resourced can be made accessible by URLs.</p>
+  <p>An alternative option is based on http request-based content negotiation; this feature must be supported by the web server delivering the documents. In this case, a generic URL is defined for the human-readable HTML document and the OWL Ontology in Semantic Web formats. Depending on the IANA Media Type expressed by the accept-header of the http(s) request the corresponding resource is delivered by the http(s) response.</p>
+  <p>The URL(s) used for such resources should be persistent over time. The publisher of a Profile should consider whether to reflect the version of the Profile in the URL or to use version-agnostic URLs.</p>
+</section>
+<section id="regodrlcg"><div class="header-wrapper"><h2 id="x9-registering-a-profile-with-the-odrl-community-group"><bdi class="secno">9. </bdi>Registering a profile with the ODRL Community Group</h2><a class="self-link" href="#regodrlcg" aria-label="Permalink for Section 9."></a></div>
+  
+  <p>The <a href="https://www.w3.org/community/odrl/">ODRL Community Group</a> provides a list of registered ODRL 2.2 Profiles at <a href="https://www.w3.org/community/odrl/profile/">https://www.w3.org/community/odrl/profile/</a></p>
+  <p>Contact this group by email <a href="mailto:public-odrl@w3.org">public-odrl@w3.org</a> and provide these details of the profile:</p>
+  <ul>
+    <li>Business name of the profile</li>
+    <li>Name and web URL of the party having created and planning to maintain the profile</li>
+    <li>Identifier of the profile</li>
+    <li>URL of the human-readable specification document</li>
+    <li>URL of the OWL Ontology and the name of the used format (e.g., RDF/Turtle, RDF/XML, JSON-LD)</li>
+    <li>Optional: URL of the JSON-LD context resource</li>
+    <li>Optional: URL of the W3C Profile Vocabulary resource</li>
+  </ul>
+  <p>&nbsp;</p>
+</section>
+
+<section id="inforeferences"><div class="header-wrapper"><h2 id="x10-informative-references"><bdi class="secno">10. </bdi>Informative references</h2><a class="self-link" href="#inforeferences" aria-label="Permalink for Section 10."></a></div>
+  
+  <dl class="bibliography">
+      <dt id="bib-dxprof">[dx-prof]</dt>
+    <dd><a href="https://www.w3.org/TR/dx-prof/"><cite>The Profiles Vocabulary</cite></a>. R. Atkinson, N.J. Car. W3C, April 2019, W3C Working Draft. URL: <a href="https://www.w3.org/TR/dx-prof/">https://www.w3.org/TR/dx-prof/</a></dd>
+      <dt id="bib-jsonld">[json-ld]</dt>
+      <dd><a href="https://www.w3.org/TR/json-ld/"><cite>JSON-LD 1.0</cite></a>. M. Sporny, G. Kellogg, M. Lanthaler, W3C, January 2014, W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/">https://www.w3.org/TR/json-ld/</a></dd>
+      <dt id="bib-owl">[owl]</dt>
+      <dd><a href="https://www.w3.org/TR/owl-overview/"><cite>OWL 2 Web Ontology Language
+Document Overview (Second Edition)</cite></a>. W3C OWL Working Group, W3C, December 2012, W3C Working Draft. URL: <a href="https://www.w3.org/TR/owl-overview/">https://www.w3.org/TR/owl-overview/</a></dd>
+      <dt id="bib-rfc3986">[rfc3986]</dt>
+      <dd><a href="https://tools.ietf.org/html/rfc3986"><cite>Uniform Resource Identifiers (URI): Generic Syntax</cite></a>. T. Berners-Lee, R. Fielding, L. Masinter, IETF. January 2005. Internet Standard. URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>
+      </dd>
+      <dt id="bib-rfc3987">[rfc3987]</dt>
+      <dd><a href="https://tools.ietf.org/html/rfc3987"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. M. Duerst; M. Suignard. IETF. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>
+      </dd>
+      <dt id="bib-skos">[skos]</dt>
+      <dd><a href="https://www.w3.org/TR/skos-reference/"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. A. Miles, S. Bechofer, W3C. August 2009. W3C Recommendation. URL: <a href="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</a>
+      </dd>
+  </dl>
+</section>    
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
