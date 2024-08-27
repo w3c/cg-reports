@@ -18,6 +18,8 @@ To publish a final report.
 
 Once merged by the W3C Community Lead, that content will then be available under the URL `https://www.w3.org/community/reports/<cgshortname>/CG-FINAL-<reportshortname>-<YYYYMMDD>/`.
 
+Once published, per the Community Group Process, the document at this URI must not change.
+
 # Check
 
 The W3C CG Support team typically verifies that CG reports use the right naming conventions and the valid template (CG logo, no W3C logo, SOTD disclaimer).
