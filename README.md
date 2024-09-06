@@ -2,7 +2,7 @@
 
 This repository is for <a href="https://www.w3.org/community/">W3C Community and Business Groups</a> to manage and publish <a href="https://www.w3.org/community/reports/">final reports</a>. These reports are expected to comply with the [CG Report Requirements](https://www.w3.org/community/reports/reqs/).
 
-Reports managed through this repository are mirrored on w3.org.
+Reports managed through this repository are mirrored on w3.org. Once a document appears on w3.org, it can be registered in the W3C system as a Final Specification; see more about [how to publish a report](https://www.w3.org/community/about/faq/#how-do-we-publish-a-report).
 
 # Usage
 
@@ -17,6 +17,8 @@ To publish a final report.
 1.  Ensure this directory contains a single `index.html` file.
 
 Once merged by the W3C Community Lead, that content will then be available under the URL `https://www.w3.org/community/reports/<cgshortname>/CG-FINAL-<reportshortname>-<YYYYMMDD>/`.
+
+Once published, per the Community Group Process, the document at this URI must not change.
 
 # Check
 
