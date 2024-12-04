@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Traceability Interoperability v1.0</title>
+
+  <meta http-equiv=" Content-Type" content="text/html;charset=utf-8" />
+
+  <script src="https://www.w3.org/Tools/respec/respec-w3c"
+    class="remove"></script>
+
+  <script
+    src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css" />
+
+  <script type="text/javascript" class="remove">
+    const respecConfig = {
+      // specification status (e.g., WD, LCWD, NOTE, etc.). If in doubt use ED.
+      specStatus: 'unofficial',
+      historyURI: null,
+
+      // the specification's short name, as in http://www.w3.org/TR/short-name/
+      shortName: 'traceability-interop',
+
+      github: 'w3c-ccg/traceability-interop',
+
+      // if you wish the publication date to be other than today, set this
+      // publishDate:  "2009-08-06",
+
+      // if there is a previously published draft,
+      // uncomment this and set its YYYY-MM-DD date
+      // and its maturity status
+      // previousPublishDate: "2020-09-30",
+      // previousMaturity: "UNOFFICIAL",
+
+      // if there a publicly available Editor's Draft, this is the link
+      edDraftURI: 'https://w3id.org/traceability/interoperability',
+
+      // if you want to have extra CSS, append them to this list
+      // it is recommended that the respec.css stylesheet be kept
+      //extraCSS:             ["spec.css", "prettify.css"],
+
+      // editors, add as many as you like
+      // only "name" is required
+      editors: [
+        {
+          name: 'Mahmoud Alkhraishi',
+          url: 'https://github.com/mkhraisha',
+          company: 'Mavennet',
+          companyURL: 'https://www.mavennet.com/',
+          extras: [
+            {
+              name: "E-mail",
+              href: "mailto:mahmoud@mavennet.com"
+            }
+          ]
+        },
+        {
+          name: 'Nis Jespersen',
+          url: 'https://github.com/nissimsan',
+          company: 'Transmute',
+          companyURL: 'https://www.transmute.industries/',
+          extras: [
+            {
+              name: "E-mail",
+              href: "mailto:nis@transmute.industries"
+            }
+          ]
+        },
+        {
+          name: 'Brent Zundel',
+          url: 'https://github.com/brentzundel',
+          company: 'Mesur.io',
+          companyURL: 'https://mesur.io/',
+          extras: [
+            {
+              name: "E-mail",
+              href: "mailto:brent.zundel@mesur.io"
+            }
+          ]
+        },
+      ],
+      formerEditors: [
+        {
+          name: 'Orie Steele',
+          url: 'https://github.com/OR13',
+          company: 'Transmute',
+          companyURL: 'https://www.transmute.industries/',
+          extras: [
+            {
+              name: "E-mail",
+              href: "mailto:orie@transmute.industries"
+            }
+          ]
+        },
+        {
+          name: 'Michael Prorock',
+          url: 'https://github.com/mprorock',
+          company: 'Mesur.io',
+          companyURL: 'https://mesur.io/',
+          extras: [
+            {
+              name: "E-mail",
+              href: "mailto:mprorock@mesur.io"
+            }
+          ]
+        }
+      ],
+      authors: [
+          {
+            name: 'Chris Abernethy',
+            url: 'https://github.com/brownoxford',
+            company: 'mesur.io',
+            companyURL: 'https://www.mesur.io/',
+          },
+          {
+            name: 'Russell Hofvendahl',
+            url: 'https://github.com/rhofvendahl',
+            company: 'mesur.io',
+            companyURL: 'https://www.mesur.io/',
+          },
+          {
+            name: 'Ted Thibodeau Jr',
+            url: 'https://github.com/TallTed',
+            company: 'OpenLink Software, Inc',
+            companyURL: 'https://www.openlinksw.com/',
+          },
+          {
+            name: 'Vivien Fan',
+            url: 'https://github.com/vivienfan',
+            company: 'Mavennet Systems Inc',
+            companyURL: 'https://www.mavennet.com/',
+          },
+      ],
+
+      // extend the bibliography entries
+      //localBiblio: webpayments.localBiblio,
+      // group: "w3c-ccg",
+      // {
+      //   name: "Credentials Community Group",
+      //   url: "https://www.w3.org/community/credentials/",
+      //   list: "public-credentials",
+      //   patentUri: "https://www.w3.org/community/about/agreements/cla/",
+      // }
+      // wg: respecPagesJson.group.name,
+      // // URI of the public WG page
+      // wgURI: respecPagesJson.group.url,
+      // // name (with the @w3c.org) of the public mailing to which comments are due
+      // wgPublicList: respecPagesJson.group.list,
+      // URI of the patent status for this WG, for Rec-track documents
+      // !!!! IMPORTANT !!!!
+      // This is important for Rec-track documents, do not copy a patent URI from a random
+      // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+      // Team Contact.
+      // wgPatentURI: respecPagesJson.group.patentUri,
+
+      // URI of the patent status for this WG, for Rec-track documents
+      // !!!! IMPORTANT !!!!
+      // This is important for Rec-track documents, do not copy a patent URI from a random
+      // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+      // Team Contact.
+      // wgPatentURI:  "",
+
+      maxTocLevel: 2,
+      localBiblio: {
+        'TRACE-VOCAB': {
+          title: 'Traceability Vocabulary',
+          href: 'https://w3c-ccg.github.io/traceability-vocab/',
+        },
+        'VC-DI-BBS': {
+          title: 'BBS Cryptosuite v2023',
+          href: 'https://www.w3.org/TR/vc-di-bbs/',
+          authors: ['Tobias Looker', 'Orie Steele'],
+          status: "Working Draft",
+          publisher: 'W3C',
+        },
+        'DID-CORE': {
+          title: 'W3C Decentralized Identifiers',
+          href: 'https://www.w3.org/TR/did-core/',
+        },
+        'VC-SD-JWT': {
+          title: 'Selective Disclosure for JWTs (SD-JWT)',
+          href: 'https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/',
+          authors: [	'Daniel Fett' , 'Kristina Yasuda' , 'Brian Campbell' ],
+          status: "Draft",
+        },
+        'VC-DATA-MODEL': {
+          title: 'W3C Verifiable Credentials Data Model v2.0',
+          href: 'https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/',
+        },
+        'VC-JOSE-COSE': {
+          title: 'Securing Verifiable Credentials using JOSE and COSE',
+          href: 'https://w3c.github.io/vc-jose-cose/',
+        },
+        'BITSTRING-STATUS-LIST': {
+          title: 'Bitstring Status List v1.0',
+          href: 'https://www.w3.org/TR/vc-bitstring-status-list/',
+        },
+      },
+    };
+  </script>
+  <style>
+    table {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <section data-include="sections/abstract.html" data-include-replace="true">
+  </section>
+
+  <section id="sotd">
+    <p>
+      This repository will be versioned at periodic points in time with a Q1
+      Calendar Year target for major releases.
+      Versioning tags will follow a pattern of `[MAJOR].[MINOR].[PATCH]`
+    </p>
+    Version Definitions:
+    <ul>
+      <li>
+        MAJOR - significant changes rolled forward from the previous major
+        version. Major versions MAY include
+        breaking or non-backwards compatible changes
+      </li>
+      <li>MINOR - backwards compatible changes that may introduce new
+        functionality or extensions of objects</li>
+      <li>PATCH - minor changes that are backwards compatible and resolve
+        discovered issues or bugs</li>
+    </ul>
+
+    <p>
+      As a rule, versioning will follow the specification outlined in the
+      <a href="https://semver.org/">Semantic Versioning 2.0</a> spec.
+    </p>
+
+    <p>
+      To contribute to this specification or reference technical details related to
+      the project, please refer to the
+      primary README located on
+      <a href="https://w3id.org/traceability/interoperability/">GitHub</a>.
+    </p>
+
+    <p>
+      Please
+      <a href="https://w3id.org/traceability/interoperability/issues/">open an
+        issue</a>, if you wish to collaborate
+      on this specification.
+    </p>
+
+    <p>
+      You may also reach out via the mailing list:
+      <a href="mailto:public-credentials@w3.org">public-credentials@w3.org</a>
+      (<a
+        href="mailto:public-credentials-request@w3.org?subject=subscribe">subscribe</a>,
+      <a
+        href="https://lists.w3.org/Archives/Public/public-credentials/">archives</a>)
+    </p>
+  </section>
+
+  <section id="conformance">
+  </section>
+
+  <section class="informative">
+    <h2>Introduction</h2>
+    <p>
+      This specification describes how verifiable data can be shared securely
+      over an authenticated channel. The purpose of the specification is to facilitate
+      cross trust boundary interactions among organizations conducting or otherwise
+      involved in trade, seeking to digitize and automate their operations.
+      Examples of targeted organizations include Buyers, Sellers, Shippers, Consignees,
+      Carriers, and Customs Authorities.
+    </p>
+
+    <p>
+      The specification comprises of the following necessary elements:
+      <ul>
+        <li>Discovery via an organization's <code>did:web</code></li>
+        <li>Cross organization <code>OAuth2</code>-based authentication</li>
+        <li>Structure of the <code>https</code>-based data exchange endpoint</li>
+      </ul>
+    </p>
+    <p>
+      The specification is opinionated in order to promote actual interoperability.
+      Baking more choices into the specification decreases ambiguity for
+      implementers.
+    </p>
+    <p>
+      This specification seeks to make implementation as simple and light a lift as possible,
+      leveraging existing, well-known standards and technologies wherever possible.
+    </p>
+    <p>
+      This specification attempts not to define any unnecessary functionality beyond the
+      core use case of interoperability. Some obvious peripheral use cases include
+      verifiable credential issuance and verification. Implementers are encouraged to design
+      their platforms and applications to provide such functionality to best serve their
+      specific circumstances.
+    </p>
+
+    <p class="note">
+      Though this specification began as a fork of the
+      <a href="https://w3c-ccg.github.io/vc-api/">VC-API specification</a>, it
+      has diverged significantly. Knowledge and understanding of the
+      <a href="https://w3c-ccg.github.io/vc-api/">VC-API specification</a> is
+      not necessary for implementers of this specification.
+    </p>
+
+    </section>
+
+  </section>
+
+  <section data-include="sections/mandatory-to-implement-algorithms.html" data-include-replace="true">
+  </section>
+
+  <section id="terminology" class="informative">
+    <h2>Terminology</h2>
+    <p>
+      Term definitions for this specification can be found in the
+      [[[TRACE-VOCAB]]] [[TRACE-VOCAB]].
+      This specification does not define any additional terms.
+    </p>
+  </section>
+
+  <section id="conformance" class="">
+    <h2>Conformance</h2>
+    <p>
+      As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
+    </p>
+    <p>
+      The key words MAY, MUST, MUST NOT, RECOMMENDED, and SHOULD in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here. 
+    </p>
+  </section>
+  <section data-include="sections/use-case-requirements.html"
+    data-include-replace="true"></section>
+
+  <section data-include="sections/authorization.html"
+    data-include-replace="true"></section>
+
+  <section data-include="sections/api-spec.html" data-include-replace="true">
+  </section>
+
+  <section class="normative">
+    <h2>Rules for Processing Data</h2>
+    <p>
+      Data exchanged according to this specification will often need to
+      be handled by external systems that have a more transactional
+      nature. By design, data exchanged using this specification is
+      asynchronous in nature. This means that certain rules should be
+      followed to ensure that a reciever of data using this
+      specification can assemble a graph of connected data elements and
+      have a high degree of certainty (unless they are missing data)
+      that the data they are looking at is the most current information,
+      assembled in the right order, and is the best known state at a
+      given time. The following section details rules for handling
+      identifiers and references to data to prevent issues with
+      informational processing.
+    </p>
+    <section class="normative">
+        <section class="normative">
+          <h2>Identifiers</h2>
+          <p>
+            Identifiers in objects exchanged using this specification are
+            particularly important, not least in that they uniquely identify
+            an object or network transaction, but also, given the
+            asynchronous nature of this mode of data exchange, in that they
+            present an area where various attacks could be made by sending
+            data with identifiers already in use with malicious intent to
+            confuse a receiver of the data.
+          </p>
+          <p>
+            Identifiers conformant with this specification <em>MUST</em> be
+            [[rfc3986]] conformant URIs. Unless otherwise noted, an
+            identifier <em>MAY</em> be a DID identifier per [[did-core]], a
+            UUID v4 per [[rfc4122]], or a [[URL]] that identifies a resource
+            directly.
+          </p>
+        </section>
+        <section class="normative">
+        <h2>Presentations</h2>
+        <p>
+          Presentations in this spec are
+          <a href="https://w3id.org/traceability/#traceable-presentation">Traceable
+            Presentations</a>, which contain several notable identifiers
+          that can be used for correlation, retrieval, and business rule
+          processing of data.
+        </p>
+        <p>
+          `TraceablePresentation.id` <em>MUST</em> be unique to each
+          presentation. A presentation received with a duplicate ID
+          <em>MUST</em> be rejected with a 409 Conflict status code per
+          [[rfc9110]]. A presenter encountering this error,
+          <em>SHOULD</em> generate a new presentation, with a new UUID
+          v4 for the ID and then retry the presentation.
+        </p>
+        <p>
+          The holder <em>MAY</em> indicate replacement of a previously sent
+          <a href="https://w3id.org/traceability/#traceable-presentation">Traceable
+            Presentation</a> with the `replace` property.
+          If this member is present, its value <em>SHOULD</em> be interpreted as defined in
+          <a href="https://w3id.org/traceability/#presentation-replace">Presentation Replace</a>.
+        </p>
+        <p>
+          Multiple Traceable Presentations <em>MAY</em> be correlated by referencing
+          a <a href="https://w3id.org/traceability/#workflow">Workflow</a>.
+        </p>
+        <p>
+          A `TraceablePresentation`, while being part of a two party
+          exchange of information via a `VerifiablePresentation`,
+          provides the ability for multiple parties to exchange related
+          information by use of the same workflow definition and
+          instance. Use of the same workflow definition and instance by
+          multiple presenters implies that the credentials contained in
+          the separate presentations are related, and
+          <em>SHOULD</em> be treated as part of the same <em>instance</em> of a
+          given workflow <em>type</em>. A good
+          example of this type of scenario is when a vendor is exchanging some
+          information, say a commercial invoice,
+          with a third party, such as a broker, and the shipping company is
+          presenting related information to that
+          same broker.
+        </p>
+      </section>
+      <section class="normative">
+        <h2>Credentials</h2>
+        <p>
+          Verifiable Credentials bundled in
+          <a href="https://w3id.org/traceability/#TraceablePresentation">Traceable
+            Presentations</a>
+          using this specification <em>MUST</em> contain the property
+          `verifiableCredential.id`. This ID is unique to the object,
+          entity, or action described in the credential. The `id` property is intended to
+          unambiguously refer to an object, such as a person, product,
+          or organization. Using the `id` property allows for the
+          expression of statements about specific things in the
+          verifiable credential.
+        </p>
+      </section>
+    </section>
+  </section>
+
+  <section class="informative">
+    <h2>OAS Implementation</h2>
+    <p>
+      The Traceability Interoperability
+      <a href="https://w3id.org/traceability/interoperability/openapi">Open API
+        Specification</a>
+      is designed to be easily implemented and used to access conforming
+      platforms.
+    </p>
+    <p>
+      In order to make use of the provide OpenAPI specifications
+      directly, several placeholder URLs need to be modified to reflect
+      your operating environment:
+    </p>
+    <p>Add the target <code>server</code>:</p>
+    <p></p>
+    <pre class="example">
+          servers:
+            - url: https://conformant-platform.example.com
+    </pre>
+    <p>Add the target <code>tokenUrl</code>:</p>
+    <pre class="example">
+        components:
+          securitySchemes:
+            OAuth2:
+              type: oauth2
+              flows:
+                clientCredentials:
+                  tokenUrl: https://conformant-platform.example.com/oauth/token
+    </pre>
+  </section>
+
+  <section class="normative">
+    <h2>Privacy Considerations</h2>
+
+    <p>
+      Systems complying with this specification <em>SHOULD</em> leverage
+      and comply with, and service providers complying with this
+      specification <em>SHOULD</em> be able to provide results to, the
+      guidance provided in
+      <a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final">
+        NIST 800 53 rev 5</a>
+      (Security and Privacy Controls for Information Systems and Organizations).
+    </p>
+  </section>
+
+  <section class="normative">
+    <h2>Security Considerations</h2>
+
+    <p>
+      There are a number of security considerations that implementers
+      should be aware of when processing data described by this
+      specification. Ignoring or not understanding the implications of
+      this section can result in security vulnerabilities.
+    </p>
+
+    <p>
+      While this section attempts to highlight a broad set of security
+      considerations, it is not a complete list. Implementers are urged
+      to seek the advice of security and cryptography professionals when
+      implementing mission critical systems using the technology
+      outlined in this specification.
+    </p>
+
+    <section class="normative">
+      <h2>General Guidelines</h2>
+      <p>
+        As a rule, systems conforming with this specification <em>SHOULD</em>
+        leverage and comply with encryption and security guidelines as
+        listed in:
+        <a href="https://csrc.nist.gov/pubs/fips/186-5/final"
+          rel="nofollow">FIPS 186-5 Digital Signature Standard (DSS)</a>,
+        <a href="https://csrc.nist.gov/publications/detail/fips/180/4/final"
+          rel="nofollow">FIPS 180-4 Secure Hash Standard (SHS)</a>, and
+        <a href="https://csrc.nist.gov/publications/detail/fips/197/final"
+          rel="nofollow">FIPS 197 Advanced Encryption Standard (AES)</a>. This
+        effectively means that committers should be thinking along the lines of
+        P256 versus other competing
+        algorithms.
+      </p>
+    </section>
+
+    <section class="normative">
+      <h2>Credential Securing Mechanism</h2>
+      <p>
+        Any system conforming with this specification for
+        interoperability
+        <em>MUST</em>
+        secure credentials with [[[VC-JOSE-COSE]]] [[VC-JOSE-COSE]]
+      </p>
+      <p>
+        Any system conforming with this specification for interoperability
+        <em>MUST</em>
+        support [[[BITSTRING-STATUS-LIST]]] [[BITSTRING-STATUS-LIST]]
+        to handle revocation and status tracking for Verifiable Credentials.
+      </p>
+    </section>
+
+    <section class="normative">
+      <h2>Encryption in Transport</h2>
+      <p>
+        Any system conforming with this specification for
+        interoperability
+        <em>MUST</em> utilize TLS and comply with
+        <a
+          href="https://csrc.nist.gov/pubs/sp/800/52/r2/final">
+          NIST SP 800-52 rev2</a>
+        or superseding publications for configuration and use of TLS in
+        transport of data over API or web endpoints.
+      </p>
+      <p>
+        Special care should be taken to avoid use of obsolete TLS
+        profiles or configurations that do not match the latest TLS
+        Protocol configurations. The
+        <a
+          href="https://media.defense.gov/2021/Jan/05/2002560140/-1/-1/0/ELIMINATING_OBSOLETE_TLS_UOO197443-20.PDF">special
+          publication</a>
+        provided by the NSA on this topic should be referred to as a guide for
+        systems administrators deploying
+        infrastructure intended to comply with the standard for interoperability
+        discussed here.
+      </p>
+      <p>
+        Tool lists such as those compiled
+        <a href="https://github.com/nsacyber/Mitigating-Obsolete-TLS">here</a>
+        may be helpful in identifying and mitigating issues related to TLS
+        misconfiguration.
+      </p>
+    </section>
+
+  </section>
+
+  <section class="appendix">
+    <h2>Appendix</h2>
+    <section>
+      <h2>Acknowledgements</h2>
+      <p>
+        Portions of the work on this specification have been funded by the
+        United States Department of Homeland Security's (US DHS) Silicon Valley
+        Innovation Program under contracts 70RSAT20T00000003, 70RSAT20T00000031,
+        70RSAT20T00000033, 70RSAT20T00000043, and 70RSAT20T00000044. The content
+        of this specification does not necessarily reflect the position or the
+        policy of the U.S. Government and no official endorsement should be
+        inferred.
+      </p>
+    </section>
+  </section>
+</body>
+
+</html>

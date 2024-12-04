@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<section id="authorization" class="normative">
+  <h2>Authentication</h2>
+  <p>Implementations MUST support OAuth 2.0 Client Credentials based authentication.</p>
+
+  <p>
+    Client Credentials Grant is appropriate for verifying trusted application authorization for Internal/External APIs.
+  </p>
+
+  <p>See these links for more information on Machine to Machine API authorization:</p>
+
+  <ul>
+    <li>
+      <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.4"> RFC6749 &mdash; Client Credentials Grant </a>
+    </li>
+    <li>
+      <a href="https://developer.okta.com/docs/guides/implement-client-creds/overview/"
+        >Okta &mdash; Client Credentials flow</a
+      >
+    </li>
+
+    <li>
+      <a href="https://auth0.com/machine-to-machine"
+        >Auth0 &mdash; Simplify Communication Between APIs and Trusted Services</a
+      >
+    </li>
+  </ul>
+
+  <section id="presentation-authentication">
+    <h3>Presentation Authentication</h3>
+    <p>
+      The following sequence of events is necessary for a Holder to present data to a Verifier:
+    </p>
+    <ul>
+      <li>
+        The Holder MUST authenticate by obtaining an
+        <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#auth">access token</a> through the client
+        credentials flow, based on the client ID and client secret provided by the Verifier.
+      </li>
+      <li>
+        Subsequent <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#post-/presentations">
+        presentations</a> MUST be made with the access token in the request header.
+      </li>
+    </ul>
+  </section>
+
+</section>
