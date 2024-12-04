@@ -1,0 +1,1337 @@
+<!DOCTYPE html><html lang="en" fire-extension-installed="XMvsgsdM"><head>
+<meta http-equiv=" Content-Type" content="text/html;charset=utf-8">
+<meta name="generator" content="ReSpec 35.2.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+  
+<title>Traceability Interoperability v1.0</title>
+
+  
+
+  
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+
+  
+<script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+  
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css">
+
+  
+  
+<style>
+
+    table {
+      width: 100%;
+    }
+  
+</style>
+
+<meta name="color-scheme" content="light">
+<meta name="description" content="This specification describes discovery and exchange mechanisms of W3C Verifiable Credentials Data Model v2.0 [VC-DATA-MODEL],
+    particularly as they relate to supply chain use cases.
+    Exchanged Verifiable Credentials often implement schemas defined in
+    the Traceability Vocabulary [TRACE-VOCAB]..">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-DRAFT",
+  "historyURI": null,
+  "shortName": "traceability-interop",
+  "github": "w3c-ccg/traceability-interop",
+  "group": "credentials",
+  "edDraftURI": "https://w3id.org/traceability/interoperability",
+  "editors": [
+    {
+      "name": "Mahmoud Alkhraishi",
+      "url": "https://github.com/mkhraisha",
+      "company": "Mavennet",
+      "companyURL": "https://www.mavennet.com/",
+      "extras": [
+        {
+          "name": "E-mail",
+          "href": "mailto:mahmoud@mavennet.com"
+        }
+      ]
+    },
+    {
+      "name": "Nis Jespersen",
+      "url": "https://github.com/nissimsan",
+      "company": "Transmute",
+      "companyURL": "https://www.transmute.industries/",
+      "extras": [
+        {
+          "name": "E-mail",
+          "href": "mailto:nis@transmute.industries"
+        }
+      ]
+    },
+    {
+      "name": "Brent Zundel",
+      "url": "https://github.com/brentzundel",
+      "company": "Mesur.io",
+      "companyURL": "https://mesur.io/",
+      "extras": [
+        {
+          "name": "E-mail",
+          "href": "mailto:brent.zundel@mesur.io"
+        }
+      ]
+    }
+  ],
+  "formerEditors": [
+    {
+      "name": "Orie Steele",
+      "url": "https://github.com/OR13",
+      "company": "Transmute",
+      "companyURL": "https://www.transmute.industries/",
+      "extras": [
+        {
+          "name": "E-mail",
+          "href": "mailto:orie@transmute.industries"
+        }
+      ]
+    },
+    {
+      "name": "Michael Prorock",
+      "url": "https://github.com/mprorock",
+      "company": "Mesur.io",
+      "companyURL": "https://mesur.io/",
+      "extras": [
+        {
+          "name": "E-mail",
+          "href": "mailto:mprorock@mesur.io"
+        }
+      ]
+    }
+  ],
+  "authors": [
+    {
+      "name": "Chris Abernethy",
+      "url": "https://github.com/brownoxford",
+      "company": "mesur.io",
+      "companyURL": "https://www.mesur.io/"
+    },
+    {
+      "name": "Russell Hofvendahl",
+      "url": "https://github.com/rhofvendahl",
+      "company": "mesur.io",
+      "companyURL": "https://www.mesur.io/"
+    },
+    {
+      "name": "Ted Thibodeau Jr",
+      "url": "https://github.com/TallTed",
+      "company": "OpenLink Software, Inc",
+      "companyURL": "https://www.openlinksw.com/"
+    },
+    {
+      "name": "Vivien Fan",
+      "url": "https://github.com/vivienfan",
+      "company": "Mavennet Systems Inc",
+      "companyURL": "https://www.mavennet.com/"
+    }
+  ],
+  "maxTocLevel": 2,
+  "localBiblio": {
+    "TRACE-VOCAB": {
+      "title": "Traceability Vocabulary",
+      "href": "https://w3c-ccg.github.io/traceability-vocab/",
+      "id": "trace-vocab"
+    },
+    "VC-DI-BBS": {
+      "title": "BBS Cryptosuite v2023",
+      "href": "https://www.w3.org/TR/vc-di-bbs/",
+      "authors": [
+        "Tobias Looker",
+        "Orie Steele"
+      ],
+      "status": "Working Draft",
+      "publisher": "W3C"
+    },
+    "DID-CORE": {
+      "title": "W3C Decentralized Identifiers",
+      "href": "https://www.w3.org/TR/did-core/"
+    },
+    "VC-SD-JWT": {
+      "title": "Selective Disclosure for JWTs (SD-JWT)",
+      "href": "https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/",
+      "authors": [
+        "Daniel Fett",
+        "Kristina Yasuda",
+        "Brian Campbell"
+      ],
+      "status": "Draft"
+    },
+    "VC-DATA-MODEL": {
+      "title": "W3C Verifiable Credentials Data Model v2.0",
+      "href": "https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/",
+      "id": "vc-data-model"
+    },
+    "VC-JOSE-COSE": {
+      "title": "Securing Verifiable Credentials using JOSE and COSE",
+      "href": "https://w3c.github.io/vc-jose-cose/",
+      "id": "vc-jose-cose"
+    },
+    "BITSTRING-STATUS-LIST": {
+      "title": "Bitstring Status List v1.0",
+      "href": "https://www.w3.org/TR/vc-bitstring-status-list/",
+      "id": "bitstring-status-list"
+    }
+  },
+  "publishISODate": "2024-12-04T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 04 December 2024"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
+
+<body class="h-entry"><div class="head">
+    
+    <h1 id="title" class="title">Traceability Interoperability v1.0</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
+      <time class="dt-published" datetime="2024-12-04">04 December 2024</time>
+    </p>
+    <dl>
+      
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/traceability-interop/">https://www.w3.org/traceability-interop/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3id.org/traceability/interoperability">https://w3id.org/traceability/interoperability</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/mkhraisha">Mahmoud Alkhraishi</a> (<a class="p-org org h-org" href="https://www.mavennet.com/">Mavennet</a>), <a href="mailto:mahmoud@mavennet.com">E-mail</a>
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/nissimsan">Nis Jespersen</a> (<a class="p-org org h-org" href="https://www.transmute.industries/">Transmute</a>), <a href="mailto:nis@transmute.industries">E-mail</a>
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/brentzundel">Brent Zundel</a> (<a class="p-org org h-org" href="https://mesur.io/">Mesur.io</a>), <a href="mailto:brent.zundel@mesur.io">E-mail</a>
+  </dd>
+      <dt>
+              Former editors:
+            </dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/OR13">Orie Steele</a> (<a class="p-org org h-org" href="https://www.transmute.industries/">Transmute</a>), <a href="mailto:orie@transmute.industries">E-mail</a>
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/mprorock">Michael Prorock</a> (<a class="p-org org h-org" href="https://mesur.io/">Mesur.io</a>), <a href="mailto:mprorock@mesur.io">E-mail</a>
+  </dd>
+      <dt>Authors:</dt><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/brownoxford">Chris Abernethy</a> (<a class="p-org org h-org" href="https://www.mesur.io/">mesur.io</a>)
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/rhofvendahl">Russell Hofvendahl</a> (<a class="p-org org h-org" href="https://www.mesur.io/">mesur.io</a>)
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/TallTed">Ted Thibodeau Jr</a> (<a class="p-org org h-org" href="https://www.openlinksw.com/">OpenLink Software, Inc</a>)
+  </dd><dd class="editor p-author h-card vcard">
+    <a class="u-url url p-name fn" href="https://github.com/vivienfan">Vivien Fan</a> (<a class="p-org org h-org" href="https://www.mavennet.com/">Mavennet Systems Inc</a>)
+  </dd>
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c-ccg/traceability-interop/">GitHub w3c-ccg/traceability-interop</a>
+        (<a href="https://github.com/w3c-ccg/traceability-interop/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c-ccg/traceability-interop/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c-ccg/traceability-interop/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2024
+          
+          the Contributors to the Traceability Interoperability v1.0
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/credentials">Credentials Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+  
+<section id="abstract" class="introductory"><h2>Abstract</h2>
+  
+  <p>
+    This specification describes discovery and exchange mechanisms of <cite><a data-matched-text="[[[VC-DATA-MODEL]]]" href="https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/">W3C Verifiable Credentials Data Model v2.0</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="W3C Verifiable Credentials Data Model v2.0">VC-DATA-MODEL</a></cite>],
+    particularly as they relate to supply chain use cases.
+    Exchanged Verifiable Credentials often implement schemas defined in
+    the <cite><a data-matched-text="[[[TRACE-VOCAB]]]" href="https://w3c-ccg.github.io/traceability-vocab/">Traceability Vocabulary</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-trace-vocab" title="Traceability Vocabulary">TRACE-VOCAB</a></cite>]..
+  </p>
+  <p>
+    Using Verifiable Credentials to represent supply chain data enables interoperability between disparate actors,
+    and provides the ability to cryptographically verify the authenticity of the data.
+  </p>
+  <p>
+    This specification uses <cite><a data-matched-text="[[[DID-CORE]]]" href="https://www.w3.org/TR/did-core/">W3C Decentralized Identifiers</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-did-core" title="Decentralized Identifiers (DIDs) v1.0">DID-CORE</a></cite>]
+    to identify organizations within a supply chain. This enables organizations to interact with parties
+    outside their traditional supply chains, and removes the need for a central authority to identify supply chain
+    organizations.
+  </p>
+</section>
+
+
+  <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/credentials">Credentials Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>
+            there is a limited opt-out and other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+    <p>
+      This repository will be versioned at periodic points in time with a Q1
+      Calendar Year target for major releases.
+      Versioning tags will follow a pattern of <code>[MAJOR].[MINOR].[PATCH]</code>
+    </p>
+    Version Definitions:
+    <ul>
+      <li>
+        MAJOR - significant changes rolled forward from the previous major
+        version. Major versions <em class="rfc2119">MAY</em> include
+        breaking or non-backwards compatible changes
+      </li>
+      <li>MINOR - backwards compatible changes that may introduce new
+        functionality or extensions of objects</li>
+      <li>PATCH - minor changes that are backwards compatible and resolve
+        discovered issues or bugs</li>
+    </ul>
+
+    <p>
+      As a rule, versioning will follow the specification outlined in the
+      <a href="https://semver.org/">Semantic Versioning 2.0</a> spec.
+    </p>
+
+    <p>
+      To contribute to this specification or reference technical details related to
+      the project, please refer to the
+      primary README located on
+      <a href="https://w3id.org/traceability/interoperability/">GitHub</a>.
+    </p>
+
+    <p>
+      Please
+      <a href="https://w3id.org/traceability/interoperability/issues/">open an
+        issue</a>, if you wish to collaborate
+      on this specification.
+    </p>
+
+    <p>
+      You may also reach out via the mailing list:
+      <a href="mailto:public-credentials@w3.org">public-credentials@w3.org</a>
+      (<a href="mailto:public-credentials-request@w3.org?subject=subscribe">subscribe</a>,
+      <a href="https://lists.w3.org/Archives/Public/public-credentials/">archives</a>)
+    </p>
+  <p>
+    <a href="https://github.com/w3c-ccg/traceability-interop/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">1. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">2. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#mandatory-algorithms"><bdi class="secno">3. </bdi>Mandatory Algorithms </a></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">4. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">5. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#use-cases-and-requirements"><bdi class="secno">6. </bdi>Use Cases and Requirements</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#initial-party-binding"><bdi class="secno">6.1 </bdi>Initial Party Binding</a></li><li class="tocline"><a class="tocxref" href="#identifier-discovery"><bdi class="secno">6.2 </bdi>Identifier Discovery</a><ol class="toc"></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#authorization"><bdi class="secno">7. </bdi>Authentication</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#presentation-authentication"><bdi class="secno">7.1 </bdi>Presentation Authentication</a></li></ol></li><li class="tocline"><a class="tocxref" href="#api-spec"><bdi class="secno">8. </bdi>Services</a></li><li class="tocline"><a class="tocxref" href="#rules-for-processing-data"><bdi class="secno">9. </bdi>Rules for Processing Data</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#identifiers"><bdi class="secno">9.1 </bdi>Identifiers</a></li><li class="tocline"><a class="tocxref" href="#presentations"><bdi class="secno">9.2 </bdi>Presentations</a></li><li class="tocline"><a class="tocxref" href="#credentials"><bdi class="secno">9.3 </bdi>Credentials</a></li></ol></li><li class="tocline"><a class="tocxref" href="#oas-implementation"><bdi class="secno">10. </bdi>OAS Implementation</a></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">11. </bdi>Privacy Considerations</a></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">12. </bdi>Security Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#general-guidelines"><bdi class="secno">12.1 </bdi>General Guidelines</a></li><li class="tocline"><a class="tocxref" href="#credential-securing-mechanism"><bdi class="secno">12.2 </bdi>Credential Securing Mechanism</a></li><li class="tocline"><a class="tocxref" href="#encryption-in-transport"><bdi class="secno">12.3 </bdi>Encryption in Transport</a></li></ol></li><li class="tocline"><a class="tocxref" href="#appendix"><bdi class="secno">A. </bdi>Appendix</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">A.1 </bdi>Acknowledgements</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">B.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+  <section id="conformance"><div class="header-wrapper"><h2 id="x1-conformance"><bdi class="secno">1. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 1."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">RECOMMENDED</em>, and <em class="rfc2119">SHOULD</em> in this document
+        are to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+        when, and only when, they appear in all capitals, as shown here.
+      </p>
+  </section>
+
+  <section class="informative" id="introduction"><div class="header-wrapper"><h2 id="x2-introduction"><bdi class="secno">2. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 2."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>
+      This specification describes how verifiable data can be shared securely
+      over an authenticated channel. The purpose of the specification is to facilitate
+      cross trust boundary interactions among organizations conducting or otherwise
+      involved in trade, seeking to digitize and automate their operations.
+      Examples of targeted organizations include Buyers, Sellers, Shippers, Consignees,
+      Carriers, and Customs Authorities.
+    </p>
+
+    <p>
+      The specification comprises of the following necessary elements:
+      </p><ul>
+        <li>Discovery via an organization's <code>did:web</code></li>
+        <li>Cross organization <code>OAuth2</code>-based authentication</li>
+        <li>Structure of the <code>https</code>-based data exchange endpoint</li>
+      </ul>
+    <p></p>
+    <p>
+      The specification is opinionated in order to promote actual interoperability.
+      Baking more choices into the specification decreases ambiguity for
+      implementers.
+    </p>
+    <p>
+      This specification seeks to make implementation as simple and light a lift as possible,
+      leveraging existing, well-known standards and technologies wherever possible.
+    </p>
+    <p>
+      This specification attempts not to define any unnecessary functionality beyond the
+      core use case of interoperability. Some obvious peripheral use cases include
+      verifiable credential issuance and verification. Implementers are encouraged to design
+      their platforms and applications to provide such functionality to best serve their
+      specific circumstances.
+    </p>
+
+    <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div><p class="">
+      Though this specification began as a fork of the
+      <a href="https://w3c-ccg.github.io/vc-api/">VC-API specification</a>, it
+      has diverged significantly. Knowledge and understanding of the
+      <a href="https://w3c-ccg.github.io/vc-api/">VC-API specification</a> is
+      not necessary for implementers of this specification.
+    </p></div>
+
+    </section>
+
+  
+
+  <section class="normative" id="mandatory-algorithms"><div class="header-wrapper"><h2 id="x3-mandatory-algorithms"><bdi class="secno">3. </bdi>Mandatory Algorithms </h2><a class="self-link" href="#mandatory-algorithms" aria-label="Permalink for Section 3."></a></div>
+  
+  <p>
+    The following digital signature algorithms 
+    <em class="rfc2119">MUST</em> be implemented by conforming issuers and verifiers.
+  </p>
+  <ul>
+    <li>
+      <a href="https://www.rfc-editor.org/rfc/rfc7518#section-3.4">ES256</a>
+    </li>
+  </ul>
+</section>
+
+
+  <section id="terminology" class="informative"><div class="header-wrapper"><h2 id="x4-terminology"><bdi class="secno">4. </bdi>Terminology</h2><a class="self-link" href="#terminology" aria-label="Permalink for Section 4."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>
+      Term definitions for this specification can be found in the
+      <cite><a data-matched-text="[[[TRACE-VOCAB]]]" href="https://w3c-ccg.github.io/traceability-vocab/">Traceability Vocabulary</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-trace-vocab" title="Traceability Vocabulary">TRACE-VOCAB</a></cite>].
+      This specification does not define any additional terms.
+    </p>
+  </section>
+
+  <section id="conformance" class=""><div class="header-wrapper"><h2 id="x5-conformance"><bdi class="secno">5. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 5."></a></div>
+    
+    <p>
+      As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
+    </p>
+    <p>
+      The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">RECOMMENDED</em>, and <em class="rfc2119">SHOULD</em> in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here. 
+    </p>
+  </section>
+  
+<section class="informative" id="use-cases-and-requirements"><div class="header-wrapper"><h2 id="x6-use-cases-and-requirements"><bdi class="secno">6. </bdi>Use Cases and Requirements</h2><a class="self-link" href="#use-cases-and-requirements" aria-label="Permalink for Section 6."></a></div><p><em>This section is non-normative.</em></p>
+  
+
+  <p>
+    The following use cases outline a number of key scenarios that readers might
+    find useful in a variety of sectors, especially those that deal with cross
+    border supply chain data interchange.
+  </p>
+
+
+  <section id="initial-party-binding"><div class="header-wrapper"><h3 id="x6-1-initial-party-binding"><bdi class="secno">6.1 </bdi>Initial Party Binding</h3><a class="self-link" href="#initial-party-binding" aria-label="Permalink for Section 6.1"></a></div>
+    
+    <p>
+      The following requirements are necessary for the Verifier to establish binding, enabling the Holder to submit data:
+    </p>
+    <ul>
+      <li>
+        The Verifier <em class="rfc2119">MUST</em> establish the <a href="https://www.rfc-editor.org/rfc/rfc6749.html">OAuth 2.0</a> binding by
+        providing client ID and secret to the Holder.
+      </li>
+      <li>
+        The Verifier <em class="rfc2119">MUST</em> provide an <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#auth">authentication</a>
+        endpoint for the Holder to authenticate and obtain an access token.
+      </li>
+      <li>
+        The Verifier <em class="rfc2119">MUST</em> provide a <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#post-/presentations">
+        presentations</a> endpoint for the Holder to submit presentations.
+      </li>
+    </ul>
+    <p>
+      Binding data is provided out-of-band between parties. The binding data <em class="rfc2119">MAY</em> conveniently be exchanged in an environment file.
+    </p>
+    <p>
+      This exchange of binding information <em class="rfc2119">MAY</em> be done bi-directionally between parties, enabling bi-directional flow of data.
+    </p>
+  </section>
+
+
+  <section id="identifier-discovery"><div class="header-wrapper"><h3 id="x6-2-identifier-discovery"><bdi class="secno">6.2 </bdi>Identifier Discovery</h3><a class="self-link" href="#identifier-discovery" aria-label="Permalink for Section 6.2"></a></div>
+    
+
+<p>
+As supply chains invest in web compatible standards such as
+<a href="https://www.gs1.org/standards/gs1-digital-link">GS1 Digital Link</a>
+and <a href="https://www.gs1.org/standards/epcis">GS1 EPCIS</a>, the
+need to discover identifiers associated with legal entities, products,
+and associated web origins becomes critical to the adoption of
+verifiable credentials in a supply chain context.
+</p>
+
+<p>
+This API specification describes how existing web standards can be
+applied to the identifier discovery use case for supply chain actors and
+products.
+</p>
+
+<p class="advisement">
+The <a href="https://github.com/w3c-ccg/did-method-web">did:web</a>
+method <em class="rfc2119">MUST</em> be supported.
+</p>
+
+<p>
+This document defines the discoverability feature
+necessary to complete integration tests in postman with authentication.
+</p>
+
+<section id="integration-considerations"><div class="header-wrapper"><h4 id="x6-2-1-integration-considerations"><bdi class="secno">6.2.1 </bdi>Integration Considerations</h4><a class="self-link" href="#integration-considerations" aria-label="Permalink for Section 6.2.1"></a></div>
+
+<p>
+An organization will have an application authorized to act on their behalf.
+</p>
+
+<p>
+The application will be identified with a <code>CLIENT_ID</code> which <em class="rfc2119">MAY</em> be publically shared.
+</p>
+<p class="advisement">
+Implementations are encouraged to include specific DIDs per <code>CLIENT_ID</code> in an <code>allow-list</code>.
+</p>
+
+<p>
+The application will be authenticated with a <code>CLIENT_SECRET</code> which <em class="rfc2119">MUST NOT</em> be disclosed.
+</p>
+
+<p>
+The organization <em class="rfc2119">MAY</em> have more than one DID.
+</p>
+
+<p>
+Each organization DID will have DID URLs for <code>assertionMethod</code> and <code>authentication</code> relationships.
+</p>
+
+<p>
+  As a representative of an organization, I can discover another organization's supported API features from their <code>did:web</code>.
+</p>
+
+</section>
+
+
+  <section id="discovering-organizational-identifiers"><div class="header-wrapper"><h4 id="x6-2-2-discovering-organizational-identifiers"><bdi class="secno">6.2.2 </bdi>Discovering Organizational Identifiers</h4><a class="self-link" href="#discovering-organizational-identifiers" aria-label="Permalink for Section 6.2.2"></a></div>
+  
+
+<p>
+1. Resolve <code>did:web:platform.example:organization:123</code>.
+
+This is trivial, simply do:
+</p>
+
+<div class="example" id="example-1">
+        <div class="marker">
+    <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript"><span class="hljs-variable constant_">HTTP</span> <span class="hljs-variable constant_">GET</span> <span class="hljs-attr">https</span>:<span class="hljs-comment">//platform.example/organization/123/did.json =&gt; didDocument.json</span></code></pre>
+      </div>
+
+ <p>
+2. Review the <code>serviceEndpoint</code>, and <code>assertionMethod</code> sections of the DID document.
+ </p>
+<section id="service"><div class="header-wrapper"><h5 id="service-0">service</h5><a class="self-link" href="#service" aria-label="Permalink for this Section"></a></div>
+  
+
+
+<p>
+The service block provides a means of communicating or interacting with the DID subject or associated entities via one or more service endpoints.
+</p>
+
+  <p>
+    See <a href="https://www.w3.org/TR/did-core/#dfn-service">service</a>.
+  </p>
+
+<p>
+This entry <em class="rfc2119">MUST</em> be present.
+</p>
+<p>
+This entry <em class="rfc2119">MUST</em> have an element of type <code>TraceabilityAPI</code> with a <code>serviceEndpoint</code> URL for an endpoint which supports presentation exchange.
+</p>
+
+  <p>For example:</p>
+
+<div class="example" id="example-2">
+        <div class="marker">
+    <a class="self-link" href="#example-2">Example<bdi> 2</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-attr">"service"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:web:platform.example:organization:123#traceability-api"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"TraceabilityAPI"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"serviceEndpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://platform.example/organization/123"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span></code></pre>
+      </div>
+
+<p>This definition implies that a <code>/presentations</code> endpoint is available for data submissions:</p>
+
+<div class="example" id="example-3">
+        <div class="marker">
+    <a class="self-link" href="#example-3">Example<bdi> 3</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript"><span class="hljs-attr">https</span>:<span class="hljs-comment">//platform.example/organization/123/presentations</span></code></pre>
+      </div>
+
+<p>
+This endpoint must be secured as defined in <a href="./#authorization">Authentication</a>.
+
+</p>
+
+</section>
+
+<section id="assertionmethod"><div class="header-wrapper"><h5 id="assertionmethod-0">assertionMethod</h5><a class="self-link" href="#assertionmethod" aria-label="Permalink for this Section"></a></div>
+  
+<p>
+  The <code>assertionMethod</code> references public key material used by the organization for issuing Verifiable Credentials.
+</p>
+
+<p>
+See <a href="https://www.w3.org/TR/did-core/#assertion">assertionMethod</a>.
+</p>
+
+<p>
+  This entry <em class="rfc2119">MUST</em> be present.
+</p>
+
+<p>
+  This entry <em class="rfc2119">MUST</em> have at least one entry referencing an available <code>verificationMethod</code>.
+</p>
+
+</section>
+
+<section id="verificationmethod"><div class="header-wrapper"><h5 id="verificationmethod-0">verificationMethod</h5><a class="self-link" href="#verificationmethod" aria-label="Permalink for this Section"></a></div>
+  
+
+  <p>
+    The <code>verificationMethod</code> contains cryptographic material for public keys.
+  </p>
+
+  <p>
+    See <a href="https://www.w3.org/TR/did-core/#verification-methods">verificationMethod</a>.
+  </p>
+
+<p>
+  The <code>didDocument</code> <em class="rfc2119">MUST</em> contain at least one <code>verificationMethod</code> element.
+</p>
+
+<p>
+  The <code>didDocument</code> <em class="rfc2119">MUST NOT</em> contain <code>verificationMethods</code> where the controller is different from the DID Subject.
+</p>
+
+<p>
+</p>
+
+<p>
+  All <code>JsonWebKey</code> types support securing with JOSE, as described in <a href="https://w3c.github.io/vc-jose-cose/#secure-with-jose">W3C VC-JOSE-COSE</a>.
+</p>
+
+<div class="example" id="example-4">
+        <div class="marker">
+    <a class="self-link" href="#example-4">Example<bdi> 4</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"@context"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"https://www.w3.org/ns/did/v1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"https://w3id.org/traceability/v1"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:web:platform.example:organization:123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"assertionMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"did:web:platform.example:organization:123#key1"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://university.example/issuers/565049#key-123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"JsonWebKey"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://university.example/issuers/565049"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"publicKeyJwk"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"kty"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"EC"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"crv"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"P-384"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"alg"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ES384"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"x"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"y"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"service"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:web:platform.example:organization:123#traceability-api"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"TraceabilityAPI"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"serviceEndpoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://platform.example/organization/123"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+
+</section>
+  </section>
+
+</section>
+</section>
+
+  
+<section id="authorization" class="normative"><div class="header-wrapper"><h2 id="x7-authentication"><bdi class="secno">7. </bdi>Authentication</h2><a class="self-link" href="#authorization" aria-label="Permalink for Section 7."></a></div>
+  
+  <p>Implementations <em class="rfc2119">MUST</em> support OAuth 2.0 Client Credentials based authentication.</p>
+
+  <p>
+    Client Credentials Grant is appropriate for verifying trusted application authorization for Internal/External APIs.
+  </p>
+
+  <p>See these links for more information on Machine to Machine API authorization:</p>
+
+  <ul>
+    <li>
+      <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.4"> RFC6749 — Client Credentials Grant </a>
+    </li>
+    <li>
+      <a href="https://developer.okta.com/docs/guides/implement-client-creds/overview/">Okta — Client Credentials flow</a>
+    </li>
+
+    <li>
+      <a href="https://auth0.com/machine-to-machine">Auth0 — Simplify Communication Between APIs and Trusted Services</a>
+    </li>
+  </ul>
+
+  <section id="presentation-authentication"><div class="header-wrapper"><h3 id="x7-1-presentation-authentication"><bdi class="secno">7.1 </bdi>Presentation Authentication</h3><a class="self-link" href="#presentation-authentication" aria-label="Permalink for Section 7.1"></a></div>
+    
+    <p>
+      The following sequence of events is necessary for a Holder to present data to a Verifier:
+    </p>
+    <ul>
+      <li>
+        The Holder <em class="rfc2119">MUST</em> authenticate by obtaining an
+        <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#auth">access token</a> through the client
+        credentials flow, based on the client ID and client secret provided by the Verifier.
+      </li>
+      <li>
+        Subsequent <a href="https://w3c-ccg.github.io/traceability-interop/openapi/#post-/presentations">
+        presentations</a> <em class="rfc2119">MUST</em> be made with the access token in the request header.
+      </li>
+    </ul>
+  </section>
+
+</section>
+
+
+  
+<section id="api-spec" class="normative"><div class="header-wrapper"><h2 id="x8-services"><bdi class="secno">8. </bdi>Services</h2><a class="self-link" href="#api-spec" aria-label="Permalink for Section 8."></a></div>
+  
+  <p>
+    This section describes the HTTP services a conformant Traceability API <em class="rfc2119">MUST</em>
+    implement.
+  </p>
+
+  <p>See the <a href="https://w3c-ccg.github.io/traceability-interop/openapi/">Open API for Interoperable Traceability</a> for the full API definition.</p>
+</section>
+
+
+  <section class="normative" id="rules-for-processing-data"><div class="header-wrapper"><h2 id="x9-rules-for-processing-data"><bdi class="secno">9. </bdi>Rules for Processing Data</h2><a class="self-link" href="#rules-for-processing-data" aria-label="Permalink for Section 9."></a></div>
+    
+    <p>
+      Data exchanged according to this specification will often need to
+      be handled by external systems that have a more transactional
+      nature. By design, data exchanged using this specification is
+      asynchronous in nature. This means that certain rules should be
+      followed to ensure that a reciever of data using this
+      specification can assemble a graph of connected data elements and
+      have a high degree of certainty (unless they are missing data)
+      that the data they are looking at is the most current information,
+      assembled in the right order, and is the best known state at a
+      given time. The following section details rules for handling
+      identifiers and references to data to prevent issues with
+      informational processing.
+    </p>
+      <section class="normative" id="identifiers"><div class="header-wrapper"><h3 id="x9-1-identifiers"><bdi class="secno">9.1 </bdi>Identifiers</h3><a class="self-link" href="#identifiers" aria-label="Permalink for Section 9.1"></a></div>
+          
+          <p>
+            Identifiers in objects exchanged using this specification are
+            particularly important, not least in that they uniquely identify
+            an object or network transaction, but also, given the
+            asynchronous nature of this mode of data exchange, in that they
+            present an area where various attacks could be made by sending
+            data with identifiers already in use with malicious intent to
+            confuse a receiver of the data.
+          </p>
+          <p>
+            Identifiers conformant with this specification <em><em class="rfc2119">MUST</em></em> be
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc3986" title="Uniform Resource Identifier (URI): Generic Syntax">rfc3986</a></cite>] conformant URIs. Unless otherwise noted, an
+            identifier <em><em class="rfc2119">MAY</em></em> be a DID identifier per [<cite><a class="bibref" data-link-type="biblio" href="#bib-did-core" title="Decentralized Identifiers (DIDs) v1.0">did-core</a></cite>], a
+            UUID v4 per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc4122" title="A Universally Unique IDentifier (UUID) URN Namespace">rfc4122</a></cite>], or a [<cite><a class="bibref" data-link-type="biblio" href="#bib-url" title="URL Standard">URL</a></cite>] that identifies a resource
+            directly.
+          </p>
+        </section>
+        <section class="normative" id="presentations"><div class="header-wrapper"><h3 id="x9-2-presentations"><bdi class="secno">9.2 </bdi>Presentations</h3><a class="self-link" href="#presentations" aria-label="Permalink for Section 9.2"></a></div>
+        
+        <p>
+          Presentations in this spec are
+          <a href="https://w3id.org/traceability/#traceable-presentation">Traceable
+            Presentations</a>, which contain several notable identifiers
+          that can be used for correlation, retrieval, and business rule
+          processing of data.
+        </p>
+        <p>
+          <code>TraceablePresentation.id</code> <em><em class="rfc2119">MUST</em></em> be unique to each
+          presentation. A presentation received with a duplicate ID
+          <em><em class="rfc2119">MUST</em></em> be rejected with a 409 Conflict status code per
+          [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9110" title="HTTP Semantics">rfc9110</a></cite>]. A presenter encountering this error,
+          <em><em class="rfc2119">SHOULD</em></em> generate a new presentation, with a new UUID
+          v4 for the ID and then retry the presentation.
+        </p>
+        <p>
+          The holder <em><em class="rfc2119">MAY</em></em> indicate replacement of a previously sent
+          <a href="https://w3id.org/traceability/#traceable-presentation">Traceable
+            Presentation</a> with the <code>replace</code> property.
+          If this member is present, its value <em><em class="rfc2119">SHOULD</em></em> be interpreted as defined in
+          <a href="https://w3id.org/traceability/#presentation-replace">Presentation Replace</a>.
+        </p>
+        <p>
+          Multiple Traceable Presentations <em><em class="rfc2119">MAY</em></em> be correlated by referencing
+          a <a href="https://w3id.org/traceability/#workflow">Workflow</a>.
+        </p>
+        <p>
+          A <code>TraceablePresentation</code>, while being part of a two party
+          exchange of information via a <code>VerifiablePresentation</code>,
+          provides the ability for multiple parties to exchange related
+          information by use of the same workflow definition and
+          instance. Use of the same workflow definition and instance by
+          multiple presenters implies that the credentials contained in
+          the separate presentations are related, and
+          <em><em class="rfc2119">SHOULD</em></em> be treated as part of the same <em>instance</em> of a
+          given workflow <em>type</em>. A good
+          example of this type of scenario is when a vendor is exchanging some
+          information, say a commercial invoice,
+          with a third party, such as a broker, and the shipping company is
+          presenting related information to that
+          same broker.
+        </p>
+      </section>
+      <section class="normative" id="credentials"><div class="header-wrapper"><h3 id="x9-3-credentials"><bdi class="secno">9.3 </bdi>Credentials</h3><a class="self-link" href="#credentials" aria-label="Permalink for Section 9.3"></a></div>
+        
+        <p>
+          Verifiable Credentials bundled in
+          <a href="https://w3id.org/traceability/#TraceablePresentation">Traceable
+            Presentations</a>
+          using this specification <em><em class="rfc2119">MUST</em></em> contain the property
+          <code>verifiableCredential.id</code>. This ID is unique to the object,
+          entity, or action described in the credential. The <code>id</code> property is intended to
+          unambiguously refer to an object, such as a person, product,
+          or organization. Using the <code>id</code> property allows for the
+          expression of statements about specific things in the
+          verifiable credential.
+        </p>
+      </section>
+  </section>
+
+  <section class="informative" id="oas-implementation"><div class="header-wrapper"><h2 id="x10-oas-implementation"><bdi class="secno">10. </bdi>OAS Implementation</h2><a class="self-link" href="#oas-implementation" aria-label="Permalink for Section 10."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>
+      The Traceability Interoperability
+      <a href="https://w3id.org/traceability/interoperability/openapi">Open API
+        Specification</a>
+      is designed to be easily implemented and used to access conforming
+      platforms.
+    </p>
+    <p>
+      In order to make use of the provide OpenAPI specifications
+      directly, several placeholder URLs need to be modified to reflect
+      your operating environment:
+    </p>
+    <p>Add the target <code>server</code>:</p>
+    <p></p>
+    <div class="example" id="example-5">
+        <div class="marker">
+    <a class="self-link" href="#example-5">Example<bdi> 5</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript"><span class="hljs-attr">servers</span>:
+  - <span class="hljs-attr">url</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//conformant-platform.example.com</span></code></pre>
+      </div>
+    <p>Add the target <code>tokenUrl</code>:</p>
+    <div class="example" id="example-6">
+        <div class="marker">
+    <a class="self-link" href="#example-6">Example<bdi> 6</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs javascript"><span class="hljs-attr">components</span>:
+  <span class="hljs-attr">securitySchemes</span>:
+    <span class="hljs-title class_">OAuth2</span>:
+      <span class="hljs-attr">type</span>: oauth2
+      <span class="hljs-attr">flows</span>:
+        <span class="hljs-attr">clientCredentials</span>:
+          <span class="hljs-attr">tokenUrl</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//conformant-platform.example.com/oauth/token</span></code></pre>
+      </div>
+  </section>
+
+  <section class="normative" id="privacy-considerations"><div class="header-wrapper"><h2 id="x11-privacy-considerations"><bdi class="secno">11. </bdi>Privacy Considerations</h2><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 11."></a></div>
+    
+
+    <p>
+      Systems complying with this specification <em><em class="rfc2119">SHOULD</em></em> leverage
+      and comply with, and service providers complying with this
+      specification <em><em class="rfc2119">SHOULD</em></em> be able to provide results to, the
+      guidance provided in
+      <a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final">
+        NIST 800 53 rev 5</a>
+      (Security and Privacy Controls for Information Systems and Organizations).
+    </p>
+  </section>
+
+  <section class="normative" id="security-considerations"><div class="header-wrapper"><h2 id="x12-security-considerations"><bdi class="secno">12. </bdi>Security Considerations</h2><a class="self-link" href="#security-considerations" aria-label="Permalink for Section 12."></a></div>
+    
+
+    <p>
+      There are a number of security considerations that implementers
+      should be aware of when processing data described by this
+      specification. Ignoring or not understanding the implications of
+      this section can result in security vulnerabilities.
+    </p>
+
+    <p>
+      While this section attempts to highlight a broad set of security
+      considerations, it is not a complete list. Implementers are urged
+      to seek the advice of security and cryptography professionals when
+      implementing mission critical systems using the technology
+      outlined in this specification.
+    </p>
+
+    <section class="normative" id="general-guidelines"><div class="header-wrapper"><h3 id="x12-1-general-guidelines"><bdi class="secno">12.1 </bdi>General Guidelines</h3><a class="self-link" href="#general-guidelines" aria-label="Permalink for Section 12.1"></a></div>
+      
+      <p>
+        As a rule, systems conforming with this specification <em><em class="rfc2119">SHOULD</em></em>
+        leverage and comply with encryption and security guidelines as
+        listed in:
+        <a href="https://csrc.nist.gov/pubs/fips/186-5/final" rel="nofollow">FIPS 186-5 Digital Signature Standard (DSS)</a>,
+        <a href="https://csrc.nist.gov/publications/detail/fips/180/4/final" rel="nofollow">FIPS 180-4 Secure Hash Standard (SHS)</a>, and
+        <a href="https://csrc.nist.gov/publications/detail/fips/197/final" rel="nofollow">FIPS 197 Advanced Encryption Standard (AES)</a>. This
+        effectively means that committers should be thinking along the lines of
+        P256 versus other competing
+        algorithms.
+      </p>
+    </section>
+
+    <section class="normative" id="credential-securing-mechanism"><div class="header-wrapper"><h3 id="x12-2-credential-securing-mechanism"><bdi class="secno">12.2 </bdi>Credential Securing Mechanism</h3><a class="self-link" href="#credential-securing-mechanism" aria-label="Permalink for Section 12.2"></a></div>
+      
+      <p>
+        Any system conforming with this specification for
+        interoperability
+        <em><em class="rfc2119">MUST</em></em>
+        secure credentials with <cite><a data-matched-text="[[[VC-JOSE-COSE]]]" href="https://w3c.github.io/vc-jose-cose/">Securing Verifiable Credentials using JOSE and COSE</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-jose-cose" title="Securing Verifiable Credentials using JOSE and COSE">VC-JOSE-COSE</a></cite>]
+      </p>
+      <p>
+        Any system conforming with this specification for interoperability
+        <em><em class="rfc2119">MUST</em></em>
+        support <cite><a data-matched-text="[[[BITSTRING-STATUS-LIST]]]" href="https://www.w3.org/TR/vc-bitstring-status-list/">Bitstring Status List v1.0</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-bitstring-status-list" title="Bitstring Status List v1.0">BITSTRING-STATUS-LIST</a></cite>]
+        to handle revocation and status tracking for Verifiable Credentials.
+      </p>
+    </section>
+
+    <section class="normative" id="encryption-in-transport"><div class="header-wrapper"><h3 id="x12-3-encryption-in-transport"><bdi class="secno">12.3 </bdi>Encryption in Transport</h3><a class="self-link" href="#encryption-in-transport" aria-label="Permalink for Section 12.3"></a></div>
+      
+      <p>
+        Any system conforming with this specification for
+        interoperability
+        <em><em class="rfc2119">MUST</em></em> utilize TLS and comply with
+        <a href="https://csrc.nist.gov/pubs/sp/800/52/r2/final">
+          NIST SP 800-52 rev2</a>
+        or superseding publications for configuration and use of TLS in
+        transport of data over API or web endpoints.
+      </p>
+      <p>
+        Special care should be taken to avoid use of obsolete TLS
+        profiles or configurations that do not match the latest TLS
+        Protocol configurations. The
+        <a href="https://media.defense.gov/2021/Jan/05/2002560140/-1/-1/0/ELIMINATING_OBSOLETE_TLS_UOO197443-20.PDF">special
+          publication</a>
+        provided by the NSA on this topic should be referred to as a guide for
+        systems administrators deploying
+        infrastructure intended to comply with the standard for interoperability
+        discussed here.
+      </p>
+      <p>
+        Tool lists such as those compiled
+        <a href="https://github.com/nsacyber/Mitigating-Obsolete-TLS">here</a>
+        may be helpful in identifying and mitigating issues related to TLS
+        misconfiguration.
+      </p>
+    </section>
+
+  </section>
+
+  <section class="appendix" id="appendix"><div class="header-wrapper"><h2 id="a-appendix"><bdi class="secno">A. </bdi>Appendix</h2><a class="self-link" href="#appendix" aria-label="Permalink for Appendix A."></a></div>
+    
+    <section id="acknowledgements"><div class="header-wrapper"><h3 id="a-1-acknowledgements"><bdi class="secno">A.1 </bdi>Acknowledgements</h3><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix A.1"></a></div>
+      
+      <p>
+        Portions of the work on this specification have been funded by the
+        United States Department of Homeland Security's (US DHS) Silicon Valley
+        Innovation Program under contracts 70RSAT20T00000003, 70RSAT20T00000031,
+        70RSAT20T00000033, 70RSAT20T00000043, and 70RSAT20T00000044. The content
+        of this specification does not necessarily reflect the position or the
+        policy of the U.S. Government and no official endorsement should be
+        inferred.
+      </p>
+    </section>
+  </section>
+
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix B.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-bitstring-status-list">[BITSTRING-STATUS-LIST]</dt><dd>
+      <a href="https://www.w3.org/TR/vc-bitstring-status-list/"><cite>Bitstring Status List v1.0</cite></a>. URL: <a href="https://www.w3.org/TR/vc-bitstring-status-list/">https://www.w3.org/TR/vc-bitstring-status-list/</a>
+    </dd><dt id="bib-did-core">[did-core]</dt><dd>
+      <a href="https://www.w3.org/TR/did-core/"><cite>Decentralized Identifiers (DIDs) v1.0</cite></a>. Manu Sporny; Amy Guy; Markus Sabadello; Drummond Reed.  W3C. 19 July 2022. W3C Recommendation. URL: <a href="https://www.w3.org/TR/did-core/">https://www.w3.org/TR/did-core/</a>
+    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc3986">[rfc3986]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc3986"><cite>Uniform Resource Identifier (URI): Generic Syntax</cite></a>. T. Berners-Lee; R. Fielding; L. Masinter.  IETF. January 2005. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc3986">https://www.rfc-editor.org/rfc/rfc3986</a>
+    </dd><dt id="bib-rfc4122">[rfc4122]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc4122"><cite>A Universally Unique IDentifier (UUID) URN Namespace</cite></a>. P. Leach; M. Mealling; R. Salz.  IETF. July 2005. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc4122">https://www.rfc-editor.org/rfc/rfc4122</a>
+    </dd><dt id="bib-rfc7518">[RFC7518]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7518"><cite>JSON Web Algorithms (JWA)</cite></a>. M. Jones.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7518">https://www.rfc-editor.org/rfc/rfc7518</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd><dt id="bib-rfc9110">[rfc9110]</dt><dd>
+      <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed. IETF. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
+    </dd><dt id="bib-url">[URL]</dt><dd>
+      <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
+    </dd><dt id="bib-vc-jose-cose">[VC-JOSE-COSE]</dt><dd>
+      <a href="https://w3c.github.io/vc-jose-cose/"><cite>Securing Verifiable Credentials using JOSE and COSE</cite></a>. URL: <a href="https://w3c.github.io/vc-jose-cose/">https://w3c.github.io/vc-jose-cose/</a>
+    </dd></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-trace-vocab">[TRACE-VOCAB]</dt><dd>
+      <a href="https://w3c-ccg.github.io/traceability-vocab/"><cite>Traceability Vocabulary</cite></a>. URL: <a href="https://w3c-ccg.github.io/traceability-vocab/">https://w3c-ccg.github.io/traceability-vocab/</a>
+    </dd><dt id="bib-vc-data-model">[VC-DATA-MODEL]</dt><dd>
+      <a href="https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/"><cite>W3C Verifiable Credentials Data Model v2.0</cite></a>. URL: <a href="https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/">https://www.w3.org/TR/2024/CR-vc-data-model-2.0-20240201/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
