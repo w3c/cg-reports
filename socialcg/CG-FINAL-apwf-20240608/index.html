@@ -368,7 +368,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <ul>
           <li>Implementers <em class="rfc2119">SHOULD</em> treat local usernames as case-insensitive.</li>
           <li>Implementers <em class="rfc2119">SHOULD NOT</em> assume case insensitivity for external usernames.</li>
-          <li>Implementers <em class="rfc2119">SHOULD NOT</em> treat usernames as stable identifiers that will always map to the same actor, and <em class="rfc2119">SHOULD</em> use the actor <code>id</code> in any references to an actor.(Implementers that currently treat usernames as canonical identifiers <em class="rfc2119">SHOULD</em> take steps to avoid doing so in the future.)</li>
+          <li>Implementers <em class="rfc2119">SHOULD NOT</em> treat usernames as stable identifiers that will always map to the same actor, and <em class="rfc2119">SHOULD</em> use the actor <code>id</code> in any references to an actor. (Implementers that currently treat usernames as canonical identifiers <em class="rfc2119">SHOULD</em> take steps to avoid doing so in the future.)</li>
           <li>Implementers <em class="rfc2119">SHOULD</em> limit the length of local usernames. The exact limit is not specified, but it is noteworthy that similar systems such as email often limit the localpart to 64 characters (per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2821" title="Simple Mail Transfer Protocol">RFC2821</a></cite>]).</li>
           <li>Implementers <em class="rfc2119">SHOULD</em> support remote usernames containing valid characters per [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7565" title="The 'acct' URI Scheme">RFC7565</a></cite>]. For short-term compatibility, implementers <em class="rfc2119">SHOULD NOT</em> use characters other than alphanumeric (<code>A-Z, a-z, 0-9</code>) and underscores (<code>_</code>).</li>
         </ul>
@@ -404,7 +404,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <li><code>feed</code> (used by some implementations to link to one or more feeds; feeds can be disambiguated by checking <code>type</code> and/or <code>title</code> properties of the link)</li>
       <li><code>http://a9.com/-/spec/opensearch/1.1/</code> (for custom search bars)</li>
     </ul>
-    <p>Also uncommon but supported by at least one implementation (Wordpress) is the ability to query non-actor, non-user resources via WebFinger. The following link relations are exposed:</p>
+    <p>Also uncommon but supported by at least one implementation (WordPress) is the ability to query non-actor, non-user resources via WebFinger. The following link relations are exposed:</p>
     <ul>
       <li><code>shortlink</code></li>
       <li><code>author</code></li>
