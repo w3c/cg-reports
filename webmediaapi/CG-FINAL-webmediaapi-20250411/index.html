@@ -24,7 +24,7 @@ dfn{cursor:pointer}
 </style>
     
     
-<title>Web Media API Snapshot 2024</title>
+<title>Web Media API Snapshot 2024 (April 2025 update with Errata)</title>
     
 <meta name="color-scheme" content="light dark">
     
@@ -130,8 +130,8 @@ var[data-type]::after{content:attr(data-type);transform:translateX(-50%) transla
 var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </style>
 <script id="initialUserConfig" type="application/json">{
-  "specStatus": "CG-DRAFT",
-  "latestVersion": "https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/",
+  "specStatus": "CG-FINAL",
+  "latestVersion": null,
   "editors": [
     {
       "name": "Jon Piesing",
@@ -165,7 +165,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     }
   ],
   "github": "https://github.com/w3c/webmediaapi",
-  "shortName": "WMAS2024",
+  "shortName": "WMAS2024-ERRATA",
   "group": "webmediaapi",
   "testSuiteURI": "https://webapitests2024.ctawave.org/",
   "copyrightStart": 2016,
@@ -175,8 +175,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "src": "https://cdn.cta.tech/cta/media/media/home/cta-logo.png",
       "href": "https://cta.tech/Research-Standards.aspx",
       "alt": "Consumer Technology Association (CTA)",
-      "width": 100,
-      "height": 65,
+      "width": 150,
+      "height": 89,
       "id": "cta-logo"
     }
   ],
@@ -275,25 +275,29 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "id": "cta-5000-g"
     }
   },
+  "prevURI": "https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/",
+  "errata": "https://w3c.github.io/webmediaapi/errata/wmas2024.html",
   "publishISODate": "2025-04-11T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 11 April 2025"
+  "generatedSubtitle": "Final Community Group Report 11 April 2025"
 }</script>
-<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final">
 <link rel="stylesheet" media="" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
   <body class="h-entry"><div class="head">
-    <p class="logos"><a class="logo"><img crossorigin="" alt="Consumer Technology Association (CTA)" height="65" id="cta-logo" src="https://cdn.cta.tech/cta/media/media/home/cta-logo.png" width="100">
+    <p class="logos"><a class="logo"><img crossorigin="" alt="Consumer Technology Association (CTA)" height="89" id="cta-logo" src="https://cdn.cta.tech/cta/media/media/home/cta-logo.png" width="150">
   </a></p>
-    <h1 id="title" class="title">Web Media API Snapshot 2024</h1> 
+    <h1 id="title" class="title">Web Media API Snapshot 2024<br>(April 2025 update with Errata)</h1> 
     <p id="w3c-state">
-      <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
       <time class="dt-published" datetime="2025-04-11">11 April 2025</time>
     </p>
     <dl>
-      
-      <dt>Latest published version:</dt><dd>
-              <a href="https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/">https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/</a>
-            </dd>
+      <dt>This version:</dt><dd>
+        <a class="u-url" href="https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20250411/">https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20250411/</a>
+      </dd>
       <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/webmediaapi/">https://w3c.github.io/webmediaapi/</a></dd>
+      <dt>Previous version:</dt><dd>
+        <a href="https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/">https://www.w3.org/community/reports/webmediaapi/CG-FINAL-webmediaapi-20241016/</a>
+      </dd>
       <dt>Test suite:</dt><dd><a href="https://webapitests2024.ctawave.org/">https://webapitests2024.ctawave.org/</a></dd>
       
       
@@ -319,7 +323,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <a href="https://github.com/w3c/webmediaapi/issues/new/choose">new issue</a>,
         <a href="https://github.com/w3c/webmediaapi/issues/">open issues</a>)
       </dd>
-      
+      <dt>Errata:</dt><dd><a href="https://w3c.github.io/webmediaapi/errata/wmas2024.html">Errata exists</a>.</dd>
     </dl>
     
     <p class="copyright">
@@ -339,16 +343,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </div>
     <section id="abstract" class="introductory"><h2>Abstract</h2>
       <p>This specification lists the web APIs to support media web apps that are supported across all four of the most widely used user agent code bases at the time of publication (i.e., Chrome, Edge, Firefox, and Safari). This specification should be updated at least annually to keep pace with the evolving web platform. We encourage manufacturers to develop products that support the APIs in the most recent version of Web Media API Snapshot. This specification is comprised of references to existing specifications in W3C and other specification groups. The target devices will include any device that runs a modern HTML user agent, including televisions, game machines, set-top boxes, mobile devices and personal computers.</p>
-      <p>This specification is being developed as part of the <a href="http://cta.tech/WAVE"><abbr title="Consumer Technology Association">CTA</abbr> <abbr title="Web Application Video Ecosystem">WAVE</abbr> Project</a>.</p>
     </section>
     <section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
-      This specification was published by the
-      <a href="https://www.w3.org/groups/cg/webmediaapi">Web Media API Community Group</a>. It is not a W3C Standard nor is it
+      This specification was published jointly by the
+      <a href="https://www.w3.org/groups/cg/webmediaapi">Web Media API Community Group</a> and the <a href="https://cta.tech/">Consumer Technology Association</a> (CTA) as part of the <a href="http://cta.tech/WAVE"><abbr title="Consumer Technology Association">CTA</abbr> <abbr title="Web Application Video Ecosystem">WAVE</abbr> Project</a>.</p>
+      <p>It is not a W3C Standard nor is it
       on the W3C Standards Track.
       
-            Please note that under the
-            <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>
-            there is a limited opt-out and other conditions apply.
+      Please note that under the
+      <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+      other conditions apply.
           
       Learn more about
       <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
@@ -710,9 +714,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <section id="normative-references"><div class="header-wrapper"><h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix B.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-beacon">[BEACON]</dt><dd>
-      <a href="https://www.w3.org/TR/beacon/"><cite>Beacon</cite></a>. Ilya Grigorik; Alois Reitbauer.  W3C. 3 August 2022. CRD. URL: <a href="https://www.w3.org/TR/beacon/">https://www.w3.org/TR/beacon/</a>
+      <a href="https://www.w3.org/TR/beacon/"><cite>Beacon</cite></a>. Ilya Grigorik; Alois Reitbauer.  W3C. 3 August 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/beacon/">https://www.w3.org/TR/beacon/</a>
     </dd><dt id="bib-compositing">[COMPOSITING]</dt><dd>
-      <a href="https://www.w3.org/TR/compositing-1/"><cite>Compositing and Blending Level 1</cite></a>. Chris Harrelson.  W3C. 21 March 2024. CRD. URL: <a href="https://www.w3.org/TR/compositing-1/">https://www.w3.org/TR/compositing-1/</a>
+      <a href="https://www.w3.org/TR/compositing-1/"><cite>Compositing and Blending Level 1</cite></a>. Chris Harrelson.  W3C. 21 March 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/compositing-1/">https://www.w3.org/TR/compositing-1/</a>
     </dd><dt id="bib-csp2">[CSP2]</dt><dd>
       <a href="https://www.w3.org/TR/CSP2/"><cite>Content Security Policy Level 2</cite></a>. Mike West; Adam Barth; Daniel Veditz.  W3C. 15 December 2016. W3C Recommendation. URL: <a href="https://www.w3.org/TR/CSP2/">https://www.w3.org/TR/CSP2/</a>
     </dd><dt id="bib-css-animations-1">[CSS-ANIMATIONS-1]</dt><dd>
@@ -720,25 +724,25 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-css-box-3">[CSS-BOX-3]</dt><dd>
       <a href="https://www.w3.org/TR/css-box-3/"><cite>CSS Box Model Module Level 3</cite></a>. Elika Etemad.  W3C. 11 April 2024. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-box-3/">https://www.w3.org/TR/css-box-3/</a>
     </dd><dt id="bib-css-cascade-4">[CSS-CASCADE-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-cascade-4/"><cite>CSS Cascading and Inheritance Level 4</cite></a>. Elika Etemad; Tab Atkins Jr. W3C. 13 January 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-cascade-4/">https://www.w3.org/TR/css-cascade-4/</a>
+      <a href="https://www.w3.org/TR/css-cascade-4/"><cite>CSS Cascading and Inheritance Level 4</cite></a>. Elika Etemad; Tab Atkins Jr..  W3C. 13 January 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-cascade-4/">https://www.w3.org/TR/css-cascade-4/</a>
     </dd><dt id="bib-css-color-4">[CSS-COLOR-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-contain-1">[CSS-CONTAIN-1]</dt><dd>
       <a href="https://www.w3.org/TR/css-contain-1/"><cite>CSS Containment Module Level 1</cite></a>. Tab Atkins Jr.; Florian Rivoal.  W3C. 25 June 2024. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-contain-1/">https://www.w3.org/TR/css-contain-1/</a>
     </dd><dt id="bib-css-counter-styles-3">[CSS-COUNTER-STYLES-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-counter-styles-3/"><cite>CSS Counter Styles Level 3</cite></a>. Tab Atkins Jr. W3C. 27 July 2021. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-counter-styles-3/">https://www.w3.org/TR/css-counter-styles-3/</a>
+      <a href="https://www.w3.org/TR/css-counter-styles-3/"><cite>CSS Counter Styles Level 3</cite></a>. Tab Atkins Jr..  W3C. 27 July 2021. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-counter-styles-3/">https://www.w3.org/TR/css-counter-styles-3/</a>
     </dd><dt id="bib-css-easing-1">[CSS-EASING-1]</dt><dd>
-      <a href="https://www.w3.org/TR/css-easing-1/"><cite>CSS Easing Functions Level 1</cite></a>. Brian Birtles; Dean Jackson; Matt Rakow.  W3C. 13 February 2023. CRD. URL: <a href="https://www.w3.org/TR/css-easing-1/">https://www.w3.org/TR/css-easing-1/</a>
+      <a href="https://www.w3.org/TR/css-easing-1/"><cite>CSS Easing Functions Level 1</cite></a>. Brian Birtles; Dean Jackson; Matt Rakow.  W3C. 13 February 2023. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-easing-1/">https://www.w3.org/TR/css-easing-1/</a>
     </dd><dt id="bib-css-flexbox-1">[CSS-FLEXBOX-1]</dt><dd>
       <a href="https://www.w3.org/TR/css-flexbox-1/"><cite>CSS Flexible Box Layout Module Level 1</cite></a>. Tab Atkins Jr.; Elika Etemad; Rossen Atanassov; David Baron.  W3C. 19 November 2018. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-flexbox-1/">https://www.w3.org/TR/css-flexbox-1/</a>
     </dd><dt id="bib-css-font-loading-3">[CSS-FONT-LOADING-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-font-loading-3/"><cite>CSS Font Loading Module Level 3</cite></a>. Tab Atkins Jr. W3C. 6 April 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/css-font-loading-3/">https://www.w3.org/TR/css-font-loading-3/</a>
+      <a href="https://www.w3.org/TR/css-font-loading-3/"><cite>CSS Font Loading Module Level 3</cite></a>. Tab Atkins Jr..  W3C. 6 April 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/css-font-loading-3/">https://www.w3.org/TR/css-font-loading-3/</a>
     </dd><dt id="bib-css-fonts-3">[CSS-FONTS-3]</dt><dd>
       <a href="https://www.w3.org/TR/css-fonts-3/"><cite>CSS Fonts Module Level 3</cite></a>. John Daggett; Myles Maxfield; Chris Lilley.  W3C. 20 September 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-fonts-3/">https://www.w3.org/TR/css-fonts-3/</a>
     </dd><dt id="bib-css-grid-1">[CSS-GRID-1]</dt><dd>
-      <a href="https://www.w3.org/TR/css-grid-1/"><cite>CSS Grid Layout Module Level 1</cite></a>. Tab Atkins Jr.; Elika Etemad; Rossen Atanassov; Oriol Brufau.  W3C. 26 March 2025. CRD. URL: <a href="https://www.w3.org/TR/css-grid-1/">https://www.w3.org/TR/css-grid-1/</a>
+      <a href="https://www.w3.org/TR/css-grid-1/"><cite>CSS Grid Layout Module Level 1</cite></a>. Tab Atkins Jr.; Elika Etemad; Rossen Atanassov; Oriol Brufau.  W3C. 18 December 2020. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-grid-1/">https://www.w3.org/TR/css-grid-1/</a>
     </dd><dt id="bib-css-images-3">[CSS-IMAGES-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-images-3/"><cite>CSS Images Module Level 3</cite></a>. Tab Atkins Jr.; Elika Etemad; Lea Verou.  W3C. 18 December 2023. CRD. URL: <a href="https://www.w3.org/TR/css-images-3/">https://www.w3.org/TR/css-images-3/</a>
+      <a href="https://www.w3.org/TR/css-images-3/"><cite>CSS Images Module Level 3</cite></a>. Tab Atkins Jr.; Elika Etemad; Lea Verou.  W3C. 18 December 2023. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-images-3/">https://www.w3.org/TR/css-images-3/</a>
     </dd><dt id="bib-css-logical-1">[CSS-LOGICAL-1]</dt><dd>
       <a href="https://www.w3.org/TR/css-logical-1/"><cite>CSS Logical Properties and Values Level 1</cite></a>. Rossen Atanassov; Elika Etemad.  W3C. 27 August 2018. W3C Working Draft. URL: <a href="https://www.w3.org/TR/css-logical-1/">https://www.w3.org/TR/css-logical-1/</a>
     </dd><dt id="bib-css-multicol-1">[CSS-MULTICOL-1]</dt><dd>
@@ -748,13 +752,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-css-scroll-snap-1">[CSS-SCROLL-SNAP-1]</dt><dd>
       <a href="https://www.w3.org/TR/css-scroll-snap-1/"><cite>CSS Scroll Snap Module Level 1</cite></a>. Matt Rakow; Jacob Rossi; Tab Atkins Jr.; Elika Etemad.  W3C. 11 March 2021. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-scroll-snap-1/">https://www.w3.org/TR/css-scroll-snap-1/</a>
     </dd><dt id="bib-css-shapes-1">[CSS-SHAPES-1]</dt><dd>
-      <a href="https://www.w3.org/TR/css-shapes-1/"><cite>CSS Shapes Module Level 1</cite></a>. Rossen Atanassov; Alan Stearns.  W3C. 15 November 2022. CRD. URL: <a href="https://www.w3.org/TR/css-shapes-1/">https://www.w3.org/TR/css-shapes-1/</a>
+      <a href="https://www.w3.org/TR/css-shapes-1/"><cite>CSS Shapes Module Level 1</cite></a>. Rossen Atanassov; Alan Stearns.  W3C. 15 November 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-shapes-1/">https://www.w3.org/TR/css-shapes-1/</a>
     </dd><dt id="bib-css-style-attr">[CSS-STYLE-ATTR]</dt><dd>
       <a href="https://www.w3.org/TR/css-style-attr/"><cite>CSS Style Attributes</cite></a>. Tantek Çelik; Elika Etemad.  W3C. 7 November 2013. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-style-attr/">https://www.w3.org/TR/css-style-attr/</a>
     </dd><dt id="bib-css-syntax-3">[CSS-SYNTAX-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-syntax-3/"><cite>CSS Syntax Module Level 3</cite></a>. Tab Atkins Jr.; Simon Sapin.  W3C. 24 December 2021. CRD. URL: <a href="https://www.w3.org/TR/css-syntax-3/">https://www.w3.org/TR/css-syntax-3/</a>
+      <a href="https://www.w3.org/TR/css-syntax-3/"><cite>CSS Syntax Module Level 3</cite></a>. Tab Atkins Jr.; Simon Sapin.  W3C. 24 December 2021. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-syntax-3/">https://www.w3.org/TR/css-syntax-3/</a>
     </dd><dt id="bib-css-text-decor-3">[CSS-TEXT-DECOR-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-text-decor-3/"><cite>CSS Text Decoration Module Level 3</cite></a>. Elika Etemad; Koji Ishii.  W3C. 5 May 2022. CRD. URL: <a href="https://www.w3.org/TR/css-text-decor-3/">https://www.w3.org/TR/css-text-decor-3/</a>
+      <a href="https://www.w3.org/TR/css-text-decor-3/"><cite>CSS Text Decoration Module Level 3</cite></a>. Elika Etemad; Koji Ishii.  W3C. 5 May 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-text-decor-3/">https://www.w3.org/TR/css-text-decor-3/</a>
     </dd><dt id="bib-css-transforms-1">[CSS-TRANSFORMS-1]</dt><dd>
       <a href="https://www.w3.org/TR/css-transforms-1/"><cite>CSS Transforms Module Level 1</cite></a>. Simon Fraser; Dean Jackson; Theresa O'Connor; Dirk Schulze.  W3C. 14 February 2019. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-transforms-1/">https://www.w3.org/TR/css-transforms-1/</a>
     </dd><dt id="bib-css-transitions-1">[CSS-TRANSITIONS-1]</dt><dd>
@@ -762,19 +766,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-css-ui-3">[CSS-UI-3]</dt><dd>
       <a href="https://www.w3.org/TR/css-ui-3/"><cite>CSS Basic User Interface Module Level 3 (CSS3 UI)</cite></a>. Tantek Çelik; Florian Rivoal.  W3C. 21 June 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-ui-3/">https://www.w3.org/TR/css-ui-3/</a>
     </dd><dt id="bib-css-values">[CSS-VALUES]</dt><dd>
-      <a href="https://www.w3.org/TR/css-values-3/"><cite>CSS Values and Units Module Level 3</cite></a>. Tab Atkins Jr.; Elika Etemad.  W3C. 22 March 2024. CRD. URL: <a href="https://www.w3.org/TR/css-values-3/">https://www.w3.org/TR/css-values-3/</a>
+      <a href="https://www.w3.org/TR/css-values-3/"><cite>CSS Values and Units Module Level 3</cite></a>. Tab Atkins Jr.; Elika Etemad.  W3C. 22 March 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-values-3/">https://www.w3.org/TR/css-values-3/</a>
     </dd><dt id="bib-css-variables-1">[CSS-VARIABLES-1]</dt><dd>
-      <a href="https://www.w3.org/TR/css-variables-1/"><cite>CSS Custom Properties for Cascading Variables Module Level 1</cite></a>. Tab Atkins Jr. W3C. 16 June 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-variables-1/">https://www.w3.org/TR/css-variables-1/</a>
+      <a href="https://www.w3.org/TR/css-variables-1/"><cite>CSS Custom Properties for Cascading Variables Module Level 1</cite></a>. Tab Atkins Jr..  W3C. 16 June 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-variables-1/">https://www.w3.org/TR/css-variables-1/</a>
     </dd><dt id="bib-css-will-change-1">[CSS-WILL-CHANGE-1]</dt><dd>
-      <a href="https://www.w3.org/TR/css-will-change-1/"><cite>CSS Will Change Module Level 1</cite></a>. Tab Atkins Jr. W3C. 5 May 2022. CRD. URL: <a href="https://www.w3.org/TR/css-will-change-1/">https://www.w3.org/TR/css-will-change-1/</a>
+      <a href="https://www.w3.org/TR/css-will-change-1/"><cite>CSS Will Change Module Level 1</cite></a>. Tab Atkins Jr..  W3C. 5 May 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-will-change-1/">https://www.w3.org/TR/css-will-change-1/</a>
     </dd><dt id="bib-css-writing-modes-3">[CSS-WRITING-MODES-3]</dt><dd>
       <a href="https://www.w3.org/TR/css-writing-modes-3/"><cite>CSS Writing Modes Level 3</cite></a>. Elika Etemad; Koji Ishii.  W3C. 10 December 2019. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-writing-modes-3/">https://www.w3.org/TR/css-writing-modes-3/</a>
     </dd><dt id="bib-css2">[CSS2]</dt><dd>
-      <a href="https://www.w3.org/TR/CSS2/"><cite>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</cite></a>. Bert Bos; Tantek Çelik; Ian Hickson; Håkon Wium Lie.  W3C. 7 June 2011. W3C Recommendation. URL: <a href="https://www.w3.org/TR/CSS2/">https://www.w3.org/TR/CSS2/</a>
+      <a href="https://www.w3.org/TR/CSS21/"><cite>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</cite></a>. Bert Bos; Tantek Çelik; Ian Hickson; Håkon Wium Lie.  W3C. 7 June 2011. W3C Recommendation. URL: <a href="https://www.w3.org/TR/CSS21/">https://www.w3.org/TR/CSS21/</a>
     </dd><dt id="bib-css3-background">[CSS3-BACKGROUND]</dt><dd>
-      <a href="https://www.w3.org/TR/css-backgrounds-3/"><cite>CSS Backgrounds and Borders Module Level 3</cite></a>. Elika Etemad; Brad Kemper.  W3C. 11 March 2024. CRD. URL: <a href="https://www.w3.org/TR/css-backgrounds-3/">https://www.w3.org/TR/css-backgrounds-3/</a>
+      <a href="https://www.w3.org/TR/css-backgrounds-3/"><cite>CSS Backgrounds and Borders Module Level 3</cite></a>. Elika Etemad; Brad Kemper.  W3C. 11 March 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-backgrounds-3/">https://www.w3.org/TR/css-backgrounds-3/</a>
     </dd><dt id="bib-css3-conditional">[CSS3-CONDITIONAL]</dt><dd>
-      <a href="https://www.w3.org/TR/css-conditional-3/"><cite>CSS Conditional Rules Module Level 3</cite></a>. Chris Lilley; David Baron; Elika Etemad.  W3C. 15 August 2024. CRD. URL: <a href="https://www.w3.org/TR/css-conditional-3/">https://www.w3.org/TR/css-conditional-3/</a>
+      <a href="https://www.w3.org/TR/css-conditional-3/"><cite>CSS Conditional Rules Module Level 3</cite></a>. Chris Lilley; David Baron; Elika Etemad.  W3C. 15 August 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-conditional-3/">https://www.w3.org/TR/css-conditional-3/</a>
     </dd><dt id="bib-cssom-view">[CSSOM-VIEW]</dt><dd>
       <a href="https://www.w3.org/TR/cssom-view-1/"><cite>CSSOM View Module</cite></a>. Simon Pieters.  W3C. 17 March 2016. W3C Working Draft. URL: <a href="https://www.w3.org/TR/cssom-view-1/">https://www.w3.org/TR/cssom-view-1/</a>
     </dd><dt id="bib-cta-5000">[CTA-5000]</dt><dd>
@@ -802,17 +806,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-fetch">[FETCH]</dt><dd>
       <a href="https://fetch.spec.whatwg.org/review-drafts/2023-12/"><cite>Fetch Standard</cite></a>. Anne van Kesteren.  WHATWG. 18 December 2023. Review Draft (use this version or later). URL: <a href="https://fetch.spec.whatwg.org/review-drafts/2023-12/">https://fetch.spec.whatwg.org/review-drafts/2023-12/</a>
     </dd><dt id="bib-fileapi">[FILEAPI]</dt><dd>
-      <a href="https://www.w3.org/TR/FileAPI/"><cite>File API</cite></a>. Marijn Kruisselbrink.  W3C. 4 December 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/FileAPI/">https://www.w3.org/TR/FileAPI/</a>
+      <a href="https://www.w3.org/TR/FileAPI/"><cite>File API</cite></a>. Marijn Kruisselbrink.  W3C. 24 May 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/FileAPI/">https://www.w3.org/TR/FileAPI/</a>
     </dd><dt id="bib-filter-effects-1">[FILTER-EFFECTS-1]</dt><dd>
       <a href="https://www.w3.org/TR/filter-effects-1/"><cite>Filter Effects Module Level 1</cite></a>. Dirk Schulze; Dean Jackson.  W3C. 18 December 2018. W3C Working Draft. URL: <a href="https://www.w3.org/TR/filter-effects-1/">https://www.w3.org/TR/filter-effects-1/</a>
     </dd><dt id="bib-fullscreen">[FULLSCREEN]</dt><dd>
       <a href="https://fullscreen.spec.whatwg.org/review-drafts/2023-07/"><cite>Fullscreen API Standard</cite></a>. Philip Jägenstedt.  WHATWG. 17 July 2023. Review Draft (use this version or later). URL: <a href="https://fullscreen.spec.whatwg.org/review-drafts/2023-07/">https://fullscreen.spec.whatwg.org/review-drafts/2023-07/</a>
     </dd><dt id="bib-getusermedia">[GETUSERMEDIA]</dt><dd>
-      <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. Cullen Jennings; Bernard Aboba; Jan-Ivar Bruaroey; Henrik Boström; youenn fablet.  W3C. 19 December 2024. CRD. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+      <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. Cullen Jennings; Bernard Aboba; Jan-Ivar Bruaroey; Henrik Boström; youenn fablet.  W3C. 3 October 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
     </dd><dt id="bib-gif">[GIF]</dt><dd>
       <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt"><cite>Graphics Interchange Format</cite></a>.  CompuServe Incorporated. 31 July 1990. URL: <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt">https://www.w3.org/Graphics/GIF/spec-gif89a.txt</a>
     </dd><dt id="bib-hr-time-3">[HR-TIME-3]</dt><dd>
-      <a href="https://www.w3.org/TR/hr-time-3/"><cite>High Resolution Time</cite></a>. Yoav Weiss.  W3C. 7 November 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/hr-time-3/">https://www.w3.org/TR/hr-time-3/</a>
+      <a href="https://www.w3.org/TR/hr-time-3/"><cite>High Resolution Time</cite></a>. Yoav Weiss.  W3C. 19 July 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/hr-time-3/">https://www.w3.org/TR/hr-time-3/</a>
     </dd><dt id="bib-html">[HTML]</dt><dd>
       <a href="https://html.spec.whatwg.org/review-drafts/2024-01/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. 15 January 2024. Review Draft (use this version or later). URL: <a href="https://html.spec.whatwg.org/review-drafts/2024-01/">https://html.spec.whatwg.org/review-drafts/2024-01/</a>
     </dd><dt id="bib-iana-urn-namespaces">[IANA-URN-NAMESPACES]</dt><dd>
@@ -822,13 +826,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-jpeg">[JPEG]</dt><dd>
       <a href="https://www.w3.org/Graphics/JPEG/jfif3.pdf"><cite>JPEG File Interchange Format</cite></a>. Eric Hamilton.  C-Cube Microsystems. Milpitas, CA, USA. September 1992. URL: <a href="https://www.w3.org/Graphics/JPEG/jfif3.pdf">https://www.w3.org/Graphics/JPEG/jfif3.pdf</a>
     </dd><dt id="bib-media-capabilities">[MEDIA-CAPABILITIES]</dt><dd>
-      <a href="https://www.w3.org/TR/media-capabilities/"><cite>Media Capabilities</cite></a>. Jean-Yves Avenard; Mark Foltz.  W3C. 14 February 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/media-capabilities/">https://www.w3.org/TR/media-capabilities/</a>
+      <a href="https://www.w3.org/TR/media-capabilities/"><cite>Media Capabilities</cite></a>. Jean-Yves Avenard; Mark Foltz.  W3C. 7 October 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/media-capabilities/">https://www.w3.org/TR/media-capabilities/</a>
     </dd><dt id="bib-media-frags">[MEDIA-FRAGS]</dt><dd>
       <a href="https://www.w3.org/TR/media-frags/"><cite>Media Fragments URI 1.0 (basic)</cite></a>. Raphaël Troncy; Erik Mannens; Silvia Pfeiffer; Davy Van Deursen.  W3C. 25 September 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/media-frags/">https://www.w3.org/TR/media-frags/</a>
     </dd><dt id="bib-media-source-1">[MEDIA-SOURCE-1]</dt><dd>
       <a href="https://www.w3.org/TR/media-source-1/"><cite>Media Source Extensions™</cite></a>. Matthew Wolenetz; Jerry Smith; Mark Watson; Aaron Colwell; Adrian Bateman.  W3C. 17 November 2016. W3C Recommendation. URL: <a href="https://www.w3.org/TR/media-source-1/">https://www.w3.org/TR/media-source-1/</a>
     </dd><dt id="bib-mediaqueries-4">[MEDIAQUERIES-4]</dt><dd>
-      <a href="https://www.w3.org/TR/mediaqueries-4/"><cite>Media Queries Level 4</cite></a>. Florian Rivoal; Tab Atkins Jr. W3C. 25 December 2021. CRD. URL: <a href="https://www.w3.org/TR/mediaqueries-4/">https://www.w3.org/TR/mediaqueries-4/</a>
+      <a href="https://www.w3.org/TR/mediaqueries-4/"><cite>Media Queries Level 4</cite></a>. Florian Rivoal; Tab Atkins Jr..  W3C. 25 December 2021. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/mediaqueries-4/">https://www.w3.org/TR/mediaqueries-4/</a>
     </dd><dt id="bib-navigation-timing">[NAVIGATION-TIMING]</dt><dd>
       <a href="https://www.w3.org/TR/navigation-timing/"><cite>Navigation Timing</cite></a>. Zhiheng Wang.  W3C. 17 December 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/navigation-timing/">https://www.w3.org/TR/navigation-timing/</a>
     </dd><dt id="bib-notifications">[NOTIFICATIONS]</dt><dd>
@@ -836,15 +840,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-open-font-format">[OPEN-FONT-FORMAT]</dt><dd>
       <a href="https://www.iso.org/standard/74461.html"><cite>Information technology — Coding of audio-visual objects — Part 22: Open Font Format</cite></a>.  ISO/IEC. January 2019. Published. URL: <a href="https://www.iso.org/standard/74461.html">https://www.iso.org/standard/74461.html</a>
     </dd><dt id="bib-performance-timeline">[PERFORMANCE-TIMELINE]</dt><dd>
-      <a href="https://www.w3.org/TR/performance-timeline/"><cite>Performance Timeline</cite></a>. Nicolas Pena Moreno.  W3C. 13 February 2025. CRD. URL: <a href="https://www.w3.org/TR/performance-timeline/">https://www.w3.org/TR/performance-timeline/</a>
+      <a href="https://www.w3.org/TR/performance-timeline/"><cite>Performance Timeline</cite></a>. Nicolas Pena Moreno.  W3C. 16 February 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/performance-timeline/">https://www.w3.org/TR/performance-timeline/</a>
     </dd><dt id="bib-png2e-20031110">[PNG2e-20031110]</dt><dd>
       <a href="https://www.w3.org/TR/2003/REC-PNG-20031110/"><cite>Portable Network Graphics (PNG) Specification (Second Edition)</cite></a>. David Duce.  W3C. 10 November 2003. W3C Recommendation. URL: <a href="https://www.w3.org/TR/2003/REC-PNG-20031110/">https://www.w3.org/TR/2003/REC-PNG-20031110/</a>
     </dd><dt id="bib-referrer-policy">[REFERRER-POLICY]</dt><dd>
       <a href="https://www.w3.org/TR/referrer-policy/"><cite>Referrer Policy</cite></a>. Jochen Eisinger; Emily Stark.  W3C. 26 January 2017. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/referrer-policy/">https://www.w3.org/TR/referrer-policy/</a>
     </dd><dt id="bib-resize-observer-1">[RESIZE-OBSERVER-1]</dt><dd>
-      <a href="https://www.w3.org/TR/resize-observer-1/"><cite>Resize Observer</cite></a>. Aleks Totic; Greg Whitworth.  W3C. 11 February 2020. FPWD. URL: <a href="https://www.w3.org/TR/resize-observer-1/">https://www.w3.org/TR/resize-observer-1/</a>
+      <a href="https://www.w3.org/TR/resize-observer-1/"><cite>Resize Observer</cite></a>. Aleks Totic; Greg Whitworth.  W3C. 11 February 2020. W3C Working Draft. URL: <a href="https://www.w3.org/TR/resize-observer-1/">https://www.w3.org/TR/resize-observer-1/</a>
     </dd><dt id="bib-resource-timing-1">[RESOURCE-TIMING-1]</dt><dd>
-      <a href="https://www.w3.org/TR/resource-timing/"><cite>Resource Timing</cite></a>. Yoav Weiss; Noam Rosenthal.  W3C. 13 February 2025. CRD. URL: <a href="https://www.w3.org/TR/resource-timing/">https://www.w3.org/TR/resource-timing/</a>
+      <a href="https://www.w3.org/TR/resource-timing/"><cite>Resource Timing</cite></a>. Yoav Weiss; Noam Rosenthal.  W3C. 24 May 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/resource-timing/">https://www.w3.org/TR/resource-timing/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc5246">[RFC5246]</dt><dd>
@@ -858,7 +862,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-select">[SELECT]</dt><dd>
       <a href="https://www.w3.org/TR/selectors-3/"><cite>Selectors Level 3</cite></a>. Tantek Çelik; Elika Etemad; Daniel Glazman; Ian Hickson; Peter Linss; John Williams.  W3C. 6 November 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/selectors-3/">https://www.w3.org/TR/selectors-3/</a>
     </dd><dt id="bib-service-workers-1">[SERVICE-WORKERS-1]</dt><dd>
-      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers</cite></a>. Yoshisato Yanagisawa; Monica CHINTALA.  W3C. 6 March 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
+      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers</cite></a>. Jake Archibald; Marijn Kruisselbrink.  W3C. 12 July 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
     </dd><dt id="bib-sri">[SRI]</dt><dd>
       <a href="https://www.w3.org/TR/SRI/"><cite>Subresource Integrity</cite></a>. Devdatta Akhawe; Frederik Braun; Francois Marier; Joel Weinberger.  W3C. 23 June 2016. W3C Recommendation. URL: <a href="https://www.w3.org/TR/SRI/">https://www.w3.org/TR/SRI/</a>
     </dd><dt id="bib-uievents">[UIEVENTS]</dt><dd>
@@ -876,7 +880,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-webgl-103">[WEBGL-103]</dt><dd>
       <a href="https://www.khronos.org/registry/webgl/specs/1.0.3/"><cite>WebGL Specification</cite></a>. Dean Jackson.  Khronos. 27 October 2014. URL: <a href="https://www.khronos.org/registry/webgl/specs/1.0.3/">https://www.khronos.org/registry/webgl/specs/1.0.3/</a>
     </dd><dt id="bib-webrtc">[WEBRTC]</dt><dd>
-      <a href="https://www.w3.org/TR/webrtc/"><cite>WebRTC: Real-Time Communication in Browsers</cite></a>. Cullen Jennings; Jan-Ivar Bruaroey; Henrik Boström; Florent Castelli.  W3C. 13 March 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
+      <a href="https://www.w3.org/TR/webrtc/"><cite>WebRTC: Real-Time Communication in Browsers</cite></a>. Cullen Jennings; Jan-Ivar Bruaroey; Henrik Boström; Florent Castelli.  W3C. 8 October 2024. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
     </dd><dt id="bib-websockets">[WEBSOCKETS]</dt><dd>
       <a href="https://websockets.spec.whatwg.org/review-drafts/2023-09/"><cite>WebSockets Standard</cite></a>. Adam Rice.  WHATWG. 18 September 2023. Review Draft (use this version or later). URL: <a href="https://websockets.spec.whatwg.org/review-drafts/2023-09/">https://websockets.spec.whatwg.org/review-drafts/2023-09/</a>
     </dd><dt id="bib-woff">[WOFF]</dt><dd>
@@ -887,7 +891,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </section><section id="informative-references"><div class="header-wrapper"><h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-appmanifest">[APPMANIFEST]</dt><dd>
-      <a href="https://www.w3.org/TR/appmanifest/"><cite>Web Application Manifest</cite></a>. Marcos Caceres; Kenneth Christiansen; Diego Gonzalez-Zuniga; Daniel Murphy; Christian Liebel.  W3C. 20 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/appmanifest/">https://www.w3.org/TR/appmanifest/</a>
+      <a href="https://www.w3.org/TR/appmanifest/"><cite>Web Application Manifest</cite></a>. Marcos Caceres; Kenneth Christiansen; Diego Gonzalez-Zuniga; Daniel Murphy; Christian Liebel.  W3C. 11 October 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/appmanifest/">https://www.w3.org/TR/appmanifest/</a>
     </dd><dt id="bib-css-2023">[CSS-2023]</dt><dd>
       <a href="https://www.w3.org/TR/css-2023/"><cite>CSS Snapshot 2023</cite></a>. Chris Lilley; Elika Etemad; Tab Atkins Jr.; Florian Rivoal.  W3C. 7 December 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/css-2023/">https://www.w3.org/TR/css-2023/</a>
     </dd><dt id="bib-css-images-4">[CSS-IMAGES-4]</dt><dd>
@@ -897,7 +901,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-inbandtracks">[INBANDTRACKS]</dt><dd>
       <a href="https://dev.w3.org/html5/html-sourcing-inband-tracks/"><cite>Sourcing In-band Media Resource Tracks from Media Containers into HTML</cite></a>. Silvia Pfeiffer; Bob Lund.  W3C. 26 April 2015. Unofficial Draft. URL: <a href="https://dev.w3.org/html5/html-sourcing-inband-tracks/">https://dev.w3.org/html5/html-sourcing-inband-tracks/</a>
     </dd><dt id="bib-mediasession">[MEDIASESSION]</dt><dd>
-      <a href="https://www.w3.org/TR/mediasession/"><cite>Media Session</cite></a>. Thomas Steimel; youenn fablet.  W3C. 23 January 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/mediasession/">https://www.w3.org/TR/mediasession/</a>
+      <a href="https://www.w3.org/TR/mediasession/"><cite>Media Session</cite></a>. Thomas Steimel; youenn fablet.  W3C. 4 October 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/mediasession/">https://www.w3.org/TR/mediasession/</a>
     </dd><dt id="bib-push-api">[PUSH-API]</dt><dd>
       <a href="https://www.w3.org/TR/push-api/"><cite>Push API</cite></a>. Peter Beverloo; Martin Thomson; Marcos Caceres.  W3C. 3 September 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/push-api/">https://www.w3.org/TR/push-api/</a>
     </dd><dt id="bib-wasm-core-2">[WASM-CORE-2]</dt><dd>
@@ -907,9 +911,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-wasm-web-api-2">[WASM-WEB-API-2]</dt><dd>
       <a href="https://www.w3.org/TR/wasm-web-api-2/"><cite>WebAssembly Web API</cite></a>. . Ms2ger.  W3C. 28 January 2025. CRD. URL: <a href="https://www.w3.org/TR/wasm-web-api-2/">https://www.w3.org/TR/wasm-web-api-2/</a>
     </dd><dt id="bib-webcodecs">[WEBCODECS]</dt><dd>
-      <a href="https://www.w3.org/TR/webcodecs/"><cite>WebCodecs</cite></a>. Paul Adenot; Eugene Zemtsov.  W3C. 14 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webcodecs/">https://www.w3.org/TR/webcodecs/</a>
+      <a href="https://www.w3.org/TR/webcodecs/"><cite>WebCodecs</cite></a>. Paul Adenot; Bernard Aboba; Eugene Zemtsov.  W3C. 8 October 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webcodecs/">https://www.w3.org/TR/webcodecs/</a>
     </dd><dt id="bib-webtransport">[WEBTRANSPORT]</dt><dd>
-      <a href="https://www.w3.org/TR/webtransport/"><cite>WebTransport</cite></a>. Nidhi Jaju; Victor Vasiliev.  W3C. 12 February 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webtransport/">https://www.w3.org/TR/webtransport/</a>
+      <a href="https://www.w3.org/TR/webtransport/"><cite>WebTransport</cite></a>. Bernard Aboba; Nidhi Jaju; Victor Vasiliev.  W3C. 31 May 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webtransport/">https://www.w3.org/TR/webtransport/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
