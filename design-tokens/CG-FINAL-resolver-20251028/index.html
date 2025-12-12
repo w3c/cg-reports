@@ -143,7 +143,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <script id="initialUserConfig" type="application/json">{
   "specStatus": "CG-FINAL",
   "group": "design-tokens",
-  "thisVersion": "https://www.w3.org/community/reports/design-tokens/2025.10/resolver/",
+  "thisVersion": "https://www.w3.org/community/reports/design-tokens/CG-FINAL-resolver-20251028/",
   "latestVersion": "https://www.designtokens.org/",
   "prevVersion": null,
   "editors": [
@@ -192,7 +192,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "tocIntroductory": true,
   "logos": [
     {
-      "src": "https://www.designtokens.org/assets/dtcg-logo-on-color.svg",
+      "src": "dtcg-logo-on-color.svg",
       "url": "https://www.designtokens.org",
       "alt": "Design Tokens Community Group",
       "width": 128,
@@ -206,7 +206,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final">
 <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://www.w3.org/StyleSheets/TR/2021/dark.css"></head>
   <body class="h-entry"><div class="head">
-    <p class="logos"><a class="logo" href="https://www.designtokens.org"><img crossorigin="" alt="Design Tokens Community Group" height="128" id="dtcg-logo" src="https://www.designtokens.org/assets/dtcg-logo-on-color.svg" width="128">
+    <p class="logos"><a class="logo" href="https://www.designtokens.org"><img alt="Design Tokens Community Group" height="128" id="dtcg-logo" src="dtcg-logo-on-color.svg" width="128">
   </a></p>
     <h1 id="title" class="title">Design Tokens Resolver Module 2025.10</h1> 
     <p id="w3c-state">
@@ -215,7 +215,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </p>
     <dl>
       <dt>This version:</dt><dd>
-              <a class="u-url" href="https://www.w3.org/community/reports/design-tokens/2025.10/">https://www.w3.org/community/reports/design-tokens/2025.10/</a>
+              <a class="u-url" href="https://www.w3.org/community/reports/design-tokens/CG-FINAL-resolver-20251028/">https://www.w3.org/community/reports/design-tokens/CG-FINAL-resolver-20251028/</a>
             </dd>
       <dt>Latest published version:</dt><dd>
               <a href="https://www.designtokens.org">https://www.designtokens.org</a>
@@ -272,8 +272,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </div>
     <section id="abstract" class="introductory"><h2>Abstract</h2>
       <p>
-        This specification extends the <a href="../format/">format</a> and
-        describes a method to work with <a href="../">design tokens</a> in
+        This specification extends the <a href="../CG-FINAL-format-20251028/">format</a> and
+        describes a method to work with <a href="https://www.designtokens.org/">design tokens</a> in
         multiple contexts (such as “light mode” and “dark mode” color themes).
       </p>
     </section>
@@ -423,7 +423,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </section><section id="description"><div class="header-wrapper"><h4 id="x4-1-3-description"><bdi class="secno">4.1.3 </bdi>Description</h4><a class="self-link" href="#description" aria-label="Permalink for Section 4.1.3"></a></div>
 <p>The document <em class="rfc2119">MAY</em> provide a <code>description</code> at the root level. This may be used to add additional explanation or context not present in <a href="#name">name</a>.</p>
 </section><section id="sets"><div class="header-wrapper"><h4 id="x4-1-4-sets"><bdi class="secno">4.1.4 </bdi>Sets</h4><a class="self-link" href="#sets" aria-label="Permalink for Section 4.1.4"></a></div>
-<p>A set is a collection of design tokens in <a href="../format/">DTCG format</a>. A set <em class="rfc2119">MUST</em> contain a <code>sources</code> array with tokens declared directly, or a <a href="#reference-objects">reference object</a> pointing to a JSON file containing design tokens, or any combination of the two.</p>
+<p>A set is a collection of design tokens in <a href="../CG-FINAL-format-20251028/">DTCG format</a>. A set <em class="rfc2119">MUST</em> contain a <code>sources</code> array with tokens declared directly, or a <a href="#reference-objects">reference object</a> pointing to a JSON file containing design tokens, or any combination of the two.</p>
 <p>A set <em class="rfc2119">MAY</em> include a <code>description</code> describing the purpose of the set.</p>
 <p>If the array declares multiple sources, they will be merged in array order, meaning if a token is declared multiple times, the last occurrence in the array will be the final value. Tools <em class="rfc2119">MUST</em> respect array ordering.</p>
 <aside class="example" id="example-sets-comprising-remote-files-and-inline-tokens"><div class="marker">
@@ -1121,7 +1121,7 @@ tokenTool.<span class="hljs-title function_">loadResolver</span>(
 
 </section><section id="aliases"><div class="header-wrapper"><h3 id="x6-3-aliases"><bdi class="secno">6.3 </bdi>Aliases</h3><a class="self-link" href="#aliases" aria-label="Permalink for Section 6.3"></a></div>
 <p>Aliases <em class="rfc2119">MUST NOT</em> be resolved until this step.</p>
-<p>After the <a href="#ordering">ordering</a> has been flattened into a single tokens structure, the only remaining step is resolving aliases. Aliases are resolved the exact same way as outlined in the <a href="../format/#aliases-references">format</a>:</p>
+<p>After the <a href="#ordering">ordering</a> has been flattened into a single tokens structure, the only remaining step is resolving aliases. Aliases are resolved the exact same way as outlined in the <a href="../CG-FINAL-format-20251028/#aliases-references">format</a>:</p>
 <ul>
 <li>Deep aliases are allowed, so long as they’re not circular</li>
 <li>An alias must point to the correct <code>$type</code>.</li>
@@ -1400,7 +1400,7 @@ tokenTool.<span class="hljs-title function_">loadResolver</span>(
 <ul>
 <li><strong>Support the Resolution Process</strong>: Implement the <a href="#resolution-logic">resolution logic</a> as defined, including input validation, base set flattening, modifier application, aliasing, and conflict resolution.</li>
 <li><strong>Validate Inputs</strong>: Ensure that provided modifier inputs match the defined modifiers and acceptable values.</li>
-<li><strong>Resolve Aliases Correctly</strong>: Handle <a href="../format/#aliases-references">token references</a> accurately, including recursive references and detection of circular dependencies.</li>
+<li><strong>Resolve Aliases Correctly</strong>: Handle <a href="../CG-FINAL-format-20251028/#aliases-references">token references</a> accurately, including recursive references and detection of circular dependencies.</li>
 <li><strong>Preserve Token Properties</strong>: Maintain additional token properties (e.g., <a href="#extensions">$extensions</a>) throughout the resolution process.</li>
 <li><strong>Handle Errors Gracefully</strong>: Provide meaningful error messages for issues like invalid inputs or circular references.</li>
 </ul>
