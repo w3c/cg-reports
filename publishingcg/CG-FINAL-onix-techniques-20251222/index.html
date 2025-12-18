@@ -1,0 +1,1830 @@
+<!DOCTYPE html><html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.6.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>Display Techniques for ONIX Accessibility Metadata 2.1</title>
+		
+		
+		
+	  
+<style>
+
+	  	var {
+			color: brown;
+		}
+		li > ol.condition {
+			list-style-type: lower-alpha;
+		}
+		
+		li > ol.condition > li >  ol.condition {
+			list-style-type: upper-roman;
+		}
+		ol.display {
+			list-style-type: disc;
+		}
+	  	ol.condition > li {
+	  		margin-top: 1rem;
+	  		margin-left: 0;
+	  		padding-left: 0;
+	  	}
+	  	ol.condition > li > span {
+	  		display: block;
+	  	}
+	  	ol.condition > li > span:nth-child(2) {
+	  		margin-left: 2rem;
+	  	}
+	  	code.xpath {
+	  		word-break: keep-all;
+	  	}
+	  	span.str-id {
+			background: #faa;
+			border-radius: 3px;
+			font: normal normal 400 1em/1.2 monospace;
+			margin-left: 0.5em;
+			padding: 0.1em;
+			display: inline !important;
+	  	}
+	  
+</style>
+	
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:italic}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="color-scheme" content="light">
+<meta name="description" content="This document provides techniques for meeting the guidelines of the 
+				Accessibility Metadata Display Guide for Digital Publications 2.1.
+				It provides practical examples on how to extract information from an ONIX record and show it to 
+				end users.">
+<link rel="canonical" href="https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "shortName": "onix-techniques",
+  "group": "publishingcg",
+  "specStatus": "CG-FINAL",
+  "noRecTrack": true,
+  "latestVersion": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/",
+  "edDraftURI": "https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/",
+  "canonicalURI": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/",
+  "editors": [
+    {
+      "name": "Gregorio Pellegrino",
+      "company": "Fondazione LIA",
+      "companyURL": "https://fondazionelia.org",
+      "w3cid": 97111
+    },
+    {
+      "name": "Gautier Chomel",
+      "company": "EDRLab",
+      "companyURL": "https://www.edrlab.org",
+      "w3cid": 136660
+    },
+    {
+      "name": "Christopher Saynor",
+      "company": "EDItEUR",
+      "companyURL": "https://www.editeur.org"
+    }
+  ],
+  "processVersion": 2020,
+  "includePermalinks": false,
+  "permalinkEdge": true,
+  "permalinkHide": false,
+  "diffTool": "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+  "github": {
+    "repoURL": "https://github.com/w3c/publ-a11y/",
+    "branch": "main"
+  },
+  "preProcess": [
+    null
+  ],
+  "publishDate": "2025-12-22",
+  "publishISODate": "2025-12-22T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 22 December 2025"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+	<body class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Display Techniques for ONIX Accessibility Metadata 2.1</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2025-12-22">22 December 2025</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/publishingcg/CG-FINAL-onix-techniques-20251222/">https://www.w3.org/community/reports/publishingcg/CG-FINAL-onix-techniques-20251222/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/">https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/">https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="97111">
+    <span class="p-name fn">Gregorio Pellegrino</span> (<a class="p-org org h-org" href="https://fondazionelia.org">Fondazione LIA</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="136660">
+    <span class="p-name fn">Gautier Chomel</span> (<a class="p-org org h-org" href="https://www.edrlab.org">EDRLab</a>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Christopher Saynor</span> (<a class="p-org org h-org" href="https://www.editeur.org">EDItEUR</a>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/publ-a11y/">GitHub w3c/publ-a11y</a>
+        (<a href="https://github.com/w3c/publ-a11y/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2025
+          
+          the Contributors to the Display Techniques for ONIX Accessibility Metadata 2.1
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>This document provides techniques for meeting the guidelines of the 
+				<a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/">Accessibility Metadata Display Guide for Digital Publications 2.1</a>.
+				It provides practical examples on how to extract information from an ONIX record and show it to 
+				end users.</p>
+		</section>
+		<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p><p>
+    <a href="https://github.com/w3c/publ-a11y/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#onix-metadata"><bdi class="secno">1.1 </bdi>ONIX metadata</a></li><li class="tocline"><a class="tocxref" href="#conventions"><bdi class="secno">1.2 </bdi>Implementation conventions</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#heading-structure"><bdi class="secno">1.2.1 </bdi>Heading structure</a></li><li class="tocline"><a class="tocxref" href="#coding-conventions"><bdi class="secno">1.2.2 </bdi>Coding conventions</a></li><li class="tocline"><a class="tocxref" href="#node-selectors"><bdi class="secno">1.2.3 </bdi>Node selectors</a></li><li class="tocline"><a class="tocxref" href="#output-statements"><bdi class="secno">1.2.4 </bdi>Output statements</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#common-functions"><bdi class="secno">2. </bdi>Common Functions</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#preprocessing"><bdi class="secno">2.1 </bdi>Preprocessing</a></li><li class="tocline"><a class="tocxref" href="#check-for-node"><bdi class="secno">2.2 </bdi>Check for node</a></li></ol></li><li class="tocline"><a class="tocxref" href="#techniques"><bdi class="secno">3. </bdi>Techniques</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ways-of-reading"><bdi class="secno">3.1 </bdi>Ways of reading</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#visual-adjustments"><bdi class="secno">3.1.1 </bdi>Visual adjustments</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables"><bdi class="secno">3.1.1.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup"><bdi class="secno">3.1.1.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#instructions"><bdi class="secno">3.1.1.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#supports-nonvisual-reading"><bdi class="secno">3.1.2 </bdi>Supports nonvisual reading</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-0"><bdi class="secno">3.1.2.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-0"><bdi class="secno">3.1.2.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#instructions-0"><bdi class="secno">3.1.2.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#prerecorded-audio"><bdi class="secno">3.1.3 </bdi>Prerecorded audio</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-1"><bdi class="secno">3.1.3.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-1"><bdi class="secno">3.1.3.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#instructions-1"><bdi class="secno">3.1.3.3 </bdi>Instructions</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance-group"><bdi class="secno">3.2 </bdi>Conformance</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-2"><bdi class="secno">3.2.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-2"><bdi class="secno">3.2.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#conformance-instructions"><bdi class="secno">3.2.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#navigation"><bdi class="secno">3.3 </bdi>Navigation</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-3"><bdi class="secno">3.3.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-3"><bdi class="secno">3.3.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#navigation-instructions"><bdi class="secno">3.3.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#rich-content"><bdi class="secno">3.4 </bdi>Rich content</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-4"><bdi class="secno">3.4.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-4"><bdi class="secno">3.4.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#rich-content-instructions"><bdi class="secno">3.4.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#hazards"><bdi class="secno">3.5 </bdi>Hazards</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-5"><bdi class="secno">3.5.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-5"><bdi class="secno">3.5.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#hazards-instructions"><bdi class="secno">3.5.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-summary"><bdi class="secno">3.6 </bdi>Accessibility summary</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-6"><bdi class="secno">3.6.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-6"><bdi class="secno">3.6.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#accessibility-summary-instructions"><bdi class="secno">3.6.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#legal-considerations"><bdi class="secno">3.7 </bdi>Legal considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-7"><bdi class="secno">3.7.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-7"><bdi class="secno">3.7.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#legal-considerations-instructions"><bdi class="secno">3.7.3 </bdi>Instructions</a></li></ol></li><li class="tocline"><a class="tocxref" href="#additional-accessibility-information"><bdi class="secno">3.8 </bdi>Additional accessibility information</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#understanding-the-variables-8"><bdi class="secno">3.8.1 </bdi>Understanding the variables</a></li><li class="tocline"><a class="tocxref" href="#variables-setup-8"><bdi class="secno">3.8.2 </bdi>Variables setup</a></li><li class="tocline"><a class="tocxref" href="#instructions-8"><bdi class="secno">3.8.3 </bdi>Instructions</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">4. </bdi>Change log</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">A. </bdi>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.1 </bdi>Informative references</a></li></ol></li></ol></nav>
+        <section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+            
+        	
+        	<section id="onix-metadata"><div class="header-wrapper"><h3 id="x1-1-onix-metadata"><bdi class="secno">1.1 </bdi>ONIX metadata</h3><a class="self-link" href="#onix-metadata" aria-label="Permalink for Section 1.1"></a></div>
+        		
+        		
+        		<p>
+        			ONIX messages describe products for the global book supply chain and will be sent from publisher or creator of the EPUB or digital books with full audio to those who will make the products available for sale, lending or subscription.
+        			These platforms may not yet have the actual files, as they may not yet be ready, or may only choose to list them for sale if they have certain accessibility features.
+        			ONIX also only describes a product, it cannot describe the features of the reading systems on which a product may be accessed.
+        			It is important to use ONIX metadata as a complement to the accessibility data embedded within the publication itself, if describing accessible books, books with full audio and related products for the global book supply chain.
+        			An ONIX file can be used to display accessibility information in advance of publication or when you do not have access to the metadata in the digital file itself.
+        			Some accessibility information may only be available when you have access to the file itself.
+        			If you are unfamiliar with ONIX, then there is more documentation available from <a href="https://www.editeur.org/83/Overview/">EDItEUR.org</a>.
+        		</p>
+        		
+        		<p>
+        			It is important to note that ONIX 3.0 includes a number of new accessibility metadata codes, some of which may not be expressible in earlier versions of ONIX.
+        		</p>
+        		
+        		<div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><div class="">
+        			<p>Techniques for displaying accessibility metadata in other metadata formats can be found in the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#techniques">Display Techniques for Displaying Accessibility Metadata</a></p>
+        		</div></div>
+        	</section>
+            
+			<section id="conventions"><div class="header-wrapper"><h3 id="x1-2-implementation-conventions"><bdi class="secno">1.2 </bdi>Implementation conventions</h3><a class="self-link" href="#conventions" aria-label="Permalink for Section 1.2"></a></div>
+				
+				
+				<section id="heading-structure"><div class="header-wrapper"><h4 id="x1-2-1-heading-structure"><bdi class="secno">1.2.1 </bdi>Heading structure</h4><a class="self-link" href="#heading-structure" aria-label="Permalink for Section 1.2.1"></a></div>
+					
+					<p>The algorithms defined in this document do not include instructions for outputting their respective headings because if a given technique does not result in any information (i.e., would output a statement that no information is available), the section may be omitted (i.e., no heading would be displayed). Whether there is any information to display is only known after an algorithm is processed, which would lead to the algorithms having to include instructions to remove headings.</p>
+					
+					<p>The headings structure to use for the techniques is defined in the guidelines but is repeated here to help guide implementations. The headings are linked to the algorithm they are associated with.</p>
+					
+					<ol>
+						<li><code id="ways-of-reading-title">"<a href="#ways-of-reading">Ways of reading</a>"</code><span class="str-id">[ID: ways-of-reading-title]</span></li>
+						<li><code id="conformance-title">"<a href="#conformance-instructions">Conformance</a>"</code><span class="str-id">[ID: conformance-title]</span></li>
+						<li><code id="navigation-title">"<a href="#navigation-instructions">Navigation</a>"</code><span class="str-id">[ID: navigation-title]</span></li>
+						<li><code id="rich-content-title">"<a href="#rich-content-instructions">Rich content</a>"</code><span class="str-id">[ID: rich-content-title]</span></li>
+						<li><code id="hazards-title">"<a href="#hazards-instructions">Hazards</a>"</code><span class="str-id">[ID: hazards-title]</span></li>
+						<li><code id="accessibility-summary-title">"<a href="#accessibility-summary-instructions">Accessibility summary</a>"</code><span class="str-id">[ID: accessibility-summary-title]</span></li>
+						<li><code id="legal-considerations-title">"<a href="#legal-considerations-instructions">Legal considerations</a>"</code><span class="str-id">[ID: legal-considerations-title]</span></li>
+						<li><code id="additional-accessibility-information-title">"<a href="#additional-accessibility-information">Additional accessibility information</a>"</code><span class="str-id">[ID: additional-accessibility-information-title]</span></li>
+					</ol>
+				</section>
+				
+				<section id="coding-conventions"><div class="header-wrapper"><h4 id="x1-2-2-coding-conventions"><bdi class="secno">1.2.2 </bdi>Coding conventions</h4><a class="self-link" href="#coding-conventions" aria-label="Permalink for Section 1.2.2"></a></div>
+					
+					<p>The code conventions used in the provided code snippet follow a structure commonly found in programming languages like Python, Java, or C++. Here's an explanation of the conventions:</p>
+					<dl>
+						<dt>Conditionals and Control Flow:</dt>
+						<dd><b>IF</b>, <b>ELSE IF</b>, and <b>ELSE</b> (in bold and capital letters) statements are used to define different conditions and the corresponding actions to be taken.</dd>
+						<dt>Operators:</dt>
+						<dd>Written operators (<i>is present</i>) are used to check if a particular code or codelist is present (or not) in the metadata record.</dd>
+						<dt>Logical operators:</dt>
+						<dd>Logical operators (<b>AND</b>, <b>OR</b>, <b>NOT</b>, in bold and capital letters) are used to combine conditions.</dd>
+						<dt>String Literals:</dt>
+						<dd>String literals are used to represent the text that should be displayed when a particular condition is met.</dd>
+						<dt>Variable Naming:</dt>
+						<dd>The terms like "property" and "value" are used in a way that suggests a variable or data structure representing the metadata record.</dd>
+						<dt>Indentation:</dt>
+						<dd>The code uses consistent indentation to define blocks of code within conditional statements. This is crucial for readability and maintaining a clear structure.</dd>
+						<dt>Readability:</dt>
+						<dd>The code is written in a way that is intended to be easily readable and understandable even by non-coders.</dd>
+					</dl>
+				</section>
+				
+				<section id="node-selectors"><div class="header-wrapper"><h4 id="x1-2-3-node-selectors"><bdi class="secno">1.2.3 </bdi>Node selectors</h4><a class="self-link" href="#node-selectors" aria-label="Permalink for Section 1.2.3"></a></div>
+					
+					
+					<p>These techniques use XPath 1.0 expressions [<cite><a class="bibref" data-link-type="biblio" href="#bib-xpath-10" title="XML Path Language (XPath) Version 1.0">xpath-10</a></cite>] to verify the presence of 
+						accessibility metadata in an ONIX record and to select information from it.
+						Some of the selectors can be optimized for processors that support newer versions of XPath 
+						(e.g., to match an element against a sequence of values rather than repeat the element for each 
+						possible value).</p>
+					
+					<p>Translation of these XPath selectors may be necessary if the input record is transformed into
+						another form, such as a JSON structure.</p>
+					
+					<p>Note that the node selectors in this document only account for ONIX records that use <a href="https://www.editeur.org/74/faqs/#q10">reference names</a>. To process records that 
+						use short tags, the records will either need to be <a href="https://www.editeur.org/93/release-3.0-downloads/#Tools">transformed to use reference
+							names</a> or compatible XPaths will need to be provided.</p>
+				</section>
+				
+				<section id="output-statements"><div class="header-wrapper"><h4 id="x1-2-4-output-statements"><bdi class="secno">1.2.4 </bdi>Output statements</h4><a class="self-link" href="#output-statements" aria-label="Permalink for Section 1.2.4"></a></div>
+					
+					
+					<p>The outputs provided in this document demonstrate the compact strings to display. For every text 
+						string, however, both a compact and descriptive option is available. These strings are provided
+						in a JSON structure, as shown in the following example.</p>
+					
+					<aside class="example" id="ex-str-json"><div class="marker">
+    <a class="self-link" href="#ex-str-json">Example<bdi> 1</bdi></a><span class="example-title">: Display string encoding</span>
+  </div>
+						<pre><code aria-busy="false" class="hljs css">"ways-of-reading": {
+   …
+   "ways-of-reading-visual-adjustments-modifiable": {
+      "compact": <span class="hljs-string">"Appearance can be modified"</span>,
+      <span class="hljs-string">"descriptive"</span>: <span class="hljs-string">" Appearance of the text and page layout can be modified according to the capabilities of the reading system (font family and font size, spaces between paragraphs, sentences, words, and letters, as well as color of background and text)"</span>,
+   },
+   …
+},</code></pre>
+					</aside>
+					
+					<p>This document does not set a default output. Either the compact or descriptive statements can be 
+						presented to the end user, or they can even be provided the option to choose their own preference.</p>
+					
+					<p>At the end of each output statement is an ID in brackets. This ID corresponds to a key in the JSON
+						file containing both the compact and descriptive display statements (see the <a href="#ex-str-json">preceding example</a>). To use the descriptive statement instead of the
+						compact, simply select the "descriptive" subkey instead of the "compact" one associated with the ID.</p>
+					
+					<div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="5"><span>Note</span></div><div class="">
+						The canonical English JSON file containing the compact and descriptive strings is available
+						at <a href="https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/">https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/</a>.
+					</div></div>
+				</section>
+			</section>
+		</section>
+		<section id="common-functions"><div class="header-wrapper"><h2 id="x2-common-functions"><bdi class="secno">2. </bdi>Common Functions</h2><a class="self-link" href="#common-functions" aria-label="Permalink for Section 2."></a></div>
+			
+			<p>In this section we define the functions common to all techniques, which are called by them during execution.</p>
+			<section id="preprocessing"><div class="header-wrapper"><h3 id="x2-1-preprocessing"><bdi class="secno">2.1 </bdi>Preprocessing</h3><a class="self-link" href="#preprocessing" aria-label="Permalink for Section 2.1"></a></div>
+				
+				<p>Before working directly with the metadata we must read the ONIX record. This is a common starting point for all techniques that allows us to query the record directly.</p>
+				<div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="4"><span>Note</span></div><aside class="">
+					<p>This algorithm does not describe how the ONIX record is discovered and obtained.</p>
+				</aside></div>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<p>To generate the internal representation, run the following steps:</p>
+				<ul class="variable">
+					<li><b>LET</b> <var>record</var> be textual representation of the ONIX record for the publication given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>onix</var> be the DOM tree that results from parsing <var>record</var> using an XML DOM parser.</li>
+					<li>return <var>onix</var>.</li>
+				</ul>
+				<div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-2" aria-level="4"><span>Note</span></div><aside class="">
+					<p>The XML file being processed may contain namespaces, in the techniques when we use XPath we will assume that the default namespace of the root record is used.</p>
+				</aside></div>
+			</section>
+			<section id="check-for-node"><div class="header-wrapper"><h3 id="x2-2-check-for-node"><bdi class="secno">2.2 </bdi>Check for node</h3><a class="self-link" href="#check-for-node" aria-label="Permalink for Section 2.2"></a></div>
+				
+				<p>Many of the techniques rely on checking for the presence or absence of metadata in the ONIX record.</p>
+				<p>This algorithm takes:</p>
+				<ul>
+					<li>the <var>onix</var> argument: the internal representation of ONIX record (output of <a href="#preprocessing">preprocessing</a>);</li>
+					<li>the <var>path</var> argument: the XPath of the node to check the presence of.</li>
+				</ul>
+				<p>To check for node, run the following steps:</p>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>onix</var> contains <var>path</var>:</span>
+						<span><b>THEN</b> return <code>True</code>.</span>
+					</li>
+					<li><b>ELSE</b> return <code>False</code>.</li>
+				</ol>
+			</section>
+		</section>
+		<section id="techniques"><div class="header-wrapper"><h2 id="x3-techniques"><bdi class="secno">3. </bdi>Techniques</h2><a class="self-link" href="#techniques" aria-label="Permalink for Section 3."></a></div>
+			
+			
+			<section id="ways-of-reading"><div class="header-wrapper"><h3 id="x3-1-ways-of-reading"><bdi class="secno">3.1 </bdi>Ways of reading</h3><a class="self-link" href="#ways-of-reading" aria-label="Permalink for Section 3.1"></a></div>
+                
+
+                <p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#ways-of-reading">Ways of reading accessibility display field</a>.</p>
+  
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+
+
+				<section id="visual-adjustments"><div class="header-wrapper"><h4 id="x3-1-1-visual-adjustments"><bdi class="secno">3.1.1 </bdi>Visual adjustments</h4><a class="self-link" href="#visual-adjustments" aria-label="Permalink for Section 3.1.1"></a></div>
+					
+					<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#visual-adjustments">Visual adjustments accessibility display field</a>.</p>
+					<section id="understanding-the-variables"><div class="header-wrapper"><h5 id="x3-1-1-1-understanding-the-variables"><bdi class="secno">3.1.1.1 </bdi>Understanding the variables</h5><a class="self-link" href="#understanding-the-variables" aria-label="Permalink for Section 3.1.1.1"></a></div>
+					<dl>
+						<dt><var>all_textual_content_can_be_modified</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/36">code 36 of codelist 196</a> (All textual content can be modified) is present in the ONIX record.</p>
+							<p><i>All textual content can be modified</i> means that the digital publication does not restrict the ability of users to modify and reflow the display of any textual content to the full extent allowed by the reading system (i.e. to change the text size or typeface, line height and word spacing, colors).</p>
+						</dd>
+						<dt><var>is_fixed_layout</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/E201">code E201 of codelist 175</a> (Fixed format) is present in the ONIX record.</p>
+							<p><i>Fixed format</i> means that digital publication is in fixed format (e.g. EPUB Fixed Layout).</p>
+						</dd>
+					</dl>
+					</section><section id="variables-setup"><div class="header-wrapper"><h5 id="x3-1-1-2-variables-setup"><bdi class="secno">3.1.1.2 </bdi>Variables setup</h5><a class="self-link" href="#variables-setup" aria-label="Permalink for Section 3.1.1.2"></a></div>
+					<ul class="variable">
+						<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+						<li><b>LET</b> <var>all_textual_content_can_be_modified</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "36"]</code>.</li>
+						<li><b>LET</b> <var>is_fixed_layout</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormDetail[normalize-space() = "E201"]</code> <b>AND</b> <b>NOT</b> the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormDetail[normalize-space() = "E200"]</code>.</li>
+					</ul>
+					</section><section id="instructions"><div class="header-wrapper"><h5 id="x3-1-1-3-instructions"><bdi class="secno">3.1.1.3 </bdi>Instructions</h5><a class="self-link" href="#instructions" aria-label="Permalink for Section 3.1.1.3"></a></div>
+					<ol class="condition">
+						<li>
+							<span><b>IF</b> <var>all_textual_content_can_be_modified</var>:</span>
+							<span><b>THEN</b> display <code id="ways-of-reading-visual-adjustments-modifiable">"Appearance can be modified"</code><span class="str-id">[ID: ways-of-reading-visual-adjustments-modifiable]</span>.</span>
+						</li>
+						<li>
+							<span><b>ELSE IF</b> <var>is_fixed_layout</var>:</span>
+							<span><b>THEN</b> display <code id="ways-of-reading-visual-adjustments-unmodifiable">"Appearance cannot be modified"</code><span class="str-id">[ID: ways-of-reading-visual-adjustments-unmodifiable]</span>.</span>
+						</li>
+						<li><b>ELSE</b> display <code id="ways-of-reading-visual-adjustments-unknown">"No information about appearance modifiability is available"</code><span class="str-id">[ID: ways-of-reading-visual-adjustments-unknown]</span>.</li>
+					</ol>
+				</section></section>
+	
+				<section id="supports-nonvisual-reading"><div class="header-wrapper"><h4 id="x3-1-2-supports-nonvisual-reading"><bdi class="secno">3.1.2 </bdi>Supports nonvisual reading</h4><a class="self-link" href="#supports-nonvisual-reading" aria-label="Permalink for Section 3.1.2"></a></div>
+					
+					<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#supports-nonvisual-reading">Supports nonvisual reading accessibility display field</a>.</p>
+					<section id="understanding-the-variables-0"><div class="header-wrapper"><h5 id="x3-1-2-1-understanding-the-variables"><bdi class="secno">3.1.2.1 </bdi>Understanding the variables</h5><a class="self-link" href="#understanding-the-variables-0" aria-label="Permalink for Section 3.1.2.1"></a></div>
+					<dl>
+						<dt><var>all_necessary_content_textual</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/52">code 52 of codelist 196</a> (All non-decorative content supports reading without sight) is present in the ONIX record.</p>
+							<p><i>All non-decorative content supports reading without sight</i> means that all contents of the digital publication necessary to use and understanding, including text, images (via their alternative descriptions), audio and video material (via their transcripts, descriptions, captions or subtitles) are fully accessible via suitable reading devices, for example text-to-speech screen readers or tactile reading devices (‘Braille displays’), and nothing in the digital publication prevents or blocks the use of alternative reading modes. The entire publication can be navigated and ‘read’ using only text rendered via sound or touch, and does not require visual perception.</p>
+						</dd>
+                    	<dt><var>audio_only_content</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/81/01">code 01 of codelist 81</a> (Audiobook) is present in the ONIX record.</p>
+							<p>This means that the primary content is an Audio recording of a reading of a book or other text.</p>
+						</dd>
+						<dt><var>real_text</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/81/10">code 10 of codelist 81</a> (Text) is present in the ONIX record.</p>
+							<p><i>Text</i> means that digital publication contains "real" text (user-selectable) as its main content (or as secondary content).</p>
+						</dd>
+                    	<dt><var>textual_alternatives</var></dt>
+						<dd>
+							<p>If true, it indicates that at least one of the following is present in the ONIX record:</p>
+							<ul>
+								<li><a href="https://ns.editeur.org/onix/en/196/14">code 14 of codelist 196</a> (Short alternative textual descriptions);</li>
+								<li><a href="https://ns.editeur.org/onix/en/196/15">code 15 of codelist 196</a> (Full alternative textual descriptions);</li>
+								<li><a href="https://ns.editeur.org/onix/en/196/16">code 16 of codelist 196</a> (Visualized data also available as non-graphical data);</li>
+								<li><a href="https://ns.editeur.org/onix/en/175/V212">code V212 of codelist 175</a> (Transcript);</li>
+							</ul>
+                            <p>This means that there are textual alternatives for the non-textual content.</p>
+						</dd>
+					</dl>
+					</section><section id="variables-setup-0"><div class="header-wrapper"><h5 id="x3-1-2-2-variables-setup"><bdi class="secno">3.1.2.2 </bdi>Variables setup</h5><a class="self-link" href="#variables-setup-0" aria-label="Permalink for Section 3.1.2.2"></a></div>
+					<ul class="variable">
+						<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+						<li><b>LET</b> <var>all_necessary_content_textual</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "52"]</code>.</li>
+						<li><b>LET</b> <var>audio_only_content</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[PrimaryContentType = "01" or ProductContentType = "01"] </code>.</li>
+						<li><b>LET</b> <var>real_text</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[PrimaryContentType = "10" or ProductContentType = "10"]</code>.</li>
+						<li><b>LET</b> <var>textual_alternatives</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and (ProductFormFeatureValue = "14" or ProductFormFeatureValue = "15" or ProductFormFeatureValue = "16")]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormDetail[normalize-space() = "V212"]</code>.</li>
+					</ul>
+					</section><section id="instructions-0"><div class="header-wrapper"><h5 id="x3-1-2-3-instructions"><bdi class="secno">3.1.2.3 </bdi>Instructions</h5><a class="self-link" href="#instructions-0" aria-label="Permalink for Section 3.1.2.3"></a></div>
+					<ol class="condition">
+                        <li>
+                            <span><b>IF</b> <var>all_necessary_content_textual</var>:</span>
+                            <span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-readable">"Readable in read aloud or dynamic braille"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-readable]</span>.</span>
+                        </li>
+                    	<li>
+                            <span><b>ELSE IF</b> <var>real_text</var> <b>OR</b> <var>textual_alternatives</var>:</span>
+                            <span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-not-fully">"Not fully readable in read aloud or dynamic braille"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-not-fully]</span>.</span>
+                        	<div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="5"><span>Note</span></div><div class="">
+								<p>This statement may appear when <a href="https://ns.editeur.org/onix/en/81/10">code 10 of codelist 81</a> (Text) is present without other accessibility metadata. This reflects that text-based digital publications are partially usable with assistive technologies, even without explicit accessibility optimization. Implementers may choose to suppress this statement when it is the only accessibility-related information.</p>
+							</div></div>
+                        </li>
+                    	<li>
+                    		<span><b>ELSE IF</b> <var>audio_only_content</var>:</span>
+                    		<span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-none">"Not readable in read aloud or dynamic braille"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-none]</span>.</span>
+                    	</li>
+                    	<li><b>ELSE</b> display <code id="ways-of-reading-nonvisual-reading-no-metadata">"No information about nonvisual reading is available"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-no-metadata]</span>.</li>
+                    	<li>
+                    		<span><b>IF</b> <var>textual_alternatives</var>:</span>
+                    		<span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-alt-text">"Has alternative text"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-alt-text]</span>.</span>
+                    	</li>
+                    </ol>
+				</section></section>
+				
+				<section id="prerecorded-audio"><div class="header-wrapper"><h4 id="x3-1-3-prerecorded-audio"><bdi class="secno">3.1.3 </bdi>Prerecorded audio</h4><a class="self-link" href="#prerecorded-audio" aria-label="Permalink for Section 3.1.3"></a></div>
+					
+					<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#prerecorded-audio">Pre-recorded audio accessibility display field</a>.</p>
+					<section id="understanding-the-variables-1"><div class="header-wrapper"><h5 id="x3-1-3-1-understanding-the-variables"><bdi class="secno">3.1.3.1 </bdi>Understanding the variables</h5><a class="self-link" href="#understanding-the-variables-1" aria-label="Permalink for Section 3.1.3.1"></a></div>
+					<dl>
+						<dt><var>all_content_audio</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/39">code 39 of codelist 196</a> (Supplementary material to an audiobook is accessible) is present in the ONIX record.</p>
+							<p>This means that all supplementary visual or textual material necessary for understanding of an audiobook, is available as pre-recorded audio, or has full alternative text that can be read via text-to- speech. Only for use in ONIX 3.0 or later.</p>
+						</dd>
+						<dt><var>all_content_pre_recorded</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/51">code 51 of codelist 196</a> (All non-decorative content supports reading via pre-recorded audio) is present in the ONIX record.</p>
+							<p>This means that all contents of the digital publication necessary to use and understanding, including any text, images (via alternative descriptions), video (via audio description) is fully accessible via suitable audio reproduction. The entire publication can be navigated and ‘read’ using only pre-recorded sound, and does not require visual or tactile perception.</p>
+						</dd>
+						<dt><var>audiobook</var></dt>
+						<dd>
+							<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/81/01">code 01 of codelist 81</a> (Audiobook) is present in the ONIX record.</p>
+							<p>This means that the primary content is an Audio recording of a reading of a book or other text.</p>
+						</dd>
+						<dt><var>non_textual_content_audio</var></dt>
+						<dd>
+							<p>If true, it indicates that one of the following codes is present in the ONIX record: </p>
+							<ul>
+								<li><a href="https://ns.editeur.org/onix/en/81/21">code 21 of codelist 81</a> (Partial performance – spoken word);</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/22">code 22 of codelist 81</a> (Additional audio content not part of main content);</li>
+							</ul>
+							<p>This indicates that pre-recorded audio content is included as part of the work. It can be Audio recording of a reading, performance or dramatization of part of the work	or additional pre-recorded audio of any supplementary material such as full or partial reading, lecture, performance, dramatization, interview, background documentary or other audio content not included in the primary or un-enhanced version</p>
+						</dd>
+						<dt><var>non_textual_content_audio_in_video</var></dt>
+						<dd>
+							<p>If true, it indicates that one of the following codes is present in the ONIX record: </p>
+								<ul>
+									<li><a href="https://ns.editeur.org/onix/en/81/06">code 06 of codelist 81</a> (Video);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/25">code 25 of codelist 81</a> (Narrative animation);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/26">code 26 of codelist 81</a> (Video recording of a reading);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/27">code 27 of codelist 81</a> (Performance – visual);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/28">code 28 of codelist 81</a> (Other video);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/29">code 29 of codelist 81</a> (Partial performance – video);</li>
+									<li><a href="https://ns.editeur.org/onix/en/81/30">code 30 of codelist 81</a> (Additional video content not part of main work);</li>
+								</ul>
+								<p>This indicates that pre-recorded video including audio content is included as part of the work. It can be video recording of a reading, performance of part of the work or additional pre-recorded video of any supplementary material such as full or partial reading, lecture, performance, dramatization, interview, background documentary or other video containing audio content.</p>
+						</dd>
+						<dt><var>synchronised_pre_recorded_audio</var></dt>
+						<dd>
+							<p>If true, it indicates that one of the following codes is present in the ONIX record: </p>
+								<ul>
+									<li><a href="https://ns.editeur.org/onix/en/196/20">code 20 of codelist 196</a> (Synchronised pre-recorded audio)</li>
+									<li><a href="https://ns.editeur.org/onix/en/175/A305">code A305 of codelist 175</a> (Synchronised audio)</li>
+								</ul>
+							<p>This indicates that text-synchronised pre-recorded audio narration (natural or synthesized voice) is included for substantially all textual matter, including all alternative descriptions, e.g. via a SMIL media overlay.</p>
+						</dd>
+					</dl>
+					</section><section id="variables-setup-1"><div class="header-wrapper"><h5 id="x3-1-3-2-variables-setup"><bdi class="secno">3.1.3.2 </bdi>Variables setup</h5><a class="self-link" href="#variables-setup-1" aria-label="Permalink for Section 3.1.3.2"></a></div>
+					<ul class="variable">
+						<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+						<li><b>LET</b> <var>all_content_audio</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "39"]</code>.</li>
+						<li><b>LET</b> <var>all_content_pre_recorded</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "51"]</code>.</li>
+						<li><b>LET</b> <var>audiobook</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[PrimaryContentType = "01" or ProductContentType = "01"] </code>.</li>
+						<li><b>LET</b> <var>non_textual_content_audio</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[PrimaryContentType = "21" or ProductContentType = "22" or ProductContentType = "21" or ProductContentType = "22"] </code>.</li>
+						<li><b>LET</b> <var>non_textual_content_audio_in_video</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[PrimaryContentType = "06" or PrimaryContentType = "25" or PrimaryContentType = "26" or PrimaryContentType = "27" or PrimaryContentType = "28" or PrimaryContentType = "29" or PrimaryContentType = "30" or ProductContentType = "06" or ProductContentType = "25" or ProductContentType = "26" or ProductContentType = "27" or ProductContentType = "28" or ProductContentType = "29" or ProductContentType = "30"] </code>.</li>
+						<li><b>LET</b> <var>synchronised_pre_recorded_audio</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "20"]</code> <b>AND</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormDetail[normalize-space() = "A305"]</code>.</li>
+					</ul>
+					</section><section id="instructions-1"><div class="header-wrapper"><h5 id="x3-1-3-3-instructions"><bdi class="secno">3.1.3.3 </bdi>Instructions</h5><a class="self-link" href="#instructions-1" aria-label="Permalink for Section 3.1.3.3"></a></div>
+					<ol class="condition">
+						<li>
+							<span><b>IF</b> <var>all_content_audio</var> <b>AND</b> <b>NOT</b> <var>synchronised_pre_recorded_audio</var>:</span>
+							<span><b>THEN</b> display <code id="ways-of-reading-prerecorded-audio-only">"Prerecorded audio only"</code><span class="str-id">[ID: ways-of-reading-prerecorded-audio-only]</span>.</span>
+						</li>
+						<li>
+							<span><b>ELSE IF</b> <var>audiobook</var> OR <var>non_textual_content_audio</var> OR <var>non_textual_content_audio_in_video</var> <b>AND</b> <b>NOT</b> <var>all_content_pre_recorded</var>:</span>
+							<span><b>THEN</b> display <code id="ways-of-reading-prerecorded-audio-complementary">"Prerecorded audio clips"</code><span class="str-id">[ID: ways-of-reading-prerecorded-audio-complementary]</span>.</span>
+						</li>
+						<li>
+							<span><b>ELSE IF</b> <var>all_content_pre_recorded</var> <b>AND</b> <var>synchronised_pre_recorded_audio</var>:</span>
+							<span><b>THEN</b> display <code id="ways-of-reading-prerecorded-audio-synchronized">"Prerecorded audio synchronized with text"</code><span class="str-id">[ID: ways-of-reading-prerecorded-audio-synchronized]</span>.</span>
+						</li>
+						<li>
+							<b>ELSE</b> either omit this display field if metadata is missing or display <code id="ways-of-reading-prerecorded-audio-no-metadata">"No information about prerecorded audio is available"</code><span class="str-id">[ID: ways-of-reading-prerecorded-audio-no-metadata]</span>.
+						</li>
+					</ol>
+				</section></section>
+			</section>
+
+			<section id="conformance-group"><div class="header-wrapper"><h3 id="x3-2-conformance"><bdi class="secno">3.2 </bdi>Conformance</h3><a class="self-link" href="#conformance-group" aria-label="Permalink for Section 3.2"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#conformance-group">Conformance accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<section id="understanding-the-variables-2"><div class="header-wrapper"><h4 id="x3-2-1-understanding-the-variables"><bdi class="secno">3.2.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-2" aria-label="Permalink for Section 3.2.1"></a></div>
+				<dl>
+					<dt><var>certifier</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/90">code 90 of codelist 196</a> (Compliance certification by (name)) if present in the ONIX record.</p>
+						<p>This means that the name of the organization responsible for compliance testing and certification of the product is present.</p>
+					</dd>
+					<dt><var>certification_date</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/91">code 91 of codelist 196</a> (Latest accessibility assessment date) if present in the ONIX record.</p>
+						<p>This means that the date of the latest assessment or re-assessment of the accessibility of the product is present.</p>
+					</dd>
+					<dt><var>certifier_credentials</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/93">code 93 of codelist 196</a> (Compliance certification by (URL)) if present in the ONIX record.</p>
+						<p>This means that the the URL of a web page belonging to an organization responsible for compliance testing and certification of the product is present – typically a ‘home page’ or a page describing the certification scheme itself.</p>
+					</dd>
+					<dt><var>certifier_report</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/94">code 94 of codelist 196</a> (Compliance web page for detailed accessibility information) if present in the ONIX record.</p>
+						<p>This means that is present the URL of a compliance web page for detailed accessibility information. The web page should be maintained by an independent compliance scheme or testing organization. Note the web page may include information about specific national requirements or voluntary conformance reports.</p>
+					</dd>
+					<dt><var>epub_accessibility_10</var></dt>
+					<dd>
+						<p>If true, it indicates that either the <a href="https://ns.editeur.org/onix/en/196/02">code 02 of codelist 196</a> (EPUB Accessibility Specification 1.0 A) or the <a href="https://ns.editeur.org/onix/en/196/03">code 03 of codelist 196</a> (EPUB Accessibility Specification 1.0 AA) are present in the ONIX record.</p>
+						<p>This means that the publication conforms with either the requirements of EPUB Accessibility Spec 1.0, at level A or level AA.</p>
+					</dd>
+					<dt><var>epub_accessibility_11</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/04">code 04 of codelist 196</a> (EPUB Accessibility Specification 1.1) is present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of EPUB Accessibility Spec 1.1.</p>
+					</dd>
+					<dt><var>level_a</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/84">code 84 of codelist 196</a> (WCAG level A) or the <a href="https://ns.editeur.org/onix/en/196/02">code 02 of codelist 196</a> (EPUB Accessibility Specification 1.0 A) are present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG level A or with the requirements of EPUB Accessibility Spec 1.0 level A.</p>
+					</dd>
+					<dt><var>level_aa</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/85">code 85 of codelist 196</a> (WCAG level AA) or the <a href="https://ns.editeur.org/onix/en/196/03">code 03 of codelist 196</a> (EPUB Accessibility Specification 1.0 AA) are present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG level AA or with the requirements of EPUB Accessibility Spec 1.0 level AA.</p>
+					</dd>
+					<dt><var>level_aaa</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/86">code 86 of codelist 196</a> (WCAG level AAA) is present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG level AAA.</p>
+					</dd>
+					<dt><var>lia_compliant</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/01">code 01 of codelist 196</a> (LIA Compliance Scheme) is present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of Fondazione LIA.</p>
+					</dd>
+					<dt><var>wcag_20</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/80">code 80 of codelist 196</a> (WCAG v2.0) or the <a href="https://ns.editeur.org/onix/en/196/02">code 02 of codelist 196</a> (EPUB Accessibility Specification 1.0 A) or the <a href="https://ns.editeur.org/onix/en/196/03">code 03 of codelist 196</a> (EPUB Accessibility Specification 1.0 AA) are present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG version 2.0 or with the requirements of EPUB Accessibility Spec 1.0 (at level A or level AA). This is because being compliant with EPUB Accessibility 1.0 specification means at least being compliant with WCAG 2.0 specification.</p>
+					</dd>
+					<dt><var>wcag_21</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/81">code 81 of codelist 196</a> (WCAG v2.1) is present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG version 2.1.</p>
+					</dd>
+					<dt><var>wcag_22</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/82">code 82 of codelist 196</a> (WCAG v2.2) is present in the ONIX record.</p>
+						<p>This means that the publication conforms with the requirements of WCAG version 2.2.</p>
+					</dd>
+				</dl>
+
+				</section><section id="variables-setup-2"><div class="header-wrapper"><h4 id="x3-2-2-variables-setup"><bdi class="secno">3.2.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-2" aria-label="Permalink for Section 3.2.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>certifier</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "90"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>certification_date</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "91"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>certifier_credentials</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "93"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>certifier_report</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "94"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>epub_accessibility_10</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "02"]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "03"]</code>.</li>
+					<li><b>LET</b> <var>epub_accessibility_11</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "04"]</code>.</li>
+					<li><b>LET</b> <var>level_a</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "84"]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "02"]</code>.</li>
+					<li><b>LET</b> <var>level_aa</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "85"]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "03"]</code>.</li>
+					<li><b>LET</b> <var>level_aaa</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "86"]</code>.</li>
+					<li><b>LET</b> <var>lia_compliant</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "01"]</code>.</li>
+					<li><b>LET</b> <var>wcag_20</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "80"]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "02"]</code> <b>OR</b> calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "03"]</code>.</li>
+					<li><b>LET</b> <var>wcag_21</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "81"]</code>.</li>
+					<li><b>LET</b> <var>wcag_22</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "82"]</code>.</li>
+				</ul>
+
+				</section><section id="instructions-2"><div class="header-wrapper"><h4 id="conformance-instructions"><bdi class="secno">3.2.3 </bdi>Instructions</h4><a class="self-link" href="#conformance-instructions" aria-label="Permalink for Section 3.2.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> ((<var>epub_accessibility_10</var> <b>OR</b> <var>epub_accessibility_11</var> <b>OR</b> <var>wcag_20</var> <b>OR</b> <var>wcag_21</var> <b>OR</b> <var>wcag_22</var>) <b>AND</b> (<var>level_a</var> <b>OR</b> <var>level_aa</var> <b>OR</b> <var>level_aaa</var>)) <b>OR</b> <var>lia_compliant</var>:</span>
+						<span><b>THEN</b></span>
+						<ol class="condition">
+							<li>
+								<span><b>IF</b> <var>level_aaa</var>:</span>
+								<span><b>THEN</b> display <code id="conformance-aaa">"This publication exceeds accepted accessibility standards"</code><span class="str-id">[ID: conformance-aaa]</span>.</span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>level_aa</var> <b>OR</b> <var>lia_compliant</var>:</span>
+								<span><b>THEN</b> display <code id="conformance-aa">"This publication meets accepted accessibility standards"</code><span class="str-id">[ID: conformance-aa]</span>.</span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>level_a</var>:</span>
+								<span><b>THEN</b> display <code id="conformance-a">"This publication meets minimum accessibility standards"</code><span class="str-id">[ID: conformance-a]</span>.</span>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<span><b>ELSE</b>:</span>
+						<span>display <code id="conformance-no">"No information is available"</code><span class="str-id">[ID: conformance-no]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>certifier</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display <code id="conformance-certifier">"The publication was certified by {certifier}"</code><span class="str-id">[ID: conformance-certifier]</span> replacing <code>"{certifier}"</code> with <var>certifier</var>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>certifier_credentials</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display <code id="conformance-certifier-credentials">"The certifier's credential is {certifier_credentials}"</code><span class="str-id">[ID: conformance-certifier-credentials]</span> replacing <code>"{certifier_credentials}"</code> with <var>certifier_credentials</var>.</span>
+						<div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div><div class="">
+							<p>If the certifier metadata value is a text-based badge or a credential, then only the text is displayed. If the badge or credential is expressed as a URL, then the URL can be made a link for users to access. The display of image logos or badges is typically arranged between the certifier and the distributor. The distributor would be responsible for identifying the certifier's text or link credential and replacing it with the image or linked image.</p>
+						</div></div>
+					</li>
+					<li>
+						<div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><div class="">
+							<p>The instructions from here on define the output for the detailed conformance
+								information. Refer to the 
+								<a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#detailed-conformance-information">Detailed Conformance section</a>
+								in the guidelines for more information on how to present these strings.</p>
+						</div></div>
+						
+						<span><b>IF</b> (<var>epub_accessibility_10</var> <b>OR</b> <var>epub_accessibility_11</var>) <b>AND</b> (<var>wcag_20</var> <b>OR</b> <var>wcag_21</var> <b>OR</b> <var>wcag_22</var>) <b>AND</b> (<var>level_aaa</var> <b>OR</b> <var>level_aa</var> <b>OR</b> <var>level_a</var>):</span>
+						<span><b>THEN</b>:</span>
+						<ol class="condition">
+							<li>
+								<b>LET</b> <var>conformance_string</var> be <code id="conformance-details-claim">"This publication claims to meet {epub_accessibility} {wcag_version} {wcag_level}"</code><span class="str-id">[ID: conformance-details-claim]</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>epub_accessibility_11</var>:</span>
+								<span><b>THEN</b> replace <code>"{epub_accessibility}"</code> with <code id="conformance-details-epub-accessibility-1-1">"EPUB Accessibility 1.1"</code><span class="str-id">[ID: conformance-details-epub-accessibility-1-1]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>epub_accessibility_10</var>:</span>
+								<span><b>THEN</b> replace <code>"{epub_accessibility}"</code> with <code id="conformance-details-epub-accessibility-1-0">"EPUB Accessibility 1.0"</code><span class="str-id">[ID: conformance-details-epub-accessibility-1-0]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE</b>:</span>
+								<span><b>THEN</b> replace <code>"{epub_accessibility}"</code> with <code>""</code> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>wcag_22</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_version}"</code> with <code id="conformance-details-wcag-2-2">"WCAG 2.2"</code><span class="str-id">[ID: conformance-details-wcag-2-2]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>wcag_21</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_version}"</code> with <code id="conformance-details-wcag-2-1">"WCAG 2.1"</code><span class="str-id">[ID: conformance-details-wcag-2-1]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>wcag_20</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_version}"</code> with <code id="conformance-details-wcag-2-0">"WCAG 2.0"</code><span class="str-id">[ID: conformance-details-wcag-2-0]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE</b>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_version}"</code> with <code>""</code> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>level_aaa</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_level}"</code> with <code id="conformance-details-level-aaa">"Level AAA"</code><span class="str-id">[ID: conformance-details-level-aaa]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>level_aa</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_level}"</code> with <code id="conformance-details-level-aa">"Level AA"</code><span class="str-id">[ID: conformance-details-level-aa]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE IF</b> <var>level_a</var>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_level}"</code> with <code id="conformance-details-level-a">"Level A"</code><span class="str-id">[ID: conformance-details-level-a]</span> in <var>conformance_string</var></span>
+							</li>
+							<li>
+								<span><b>ELSE</b>:</span>
+								<span><b>THEN</b> replace <code>"{wcag_version}"</code> with <code>""</code> in <var>conformance_string</var></span>
+							</li>
+							<li>display <var>conformance_string</var>.</li>
+						</ol>
+					</li>
+					<li>
+						<span><b>IF</b> <var>certification_date</var>:</span>
+						<span><b>THEN</b></span>
+						<ol class="condition">
+							<li>
+								format <var>certification_date</var> based on the language of localization
+								<div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><div class="">
+									<p>The certification date in ONIX is provided as a string value and should be parsed and formatted according to the display locale's conventions. For example, if the certification date is "20240315", this may be displayed as "March 15, 2024" in US English, "15 marzo 2024" in Italian, or "15. März 2024" in German, depending on the localization language and regional settings.</p>
+								</div></div>
+							</li>
+							<li>display <code id="conformance-details-certification-info">"The publication was certified on {certification_date}"</code><span class="str-id">[ID: conformance-details-certification-info]</span> replacing <code>"{certification_date}"</code> with <var>certification_date</var>.</li>
+						</ol>
+					</li>
+					<li>
+						<span><b>IF</b> <var>certifier_report</var>:</span>
+						<span><b>THEN</b> display <code id="conformance-details-certifier-report">"For more information refer to the certifier's report"</code><span class="str-id">[ID: conformance-details-certifier-report]</span> as a named link with <var>certifier_report</var> as the URL used.</span>
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="navigation"><div class="header-wrapper"><h3 id="x3-3-navigation"><bdi class="secno">3.3 </bdi>Navigation</h3><a class="self-link" href="#navigation" aria-label="Permalink for Section 3.3"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#navigation">Navigation accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<section id="understanding-the-variables-3"><div class="header-wrapper"><h4 id="x3-3-1-understanding-the-variables"><bdi class="secno">3.3.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-3" aria-label="Permalink for Section 3.3.1"></a></div>
+				<dl>
+					<dt><var>index_navigation</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/12">code 12 of codelist 196</a> (Index navigation) is present in the ONIX record.</p>
+						<p>This means that there is an index that provides direct (eg hyperlinked) access to uses of the index terms in the document body.</p>
+					</dd>
+					<dt><var>next_previous_structural_navigation</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/29">code 29 of codelist 196</a> (Next / Previous structural navigation) is present in the ONIX record.</p>
+						<p>This means that all levels of heading and other structural elements of the content are correctly marked up and (if applicable) numbered, to enable fast next heading / previous heading, next chapter / previous chapter navigation without returning to the table of contents.</p>
+					</dd>
+					<dt><var>page_navigation</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/41">code 41 of codelist 196</a> (Page list navigation) is present in the ONIX record.</p>
+						<p>This means that in the publication includes page number navigation, based on print-equivalent page numbers or digital-only static page breaks.</p>
+					</dd>
+					<dt><var>table_of_contents_navigation</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/11">code 11 of codelist 196</a> (Table of contents navigation) is present in the ONIX record.</p>
+						<p>This means that there is a Table of Contents in the publication that allows direct (eg hyperlinked) access to all levels of text organization above individual paragraphs (eg to all sections and subsections) and to all tables, figures, illustrations etc.</p>
+					</dd>
+				</dl>
+				</section><section id="variables-setup-3"><div class="header-wrapper"><h4 id="x3-3-2-variables-setup"><bdi class="secno">3.3.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-3" aria-label="Permalink for Section 3.3.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>index_navigation</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "12"]</code>.</li>
+					<li><b>LET</b> <var>next_previous_structural_navigation</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "29"]</code>.</li>
+					<li><b>LET</b> <var>page_navigation</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "41"]</code>.</li>
+					<li><b>LET</b> <var>table_of_contents_navigation</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "11"]</code>.</li>
+				</ul>
+				</section><section id="instructions-3"><div class="header-wrapper"><h4 id="navigation-instructions"><bdi class="secno">3.3.3 </bdi>Instructions</h4><a class="self-link" href="#navigation-instructions" aria-label="Permalink for Section 3.3.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>table_of_contents_navigation</var> <b>OR</b> <var>index_navigation</var> <b>OR</b> <var>page_navigation</var> <b>OR</b> <var>next_previous_structural_navigation</var>:</span>
+						<ol class="condition">
+							<li>
+								<span><b>IF</b> <var>table_of_contents_navigation</var>:</span>
+								<span><b>THEN</b> display <code id="navigation-toc">"Table of contents"</code><span class="str-id">[ID: navigation-toc]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>index_navigation</var>:</span>
+								<span><b>THEN</b> display <code id="navigation-index">"Index"</code><span class="str-id">[ID: navigation-index]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>page_navigation</var>:</span>
+								<span><b>THEN</b> display <code id="navigation-page-navigation">"Go to page"</code><span class="str-id">[ID: navigation-page-navigation]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>next_previous_structural_navigation</var>:</span>
+								<span><b>THEN</b> display <code id="navigation-structural">"Headings"</code><span class="str-id">[ID: navigation-structural]</span>.</span>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<b>ELSE</b> either omit this display field if metadata is missing or display <code id="navigation-no-metadata">"No information is available"</code><span class="str-id">[ID: navigation-no-metadata]</span>.
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="rich-content"><div class="header-wrapper"><h3 id="x3-4-rich-content"><bdi class="secno">3.4 </bdi>Rich content</h3><a class="self-link" href="#rich-content" aria-label="Permalink for Section 3.4"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#rich-content">Rich content accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<section id="understanding-the-variables-4"><div class="header-wrapper"><h4 id="x3-4-1-understanding-the-variables"><bdi class="secno">3.4.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-4" aria-label="Permalink for Section 3.4.1"></a></div>
+				<dl>
+					<dt><var>charts_diagrams_as_non_graphical_data</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/16">code 16 of codelist 196</a> (Visualized data also available as non-graphical data) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that all data presented in a visual format (graph, chart, etc) has an alternative non-graphical presentation of the same data.</p>
+					</dd>
+					<dt><var>chemical_formula_as_latex</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/54">code 54 of codelist 196</a> (Accessible chemistry content as LaTeX) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the chemical formulae are presented using LaTeX and works with compatible assistive technology.</p>
+					</dd>
+					<dt><var>chemical_formula_as_mathml</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/34">code 34 of codelist 196</a> (Accessible chemistry content as MathML) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the chemical formulae are presented using MathML and works with compatible assistive technology.</p>
+					</dd>
+					<dt><var>closed_captions</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/V210">code V210 of codelist 175</a> (Closed captions) is present in the ONIX record.</p>
+						<p>This means that the publication contains videos with closed captions or subtitles.</p>
+					</dd>
+					<dt><var>described_math</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/53">code 53 of codelist 196</a> (Described math content) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that textual descriptions of mathematical content are present, either as alternative descriptions attached to an image of the content, or in addition to MathML or LaTeX.</p>
+					</dd>
+					<dt><var>full_alternative_textual_descriptions</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/15">code 15 of codelist 196</a> (Full alternative textual description) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that a full alternative textual description has been supplied for all of the graphs, charts, diagrams, or figures necessary to understand the content.</p>
+					</dd>
+					<dt><var>math_formula_as_latex</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/35">code 35 of codelist 196</a> (Accessible math content as LaTeX) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the chemical formulae are presented using LaTeX and works with compatible assistive technology.</p>
+					</dd>
+					<dt><var>math_formula_as_mathml</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/17">code 17 of codelist 196</a> (Accessible math content as MathML) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that all mathematical content is presented using MathML and works with compatible assistive technology.</p>
+					</dd>
+					<dt><var>open_captions</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/V211">code V211 of codelist 175</a> (Open captions) is present in the ONIX record.</p>
+						<p>This means that the publication contains videos with ‘burnt-in’ or hard captions or subtitles.</p>
+					</dd>
+					<dt><var>transcript</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/V212">code V212 of codelist 175</a> (Transcript) is present in the ONIX record.</p>
+						<p>This means that the publication contains full transcript of audio and audiovisual content.</p>
+					</dd>
+				</dl>
+				</section><section id="variables-setup-4"><div class="header-wrapper"><h4 id="x3-4-2-variables-setup"><bdi class="secno">3.4.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-4" aria-label="Permalink for Section 3.4.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>charts_diagrams_as_non_graphical_data</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "16"]</code>.</li>
+					<li><b>LET</b> <var>chemical_formula_as_latex</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "54"]</code>.</li>
+					<li><b>LET</b> <var>chemical_formula_as_mathml</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "34"]</code>.</li>
+					<li><b>LET</b> <var>closed_captions</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "V210"]</code>.</li>
+					<li><b>LET</b> <var>described_math</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "53"]</code>.</li>
+					<li><b>LET</b> <var>full_alternative_textual_descriptions</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "15"]</code>.</li>
+					<li><b>LET</b> <var>math_formula_as_latex</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "35"]</code>.</li>
+					<li><b>LET</b> <var>math_formula_as_mathml</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "17"]</code>.</li>
+					<li><b>LET</b> <var>open_captions</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "V211"]</code>.</li>
+					<li><b>LET</b> <var>transcript</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "V212"]</code>.</li>
+				</ul>
+				</section><section id="instructions-4"><div class="header-wrapper"><h4 id="rich-content-instructions"><bdi class="secno">3.4.3 </bdi>Instructions</h4><a class="self-link" href="#rich-content-instructions" aria-label="Permalink for Section 3.4.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>math_formula_as_mathml</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-accessible-math-as-mathml">"Math as MathML"</code><span class="str-id">[ID: rich-content-accessible-math-as-mathml]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>math_formula_as_latex</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-accessible-math-as-latex">"Math as LaTeX"</code><span class="str-id">[ID: rich-content-accessible-math-as-latex]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>described_math</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-accessible-math-described">"Text descriptions of math are provided"</code><span class="str-id">[ID: rich-content-accessible-math-described]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>chemical_formula_as_mathml</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-accessible-chemistry-as-mathml">"Chemical formulas in MathML"</code><span class="str-id">[ID: rich-content-accessible-chemistry-as-mathml]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>chemical_formula_as_latex</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-accessible-chemistry-as-latex">"Chemical formulas in LaTeX"</code><span class="str-id">[ID: rich-content-accessible-chemistry-as-latex]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>charts_diagrams_as_non_graphical_data</var> <b>OR</b> <var>full_alternative_textual_descriptions</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-extended">"Information-rich images are described by extended descriptions"</code><span class="str-id">[ID: rich-content-extended]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>closed_captions</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-closed-captions">"Videos have closed captions"</code><span class="str-id">[ID: rich-content-closed-captions]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>open_captions</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-open-captions">"Videos have open captions"</code><span class="str-id">[ID: rich-content-open-captions]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>transcript</var>:</span>
+						<span><b>THEN</b> display <code id="rich-content-transcript">"Transcript(s) provided"</code><span class="str-id">[ID: rich-content-transcript]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <b>NOT</b> (<var>math_formula_as_mathml</var> <b>OR</b> <var>math_formula_as_latex</var> <b>OR</b> <var>described_math</var> <b>OR</b> <var>chemical_formula_as_mathml</var> <b>OR</b> <var>chemical_formula_as_latex</var> <b>OR</b> <var>charts_diagrams_as_non_graphical_data</var> <b>OR</b> <var>full_alternative_textual_descriptions</var> <b>OR</b> <var>closed_captions</var> <b>OR</b> <var>open_captions</var> <b>OR</b> <var>transcript</var>):</span>
+						<span><b>THEN</b> either omit this display field if metadata is missing or display <code id="rich-content-unknown">"No information is available"</code><span class="str-id">[ID: rich-content-unknown]</span>.</span>
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="hazards"><div class="header-wrapper"><h3 id="x3-5-hazards"><bdi class="secno">3.5 </bdi>Hazards</h3><a class="self-link" href="#hazards" aria-label="Permalink for Section 3.5"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#hazards">Hazards accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<section id="understanding-the-variables-5"><div class="header-wrapper"><h4 id="x3-5-1-understanding-the-variables"><bdi class="secno">3.5.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-5" aria-label="Permalink for Section 3.5.1"></a></div>
+				<dl>
+					<dt><var>flashing_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/13">code 13 of codelist 143</a> (WARNING - Flashing hazard) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the product has a flashing hazard which must be displayed.</p>
+					</dd>
+					<dt><var>motion_simulation_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/17">code 17 of codelist 143</a> (WARNING - Motion simulation hazard) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the product has a motion simulation hazard which must be displayed.</p>
+					</dd>
+					<dt><var>no_flashing_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/14">code 14 of codelist 143</a> (No flashing hazard warning necessary) is present in the ONIX record.</p>
+						<p>This means there is a positive indication in the ONIX record confirming there are no flashing hazards associated with this product.</p>
+					</dd>
+					<dt><var>no_hazards_or_warnings_confirmed</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/00">code 00 of codelist 143</a> (No known hazards or warnings) is present in the ONIX record.</p>
+						<p>This means there is a positive indication in the ONIX record confirming there are no associated hazard warnings with this product.</p>
+					</dd>
+					<dt><var>no_motion_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/18">code 18 of codelist 143</a> (No motion simulation hazard warning necessary) is present in the ONIX record.</p>
+						<p>This means there is a positive indication in the ONIX record confirming there are no motion simulation hazards associated with this product.</p>
+					</dd>
+					<dt><var>no_sound_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/16">code 16 of codelist 143</a> (No sound hazard warning necessary) is present in the ONIX record.</p>
+						<p>This means there is a positive indication in the ONIX record confirming there are no sound hazards associated with this product.</p>
+					</dd>
+					<dt><var>sound_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/15">code 15 of codelist 143</a> (WARNING - Sound hazard) is present in the ONIX record.</p>
+						<p>This means that there is a positive indication that the product has a sound hazard which must be displayed.</p>
+					</dd>
+					<dt><var>unknown_flashing_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/24">code 24 of codelist 143</a> (Flashing risk unknown) is present in the ONIX record.</p>
+						<p>This means the presence of flashing hazards could not be determined.</p>
+					</dd>
+					<dt><var>unknown_if_contains_hazards</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/08">code 08 of codelist 196</a> (Unknown accessibility) is present in the ONIX record.</p>
+						<p>This means that the product has not been assessed for hazards and there is no information about potential hazards.</p>
+					</dd>
+					<dt><var>unknown_motion_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/26">code 26 of codelist 143</a> (Motion simulation risk unknown) is present in the ONIX record.</p>
+						<p>This means the presence of motion simulation hazards could not be determined.</p>
+					</dd>
+					<dt><var>unknown_sound_hazard</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/143/25">code 25 of codelist 143</a> (Sound risk unknown) is present in the ONIX record.</p>
+						<p>This means the presence of sound hazards could not be determined.</p>
+					</dd>
+				</dl>
+				</section><section id="variables-setup-5"><div class="header-wrapper"><h4 id="x3-5-2-variables-setup"><bdi class="secno">3.5.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-5" aria-label="Permalink for Section 3.5.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>flashing_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "13"]</code>.</li>
+					<li><b>LET</b> <var>motion_simulation_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "17"]</code>.</li>
+					<li><b>LET</b> <var>no_flashing_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "14"]</code>.</li>
+					<li><b>LET</b> <var>no_hazards_or_warnings_confirmed</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "00"]</code>.</li>
+					<li><b>LET</b> <var>no_motion_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "18"]</code>.</li>
+					<li><b>LET</b> <var>no_sound_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "16"]</code>.</li>
+					<li><b>LET</b> <var>sound_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "15"]</code>.</li>
+					<li><b>LET</b> <var>unknown_flashing_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "24"]</code>.</li>
+					<li><b>LET</b> <var>unknown_if_contains_hazards</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "08"]</code>.</li>
+					<li><b>LET</b> <var>unknown_motion_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "26"]</code>.</li>
+					<li><b>LET</b> <var>unknown_sound_hazard</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "12" and ProductFormFeatureValue = "25"]</code>.</li>
+				</ul>
+				</section><section id="instructions-5"><div class="header-wrapper"><h4 id="hazards-instructions"><bdi class="secno">3.5.3 </bdi>Instructions</h4><a class="self-link" href="#hazards-instructions" aria-label="Permalink for Section 3.5.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>no_hazards_or_warnings_confirmed</var> <b>OR</b>  (<var>no_flashing_hazard</var> <b>AND</b> <var>no_motion_hazard</var> <b>AND</b> <var>no_sound_hazard</var>):</span>
+						<span><b>THEN</b> display <code id="hazards-none">"No hazards"</code><span class="str-id">[ID: hazards-none]</span>.</span>
+					</li>
+					<li>
+						<span><b>ELSE IF</b> <var>unknown_if_contains_hazards</var> <b>OR</b> (<var>unknown_flashing_hazard</var> <b>AND</b> <var>unknown_motion_hazard</var> <b>AND</b> <var>unknown_sound_hazard</var>):</span>
+						<span><b>THEN</b> display <code id="hazards-unknown">"The presence of hazards is unknown"</code><span class="str-id">[ID: hazards-unknown]</span>.</span>
+					</li>
+					<li>
+						<span><b>ELSE IF</b> <var>flashing_hazard</var> <b>OR</b> <var>motion_simulation_hazard</var> <b>OR</b> <var>sound_hazard</var>
+							<b>OR</b> <var>no_flashing_hazard</var> <b>OR</b> <var>no_motion_hazard</var> <b>OR</b> <var>no_sound_hazard</var>
+							<b>OR</b> <var>unknown_flashing_hazard</var> <b>OR</b> <var>unknown_motion_hazard</var> <b>OR</b> <var>unknown_sound_hazard</var>:</span>
+						<span><b>THEN</b></span>
+						<ol class="condition">
+							<li>
+								<span><b>IF</b> <var>flashing_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-flashing">"Flashing content"</code><span class="str-id">[ID: hazards-flashing]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>motion_simulation_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-motion">"Motion simulation"</code><span class="str-id">[ID: hazards-motion]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>sound_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-sound">"Sounds"</code><span class="str-id">[ID: hazards-sound]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>unknown_flashing_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-flashing-unknown">"Flashing hazards not known"</code><span class="str-id">[ID: hazards-flashing-unknown]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>unknown_motion_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-motion-unknown">"Motion simulation hazards not known"</code><span class="str-id">[ID: hazards-motion-unknown]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>unknown_sound_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-sound-unknown">"Sound hazards not known"</code><span class="str-id">[ID: hazards-sound-unknown]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>no_flashing_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-flashing-none">"No flashing hazards"</code><span class="str-id">[ID: hazards-flashing-none]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>no_motion_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-motion-none">"No motion simulation hazards"</code><span class="str-id">[ID: hazards-motion-none]</span>.</span>
+							</li>
+							<li>
+								<span><b>IF</b> <var>no_sound_hazard</var>:</span>
+								<span><b>THEN</b> display <code id="hazards-sound-none">"No sound hazards"</code><span class="str-id">[ID: hazards-sound-none]</span>.</span>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<b>ELSE</b> display <code id="hazards-no-metadata">"No information is available"</code><span class="str-id">[ID: hazards-no-metadata]</span>.
+						<div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-7" aria-level="4"><span>Note</span></div><aside class="">This display field can be hidden if metadata is missing.</aside></div>
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="accessibility-summary"><div class="header-wrapper"><h3 id="x3-6-accessibility-summary"><bdi class="secno">3.6 </bdi>Accessibility summary</h3><a class="self-link" href="#accessibility-summary" aria-label="Permalink for Section 3.6"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#accessibility-summary">Accessibility summary accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-8" aria-level="4"><span>Note</span></div><aside class="">
+					Being human-written, the accessibility summary and addendum will appear in the original language of the publication. Therefore it is necessary of take care of setting up the correct language tag information.
+				</aside></div>
+
+				<div class="note" role="note" id="issue-container-generatedID-9"><div role="heading" class="note-title marker" id="h-note-9" aria-level="4"><span>Note</span></div><aside class="">Accessibility summary existed when no system exposed the computed accessibility metadata. With more and more systems displaying this information, most of the accessibility summary may be redundant. It may be advised to display only the accessibility addendum.</aside></div>
+
+				<section id="understanding-the-variables-6"><div class="header-wrapper"><h4 id="x3-6-1-understanding-the-variables"><bdi class="secno">3.6.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-6" aria-label="Permalink for Section 3.6.1"></a></div>
+				<dl>
+					<dt><var>accessibility_addendum</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/92">code 92 of codelist 196</a> (Accessibility addendum) if present in the ONIX record.</p>
+						<p>This means there is a human-written text containing a short addendum to the accessibility detail of the product. It contains precise information that the publisher could not express with the other's codes.</p>
+					</dd>
+					<dt><var>accessibility_summary</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/00">code 00 of codelist 196</a>  (Accessibility summary) if present in the ONIX record.</p>
+						<p>This means there is a human-written text containing a short explanatory summary of the accessibility of the product or the URL of a web page comprising such a summary. Summarizes the already existent information and may add information that the publisher could not express with the other codes.</p>
+					</dd>
+					<dt><var>known_limited_accessibility</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/09">code 09 of codelist 196</a> (Inaccessible, or known limited accessibility) if present in the ONIX record.</p>
+						<p>This means there is a human-written text containing details of and reasons for limitations on accessibility of an ebook.</p>
+					</dd>
+					<dt><var>lang_attribute_accessibility_addendum</var></dt>
+					<dd>
+						<p>Returns the lang attribute of the node containing the <var>accessibility_addendum</var>, or the lang attribute of the nearest ancestor.</p>
+						<p>This is the language code in which the text of the Accessibility addendum was written.</p>
+					</dd>
+					<dt><var>lang_attribute_accessibility_summary</var></dt>
+					<dd>
+						<p>Returns the lang attribute of the node containing the <var>accessibility_summary</var>, or the lang attribute of the nearest ancestor.</p>
+						<p>This is the language code in which the text of the Accessibility summary was written.</p>
+					</dd>
+					<dt><var>lang_known_limited_accessibility</var></dt>
+					<dd>
+						<p>Returns the lang attribute of the node containing the <var>known_limited_accessibility</var>, or the lang attribute of the nearest ancestor.</p>
+						<p>This is the language code in which the text of the Inaccessible, or known limited accessibility was written.</p>
+					</dd>
+					<dt><var>language_of_text</var></dt>
+					<dd>
+						<p>Returns the value of nearest  <a href="https://ns.editeur.org/onix/en/22/01">code 01 of codelist 22</a> (Language of text)  if present in the ONIX record.</p>
+						<p>This indicates the main language of the content and therefore the most probable language of accessibility summary and addendum.</p>
+					</dd>
+					<dt><var>publisher_contact_for_accessibility</var></dt>
+					<dd>
+						<p>Returns the description of <a href="https://ns.editeur.org/onix/en/196/99">code 99 of codelist 196</a> (Publisher contact for further accessibility information) if present in the ONIX record.</p>
+						<p>This means there is an e-mail address of the publisher to whom detailed questions about accessibility of this product may be directed.</p>
+					</dd>
+				</dl>
+				</section><section id="variables-setup-6"><div class="header-wrapper"><h4 id="x3-6-2-variables-setup"><bdi class="secno">3.6.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-6" aria-label="Permalink for Section 3.6.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>accessibility_addendum</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "92"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>accessibility_summary</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "00"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>known_limited_accessibility</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "09"]/ProductFormFeatureDescription</code>.</li>
+					<li><b>LET</b> <var>lang_attribute_accessibility_addendum</var> be the value extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "92"]/ProductFormFeatureDescription/(@lang|ancestor::*/@lang)[last()]</code>.</li>
+					<li><b>LET</b> <var>lang_attribute_accessibility_summary</var> be the value extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "00"]/ProductFormFeatureDescription/(@lang|ancestor::*/@lang)[last()]</code>.</li>
+					<li><b>LET</b> <var>lang_known_limited_accessibility</var> be the value extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "09"]/ProductFormFeatureDescription/(@lang|ancestor::*/@lang)[last()]</code>.</li>
+					<li><b>LET</b> <var>language_of_text</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/Language[LanguageRole="01"]/LanguageCode</code>.</li>
+					<li><b>LET</b> <var>publisher_contact_for_accessibility</var> be the value of the node extracted from <var>onix</var>, using the xpath <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "99"]/ProductFormFeatureDescription</code>.</li>
+				</ul>
+				</section><section id="instructions-6"><div class="header-wrapper"><h4 id="accessibility-summary-instructions"><bdi class="secno">3.6.3 </bdi>Instructions</h4><a class="self-link" href="#accessibility-summary-instructions" aria-label="Permalink for Section 3.6.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>lang_attribute_accessibility_addendum</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> <b>LET</b> <var>language_accessibility_addendum</var> be the value of <var>lang_attribute_accessibility_addendum</var>.</span>
+					</li>
+					<li>
+						<b>ELSE</b> <b>LET</b> <var>language_accessibility_addendum</var> be the value of <var>language_of_text</var>.
+					</li>
+					<li>
+						<span><b>IF</b> <var>lang_known_limited_accessibility</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> <b>LET</b> <var>language_known_limited_accessibility</var> be the value of <var>lang_known_limited_accessibility</var>.</span>
+					</li>
+					<li>
+						<b>ELSE</b> <b>LET</b> <var>language_known_limited_accessibility</var> be the value of <var>language_of_text</var>.
+					</li>
+					<li>
+						<span><b>IF</b> <var>lang_attribute_accessibility_summary</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> <b>LET</b> <var>language_accessibility_summary</var> be the value of <var>lang_attribute_accessibility_summary</var>.</span>
+					</li>
+					<li>
+						<b>ELSE</b> <b>LET</b> <var>language_accessibility_summary</var> be the value of <var>language_of_text</var>.
+					</li>
+					<li>
+						<span><b>IF</b> <var>known_limited_accessibility</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display the content of <var>known_limited_accessibility</var> with <var>language_known_limited_accessibility</var> as language.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>accessibility_addendum</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display the content of <var>accessibility_addendum</var> with <var>language_accessibility_addendum</var> as language.</span>
+					</li>
+					<li>
+						<span><b>ELSE IF</b> <var>accessibility_summary</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display the content of <var>accessibility_summary</var> with <var>language_accessibility_summary</var> as language.</span>
+					</li>
+					<li>
+						<b>ELSE</b> either omit this display field if metadata is missing or display <code id="accessibility-summary-no-metadata">"No information is available"</code><span class="str-id">[ID: accessibility-summary-no-metadata]</span>.
+					</li>
+					<li>
+						<span><b>IF</b> <var>publisher_contact_for_accessibility</var> is <b>NOT</b> empty:</span>
+						<span><b>THEN</b> display <code id="accessibility-summary-publisher-contact">"For more information about the accessibility of this product, please contact the publisher: {publisher_contact_for_accessibility}"</code><span class="str-id">[ID: accessibility-summary-publisher-contact]</span> replacing <code>"{publisher_contact_for_accessibility}"</code> with <var>publisher_contact_for_accessibility</var> as a mailto link.</span>
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="legal-considerations"><div class="header-wrapper"><h3 id="x3-7-legal-considerations"><bdi class="secno">3.7 </bdi>Legal considerations</h3><a class="self-link" href="#legal-considerations" aria-label="Permalink for Section 3.7"></a></div>
+				
+				<div class="issue" id="issue-container-number-350"><div role="heading" class="issue-title marker" id="h-issue" aria-level="4"><a href="https://github.com/w3c/publ-a11y/issues/350"><span class="issue-number">Issue 350</span></a><span class="issue-label">: Feedback requested on exceptions and exemptions from publishers <a class="respec-gh-label" href="https://github.com/w3c/publ-a11y/issues/?q=is%3Aissue+is%3Aopen+label%3A%22a11y-display-guide%22" style="background-color: rgb(34, 73, 175); color: rgb(255, 255, 255);" aria-label="GitHub label: a11y-display-guide">a11y-display-guide</a></span></div><p class="">We are actively seeking comments on this "legal consideration" section. If you are a publisher, we want your feedback! Please visit the GitHub Issue tracking linked above to leave a comment.</p></div>
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#legal-considerations">Legal considerations accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+				<section id="understanding-the-variables-7"><div class="header-wrapper"><h4 id="x3-7-1-understanding-the-variables"><bdi class="secno">3.7.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-7" aria-label="Permalink for Section 3.7.1"></a></div>
+				<dl>
+					<dt><var>eaa_exception_disproportionate_burden</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/76">code 76 of codelist 196</a> (EAA exception 2 – Disproportionate burden) is present in the ONIX record.</p>
+						<p>This means that the digital product falls under European Accessibility Act exception for Disproportionate burden (as defined by current regulations). The product may not have to comply with requirements of the EAA if doing so would financially overburden the publisher.</p>
+					</dd>
+					<dt><var>eaa_exception_fundamental_modification</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/77">code 77 of codelist 196</a> (EAA exception 3 – Fundamental modification) is present in the ONIX record.</p>
+						<p>This means that the digital product falls under European Accessibility Act exception for Fundamental modification (as defined by current regulations). The product may not have to comply with requirements of the EAA if doing so requires a fundamental modification of the nature of the product or service.</p>
+					</dd>
+					<dt><var>eaa_exemption_micro_enterprises</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/75">code 75 of codelist 196</a> (EEA exception 1 – Micro-enterprises) is present in the ONIX record.</p>
+						<p>This means that the digital product falls under European Accessibility Act exemption for Micro-enterprises (as defined by current regulations). The product may not have to comply with requirements of the EAA if the publisher is a micro-enterprise.</p>
+					</dd>
+				</dl>
+				</section><section id="variables-setup-7"><div class="header-wrapper"><h4 id="x3-7-2-variables-setup"><bdi class="secno">3.7.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-7" aria-label="Permalink for Section 3.7.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>eaa_exception_disproportionate_burden</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "76"]</code>.</li>
+					<li><b>LET</b> <var>eaa_exception_fundamental_modification</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "77"]</code>.</li>
+					<li><b>LET</b> <var>eaa_exemption_micro_enterprises</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "75"]</code>.</li>
+				</ul>
+				</section><section id="instructions-7"><div class="header-wrapper"><h4 id="legal-considerations-instructions"><bdi class="secno">3.7.3 </bdi>Instructions</h4><a class="self-link" href="#legal-considerations-instructions" aria-label="Permalink for Section 3.7.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>eaa_exemption_micro_enterprises</var> <b>OR</b> <var>eaa_exception_disproportionate_burden</var> <b>OR</b> <var>eaa_exception_fundamental_modification</var>:</span>
+						<span><b>THEN</b> display <code id="legal-considerations-exempt">"Claims an accessibility exemption in some jurisdictions"</code><span class="str-id">[ID: legal-considerations-exempt]</span>.</span>
+					</li>
+					<li>
+						<b>ELSE</b> either omit this display field if metadata is missing or display <code id="legal-considerations-no-metadata">"No information is available"</code><span class="str-id">[ID: legal-considerations-no-metadata]</span>.
+					</li>
+				</ol>
+			</section></section>
+
+			<section id="additional-accessibility-information"><div class="header-wrapper"><h3 id="x3-8-additional-accessibility-information"><bdi class="secno">3.8 </bdi>Additional accessibility information</h3><a class="self-link" href="#additional-accessibility-information" aria-label="Permalink for Section 3.8"></a></div>
+				
+				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#additional-accessibility-information">Additional accessibility information accessibility display field</a>.</p>
+				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
+
+		
+				<section id="understanding-the-variables-8"><div class="header-wrapper"><h4 id="x3-8-1-understanding-the-variables"><bdi class="secno">3.8.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-8" aria-label="Permalink for Section 3.8.1"></a></div>
+				<dl>
+					<dt><var>color_not_sole_means_of_conveying_information</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/25">code 25 of codelist 196</a> (Use of color is not sole means of conveying information) is present in the ONIX record.</p>
+						<p>This means that for readers with color vision deficiency, use of color (eg in diagrams, graphs and charts, in prompts or on buttons inviting a response) is not the sole means of graphical distinction or of conveying information.</p>
+					</dd>
+					<dt><var>dyslexia_readability</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/24">code 24 of codelist 196</a> (Dyslexia readability) is present in the ONIX record.</p>
+						<p>This means that the product has been specifically adapted or has features specifically to improve readability for dyslexic readers, for example specialized font, character and/or line spacing, justification and paragraph spacing, coloring and other options provided specifically to improve readability for dyslexic readers.</p>
+					</dd>
+					<dt><var>high_contrast_between_foreground_and_background_audio</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/27">code 27 of codelist 196</a> (Use of high contrast between foreground and background audio) is present in the ONIX record.</p>
+						<p>This means that foreground audio content (eg voice) is presented with no or low background noise (eg ambient sounds, music), at least 20dB below the level of the foreground, or background noise can be switched off (eg via an alternative audio track). Brief and occasional sound effects may be as loud as foreground voice so long as they are isolated from the foreground.</p>
+					</dd>
+					<dt><var>high_contrast_between_text_and_background</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/26">code 26 of codelist 196</a> (Use of high contrast between text and background color) is present in the ONIX record.</p>
+						<p>This means that body text is presented with a contrast ratio of at least 4.5:1 (or 3:1 for large/heading text).</p>
+					</dd>
+					<dt><var>print_equivalent_page_numbering</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/19">code 19 of codelist 196</a> (Print-equivalent page numbering) is present in the ONIX record.</p>
+						<p>This means that in the publication contains references to the page numbering of an equivalent printed product.</p>
+					</dd>
+					<dt><var>sign_language</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/V213">code V213 of codelist 175</a> (Sign language interpretation) is present in the ONIX record.</p>
+						<p>This means that a full signing of audio content of the product supplied with the video file.</p>
+					</dd>
+					<dt><var>text_to_speech_hinting</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/21">code 21 of codelist 196</a> (Text-to-speech hinting provided) is present in the ONIX record.</p>
+						<p>This means that text-to-speech has been optimized through provision of PLS lexicons, SSML or CSS Speech synthesis hints or other speech synthesis markup languages or hinting.</p>
+					</dd>
+					<dt><var>ultra_high_contrast_between_text_and_background</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/196/37">code 37 of codelist 196</a> (Use of ultra-high contrast between text foreground and background) is present in the ONIX record.</p>
+						<p>This means that body text is presented with a contrast ratio of at least 7:1 (or 4.5:1 for large/heading text).</p>
+					</dd>
+					<dt><var>visible_page_numbering</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/E205">code E205 of codelist 175</a> (Visible page numbering) is present in the ONIX record.</p>
+						<p>This means that the e-publication (mostly in the case of a fixed-format) contains visible page numbers.</p>
+					</dd>
+					
+					<dt><var>without_background_sounds</var></dt>
+					<dd>
+						<p>If true, it indicates that <a href="https://ns.editeur.org/onix/en/175/A312">code A312 of codelist 175</a> (Without background sounds) is present in the ONIX record.</p>
+						<p>This means that pre-recorded audiobook narration does not contain any background sounds, including music, sound effects, etc, though music and effects may be present if isolated from the speech (ie the sounds do not overlap).</p>
+					</dd>
+				</dl>
+
+				</section><section id="variables-setup-8"><div class="header-wrapper"><h4 id="x3-8-2-variables-setup"><bdi class="secno">3.8.2 </bdi>Variables setup</h4><a class="self-link" href="#variables-setup-8" aria-label="Permalink for Section 3.8.2"></a></div>
+				<ul class="variable">
+					<li><b>LET</b> <var>onix</var> be the result of calling <a href="#preprocessing">preprocessing</a> given <var>onix_record_as_text</var>.</li>
+					<li><b>LET</b> <var>color_not_sole_means_of_conveying_information</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "25"]</code>.</li>
+					<li><b>LET</b> <var>dyslexia_readability</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "24"]</code>.</li>
+					<li><b>LET</b> <var>high_contrast_between_foreground_and_background_audio</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "27"]</code>.</li>
+					<li><b>LET</b> <var>high_contrast_between_text_and_background</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "26"]</code>.</li>
+					<li><b>LET</b> <var>print_equivalent_page_numbering</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "19"]</code>.</li>
+					<li><b>LET</b> <var>sign_language</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "V213"]</code>.</li>
+					<li><b>LET</b> <var>text_to_speech_hinting</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "21"]</code>.</li>
+					<li><b>LET</b> <var>ultra_high_contrast_between_text_and_background</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail/ProductFormFeature[ProductFormFeatureType = "09" and ProductFormFeatureValue = "37"]</code>.</li>
+					<li><b>LET</b> <var>visible_page_numbering</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "E205"]</code>.</li>
+					<li><b>LET</b> <var>without_background_sounds</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>onix</var>, <code class="xpath">/ONIXMessage/Product/DescriptiveDetail[ProductFormDetail = "A312"]</code>.</li>
+				</ul>
+
+				</section><section id="instructions-8"><div class="header-wrapper"><h4 id="x3-8-3-instructions"><bdi class="secno">3.8.3 </bdi>Instructions</h4><a class="self-link" href="#instructions-8" aria-label="Permalink for Section 3.8.3"></a></div>
+				<ol class="condition">
+					<li>
+						<span><b>IF</b> <var>color_not_sole_means_of_conveying_information</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-color-not-sole-means-of-conveying-information">"Color is not the sole means of conveying information"</code><span class="str-id">[ID: additional-accessibility-information-color-not-sole-means-of-conveying-information]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>dyslexia_readability</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-dyslexia-readability">"Dyslexia readability"</code><span class="str-id">[ID: additional-accessibility-information-dyslexia-readability]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>high_contrast_between_foreground_and_background_audio</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-high-contrast-between-foreground-and-background-audio">"High contrast between foreground and background audio"</code><span class="str-id">[ID: additional-accessibility-information-high-contrast-between-foreground-and-background-audio]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>high_contrast_between_text_and_background</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-high-contrast-between-text-and-background">"High contrast between text and background"</code><span class="str-id">[ID: additional-accessibility-information-high-contrast-between-text-and-background]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>print_equivalent_page_numbering</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-page-breaks">"Page breaks included"</code><span class="str-id">[ID: additional-accessibility-information-page-breaks]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>sign_language</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-sign-language">"Sign language"</code><span class="str-id">[ID: additional-accessibility-information-sign-language]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>text_to_speech_hinting</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-text-to-speech-hinting">"Text-to-speech hinting provided"</code><span class="str-id">[ID: additional-accessibility-information-text-to-speech-hinting]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>ultra_high_contrast_between_text_and_background</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-ultra-high-contrast-between-text-and-background">"Ultra high contrast between text and background"</code><span class="str-id">[ID: additional-accessibility-information-ultra-high-contrast-between-text-and-background]</span>.</span>
+					</li>
+					<li>
+						<span><b>IF</b> <var>visible_page_numbering</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-visible-page-numbering">"Visible page numbering"</code><span class="str-id">[ID: additional-accessibility-information-visible-page-numbering]</span>.</span>
+					</li>
+					
+					<li>
+						<span><b>IF</b> <var>without_background_sounds</var>:</span>
+						<span><b>THEN</b> display <code id="additional-accessibility-information-without-background-sounds">"Without background sounds"</code><span class="str-id">[ID: additional-accessibility-information-without-background-sounds]</span>.</span>
+					</li>
+				</ol>
+			</section></section>
+		</section>
+		<section id="change-log" class="informative"><div class="header-wrapper"><h2 id="x4-change-log"><bdi class="secno">4. </bdi>Change log</h2><a class="self-link" href="#change-log" aria-label="Permalink for Section 4."></a></div><p><em>This section is non-normative.</em></p>
+			
+			
+			<div class="note" role="note" id="issue-container-generatedID-10"><div role="heading" class="note-title marker" id="h-note-10" aria-level="3"><span>Note</span></div><div class="">
+				<p>This section identifies substantive changes between versions. For a list of all changes, refer to 
+					the <a href="https://github.com/w3c/publ-a11y/issues?q=is%3Aissue%20state%3Aclosed%20label%3Aa11y-display-techniques-onix">issue tracker</a>.</p>
+			</div></div>
+			
+			<details open="">
+				<summary>Changes since the <a href="https://www.w3.org/community/reports/publishingcg/CG-FINAL-onix-techniques-20250422/">2025-04-22
+						Final Draft of the Display Techniques for ONIX Accessibility Metadata 2.0</a></summary>
+				<ul>
+					<li>No substantive changes have been made.</li>
+				</ul>
+			</details>
+		</section>
+		<section id="app-acknowledgements" class="appendix informative"><div class="header-wrapper"><h2 id="acknowledgements"><bdi class="secno">A. </bdi>Acknowledgements</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix A."></a></div><p><em>This section is non-normative.</em></p>
+	
+	
+	<p>The leadership and editing contributions of the following individuals were central to producing this guide:</p>
+	
+	<ul>
+		<li>Avneesh Singh</li>
+		<li>Charles LaPierre</li>
+		<li>Chris Saynor</li>
+		<li>Gautier Chomel</li>
+		<li>George Kerscher</li>
+		<li>Gregorio Pellegrino</li>
+		<li>Madeleine Rothberg</li>
+		<li>Matt Garrish</li>
+	</ul>
+	
+	<p>The following members of the Publishing Community Group contributed to the development of this document:</p>
+	
+	<ul>
+		<li>Chris Oliver</li>
+		<li>Christopher Carr</li>
+		<li>Hadrien Gardeur</li>
+		<li>James Yanchak</li>
+		<li>Jason White</li>
+		<li>Jonas Lillqvist</li>
+		<li>Miia Kirsi</li>
+		<li>Naomi Kennedy</li>
+		<li>Rick Johnson</li>
+		<li>Simon Mellins</li>
+	</ul>
+</section>
+	
+	
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="informative-references"><div class="header-wrapper"><h3 id="b-1-informative-references"><bdi class="secno">B.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-xpath-10">[xpath-10]</dt><dd>
+      <a href="https://www.w3.org/TR/xpath-10/"><cite>XML Path Language (XPath) Version 1.0</cite></a>. James Clark; Steven DeRose.  W3C. 16 November 1999. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xpath-10/">https://www.w3.org/TR/xpath-10/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
+// @ts-check
+
+if (document.respec) {
+  document.respec.ready.then(setupVarHighlighter);
+} else {
+  setupVarHighlighter();
+}
+
+function setupVarHighlighter() {
+  document
+    .querySelectorAll("var")
+    .forEach(varElem => varElem.addEventListener("click", highlightListener));
+}
+
+function highlightListener(ev) {
+  ev.stopPropagation();
+  const { target: varElem } = ev;
+  const hightligtedElems = highlightVars(varElem);
+  const resetListener = () => {
+    const hlColor = getHighlightColor(varElem);
+    hightligtedElems.forEach(el => removeHighlight(el, hlColor));
+    [...HL_COLORS.keys()].forEach(key => HL_COLORS.set(key, true));
+  };
+  if (hightligtedElems.length) {
+    document.body.addEventListener("click", resetListener, { once: true });
+  }
+}
+
+// availability of highlight colors. colors from var.css
+const HL_COLORS = new Map([
+  ["respec-hl-c1", true],
+  ["respec-hl-c2", true],
+  ["respec-hl-c3", true],
+  ["respec-hl-c4", true],
+  ["respec-hl-c5", true],
+  ["respec-hl-c6", true],
+  ["respec-hl-c7", true],
+]);
+
+function getHighlightColor(target) {
+  // return current colors if applicable
+  const { value } = target.classList;
+  const re = /respec-hl-\w+/;
+  const activeClass = re.test(value) && value.match(re);
+  if (activeClass) return activeClass[0];
+
+  // first color preference
+  if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
+
+  // otherwise get some other available color
+  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+}
+
+function highlightVars(varElem) {
+  const textContent = norm(varElem.textContent);
+  const parent = varElem.closest(".algorithm, section");
+  const highlightColor = getHighlightColor(varElem);
+
+  const varsToHighlight = [...parent.querySelectorAll("var")].filter(
+    el =>
+      norm(el.textContent) === textContent &&
+      el.closest(".algorithm, section") === parent
+  );
+
+  // update availability of highlight color
+  const colorStatus = varsToHighlight[0].classList.contains("respec-hl");
+  HL_COLORS.set(highlightColor, colorStatus);
+
+  // highlight vars
+  if (colorStatus) {
+    varsToHighlight.forEach(el => removeHighlight(el, highlightColor));
+    return [];
+  } else {
+    varsToHighlight.forEach(el => addHighlight(el, highlightColor));
+  }
+  return varsToHighlight;
+}
+
+function removeHighlight(el, highlightColor) {
+  el.classList.remove("respec-hl", highlightColor);
+  // clean up empty class attributes so they don't come in export
+  if (!el.classList.length) el.removeAttribute("class");
+}
+
+function addHighlight(elem, highlightColor) {
+  elem.classList.add("respec-hl", highlightColor);
+}
+
+/**
+ * Same as `norm` from src/core/utils, but our build process doesn't allow
+ * imports in runtime scripts, so duplicated here.
+ * @param {string} str
+ */
+function norm(str) {
+  return str.trim().replace(/\s+/g, " ");
+}
+})()</script><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
