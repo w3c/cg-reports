@@ -187,7 +187,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "specStatus": "CG-FINAL",
   "noRecTrack": true,
   "latestVersion": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/",
-  "edDraftURI": "https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/",
+  "edDraftURI": "https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/onix/",
   "canonicalURI": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/",
   "editors": [
     {
@@ -239,7 +239,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <dt>Latest published version:</dt><dd>
               <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/">https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/onix/</a>
             </dd>
-      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/">https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/onix-metadata/</a></dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/onix/">https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/onix/</a></dd>
       
       
       
@@ -552,10 +552,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                     	<li>
                             <span><b>ELSE IF</b> <var>real_text</var> <b>OR</b> <var>textual_alternatives</var>:</span>
                             <span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-not-fully">"Not fully readable in read aloud or dynamic braille"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-not-fully]</span>.</span>
-                        	<div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="5"><span>Note</span></div><div class="">
-								<p>This statement may appear when <a href="https://ns.editeur.org/onix/en/81/10">code 10 of codelist 81</a> (Text) is present without other accessibility metadata. This reflects that text-based digital publications are partially usable with assistive technologies, even without explicit accessibility optimization. Implementers may choose to suppress this statement when it is the only accessibility-related information.</p>
-							</div></div>
-                        </li>
+                    		<div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="5"><span>Note</span></div><div class="">
+                    			<p>This statement may appear when <a href="https://ns.editeur.org/onix/en/81/10">code 10 of codelist 81</a> (Text) is present without other accessibility metadata. This reflects that text-based digital publications are partially usable with assistive technologies, even without explicit accessibility optimization. Implementers may choose to suppress this statement when it is the only accessibility-related information.</p>
+                    		</div></div>
+                    	</li>
                     	<li>
                     		<span><b>ELSE IF</b> <var>audio_only_content</var>:</span>
                     		<span><b>THEN</b> display <code id="ways-of-reading-nonvisual-reading-none">"Not readable in read aloud or dynamic braille"</code><span class="str-id">[ID: ways-of-reading-nonvisual-reading-none]</span>.</span>
@@ -1289,7 +1289,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 
 			<section id="legal-considerations"><div class="header-wrapper"><h3 id="x3-7-legal-considerations"><bdi class="secno">3.7 </bdi>Legal considerations</h3><a class="self-link" href="#legal-considerations" aria-label="Permalink for Section 3.7"></a></div>
 				
-				<div class="issue" id="issue-container-number-350"><div role="heading" class="issue-title marker" id="h-issue" aria-level="4"><a href="https://github.com/w3c/publ-a11y/issues/350"><span class="issue-number">Issue 350</span></a><span class="issue-label">: Feedback requested on exceptions and exemptions from publishers <a class="respec-gh-label" href="https://github.com/w3c/publ-a11y/issues/?q=is%3Aissue+is%3Aopen+label%3A%22a11y-display-guide%22" style="background-color: rgb(34, 73, 175); color: rgb(255, 255, 255);" aria-label="GitHub label: a11y-display-guide">a11y-display-guide</a></span></div><p class="">We are actively seeking comments on this "legal consideration" section. If you are a publisher, we want your feedback! Please visit the GitHub Issue tracking linked above to leave a comment.</p></div>
+				<div class="issue" id="issue-container-number-350"><div role="heading" class="issue-title marker" id="h-issue" aria-level="4"><a href="https://github.com/w3c/publ-a11y/issues/350"><span class="issue-number">Issue 350</span></a><span class="issue-label">: Feedback requested on exceptions and exemptions from publishers <a class="respec-gh-label" href="https://github.com/w3c/publ-a11y/issues/?q=is%3Aissue+is%3Aopen+label%3A%22metadata-display-guide%22" style="background-color: rgb(34, 73, 175); color: rgb(255, 255, 255);" aria-label="GitHub label: metadata-display-guide">metadata-display-guide</a></span></div><p class="">We are actively seeking comments on this "legal consideration" section. If you are a publisher, we want your feedback! Please visit the GitHub Issue tracking linked above to leave a comment.</p></div>
 				<p>This technique relates to the <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/guidelines/#legal-considerations">Legal considerations accessibility display field</a>.</p>
 				<p>This algorithm takes the <var>onix_record_as_text</var> argument: a UTF-8 string representing the ONIX record.</p>
 				<section id="understanding-the-variables-7"><div class="header-wrapper"><h4 id="x3-7-1-understanding-the-variables"><bdi class="secno">3.7.1 </bdi>Understanding the variables</h4><a class="self-link" href="#understanding-the-variables-7" aria-label="Permalink for Section 3.7.1"></a></div>
@@ -1463,7 +1463,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 				<summary>Changes since the <a href="https://www.w3.org/community/reports/publishingcg/CG-FINAL-onix-techniques-20250422/">2025-04-22
 						Final Draft of the Display Techniques for ONIX Accessibility Metadata 2.0</a></summary>
 				<ul>
-					<li>No substantive changes have been made.</li>
+					<li>11-Sep-2025: Introduced placeholders for the following strings (ID in parentheses): conformance
+						certifier (conformance-certifier), certifier's credential (conformance-certifier-credentials),
+						conformance claim (conformance-details-claim), and certification date
+						(conformance-details-certification-info). Refer to <a href="https://github.com/w3c/publ-a11y/issues/688">issue 688</a> and <a href="https://github.com/w3c/publ-a11y/pull/732">pull request 732</a>.</li>
 				</ul>
 			</details>
 		</section>
