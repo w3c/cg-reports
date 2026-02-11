@@ -1,0 +1,3351 @@
+<!DOCTYPE html><html lang="en-US"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.6.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+		
+		
+<title>Digital Publishing - Accessibility Metadata Crosswalk</title>
+		
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:italic}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+		
+		
+		
+		
+<style>
+
+			/* Table zebra style... */
+			
+			table.zebra {
+				font-size: inherit;
+				font: 90%;
+				margin: 1em;
+			}
+			
+			
+			table.zebra th {
+				font-weight: bold;
+				text-align: center;
+				background-color: rgb(0, 0, 128) !important;
+				font-size: 110%;
+				background: hsl(180, 30%, 50%);
+				color: #fff;
+			}
+			
+			table.zebra th a:link {
+				color: #fff;
+			}
+			
+			table.zebra th a:visited {
+				color: #aaa;
+			}
+			
+			table.zebra tr:nth-child(even) {
+				background-color: hsl(180, 30%, 93%) !important;
+			}
+			
+			table.zebra th {
+				border-bottom: 1px solid #bbb;
+				padding: .2em 1em;
+			}
+			
+			table.zebra td {
+				border-bottom: 1px solid #ddd;
+				padding: .2em 1em;
+				vertical-align: top;
+				padding-left: 0.3em;
+			}
+			table td:nth-child(5),
+			table th:nth-child(5),
+			table td:nth-child(6),
+			table th:nth-child(6),
+			table td:nth-child(7),
+			table th:nth-child(7),
+			table td:nth-child(8),
+			table th:nth-child(8) {
+				display: none;
+			}
+</style>
+	
+<meta name="color-scheme" content="light">
+<meta name="description" content="This document is designed to promote interoperability between different accessibility metadata standards
+				and schemas by providing guidance on ways to map between terms used in various accessibility
+				vocabularies.">
+<link rel="canonical" href="https://www.w3.org/2021/a11y-discov-vocab/latest/crosswalk/">
+<style>
+var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "group": "publishingcg",
+  "specStatus": "CG-FINAL",
+  "noRecTrack": true,
+  "previousPublishDate": "2024-09-06",
+  "previousMaturity": "CG-FINAL",
+  "shortName": "crosswalk",
+  "edDraftURI": "https://w3c.github.io/publ-a11y/metadata-crosswalk/",
+  "latestVersion": "https://www.w3.org/2021/a11y-discov-vocab/latest/crosswalk/",
+  "thisVersion": "https://www.w3.org/community/reports/publisingcg/CG-FINAL-crosswalk-20260128/",
+  "editors": [
+    {
+      "name": "Madeleine Rothberg",
+      "company": "WGBH",
+      "companyURL": "https://www.wgbh.org"
+    },
+    {
+      "name": "Charles LaPierre",
+      "company": "Benetech",
+      "companyURL": "https://benetech.org",
+      "w3cid": 72055
+    },
+    {
+      "name": "Gautier Chomel",
+      "company": "EDRLab",
+      "companyURL": "https://www.edrlab.org",
+      "w3cid": 136660
+    }
+  ],
+  "includePermalinks": true,
+  "permalinkEdge": true,
+  "permalinkHide": false,
+  "localBiblio": {
+    "dpub-aria": {
+      "title": "Digital Publishing WAI-ARIA Module",
+      "href": "https://www.w3.org/TR/dpub-aria/",
+      "publisher": "W3C",
+      "id": "dpub-aria"
+    },
+    "epub-3": {
+      "title": "EPUB 3",
+      "href": "https://www.w3.org/TR/epub/",
+      "publisher": "W3C",
+      "id": "epub-3"
+    },
+    "epub-a11y": {
+      "title": "EPUB Accessibility",
+      "href": "https://www.w3.org/TR/epub-a11y/",
+      "publisher": "W3C",
+      "id": "epub-a11y"
+    },
+    "onix": {
+      "title": "ONIX for Books 3",
+      "href": "https://www.editeur.org/83/Overview/",
+      "id": "onix"
+    },
+    "wai-aria": {
+      "title": "Accessible Rich Internet Applications (WAI-ARIA)",
+      "href": "https://www.w3.org/TR/wai-aria/",
+      "publisher": "W3C",
+      "id": "wai-aria"
+    },
+    "wcag2": {
+      "title": "Web Content Accessibility Guidelines (WCAG) 2",
+      "href": "https://www.w3.org/TR/WCAG2/",
+      "publisher": "W3C",
+      "id": "wcag2"
+    }
+  },
+  "diffTool": "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+  "github": {
+    "repoURL": "https://github.com/w3c/publ-a11y",
+    "branch": "main"
+  },
+  "publishDate": "2026-01-28",
+  "publishISODate": "2026-01-28T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 28 January 2026"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+
+	<body class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">Digital Publishing - Accessibility Metadata Crosswalk</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2026-01-28">28 January 2026</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/publisingcg/CG-FINAL-crosswalk-20260128/">https://www.w3.org/community/reports/publisingcg/CG-FINAL-crosswalk-20260128/</a>
+            </dd>
+      <dt>Latest published version:</dt><dd>
+              <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/crosswalk/">https://www.w3.org/2021/a11y-discov-vocab/latest/crosswalk/</a>
+            </dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/metadata-crosswalk/">https://w3c.github.io/publ-a11y/metadata-crosswalk/</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Madeleine Rothberg</span> (<a class="p-org org h-org" href="https://www.wgbh.org">WGBH</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="72055">
+    <span class="p-name fn">Charles LaPierre</span> (<a class="p-org org h-org" href="https://benetech.org">Benetech</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="136660">
+    <span class="p-name fn">Gautier Chomel</span> (<a class="p-org org h-org" href="https://www.edrlab.org">EDRLab</a>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/publ-a11y/">GitHub w3c/publ-a11y</a>
+        (<a href="https://github.com/w3c/publ-a11y/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/publ-a11y/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2026
+          
+          the Contributors to the Digital Publishing - Accessibility Metadata Crosswalk
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+		<section id="abstract" class="introductory"><h2>Abstract</h2>
+			<p>This document is designed to promote interoperability between different accessibility metadata standards
+				and schemas by providing guidance on ways to map between terms used in various accessibility
+				vocabularies.</p>
+		</section>
+
+		<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/publishingcg">Publishing Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p><p>
+    <a href="https://github.com/w3c/publ-a11y/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Foreword</a></li><li class="tocline"><a class="tocxref" href="#information"><bdi class="secno">2. </bdi>Information and references:</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#information-schema"><bdi class="secno">2.1 </bdi>EPUB resources</a></li><li class="tocline"><a class="tocxref" href="#information-ONIX"><bdi class="secno">2.2 </bdi>ONIX resources</a></li><li class="tocline"><a class="tocxref" href="#information-MARC21"><bdi class="secno">2.3 </bdi>MARC21 resources</a></li><li class="tocline"><a class="tocxref" href="#information-UNIMARC"><bdi class="secno">2.4 </bdi>UNIMARC resources</a></li><li class="tocline"><a class="tocxref" href="#information-RWPM"><bdi class="secno">2.5 </bdi>RWPM resources</a></li></ol></li><li class="tocline"><a class="tocxref" href="#dc-terms"><bdi class="secno">3. </bdi>Properties from Dublin Core</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#conformance-declarations"><bdi class="secno">3.1 </bdi>Conformance declarations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#epub-onix"><bdi class="secno">4. </bdi>Properties from EPUB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#epub-evaluation-declarations"><bdi class="secno">4.1 </bdi>EPUB evaluation declarations</a></li><li class="tocline"><a class="tocxref" href="#epub-exemption-declarations"><bdi class="secno">4.2 </bdi>EPUB exemption declarations</a></li><li class="tocline"><a class="tocxref" href="#other-epub-declarations"><bdi class="secno">4.3 </bdi>Other EPUB declarations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#schema-onix"><bdi class="secno">5. </bdi>Properties From Schema.org</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#accessibilityfeature"><bdi class="secno">5.1 </bdi>
+				<span class="formerLink">accessibilityFeature</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessibilityhazard"><bdi class="secno">5.2 </bdi>
+				<span class="formerLink">accessibilityHazard</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessmode"><bdi class="secno">5.3 </bdi>
+				<span class="formerLink">accessMode</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessmodesufficient"><bdi class="secno">5.4 </bdi>
+				<span class="formerLink">accessModeSufficient</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessibilitysummary"><bdi class="secno">5.5 </bdi>
+				<span class="formerLink">accessibilitySummary</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessibilityapi"><bdi class="secno">5.6 </bdi>
+				<span class="formerLink">accessibilityAPI</span>
+			</a></li><li class="tocline"><a class="tocxref" href="#accessibilitycontrol"><bdi class="secno">5.7 </bdi>
+				<span class="formerLink">accessibilityControl</span>
+			</a></li></ol></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">6. </bdi>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.1 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+		<section id="introduction"><div class="header-wrapper"><h2 id="x1-foreword"><bdi class="secno">1. </bdi>Foreword</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+			
+			<p>Accessibility metadata can be provided in different ways:</p>
+			<ul>
+				<li>via the metadata inside the file of the digital product,</li>
+				<li>via a system that maintains and produces bibliographic and supply chain metadata,</li>
+				<li>via a system of mapping or ‘translation’ between 1 &amp; 2, that is from the metadata inside the
+					product file to the corresponding metadata in the bibliographic record (which may be supplemented by
+					additional metadata),</li>
+				<li>via a system of Master Data Management (MDM) containing shared production and distribution
+					metadata.</li>
+			</ul>
+			<p>Standards and schemas used in these different contexts may vary. This document provides information about
+				ways to express accessibility information within the main standards used by the industry.</p>
+			<p>The crosswalk tables extends between the three standards that have different approaches and need to be
+				mapped to each other: Schema.org, ONIX and MARC21.</p>
+			<p>The informative section provides links to standards resources. It includes additional standards beyond
+				the ones presented in the crosswalk tables because some standards provide easy one-to-one mappings and
+				displaying additional columns would make the tables more difficult to use.</p>
+			<p>This crosswalk is not intended to impose any kind of computer architecture on organizations but instead
+				can serve as a guideline to compare various ways of communicating accessibility metadata.</p>
+			<p>The crosswalk is an important resource as not all parts of the accessibility metadata supply chain have
+				access to information in all formats. Many organizations will not have access to the metadata inside
+				digital files, which is primarily used by reading systems. Book distributors, resellers, online
+				platforms, booksellers, librarians, educational institutions, and others will generally have access to
+				the distributed bibliographic metadata in one or more forms, and not the metadata inside the files.</p>
+			<p>By offering a structured comparison of terms the crosswalk helps ensure that accessibility information is
+				consistently described and discovered across platforms, making it easier for developers, content
+				creators, and organizations to align their accessibility metadata.</p>
+			<p>Definitions are taken from the <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/">Schema.org
+					Accessibility Properties for Discoverability Vocabulary</a> unless otherwise noted (i.e. some are
+				marked as being ONIX definitions).</p>
+		</section>
+
+		<section id="information"><div class="header-wrapper"><h2 id="x2-information-and-references"><bdi class="secno">2. </bdi>Information and references:</h2><a class="self-link" href="#information" aria-label="Permalink for Section 2."></a></div>
+			
+			<section id="information-schema"><div class="header-wrapper"><h3 id="x2-1-epub-resources"><bdi class="secno">2.1 </bdi>EPUB resources</h3><a class="self-link" href="#information-schema" aria-label="Permalink for Section 2.1"></a></div>
+				
+				<p>Schema definitions are found here: <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/">https://www.w3.org/2021/a11y-discov-vocab/latest/</a></p>
+				<p>“<code>conformsTo</code>” term used in EPUB –drawn from <a href="http://www.dublincore.org/specifications/dublin-core/dcmi-terms/#terms-conformsTo">Dublin
+						Core</a>.</p>
+			</section>
+
+			<section id="information-ONIX"><div class="header-wrapper"><h3 id="x2-2-onix-resources"><bdi class="secno">2.2 </bdi>ONIX resources</h3><a class="self-link" href="#information-ONIX" aria-label="Permalink for Section 2.2"></a></div>
+				
+				<p><a href="https://www.editeur.org/83/Overview/">ONIX</a> is an XML-based standard for rich book
+					metadata, providing a consistent way for publishers, retailers and their supply chain partners to
+					communicate a wide range of information about their products.</p>
+				<p>Within ONIX, most metadata relating to the accessibility of the product is carried in the
+						<code>ProductFormFeature</code> data element. This uses <a href="https://ns.editeur.org/onix/en/196/">ONIX codelist 196</a>. Plus the metadata to express
+					the access modes in the data element <code>ProductFormFeature</code> which uses <a href="https://ns.editeur.org/onix/en/81/">ONIX code list 81</a>.</p>
+				<p>To help metadata providers, EDItEUR provides two guidance documents:</p>
+				<ul>
+					<li>
+						<a href="https://doi.org/10.4400/heiy">Providing Accessibility metadata in ONIX</a>
+					</li>
+					<li>
+						<a href="https://doi.org/10.4400/frib">Providing accessibility metadata in ONIX (advanced)</a>
+					</li>
+				</ul>
+				<div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><aside class="">
+					<div class="header-wrapper"><h3 id="bidirectional-mapping-and-round-tripping">Bidirectional mapping and round-tripping</h3><a class="self-link" href="#bidirectional-mapping-and-round-tripping" aria-label="Permalink for this Section"></a></div>
+					<p>The mappings provided in this crosswalk identify conceptual equivalence between vocabularies but
+						are not always mathematically symmetrical or "round-trippable."</p>
+					<p>Structural differences between formats—such as strict exclusivity in one vocabulary versus
+						permissive coexistence in another—mean that a valid mapping in one direction may be invalid in
+						the reverse.</p>
+					<p><b>Example:</b> ONIX List 196 code 09 (Inaccessible/Limited) maps conceptually to Schema.org
+							<code>accessibilityFeature="none"</code>. However, while ONIX code 09 allows for other
+						accessibility features to be present simultaneously, Schema.org
+							<code>accessibilityFeature="none"</code> is exclusive and prohibits other feature
+						declarations.</p>
+					<p>In practice, ONIX records that include List 196 code 09 have few accessibility affordances,
+						despite the option to include other features in the metadata, and can be mapped to Schema.org
+							<code>accessibilityFeature="none"</code> with little loss of fidelity. Any minor
+						accessibility features listed in the ONIX record would be left out of the Schema.org record due
+						to the constraints Schema.org places on the term "none", which is why this transformation is not
+						"round-trippable."</p>
+				</aside></div>
+
+			</section>
+
+			<section id="information-MARC21"><div class="header-wrapper"><h3 id="x2-3-marc21-resources"><bdi class="secno">2.3 </bdi>MARC21 resources</h3><a class="self-link" href="#information-MARC21" aria-label="Permalink for Section 2.3"></a></div>
+				
+				<p>
+					<a href="https://www.loc.gov/marc/bibliographic/">MARC 21 information</a>
+				</p>
+				<p>
+					<a href="https://www.loc.gov/marc/specifications/specrecstruc.html">Fixed length fields (fixed
+						fields) and variable length fields (very brief summary – fuller details)</a>
+				</p>
+				<p>MARC 21 fixed field = 3 digit numeric code (except the Leader); no indicators, value in each position
+					has a specific meaning.</p>
+				<p>MARC 21 variable length field = 3 digit numeric code; each field can have 2 indicators that signify
+					different values; each field can have one or more subfields; convention to designate subfield = $ ;
+					if no subfield, assume $a.</p>
+				<p>More detailed information about <a href="https://www.loc.gov/marc/bibliographic/bd341.html">MARC 21
+						field 341</a>, and <a href="https://www.loc.gov/marc/bibliographic/bd532.html"> MARC 21 field
+						532</a>.</p>
+				<div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><aside class="">
+					<p>Best practices and procedures for recording accessibility metadata in MARC 21 using the
+						Schema.org Accessibility Properties for Discoverability Vocabulary (sapdv) and ONIX are still
+						under development. Please be aware that future work may result in changes to the crosswalk,
+						though it is expected such changes will be minimal and backwards compatible.</p>
+					<p>This crosswalk provides recommendations for MARC 21 fields appropriate for each accessibility
+						metadata term. Cataloguing agencies can determine the correct syntax for expressing the metadata
+						in that field.</p>
+					<p>Currently <code>certifierReport</code> uses <a href="https://www.loc.gov/marc/bibliographic/bd856.html">MARC 21 field 856</a> since <a href="https://www.loc.gov/marc/bibliographic/bd532.html"> MARC 21 field 532</a> does not
+						currently include a subfield to hold a URL. There is a proposal submitted to include this in the
+						future.</p>
+				</aside></div>
+			</section>
+
+			<section id="information-UNIMARC"><div class="header-wrapper"><h3 id="x2-4-unimarc-resources"><bdi class="secno">2.4 </bdi>UNIMARC resources</h3><a class="self-link" href="#information-UNIMARC" aria-label="Permalink for Section 2.4"></a></div>
+				
+				<p><a href="https://cdn.ifla.org/wp-content/uploads/U_B_231_update2021_ONLINE_FINAL-1.pdf
+				">UNIMARC 231i (pdf file)</a> offers a easy mapping to ONIX 196. Some references may be best
+					described by other UNIMARC codes.</p>
+			</section>
+
+			<section id="information-RWPM"><div class="header-wrapper"><h3 id="x2-5-rwpm-resources"><bdi class="secno">2.5 </bdi>RWPM resources</h3><a class="self-link" href="#information-RWPM" aria-label="Permalink for Section 2.5"></a></div>
+				
+				<p>Readium Web Publication Manifest (RWPM) is a JSON-based document meant to represent and distribute
+					publications over HTTPS. It is the primary exchange format used in the Readium Architecture and
+					serves as the main building block for OPDS 2.0.</p>
+				<p><a href="https://github.com/readium/webpub-manifest/blob/master/schema/a11y.schema.json">RWPM
+						accessibility information schema</a> is mainly derived from the Schema.org Accessibility
+					Properties for Discoverability Vocabulary, facilitating one to one mapping. </p>
+			</section>
+
+		</section>
+
+		<section id="dc-terms"><div class="header-wrapper"><h2 id="x3-properties-from-dublin-core"><bdi class="secno">3. </bdi>Properties from Dublin Core</h2><a class="self-link" href="#dc-terms" aria-label="Permalink for Section 3."></a></div>
+			
+			<section id="conformance-declarations"><div class="header-wrapper"><h3 id="x3-1-conformance-declarations"><bdi class="secno">3.1 </bdi>Conformance declarations</h3><a class="self-link" href="#conformance-declarations" aria-label="Permalink for Section 3.1"></a></div>
+
+			<p>The following table provides a crosswalk between the properties defined in the <a href="https://www.w3.org/TR/epub-a11y">EPUB Accessibility specification</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-epub-a11y" title="EPUB Accessibility">epub-a11y</a></cite>] and
+				the equivalents defined metadata standards [<cite><a class="bibref" data-link-type="biblio" href="#bib-onix" title="ONIX for Books 3">onix</a></cite>], MARC 21.</p>
+
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">EPUB</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">EPUB to MARC 21</th>
+						<th scope="col">ONIX to MARC 21 using EPUB Vocabulary</th>
+						<th scope="col">ONIX to MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.0 Level AA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/80">List 196; Code 80</a>: WCAG v2.0</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/85">List 196; Code 85</a>: WCAG level AA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.0--WCAG level AA</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.0 Level AAA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/80">List 196; Code 80</a>: WCAG v2.0</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/86">List 196; Code 86</a>: WCAG level AAA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.0--WCAG level
+								AAA.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.1 Level A</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/81">List 196; Code 81</a>: WCAG v2.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/84">List 196; Code 84</a>: WCAG level A</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.1--WCAG level A.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.1 Level AA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/81">List 196; Code 81</a>: WCAG v2.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/85">List 196; Code 85</a>: WCAG level AA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.1--WCAG level
+								AA.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.1 Level AAA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/81">List 196; Code 81</a>: WCAG v2.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/86">List 196; Code 86</a>: WCAG level AAA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.1--WCAG level
+								AAA.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.2 Level A</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/82">List 196; Code 82</a>: WCAG v2.2</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/84">List 196; Code 84</a>: WCAG level A</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.2--WCAG level A.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.2 Level AA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/82">List 196; Code 82</a>: WCAG v2.2</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/85">List 196; Code 85</a>: WCAG level AA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.2--WCAG level
+								AA.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<p><a href="https://www.w3.org/TR/epub-a11y/#sec-conf-reporting-pub"><code>dcterms:conformsTo</code></a> with the text string<br>
+								<code>EPUB Accessibility 1.1 - WCAG 2.2 Level AAA</code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/04">List 196; Code 04</a>: EPUB Accessibility
+								Specification 1.1</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/82">List 196; Code 82</a>: WCAG v2.2</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/86">List 196; Code 86</a>: WCAG level AAA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<p>**From EPUB: Transcribe contents of dcterms:conformsTofield.</p>
+							<p>**From ONIX: Concatenate headings from each ONIX code separated by two dashes.</p>
+							<p><b>532</b> 8# <b>$a</b>Epub Accessibility Specification 1.1--WCAG v2.2--WCAG level
+								AAA.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo">dcterms:conformsTo</a> with the URL
+								<code>http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-a</code>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/02">List 196; Code 02</a>: EPUB Accessibility
+							Specification 1.0 A</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Conforms with the requirements of EPUB Accessibility Spec 1.0 and
+							WCAG level A.</td>
+						<td>532 8# Accessibility Note$a</td>
+						<td>(no equivalent)</td>
+						<td>231 ##$i02$2onix196</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo">dcterms:conformsTo</a> with the URL
+								<code>http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aa</code>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/03">List 196; Code 03</a>: EPUB Accessibility
+							Specification 1.0 AA</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Conforms with the requirements of EPUB Accessibility Spec 1.0 and
+							WCAG level AA.</td>
+						<td>532 8# Accessibility Note$a</td>
+						<td>(no equivalent)</td>
+						<td>231 ##$i03$2onix196</td>
+					</tr>
+					<tr>
+						<td>An established standard to which the described resource conforms.</td>
+						<td>
+							<a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo">dcterms:conformsTo</a> with the URL
+								<code>http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aaa</code>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/03">List 196; Code 03</a>: EPUB Accessibility
+								Specification 1.0</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/86">List 196; Code 86</a>: WCAG level AAA</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Conforms with the requirements of EPUB Accessibility Spec 1.0 and
+							WCAG level AAA.</td>
+						<td>532 8# Accessibility Note$a</td>
+						<td>(no equivalent)</td>
+						<td>231 ##$i03$2onix196</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+
+		</section></section>
+
+		<section id="epub-onix"><div class="header-wrapper"><h2 id="x4-properties-from-epub"><bdi class="secno">4. </bdi>Properties from EPUB</h2><a class="self-link" href="#epub-onix" aria-label="Permalink for Section 4."></a></div>
+			
+			<p>The following tables provides a crosswalk between the properties defined in the <a href="https://www.w3.org/TR/epub-a11y">EPUB Accessibility specification</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-epub-a11y" title="EPUB Accessibility">epub-a11y</a></cite>] and
+				the equivalents defined metadata standards [<cite><a class="bibref" data-link-type="biblio" href="#bib-onix" title="ONIX for Books 3">onix</a></cite>], MARC 21.</p>
+
+			<section id="epub-evaluation-declarations"><div class="header-wrapper"><h3 id="x4-1-epub-evaluation-declarations"><bdi class="secno">4.1 </bdi>EPUB evaluation declarations</h3><a class="self-link" href="#epub-evaluation-declarations" aria-label="Permalink for Section 4.1"></a></div>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">EPUB</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">EPUB to MARC 21</th>
+						<th scope="col">ONIX to MARC 21 using EPUB Vocabulary</th>
+						<th scope="col">ONIX to MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Identifies a party responsible for the testing and certification of the accessibility of an
+							EPUB publication.</td>
+						<td>
+							<a href="https://www.w3.org/TR/epub-a11y-11/#certifiedBy">certifiedBy</a>
+						</td>
+						<td>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/90">List 196; Code 90</a>: Compliance
+								certification by <code>ProductFormFeatureDescription</code> carries the <b>name</b> of
+								the organization responsible for compliance testing and certification of the product.
+								Only for use in ONIX 3.0 or later.</p>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/93">List 196; Code 93</a> Compliance
+								certification by <code>ProductFormFeatureDescription</code> carries the <b>URL</b> of
+								the organization, which should also be provided. Only for use in ONIX 3.0 or later. </p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>[Name of Certifier]</td>
+						<td>532 8# Accessibility Note$a</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td>231 ##$i93$2onix196</td>
+					</tr>
+					<tr>
+						<td id="code93">Identifies a credential or badge that establishes the authority of the party
+							identified in the associated certifiedBy property to certify content accessible.</td>
+						<td>
+							<a href="https://www.w3.org/TR/epub-a11y-11/#certifierCredential">certifierCredential</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/88">List 196; Code 88</a>: Carries the
+									<b>name</b> of the organization responsible for credentialling the certifier named
+								as certifying the compliance of the product (88 is the organisation that sets the rules
+								that are used by another organisation to certify the product). For use in ONIX 3.0 or
+								later.</p>
+
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/89">List 196; Code 89</a>: Carries the
+									<b>URL</b> of this organisation. For use in ONIX 3.0 or later. </p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>Do Not Record</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>If the evaluator provides a publicly-readable report of its assessment, provide a link to
+							the assessment in an a11y:certifierReport property associated with [epub-3] the evaluator's
+							name.</td>
+						<td>
+							<a href="https://www.w3.org/TR/epub-a11y-11/#certifierReport">certifierReport</a>
+						</td>
+						<td>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/94">List 196; Code 94</a>: When
+								certification done by an official and independent organization. </p>
+							<p>Or</p>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/95">List 196; Code 95</a>: When
+								certification is done by a trusted third party, such as the EPUB creator or distributor. </p>
+							<p>Or</p>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/96">List 196; Code 96</a>: When the
+								publisher has self-certified the product. </p>
+						</td>
+						<td>
+							<b>856</b>
+						</td>
+						<td><b>856</b> 42 <b>$3</b>Certifier report<b>$u</b>[URL to Certifier report]</td>
+						<td>532 8# Accessibility Note$a</td>
+						<td>(no equivalent)</td>
+						<td>231 ##$i94$2onix196 and/or 231 ##$i96$2onix196</td>
+					</tr>
+				</tbody>
+			</table>
+
+			</section><section id="epub-exemption-declarations"><div class="header-wrapper"><h3 id="x4-2-epub-exemption-declarations"><bdi class="secno">4.2 </bdi>EPUB exemption declarations</h3><a class="self-link" href="#epub-exemption-declarations" aria-label="Permalink for Section 4.2"></a></div>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">EPUB</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">EPUB to MARC 21</th>
+						<th scope="col">ONIX to MARC 21 using EPUB Vocabulary</th>
+						<th scope="col">ONIX to MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td>Identifies the accessibility exemption the EPUB publication falls under.</td>
+						<td>
+							<p><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#exemption-property">a11y:exemption</a></code> with the text string<br><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#eaa-microenterprise">eaa-microenterprise</a></code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/75">List 196; Code 75</a>: EAA exception 1 -
+								Micro-enterprises</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Digital product falls under European Accessibility Act exception for
+							Micro-enterprises (as defined by current regulations). The product may not have to comply
+							with requirements of the EAA if the publisher is a micro-enterprise.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Identifies the accessibility exemption the EPUB publication falls under.</td>
+						<td>
+							<p><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#exemption-property">a11y:exemption</a></code> with the text string<br><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#eaa-disproportionate-burden">eaa-disproportionate-burden</a></code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/76">List 196; Code 76</a>: EAA exception 2 -
+								Disproportionate burden</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Digital product falls under European Accessibility Act exception for
+							Disproportionate burden (as defined by current regulations). The product may not have to
+							comply with requirements of the EAA if doing so would financially overburden the
+							publisher.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Identifies the accessibility exemption the EPUB publication falls under.</td>
+						<td>
+							<p><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#exemption-property">a11y:exemption</a></code> with the text string<br><code><a href="https://www.w3.org/TR/epub-a11y-exemption/#eaa-fundamental-alteration">eaa-fundamental-alteration</a></code></p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/77">List 196; Code 77</a>: EAA exception 3 -
+								Fundamental alteration</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Digital product falls under European Accessibility Act exception for
+							Fundamental alteration (as defined by current regulations). The product may not have to
+							comply with requirements of the EAA if doing so requires a fundamental modification of the
+							nature of the product or service.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			</section><section id="other-epub-declarations"><div class="header-wrapper"><h3 id="x4-3-other-epub-declarations"><bdi class="secno">4.3 </bdi>Other EPUB declarations</h3><a class="self-link" href="#other-epub-declarations" aria-label="Permalink for Section 4.3"></a></div>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">EPUB</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">EPUB to MARC 21</th>
+						<th scope="col">ONIX to MARC 21 using EPUB Vocabulary</th>
+						<th scope="col">ONIX to MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<p>Provides a unique identifier for the source of the page break markers in an EPUB
+								publication.</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/publishing/a11y/page-source-id/#pageBreakSource">
+									<code>pageBreakSource</code>
+								</a>
+							</p>
+							<p>value of <code>none</code> indicates digital-only edition</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/51/13">List 51; Code 13</a>: Print-equivalent
+								page numbering points from the digital publication to the physical version.</p>
+							<p>or</p>
+							<p><a href="https://ns.editeur.org/onix/en/51/27">List 51; Code 27</a>: Electronic version
+								available points from the physical version to the digital publication.</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+							<p>and</p>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>pageBreakSource<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 8# <b>$a</b>Page break source: [insert unique identifier]</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+				</tbody>
+			</table>
+		</section></section>
+
+		<section id="schema-onix"><div class="header-wrapper"><h2 id="x5-properties-from-schema-org"><bdi class="secno">5. </bdi>Properties From Schema.org</h2><a class="self-link" href="#schema-onix" aria-label="Permalink for Section 5."></a></div>
+			
+
+			<p>The following table provides a crosswalk between the Schema.org metadata and [<cite><a class="bibref" data-link-type="biblio" href="#bib-onix" title="ONIX for Books 3">onix</a></cite>], MARC 21.</p>
+
+			<section id="accessibilityfeature"><div class="header-wrapper"><h3 id="x5-1-accessibilityfeature"><bdi class="secno">5.1 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityFeature">accessibilityFeature</a>
+			</h3><a class="self-link" href="#accessibilityfeature" aria-label="Permalink for Section 5.1"></a></div>
+			<p>ONIX: <a href="https://ns.editeur.org/onix/en/196">List 196</a> (specific codes follow)</p>
+			<p>MARC 21: would not map. Mapping of individual properties is possible as reflected in the following
+				table</p>
+			
+
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">Schema.org</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">Schema.org in MARC 21</th>
+						<th scope="col">ONIX to Schema in MARC 21</th>
+						<th scope="col">ONIX in MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr>
+						<td>Alternative text is provided for visual content (e.g., via the [HTML]&nbsp;alt&nbsp;attribute).</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#alternativeText">alternativeText</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/14">List 196; Code 14</a>: Short alternative
+							descriptions</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$b</b>alternativeText<b>$2</b>sapdv</p>
+							<p>*The schema and ONIX terms are not wholly equivalent. Verify that the feature is
+								providing alt text descriptions of still images.</p>
+						</td>
+
+						<td>(no equivalent)</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td>231 ##$i14$2onix196</td>
+					</tr>
+					<tr>
+						<td>The work includes annotations from the author, instructor and/or others.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#annotations">annotations</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>annotations<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Resource includes ARIA roles to organize and improve the structure and navigation.</p>
+							<p>The use of this value corresponds to the inclusion of Document Structure, Landmark, Live
+								Region, and Window roles [<cite><a class="bibref" data-link-type="biblio" href="#bib-wai-aria" title="Accessible Rich Internet Applications (WAI-ARIA)">wai-aria</a></cite>].</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ARIA">
+									<code>ARIA</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/30">List 196; Code 30</a>: ARIA roles
+								provided</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>ARIA<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>Audio descriptions are available (e.g., via an [HTML] track element with its kind attribute
+							set to "descriptions").</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#audioDescription">audioDescription</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/175/V215">List 175; Code V215</a>: Audio
+								description of video</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>visual<b>$d</b>audioDescription<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>(deprecated). The work includes bookmarks to facilitate navigation to key points. <em>Note:
+								The use of the bookmarks value is now deprecated due to its ambiguity. For PDF
+								bookmarks, the tableOfContents value should be used instead. For bookmarks in ebooks,
+								the annotations value can be used.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#bookmarks">bookmarks</a>
+						</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+					</tr>
+					<tr>
+						<td>Alternatives are available in braille. <em>Note: Information about the type of braille
+								(e.g., ASCII, unicode, nemeth), whether the braille is contracted or not, and what code
+								the braille conforms to should be provided in the accessibility summary.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#braille">braille</a>
+						</td>
+						<td>
+							<p>(no direct equivalent)</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p>In MARC 21 print braille resources are described as tactile materials and resources in
+								electronic braille format are described as computer files, but for resources providing
+								alternative braille access:</p>
+							<p>For electronic resources enhanced with braille alternatives:</p>
+							<p><b>341</b> 0# <b>$a</b>text<b>$e</b>braille<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p>**Use a 532 note to provide information on how the braille alternative is provided (print
+								braille, electronic braille, etc.)</p>
+							<p>For print resources enhanced with braille:</p>
+							<p><b>341</b> 0# <b>$a</b>textonVisual<b>$e</b>braille<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p>**Use a 532 note to provide information on how the braille alternative is provided (print
+								braille, electronic braille, etc.)</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>(deprecated, replaced by closedCaptions, openCaptions)</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#captions">captions</a>
+						</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+						<td>(deprecated)</td>
+					</tr>
+					<tr>
+						<td>Identifies that chemical information is encoded using the <a href="https://hachmannlab.github.io/chemml/">ChemML markup language</a>.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ChemML">ChemML</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/18">List 196; Code 18</a>: Accessible
+								chemistry content (as ChemML)</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/47">List 81; Code 47</a>: Chemical content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>ChemML<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 1# <b>$a</b>Chemical equations and formulas are encoded in ChemML.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 ##$i18$2onix196</td>
+					</tr>
+					<tr>
+						<td>Indicates that synchronized captions are available for audio and video content. Closed
+							captions are defined separately from the video, allowing users to control whether they are
+							rendered or not, unlike open captions.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#closedCaptions">closedCaptions</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/175/V210">List 175; Code V210</a>: Closed
+								captions</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/175/V214">List 175; Code V214</a>: Textual
+								description of audio</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>auditory<b>$c</b>closedCaptions<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>For use with legacy content that includes math as images only but offers a text description
+							for those images. Also use the <code>accessibilityFeature</code>s of <b>alternativeText</b>
+							and/or <b>longDescription</b> as appropriate.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#describedMath">describedMath</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/53">List 196; Code 53</a>: Described math
+								content</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/48">List 81; Code 48</a>: Mathematical
+								content</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>mathOnVisual<b>$b</b>describedMath<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Display properties are controllable by the user. This property can be set, for example, if
+							custom CSS style sheets can be applied to the content to control the appearance. It can also
+							be used to indicate that styling in document formats like Word and PDF can be modified.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#displayTransformability">displayTransformability</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/36">List 196; Code 36</a>: All textual content
+							can be modified</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>displayTransformability<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 ## $iE200$2onix175</td>
+					</tr>
+					<tr>
+						<td>Indicates that ruby annotations [<cite><a class="bibref" data-link-type="biblio" href="#bib-jlreq" title="Requirements for Japanese Text Layout 日本語組版処理の要件(日本語版)">jlreq</a></cite>] are attached to every CJK ideographic character in
+							the content. Ruby annotations are used as pronunciation guides for the logographic
+							characters for languages like Chinese or Japanese. They make difficult CJK ideographic
+							characters more accessible.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#fullRubyAnnotations">
+									<code>fullRubyAnnotations</code>
+								</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>fullRubyAnnotations<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Audio content with speech in the foreground meets the contrast thresholds set out in <a href="https://www.w3.org/WAI/WCAG21/Understanding/low-or-no-background-audio">WCAG
+								Success Criteria 1.4.7</a>.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#highContrastAudio">highContrastAudio</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/27">List 196; Code 27</a>: Use of high
+								contrast between foreground and background audio</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>auditory<b>$d</b>highContrastAudio<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Content meets the visual contrast threshold set out in <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced">WCAG Success
+								Criteria 1.4.6</a>.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#highContrastDisplay">highContrastDisplay</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/37">List 196; Code 37</a>: Use of ultra-high
+								contrast between text foreground and background</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>highContrastDisplay<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>textOnVisual<b>$c</b>highContrastDisplay<b>$2</b>sapdv</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: Body text is presented with a contrast ratio of at least 4.5:1 (or 3:1 for
+							large/heading text). Meets Contrast Minimum (text and images of text) <a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">WCAG Success Criteria
+							1.4.3</a>.</td>
+						<td>(no equivalent)</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/26">List 196; Code 26</a>: Use of high
+								contrast between text and background color</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the content can be laid out horizontally (e.g., using the horizontal-tb
+							writing mode of [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-writing-modes-3" title="CSS Writing Modes Level 3">css-writing-modes-3</a></cite>]). This value should only be set when the language of
+							the content allows both horizontal and vertical directions. Notable examples of such
+							languages are Chinese, Japanese, and Korean.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#horizontalWriting">
+									<code>horizontalWriting</code>
+								</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>horizontalWriting$<b>2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>The work includes an index to the content.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#index-term">index</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/12">List 196; Code 12</a>: Index navigation</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>index<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i12$2onix196</td>
+					</tr>
+					<tr>
+						<td>The content has been formatted to meet large print guidelines. The property is not set if
+							the font size can be increased. See displayTransformability.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#largePrint">largePrint</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/21/LTE">List 21; Code LTE</a>: Large type / large
+								print edition</p>
+							<p>and</p>
+							<p><a href="https://ns.editeur.org/onix/en/21/ULP">List 21; Code ULP</a>: Ultra large print
+								edition</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>Do not record for electronic resources where font size can be increased. Use
+							displayTransformability.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Identifies that mathematical equations and formulas are encoded in the <a href="https://www.latex-project.org/">LaTeX typesetting system</a>.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#latex">latex</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/35">List 196; Code 35</a>: Accessible math
+								content (as LaTeX)</p>
+							<p>should be used with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/48">List 81; Code 48</a>: Mathematical
+								content</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>latex<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 1# <b>$a</b>Mathematical equations and formulas are encoded in latex.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Identifies that the LaTeX typesetting system is used to encode chemical equations and
+							formulas.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#latext-chemistry">
+									<code>latex-chemistry</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/54">List 196; Code 54</a>: Accessible
+								chemistry content (as LaTeX)</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/47">List 81; Code 47</a>: Chemical content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>latex<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 1# <b>$a</b>Chemical equations and formulas are encoded in latex.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>Descriptions are provided for image-based visual content and/or complex structures such as
+							tables, mathematics, diagrams, and charts. <em>Note: Authors may set this property
+								independent of the method they use to provide the extended descriptions (i.e., it is not
+								required to use the obsolete [HTML] longdesc attribute).</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#longDescription">longDescription</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/15">List 196; Code 15</a>: Full alternative
+								descriptions</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/16">List 196; Code 16</a>: Visualised data
+								also available as non-graphical data</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<ul>
+								<li><b>341</b> 0# <b>$a</b>visual<b>$b</b>longDescription<b>$2</b>sapdv</li>
+								<li><b>341</b> 0# <b>$a</b>chartOnVisual<b>$b</b>longDescription<b>$2</b>sapdv</li>
+								<li><b>341</b> 0# <b>$a</b>chemOnVisual<b>$b</b>longDescription<b>$2</b>sapdv</li>
+								<li><b>341</b> 0# <b>$a</b>diagramOnVisual<b>$b</b>longDescription<b>$2</b>sapdv</li>
+								<li><b>341</b> 0# <b>$a</b>mathOnVisual<b>$b</b>longDescription<b>$2</b>sapdv</li>
+							</ul>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i15$2onix196</td>
+					</tr>
+					<tr>
+						<td>Identifies that mathematical equations and formulas are encoded in [<cite><a class="bibref" data-link-type="biblio" href="#bib-mathml3" title="Mathematical Markup Language (MathML) Version 3.0 2nd Edition">mathml3</a></cite>].</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#mathml">MathML</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/17">List 196; Code 17</a>: Accessible math
+								content</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/48">List 81; Code 48</a>: Mathematical
+								content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>MathML<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 1# <b>$a</b>Mathematical equations and formulas are encoded in MathML.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i17$2onix196</td>
+					</tr>
+					<tr>
+						<td>Identifies that [<cite><a class="bibref" data-link-type="biblio" href="#bib-mathml3" title="Mathematical Markup Language (MathML) Version 3.0 2nd Edition">mathml3</a></cite>] is used to encode chemical equations and formulas.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#mathml-chemistry">
+									<code>MathML-chemistry</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/34">List 196; Code 34:</a> Accessible
+								chemistry content (as MathML)</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/47">List 81; Code 47</a>: Chemical content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$b</b>MathML-chemistry<b>$2</b>sapdv</p>
+							<p>and</p>
+							<p><b>532</b> 1# <b>$a</b>Chemical equations and formulas are encoded in MathML.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Indicates that the resource does not contain any accessibility features.</p>
+							<p>The none value must not be set with any other feature value.</p>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#feature-none">none</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/09">List 196; Code 09</a>: Inaccessible, or
+								known limited accessibility</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 2# <b>$a</b>This resource lacks significant accessibility features.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i09$2onix196</td>
+					</tr>
+					<tr>
+						<td>Indicates that synchronized captions are available for audio and video content. Open
+							captions are part of the video stream and cannot be turned off by the user, unlike closed
+							captions.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#openCaptions">openCaptions</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/175/V211">List 175; Code V211</a>: Open
+								captions</p>
+							<p>along with</p>
+							<p><a href="https://ns.editeur.org/onix/en/175/V214">List 175; Code V214</a>: Textual
+								description of audio</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>auditory<b>$c</b>openCaptions<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>The resource includes static page markers, such as those identified by the doc-pagebreak
+								role [<cite><a class="bibref" data-link-type="biblio" href="#bib-dpub-aria" title="Digital Publishing WAI-ARIA Module">dpub-aria</a></cite>].</p>
+							<p>This value is most commonly used with ebooks for which there is a statically paginated
+								equivalent, such as a print edition, but it is not required that the page markers
+								correspond to another work. The markers may exist solely to facilitate navigation in
+								purely digital works.</p>
+						</td>
+						<td>
+							<p><a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#pageBreakMarkers"><code>pageBreakMarkers</code></a><br> (formerly
+								<code>printPageNumbers</code>)</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/19">List 196; Code 19</a>: Print-equivalent
+								page numbering (Source: print book)</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>pageBreakMarkers<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>
+							<p>The resource includes a means of navigating to static page break locations.</p>
+							<p>The most common way of providing page navigation in digital publications is through a
+								page list. The EPUB page-list navigation feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-epub-3" title="EPUB 3">epub-3</a></cite>] and the pagelist role
+								[<cite><a class="bibref" data-link-type="biblio" href="#bib-dpub-aria" title="Digital Publishing WAI-ARIA Module">dpub-aria</a></cite>] are two examples.</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#pageNavigation">
+									<code>pageNavigation</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/41">List 196; Code 41</a>: Page list
+								navigation </p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>pageNavigation<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>The reading order of the content is clearly defined in the markup (e.g., figures, sidebars
+							and other secondary content has been marked up to allow it to be skipped automatically
+							and/or manually escaped from.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#readingOrder">readingOrder</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/13">List 196; Code 13</a>: Reading order</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>readingOrder<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i13$2onix196</td>
+					</tr>
+					<tr>
+						<td>Indicates that <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-ruby-element"><code>ruby</code> annotations</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">html</a></cite>] are provided in the content. Ruby
+							annotations are used as pronunciation guides for the logographic characters for languages
+							like Chinese or Japanese. It makes difficult Kanji or CJK ideographic characters more
+							accessible. The absence of <code>rubyAnnotations</code> implies that no CJK ideographic
+							characters have ruby.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#rubyAnnotations">rubyAnnotations</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>rubyAnnotations<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Sign language interpretation is available for audio and video content. <em>Note: Information
+								about the sign language code used should be provided in the accessibility summary.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#signLanguage">signLanguage</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/175/V213">List 175; Code V213</a>: Sign language
+								interpretation</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>auditory<b>$c</b>signLanguage<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>The use of headings in the work fully and accurately reflects the document hierarchy,
+							allowing navigation by assistive technologies.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#structuralNavigation">structuralNavigation</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/29">List 196; Code 29</a>: Next / Previous
+								structural navigation</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>structuralNavigation<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Describes a resource that offers both audio and text, with information that allows them to
+							be rendered simultaneously. The granularity of the synchronization is not specified. This
+							term is not recommended when the only material that is synchronized is the document
+							headings.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#synchronizedAudioText">synchronizedAudioText</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/20">List 196; Code 20</a>: Synchronised
+							pre-recorded audio</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textual<b>$d</b>synchronizedAudioText<b>$2</b>sapdv</p>
+							<p>and/or</p>
+							<p><b>341</b> 0# <b>$a</b>auditory<b>$b</b>synchronizedAudioText<b>$2</b>sapdv</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i20$2onix196</td>
+					</tr>
+					<tr>
+						<td>The work includes a table of contents that provides links to the major sections of the
+							content.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#tableOfContents">tableOfContents</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/11">List 196; Code 11</a>: Table of contents
+							navigation</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>tableofContents<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i11$2onix196</td>
+					</tr>
+					<tr>
+						<td>The contents of the PDF have been tagged to permit access by assistive technologies.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#taggedPDF">taggedPDF</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/05">List 196; Code 05</a>: PDF/UA</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/06">List 196; Code 06</a>: PDF/UA-2</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>taggedPDF<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<ul>
+								<li>[1] When used with creative works such as books, indicates that the resource
+									includes tactile graphics.</li>
+								<li>[2] When used to describe an image resource or physical object, indicates that the
+									resource is a tactile graphic.</li>
+							</ul>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#tactileGraphic">tactileGraphic</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<ul>
+								<li>Use case [1] If tactile alternatives to printed graphics in a print resource are
+									provided: <p><b>341</b> 0# <b>$a</b>visual<b>$e</b>tactileGraphic<b>$2</b>sapdv</p>
+									<p>and</p>
+									<p><b>532</b> 1# <b>$a</b>[Include a note describing how the tactile graphic is
+										provided.]</p>
+								</li>
+								<li>Use case [2] (When used to describe an image resource or physical object, indicates
+									that the resource is a tactile graphic): <p>In MARC 21 physical tactile graphics are
+										described as tactile resources.</p>
+									<p>If the resource can generate a tactile image from a resource file, describe how
+										the tactile graphic is provided in a 532 note.</p>
+								</li>
+							</ul>
+
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<ul>
+								<li>[1] When used with creative works such as books, indicates that the resource
+									includes models to generate tactile 3D objects.</li>
+								<li>[2] When used to describe a physical object, indicates that the resource is a
+									tactile 3D object.</li>
+							</ul>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#tactileObject">tactileObject</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td>
+							<ul>
+								<li>Use case [1] (When used with creative works such as books, indicates that the
+									resource includes models to generate tactile 3D objects): <b>532</b> 1#
+									<b>$a</b>Includes models to generate tactile 3D objects.</li>
+								<li>Use case [2] (When used to describe a physical object, indicates that the resource
+									is a tactile 3D object): In MARC 21 tactile objects are described as tactile
+									three-dimensional forms. </li>
+							</ul>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>For content with timed interaction, this value indicates that the user can control the
+							timing to meet their needs (e.g., pause and reset)</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#timingControl">timingControl</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>auditory<b>$d</b>timingControl<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$c</b>timingControl<b>$2</b>sapdv</p>
+							<p>**Do not use to describe audiovisual resources that allow users to adjust playback speed.
+								Use a 532 note if you wish to record this feature.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that a transcript of the audio content is available.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#transcript">transcript</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/175/V212">List 175; Code V212</a>: Transcript</p>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td>
+							<p>If the transcript is provided as a textual file: <b>341</b> 0#
+									<b>$a</b>auditory<b>$b</b>transcript<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p>If the transcript is provided as an external print resource: <b>341</b> 0#
+									<b>$a</b>auditory<b>$c</b>transcript<b>$2</b>sapdv</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>One or more of [[<cite><a class="bibref" data-link-type="biblio" href="#bib-ssml" title="Speech Synthesis Markup Language (SSML) Version 1.1">ssml</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-pronunciation-lexicon" title="Pronunciation Lexicon Specification (PLS) Version 1.0">pronunciation-lexicon</a></cite>], and [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-speech-1" title="CSS Speech Module Level 1">css-speech-1</a></cite>] properties has
+							been used to enhance text-to-speech playback quality.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ttsMarkup">ttsMarkup</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/21">List 196; Code 21</a>: Text-to-speech
+							hinting provided</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>text<b>$b</b>ttsMarkup<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i21$2onix196 and/or 231 $i22$2onix196</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Indicates that the author has not yet checked if the resource contains accessibility
+								features. This value is only intended as a placeholder until an accessibility review can
+								be completed.</p>
+							<p>The unknown value must not be set with any other feature value.</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#feature-unknown">
+									<code>unknown</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/08">List 196; Code 08</a>: Unknown
+								accessibility</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>The accessibility of this resources in unknown or unassessed.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>No digital rights management or other content restriction protocols have been applied to the
+							resource.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#unlocked">unlocked</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/144/00">List 144; Code 00</a>: None</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 1# <b>$a</b>No DRM (digital rights management) or other content restriction
+							protocols have been applied to the resource.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the content can be laid out vertically (e.g., using the vertical-rl of
+							[<cite><a class="bibref" data-link-type="biblio" href="#bib-css-writing-modes-3" title="CSS Writing Modes Level 3">css-writing-modes-3</a></cite>]). This value should only be set when the language of the content
+							allows both horizontal and vertical directions. </td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#verticalWriting">
+									<code>verticalWriting</code>
+								</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>verticalWriting<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the content can be rendered with additional word segmentation.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#withAdditionalWordSegmentation">
+									<code>withAdditionalWordSegmentation</code>
+								</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0#<b>$a</b>textual<b>$b</b>withAdditionalWordSegmentation<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the content can be rendered without additional word segmentation.</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#withoutAdditionalWordSegmentation">
+									<code>withoutAdditionalWordSegmentation</code>
+								</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$b</b>withoutAdditionalWordSegmentation<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>ONIX: Where interactive content is included in the product, controls are provided (eg for
+								speed, pause and resume, reset) and labelled to make their use clear.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/31">List 196; Code 31</a>: Accessible
+								controls provided</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: Includes basic landmark navigation (usually less detailed than TOC-based
+							navigation).</td>
+						<td>(no equivalent)</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/32">List 196; Code 32</a>: Landmark
+								navigation</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td id="use-of-color">
+							<p>ONIX: For readers with color vision deficiency, use of color (eg in diagrams, graphs and
+								charts, in prompts or on buttons inviting a response) is not the sole means of graphical
+								distinction or of conveying information.</p>
+							<p>See related value <a href="#color-dependent">Color Dependent</a></p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/25">List 196; Code 25</a>: Use of color is
+								not sole means of conveying information</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: The language of the text has been specified (eg via the HTML or XML lang attribute) to
+							optimise text-to-speech (and other alternative renderings), both at whole document level
+							and, where appropriate, for individual words, phrases or passages in a different
+							language.</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/22">List 196; Code 22</a>: Language tagging
+							provided - helps with TTS in multi-lingual content</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td><b>532</b> 1# <b>$a</b>The language of the text has been specified (eg via the HTML or XML
+							lang attribute) to optimise text-to-speech (and other alternative renderings), both at whole
+							document level and, where appropriate, for individual words, phrases or passages in a
+							different language.</td>
+						<td>(no equivalent)</td>
+						<td>231 $i22$2onix196</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: Specialised font, character and/or line spacing, justification and paragraph spacing,
+							coloring and other options provided specifically to improve readability for dyslexic
+							readers. Details, including the name of the font if relevant, should be listed in
+								<code>ProductFormFeatureDescription</code></td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/24">List 196; Code 24</a>: Dyslexia readability </td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td><b>532</b> 1# <b>$a</b>Specialised font, character and line spacing, justification and
+							paragraph spacing, and coloring for dyslexic readers.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: No accessibility features offered by the reading system, device or reading software
+							(including but not limited to choice of text size or typeface, choice of text or background
+							color, text-to-speech) are disabled, overridden or otherwise unusable with the product
+							EXCEPT - in ONIX 3 messages only - those specifically noted as subject to restriction or
+							prohibition in <code>EpubUsageConstraint</code>. Note that provision of any significant part
+							of the textual content as images (ie as pictures of text, rather than as text, and without
+							any textual equivalent) inevitably prevents use of these accessibility options.</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/10">List 196; Code 10</a>: No reading system
+							accessibility options disabled (except)</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td><b>532</b> 8# <b>$a</b>No accessibility features offered by the reading system, device or
+							reading software (including but not limited to choice of text size or typeface, choice of
+							text or background color, text-to-speech) are disabled, overridden or otherwise unusable
+							with the product.</td>
+						<td>(no equivalent)</td>
+						<td>231 $i10$2onix196</td>
+					</tr>
+					<tr>
+						<td>ONIX: All or substantially all textual matter is arranged in a single logical reading order
+							(including text that is visually presented as separate from the main text flow, eg in
+							boxouts, captions, tables, footnotes, endnotes, citations, etc). Non-textual content is also
+							linked from within this logical reading order.</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/13">List 196; Code 13</a>: Single logical
+							reading order </td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: E-publication provides explanations for unusual words, abbreviations, acronyms,
+							idioms, jargon in an accessible form, such as glossaries, scripted pop-ups.</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/38">List 196; Code 38</a>: Unusual words or
+							abbreviations explained </td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: All supplementary visual or textual material necessary for understanding of an
+							audiobook, is available as pre-recorded audio, or has full alternative text that can be read
+							via text-to- speech. </td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/39">List 196; Code 39</a>: Supplementary
+							material to an audiobook is accessible </td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: Where links, controls or buttons are included in the product, the purpose or
+							functionality of each link, control or button is apparent from the associated text alone -
+							or where it is unclear, separate link, control or button descriptions are provided.</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/40">List 196; Code 40</a>: Link purposes clear </td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: &lt;ProductFormFeatureDescription&gt; contains a date in the YYYYMMDD format of the
+							latest assessment or re-assessment of the accessibility of the product. (Note that changes
+							to or re-confirmation of individual accessibility features, standards conformance or
+							certification may be highlighted with a timestamp attribute on the relevant repeat of
+							&lt;ProductFormFeature&gt;). </td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/91">List 196; Code 91</a>: Latest accessibility
+							assessment date </td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: &lt;ProductFormFeatureDescription&gt; carries the URL of a web page giving a short
+							description of compatibility testing carried out for this product, including detailed
+							compatibility with various assistive technology such as third-party screen-reading software.
+							See also code 00 for a summary of the accessibility features of the product itself </td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/97">List 196; Code 97</a>: Compatibility tested </td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: &lt;ProductFormFeatureDescription&gt; carries the e-mail address for a contact at a
+							‘trusted intermediary’, to whom detailed questions about accessibility for this product may
+							be directed</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/98">List 196; Code 98</a>: Trusted Intermediary
+							contact </td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>ONIX: &lt;ProductFormFeatureDescription&gt; carries the e-mail address for a contact at the
+							publisher to whom detailed questions about accessibility of this product may be
+							directed</td>
+						<td>(no equivalent)</td>
+						<td><a href="https://ns.editeur.org/onix/en/196/99">List 196; Code 99</a>: Publisher contact for
+							further accessibility information </td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			</section><section id="accessibilityhazard"><div class="header-wrapper"><h3 id="x5-2-accessibilityhazard"><bdi class="secno">5.2 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityHazard">accessibilityHazard</a>
+			</h3><a class="self-link" href="#accessibilityhazard" aria-label="Permalink for Section 5.2"></a></div>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">Schema.org</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">Schema.org in MARC 21</th>
+						<th scope="col">ONIX to Schema in MARC 21</th>
+						<th scope="col">ONIX in MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+
+				<tbody> 
+				</tbody><tbody>
+					
+					<tr>
+						<td>Indicates that the resource presents a flashing hazard for photosensitive persons. This
+							value should be set when the content meets the hazard thresholds described in <a href="https://www.w3.org/TR/WCAG21/#three-flashes-or-below-threshold">Success Criterion
+								2.3.1 Three Flashes or Below Threshold</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2" title="Web Content Accessibility Guidelines (WCAG) 2">wcag2</a></cite>]. 
+						</td><td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#flashing">flashing</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/13">List 143; Code 13</a>: WARNING - Flashing
+								hazard</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>The resource presents a flashing hazard for photosensitive
+							persons.</td>
+						<td>(no equivalent)</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource does not present a flashing hazard. This value should be set
+							when the content conforms to <a href="https://www.w3.org/TR/WCAG21/#three-flashes-or-below-threshold">Success Criterion
+								2.3.1 Three Flashes or Below Threshold</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2" title="Web Content Accessibility Guidelines (WCAG) 2">wcag2</a></cite>]. 
+						</td><td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#noFlashingHazard">noFlashingHazard</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/14">List 143; Code 14</a>: No flashing hazard
+								warning necessary</p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>This resource does not present a flashing hazard.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Indicates that it is unknown if any flashing hazards exist within the content.</p>
+							<p>The <i>unknownFlashingHazard</i> value must not be set when either of the <i>flashing</i>
+								or <i>noFlashingHazard</i> values is set.</p>
+							<p>It should not be set when the <i>none</i> value is set.</p>
+							<p>It should not be set when the <i>unknown</i> value is set.</p>
+
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#unknownFlashingHazard">
+									<code>unknownFlashingHazard</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/24">List 143; Code 24</a>: Flashing risk
+								unknown</p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					
+					<tr>
+						<td>Indicates that the resource contains instances of motion simulation that may affect some
+							individuals. Some examples of motion simulation include video games with a first-person
+							perspective and CSS-controlled backgrounds that move when a user scrolls a page. </td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#motionSimulation">motionSimulation</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/17">List 143; Code 17</a>: WARNING - Motion
+								simulation hazard</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Contains instances of motion simulation that may affect some
+							individuals.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i17$2onix143</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource does not contain instances of motion simulation.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#noMotionSimulationHazard">noMotionSimulationHazard</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/18">List 143; Code 18</a>: No motion
+								simulation hazard warning necessary</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>This resource does not contain instances of motion simulation.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Indicates that it is unknown if any motion simulation hazards exist within the
+								content.</p>
+							<p>The <i>unknownMotionSimulation</i> value must not be set when either of the
+									<i>motionSimulation</i> or <i>noMotionSimulationHazard</i> values is set.</p>
+							<p>It should not be set when the <i>none</i> value is set.</p>
+							<p>It should not be set when the <i>unknown</i> value is set.</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#unknownMotionSimulationHazard">
+									<code>unknownMotionSimulationHazard</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/26">List 143; Code 26</a>: Motion simulation
+								unknown</p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					
+					<tr>
+						<td>Indicates that the resource contains auditory sounds that may affect some individuals.
+								<em>Editor's note: The application of this value is currently under discussion as its
+								application is underspecified.</em></td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#sound">sound</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/15">List 143; Code 15</a>: WARNING - Sound
+								hazard <a href="https://ns.editeur.org/onix/en/175/A310">List 175; Code A310</a>: Sound
+								effects Incidental sounds added to the audiobook narration (eg background environmental
+								sounds). (may not correspond to a hazard)</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>Contains auditory sounds that may affect some individuals.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $iA310$2onix175</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource does not contain auditory hazards. <em>Editor's note: The
+								application of this value is currently under discussion as its application is
+								underspecified.</em></td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#noSoundHazard">noSoundHazard</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/16">List 143; Code 16</a>: No sound hazard
+								warning necessary</p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>This resource does not contain auditory hazards.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Indicates that it is unknown if any auditory hazards exist within the content.</p>
+							<p>The <i>unknownSoundHazard</i> value must not be set when either of the <i>sound</i> or
+									<i>noSoundHazard</i> values is set.</p>
+							<p>It should not be set when the <i>none</i> value is set.</p>
+							<p>It should not be set when the <i>unknown</i> value is set.</p>
+						</td>
+						<td>
+							<p>
+								<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#unknownSoundHazard">
+									<code>unknownSoundHazard</code>
+								</a>
+							</p>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/25">List 143; Code 25</a>: Sound risk
+								unknown</p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+
+					<tr>
+						<td>Indicates that the resource does not contain any hazards.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#hazard-none">none</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/143/00">List 143; Code 00</a>: No known hazards
+								or warnings</p>
+						</td>
+						<td>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that it is unknown if any hazards exist within the content.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#unknown">unknown</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>This resource has not been evaluated for hazard risks.</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+				</tbody>
+			</table>
+
+			</section><section id="accessmode"><div class="header-wrapper"><h3 id="x5-3-accessmode"><bdi class="secno">5.3 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessMode">accessMode</a>
+			</h3><a class="self-link" href="#accessmode" aria-label="Permalink for Section 5.3"></a></div>
+			<blockquote>The human sensory perceptual system or cognitive faculty through which a person may process or
+				perceive information.</blockquote>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">Schema.org</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">Schema.org in MARC 21</th>
+						<th scope="col">ONIX to Schema in MARC 21</th>
+						<th scope="col">ONIX in MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Indicates that the resource contains information encoded in auditory form. <em>Note: This
+								value is not set when the auditory content conveys no information. For example, an
+								instructional video might include background music while all the necessary information
+								to complete the task is conveyed visually and/or through text captions.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#auditory">auditory</a>
+						</td>
+						<td>
+							<p>Use the most relevant ones and use 01 if unsure</p>
+							<ul>
+								<li><a href="https://ns.editeur.org/onix/en/81/01">List 81; Code 01</a>: Audiobook (for
+									any audio recording of a reading of a book or other text)</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/02">List 81; Code 02</a>: Performance -
+									spoken word</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/03">List 81; Code 03</a>: Music
+									recording</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/04">List 81; Code 04</a>: Other
+									audio</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/06">List 81; Code 06</a>: Video</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/13">List 81; Code 13</a>: Other speech
+									content</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/21">List 81; Code 21</a>: Partial
+									performance - spoken word</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/22">List 81; Code 22</a>: Additional
+									audio content not part of main content</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/23">List 81; Code 23</a>: Promotional
+									audio for other book product</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/25">List 81; Code 25</a>: Narrative
+									animation</li>
+							</ul>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>auditory<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains charts encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#chartOnVisual">chartOnVisual</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/81/19">List 81; Code 19</a>: Figures, Diagrams,
+							Charts</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>chartOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								charts encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i19$2onix81</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains chemical equations encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#chemOnVisual">chemOnVisual</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/81/47">List 81; Code 47</a>: Chemical content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>chemOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								chemical equations encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td id="color-dependent">
+							<p>Indicates that the resource contains information encoded such that color perception is
+								necessary.</p>
+							<p>See related value <a href="#use-of-color">Use of Color.</a></p>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#colorDependent">colorDependent</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 2# <b>$a</b>The resource contains information encoded in such that color
+							perception is necessary. </td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains diagrams encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#diagramOnVisual">diagramOnVisual</a>
+						</td>
+						<td><a href="https://ns.editeur.org/onix/en/81/19">List 81; Code 19</a>: Figures, Diagrams,
+							Charts</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>diagramOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0#<b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								diagrams encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i19$2onix81</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains mathematical notations encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#mathOnVisual">mathOnVisual</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/81/48">List 81; Code 48</a>: Mathematical
+								content</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>mathOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								mathematical notations encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains musical notation encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#musicOnVisual">musicOnVisual</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/81/11">List 81; Code 11</a>: Musical notation</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+							<p>/</p>
+							<p>
+								<b>532</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>musicOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								musical notations encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains information encoded in tactile form. Note that although
+							an indication of a tactile mode often indicates the content is encoded using a braille
+							system, this is not always the case. Tactile perception may also indicate, for example, the
+							use of tactile graphics to convey information.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#tactile">tactile</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>tactile<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains text encoded in visual form.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#textOnVisual">textOnVisual</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/81/49">List 81; Code 49</a>: Images of text</p>
+						</td>
+						<td>
+							<p>
+								<b>341</b>
+							</p>
+						</td>
+						<td>
+							<p><b>341</b> 0# <b>$a</b>textOnVisual<b>$2</b>sapdv</p>
+							<p>or</p>
+							<p><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv and <b>532</b> 8# <b>$a</b>Resource contains
+								text encoded in visual form.</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains information encoded as text character data. <em>Note:
+								This value is not set if the only textual content is for navigational purposes. For
+								example, an audiobook might include a table of contents, but it is not necessary to read
+								the table of contents to read the work. Likewise, books with synchronized text-audio
+								playback may only include headings to allow structured navigation.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#textual">textual</a>
+						</td>
+						<td>
+							<ul>
+								<li><a href="https://ns.editeur.org/onix/en/81/10">List 81; Code 10</a> Text: (this is
+									text as text)</li>
+								<li>
+									<a href="https://ns.editeur.org/onix/en/81/16">List 81; Code 16</a> Additional text
+									not part of main content</li>
+								<li>
+									<a href="https://ns.editeur.org/onix/en/81/17">List 81; Code 17</a> Promotional text
+									for other book product</li>
+								<li>
+									<a href="https://ns.editeur.org/onix/en/81/45">List 81; Code 45</a> Text within
+									images</li>
+							</ul>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>textual<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains information encoded in visual form. <em>Note: This
+								value is not set if the only visual imagery is presentational or not directly relevant
+								to understanding the content. Examples of this type of imagery include cover images for
+								publications, corporate logos, and purely decorative images.</em>
+						</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#visual">visual</a>
+						</td>
+						<td>
+							<p>Use the most relevant code</p>
+							<ul>
+								<li><a href="https://ns.editeur.org/onix/en/81/06">List 81; Code 06</a>: Video</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/07">List 81; Code 07</a>: Still images /
+									graphics</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/12">List 81; Code 12</a>: Maps and/or
+									other cartographic content</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/18">List 81; Code 18</a>: Photographs, or </li>
+								<li><a href="https://ns.editeur.org/onix/en/81/19">List 81; Code 19</a>: Figures,
+									diagrams, charts, graphs</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/20">List 81; Code 20</a>: Additional
+									images / graphics not part of main work</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/24">List 81; Code 24</a>: Animated /
+									interactive illustrations</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/25">List 81; Code 25</a>: Narrative
+									animation</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/26">List 81; Code 26</a>: Video recording
+									of a reading</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/27">List 81; Code 27</a>: Performance -
+									visual</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/28">List 81; Code 28</a>: Other
+									video</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/44">List 81; Code 44</a>: Sequential
+									art</li>
+								<li><a href="https://ns.editeur.org/onix/en/81/50">List 81; Code 50</a>: Video content
+									without audio</li>
+							</ul>
+						</td>
+						<td>
+							<b>341</b>
+						</td>
+						<td><b>341</b> 0# <b>$a</b>visual<b>$2</b>sapdv</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>231 $i07$2onix81</td>
+					</tr>
+			</tbody></table>
+
+			</section><section id="accessmodesufficient"><div class="header-wrapper"><h3 id="x5-4-accessmodesufficient"><bdi class="secno">5.4 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessModeSufficient">accessModeSufficient</a>
+			</h3><a class="self-link" href="#accessmodesufficient" aria-label="Permalink for Section 5.4"></a></div>
+			<blockquote cite="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessModeSufficient">A list of single
+				or combined accessModes that are sufficient to understand all the intellectual content of a
+				resource.</blockquote>
+			<p>ONIX crosswalks are for instances where accessModeSufficient includes this vocabulary entry alone;
+				combinations may occur but are more difficult to crosswalk</p>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">Schema.org</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fields</th>
+						<th scope="col">Schema.org in MARC 21</th>
+						<th scope="col">ONIX to Schema in MARC 21</th>
+						<th scope="col">ONIX in MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Indicates that auditory perception is necessary to consume the information.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ams-auditory">auditory</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/51">List 196; Code 51</a>: All non-decorative
+								content supports reading via pre-recorded audio</p>
+							<p>or</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/01">List 81; Code 01</a>: Audiobook</p>
+							<p>or both combined</p>
+							<p><a href="https://ns.editeur.org/onix/en/196/51">List 196; Code 51</a>: All non-decorative
+								content supports reading via pre-recorded audio</p>
+							<p>and</p>
+							<p><a href="https://ns.editeur.org/onix/en/81/01">List 81; Code 01</a>: Audiobook</p>
+
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td> 181 #0 $cspw$2rdacontent (may correspond only to human narration)</td>
+					</tr>
+					<tr>
+						<td>Indicates that tactile perception is necessary to consume the information.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ams-tactile">tactile</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains information encoded in textual form. <em>Note: This
+								value is not set if the only textual content is for navigational purposes.</em></td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#textual">textual</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/52">List 196; Code 52</a>: All non-decorative
+								content supports reading without sight</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that the resource contains some information encoded in textual form, but that
+							visual perception is necessary to consume other parts of the resource.</td>
+						<td>
+							<p><a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#textual">textual</a>, <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ams-visual">visual</a>
+							</p>
+							<p>or</p>
+							<p><a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ams-visual">visual</a>, <a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#textual">textual</a>
+							</p>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+					<tr>
+						<td>Indicates that visual perception is necessary to consume the information.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#ams-visual">visual</a>
+						</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+						<td>(no equivalent)</td>
+					</tr>
+				</tbody>
+			</table>
+
+			</section><section id="accessibilitysummary"><div class="header-wrapper"><h3 id="x5-5-accessibilitysummary"><bdi class="secno">5.5 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilitySummary">accessibilitySummary</a>
+			</h3><a class="self-link" href="#accessibilitysummary" aria-label="Permalink for Section 5.5"></a></div>
+			<blockquote>A human-readable summary of specific accessibility features or deficiencies, consistent with the
+				other accessibility metadata but expressing subtleties such as "short descriptions are present but long
+				descriptions will be needed for non-visual users" or "short descriptions are present and no long
+				descriptions are needed." </blockquote>
+			<table class="zebra">
+				<thead>
+					<tr>
+						<th scope="col">Definition</th>
+						<th scope="col">Schema.org</th>
+						<th scope="col">ONIX</th>
+						<th scope="col">MARC 21 Fiels</th>
+						<th scope="col">Schema.org in MARC 21</th>
+						<th scope="col">ONIX to Schema in MARC 21</th>
+						<th scope="col">ONIX in MARC 21 using ONIX Codes*</th>
+						<th scope="col">UNIMARC</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>The accessibilitySummary property is a free-form field that allows authors to describe the
+							accessible properties of the resource. As a result, it does not have an associated
+							vocabulary.</td>
+						<td>
+							<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilitySummary">accessibilitySummary</a>
+						</td>
+						<td>
+							<p><a href="https://ns.editeur.org/onix/en/196/00">List 196; Code 00</a>: Accessibility
+								Summary - contains a short explanatory summary of the accessibility of the product. Used
+								when the summary includes information also conveyed using other ONIX codes. </p>
+							<p>Additionally</p>
+							<p>
+								<a href="https://ns.editeur.org/onix/en/196/92">List 196; Code 92</a>: Accessibility
+								Addendum - contains a short addendum to the accessibility detail of the product. Used
+								when the summary is for information not conveyed with other ONIX codes. </p>
+						</td>
+						<td>
+							<b>532</b>
+						</td>
+						<td><b>532</b> 8# <b>$a</b>[Text]</td>
+						<td>(no equivalent)</td>
+						<td>*Awaiting clarification on recording ONIX codes in MARC 21</td>
+						<td> 231 $i00$2onix196</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+
+			
+			</section><section id="accessibilityapi"><div class="header-wrapper"><h3 id="x5-6-accessibilityapi"><bdi class="secno">5.6 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityAPI">accessibilityAPI</a>
+			</h3><a class="self-link" href="#accessibilityapi" aria-label="Permalink for Section 5.6"></a></div>
+
+			<p>The metadata field accessibilityAPI does not apply to digital publications directly but rather to reading
+				system software. We do not include it in this crosswalk. </p>
+
+			
+			</section><section id="accessibilitycontrol"><div class="header-wrapper"><h3 id="x5-7-accessibilitycontrol"><bdi class="secno">5.7 </bdi>
+				<a href="https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityControl">accessibilityControl</a>
+			</h3><a class="self-link" href="#accessibilitycontrol" aria-label="Permalink for Section 5.7"></a></div>
+			<p>The metadata field accessibilityControl does not apply to digital publications directly but rather to
+				reading system software. We do not include it in this crosswalk.</p>
+
+		</section></section>
+
+		<section id="acknowledgements"><div class="header-wrapper"><h2 id="x6-acknowledgements"><bdi class="secno">6. </bdi>Acknowledgements</h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Section 6."></a></div>
+			
+			<p>The editors would like to thank Christopher Saynor (Editeur), and Christopher Carr (Concordia University)
+				for their invaluable contributions to this document.</p>
+		</section>
+	
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="informative-references"><div class="header-wrapper"><h3 id="a-1-informative-references"><bdi class="secno">A.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-css-speech-1">[css-speech-1]</dt><dd>
+      <a href="https://www.w3.org/TR/css-speech-1/"><cite>CSS Speech Module Level 1</cite></a>. Léonie Watson; Elika Etemad.  W3C. 14 February 2023. CRD. URL: <a href="https://www.w3.org/TR/css-speech-1/">https://www.w3.org/TR/css-speech-1/</a>
+    </dd><dt id="bib-css-writing-modes-3">[css-writing-modes-3]</dt><dd>
+      <a href="https://www.w3.org/TR/css-writing-modes-3/"><cite>CSS Writing Modes Level 3</cite></a>. Elika Etemad; Koji Ishii.  W3C. 10 December 2019. W3C Recommendation. URL: <a href="https://www.w3.org/TR/css-writing-modes-3/">https://www.w3.org/TR/css-writing-modes-3/</a>
+    </dd><dt id="bib-dpub-aria">[dpub-aria]</dt><dd>
+      <a href="https://www.w3.org/TR/dpub-aria/"><cite>Digital Publishing WAI-ARIA Module</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/dpub-aria/">https://www.w3.org/TR/dpub-aria/</a>
+    </dd><dt id="bib-epub-3">[epub-3]</dt><dd>
+      <a href="https://www.w3.org/TR/epub/"><cite>EPUB 3</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/epub/">https://www.w3.org/TR/epub/</a>
+    </dd><dt id="bib-epub-a11y">[epub-a11y]</dt><dd>
+      <a href="https://www.w3.org/TR/epub-a11y/"><cite>EPUB Accessibility</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/epub-a11y/">https://www.w3.org/TR/epub-a11y/</a>
+    </dd><dt id="bib-html">[html]</dt><dd>
+      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+    </dd><dt id="bib-jlreq">[jlreq]</dt><dd>
+      <a href="https://www.w3.org/TR/jlreq/"><cite>Requirements for Japanese Text Layout 日本語組版処理の要件(日本語版)</cite></a>. Hiroyuki Chiba; Junzaburo Edamoto; Richard Ishida; Seiichi Kato; Tatsuo KOBAYASHI; Toshi Kobayashi; Nathaniel McCully; Felix Sasaki; Atsushi Shimono; Hajime Shiozawa; Fuqiao Xue et al.  W3C. 11 August 2020. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/jlreq/">https://www.w3.org/TR/jlreq/</a>
+    </dd><dt id="bib-mathml3">[mathml3]</dt><dd>
+      <a href="https://www.w3.org/TR/MathML3/"><cite>Mathematical Markup Language (MathML) Version 3.0 2nd Edition</cite></a>. David Carlisle; Patrick D F Ion; Robert R Miner.  W3C. 10 April 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/MathML3/">https://www.w3.org/TR/MathML3/</a>
+    </dd><dt id="bib-onix">[onix]</dt><dd>
+      <a href="https://www.editeur.org/83/Overview/"><cite>ONIX for Books 3</cite></a>. URL: <a href="https://www.editeur.org/83/Overview/">https://www.editeur.org/83/Overview/</a>
+    </dd><dt id="bib-pronunciation-lexicon">[pronunciation-lexicon]</dt><dd>
+      <a href="https://www.w3.org/TR/pronunciation-lexicon/"><cite>Pronunciation Lexicon Specification (PLS) Version 1.0</cite></a>. Paolo Baggia.  W3C. 14 October 2008. W3C Recommendation. URL: <a href="https://www.w3.org/TR/pronunciation-lexicon/">https://www.w3.org/TR/pronunciation-lexicon/</a>
+    </dd><dt id="bib-ssml">[ssml]</dt><dd>
+      <a href="https://www.w3.org/TR/speech-synthesis11/"><cite>Speech Synthesis Markup Language (SSML) Version 1.1</cite></a>. Daniel Burnett; Zhi Wei Shuang.  W3C. 7 September 2010. W3C Recommendation. URL: <a href="https://www.w3.org/TR/speech-synthesis11/">https://www.w3.org/TR/speech-synthesis11/</a>
+    </dd><dt id="bib-wai-aria">[wai-aria]</dt><dd>
+      <a href="https://www.w3.org/TR/wai-aria/"><cite>Accessible Rich Internet Applications (WAI-ARIA)</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/wai-aria/">https://www.w3.org/TR/wai-aria/</a>
+    </dd><dt id="bib-wcag2">[wcag2]</dt><dd>
+      <a href="https://www.w3.org/TR/WCAG2/"><cite>Web Content Accessibility Guidelines (WCAG) 2</cite></a>.  W3C. URL: <a href="https://www.w3.org/TR/WCAG2/">https://www.w3.org/TR/WCAG2/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
+// @ts-check
+
+if (document.respec) {
+  document.respec.ready.then(setupVarHighlighter);
+} else {
+  setupVarHighlighter();
+}
+
+function setupVarHighlighter() {
+  document
+    .querySelectorAll("var")
+    .forEach(varElem => varElem.addEventListener("click", highlightListener));
+}
+
+function highlightListener(ev) {
+  ev.stopPropagation();
+  const { target: varElem } = ev;
+  const hightligtedElems = highlightVars(varElem);
+  const resetListener = () => {
+    const hlColor = getHighlightColor(varElem);
+    hightligtedElems.forEach(el => removeHighlight(el, hlColor));
+    [...HL_COLORS.keys()].forEach(key => HL_COLORS.set(key, true));
+  };
+  if (hightligtedElems.length) {
+    document.body.addEventListener("click", resetListener, { once: true });
+  }
+}
+
+// availability of highlight colors. colors from var.css
+const HL_COLORS = new Map([
+  ["respec-hl-c1", true],
+  ["respec-hl-c2", true],
+  ["respec-hl-c3", true],
+  ["respec-hl-c4", true],
+  ["respec-hl-c5", true],
+  ["respec-hl-c6", true],
+  ["respec-hl-c7", true],
+]);
+
+function getHighlightColor(target) {
+  // return current colors if applicable
+  const { value } = target.classList;
+  const re = /respec-hl-\w+/;
+  const activeClass = re.test(value) && value.match(re);
+  if (activeClass) return activeClass[0];
+
+  // first color preference
+  if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
+
+  // otherwise get some other available color
+  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+}
+
+function highlightVars(varElem) {
+  const textContent = norm(varElem.textContent);
+  const parent = varElem.closest(".algorithm, section");
+  const highlightColor = getHighlightColor(varElem);
+
+  const varsToHighlight = [...parent.querySelectorAll("var")].filter(
+    el =>
+      norm(el.textContent) === textContent &&
+      el.closest(".algorithm, section") === parent
+  );
+
+  // update availability of highlight color
+  const colorStatus = varsToHighlight[0].classList.contains("respec-hl");
+  HL_COLORS.set(highlightColor, colorStatus);
+
+  // highlight vars
+  if (colorStatus) {
+    varsToHighlight.forEach(el => removeHighlight(el, highlightColor));
+    return [];
+  } else {
+    varsToHighlight.forEach(el => addHighlight(el, highlightColor));
+  }
+  return varsToHighlight;
+}
+
+function removeHighlight(el, highlightColor) {
+  el.classList.remove("respec-hl", highlightColor);
+  // clean up empty class attributes so they don't come in export
+  if (!el.classList.length) el.removeAttribute("class");
+}
+
+function addHighlight(elem, highlightColor) {
+  elem.classList.add("respec-hl", highlightColor);
+}
+
+/**
+ * Same as `norm` from src/core/utils, but our build process doesn't allow
+ * imports in runtime scripts, so duplicated here.
+ * @param {string} str
+ */
+function norm(str) {
+  return str.trim().replace(/\s+/g, " ");
+}
+})()</script><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>

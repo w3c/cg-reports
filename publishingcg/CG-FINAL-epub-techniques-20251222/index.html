@@ -185,7 +185,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "specStatus": "CG-FINAL",
   "noRecTrack": true,
   "latestVersion": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/epub/",
-  "edDraftURI": "https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/epub-metadata/",
+  "edDraftURI": "https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/epub/",
   "canonicalURI": "https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/epub/",
   "editors": [
     {
@@ -226,7 +226,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <dt>Latest published version:</dt><dd>
               <a href="https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/epub/">https://www.w3.org/publishing/a11y/metadata-display-guide/techniques/epub/</a>
             </dd>
-      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/epub-metadata/">https://w3c.github.io/publ-a11y/a11y-meta-display-guide/2.1/draft/techniques/epub-metadata/</a></dd>
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/epub/">https://w3c.github.io/publ-a11y/metadata-display-guide/techniques/epub/</a></dd>
       
       
       
@@ -404,7 +404,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 						ID.</p>
 
 					<div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="5"><span>Note</span></div><div class=""> The canonical English JSON file containing the compact and descriptive strings is
-							available at <a href="https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/">https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/</a>.
+						available at <a href="https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/">https://github.com/w3c/publ-a11y-display-guide-localizations/tree/main/lang/en-US/</a>.
 					</div></div>
 				</section>
 			</section>
@@ -1078,7 +1078,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 					</dd>
 					<dt><var>full_alternative_textual_descriptions</var></dt>
 					<dd>
-						<p>If true, it indicates that <i>accessibilityFeature="longDescriptions"</i> is present in the package document.</p>
+						<p>If true, it indicates that <i>accessibilityFeature="longDescription"</i> is present in the package document.</p>
 						<p>This means that there is a positive indication that a full alternative textual description has been supplied for all of the graphs, charts, diagrams, or figures necessary to understand the content.</p>
 					</dd>
 
@@ -1129,7 +1129,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 
 					<li><b>LET</b>
 						<var>full_alternative_textual_descriptions</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>package_document</var>, <code class="xpath">/package/metadata/meta[@property="schema:<i>accessibilityFeature</i>" and
-								normalize-space()="<i>longDescriptions</i>"]</code>.</li>
+								normalize-space()="<i>longDescription</i>"]</code>.</li>
 
 					<li><b>LET</b> <var>math_formula_as_latex</var> be the result of calling <a href="#check-for-node">check for node</a> on <var>package_document</var>, <code class="xpath">/package/metadata/meta[@property="schema:<i>accessibilityFeature</i>" and normalize-space()="<i>latex</i>"]</code>.</li>
 
@@ -1474,7 +1474,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 
 			<section id="legal-considerations"><div class="header-wrapper"><h3 id="x3-7-legal-considerations"><bdi class="secno">3.7 </bdi>Legal considerations</h3><a class="self-link" href="#legal-considerations" aria-label="Permalink for Section 3.7"></a></div>
 				
-				<div class="issue" id="issue-container-number-350"><div role="heading" class="issue-title marker" id="h-issue" aria-level="4"><a href="https://github.com/w3c/publ-a11y/issues/350"><span class="issue-number">Issue 350</span></a><span class="issue-label">: Feedback requested on exceptions and exemptions from publishers <a class="respec-gh-label" href="https://github.com/w3c/publ-a11y/issues/?q=is%3Aissue+is%3Aopen+label%3A%22a11y-display-guide%22" style="background-color: rgb(34, 73, 175); color: rgb(255, 255, 255);" aria-label="GitHub label: a11y-display-guide">a11y-display-guide</a></span></div><div class="">We are actively seeking comments on this "legal consideration"
+				<div class="issue" id="issue-container-number-350"><div role="heading" class="issue-title marker" id="h-issue" aria-level="4"><a href="https://github.com/w3c/publ-a11y/issues/350"><span class="issue-number">Issue 350</span></a><span class="issue-label">: Feedback requested on exceptions and exemptions from publishers <a class="respec-gh-label" href="https://github.com/w3c/publ-a11y/issues/?q=is%3Aissue+is%3Aopen+label%3A%22metadata-display-guide%22" style="background-color: rgb(34, 73, 175); color: rgb(255, 255, 255);" aria-label="GitHub label: metadata-display-guide">metadata-display-guide</a></span></div><div class="">We are actively seeking comments on this "legal consideration"
 					section. If you are a publisher, we want your feedback! Please visit the GitHub Issue tracking
 					linked above to leave a comment.</div></div>
 
@@ -1710,6 +1710,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 						Final Draft of the Display Techniques for EPUB Accessibility Metadata 2.0</a></summary>
 				
 				<ul>
+					<li>11-Sep-2025: Introduced placeholders for the following strings (ID in parentheses): conformance
+						certifier (conformance-certifier), certifier's credential (conformance-certifier-credentials),
+						conformance claim (conformance-details-claim), and certification date
+						(conformance-details-certification-info). Refer to <a href="https://github.com/w3c/publ-a11y/issues/688">issue 688</a> and <a href="https://github.com/w3c/publ-a11y/pull/741">pull request 741</a>.</li>
 					<li>13-May-2025: Fixed the xpath for the <code>certification_date</code> variable so that it
 						checks it is attached to the evaluator and not directly to the conformance statement. See
 						<a href="https://github.com/w3c/publ-a11y/issues/715">issue 715</a>.</li>
@@ -1758,7 +1762,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="informative-references"><div class="header-wrapper"><h3 id="b-1-informative-references"><bdi class="secno">B.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-epub-33">[EPUB-33]</dt><dd>
-      <a href="https://www.w3.org/TR/epub-33/"><cite>EPUB 3.3</cite></a>. Ivan Herman; Matt Garrish; Dave Cramer.  W3C. 27 March 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/epub-33/">https://www.w3.org/TR/epub-33/</a>
+      <a href="https://www.w3.org/TR/epub-33/"><cite>EPUB 3.3</cite></a>. Ivan Herman; Matt Garrish; Dave Cramer.  W3C. 13 January 2026. W3C Recommendation. URL: <a href="https://www.w3.org/TR/epub-33/">https://www.w3.org/TR/epub-33/</a>
     </dd><dt id="bib-epub-a11y-11">[epub-a11y-11]</dt><dd>
       <a href="https://www.w3.org/TR/epub-a11y-11/"><cite>EPUB Accessibility 1.1</cite></a>. George Kerscher; Matt Garrish; Charles LaPierre; Avneesh Singh; Gregorio Pellegrino.  W3C. 17 October 2024. W3C Recommendation. URL: <a href="https://www.w3.org/TR/epub-a11y-11/">https://www.w3.org/TR/epub-a11y-11/</a>
     </dd><dt id="bib-xpath-10">[xpath-10]</dt><dd>
