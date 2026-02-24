@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>IIFAA Decentralized Trusted Authentication Technical Specification — Part 2: Identity Protocol and Interaction Framework</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" async class="remove"></script>
+  <script class="remove">
+    var respecConfig = {
+      specStatus: "base",
+      shortName: "iifaa-4002",
+      editors: [
+        { name: "Wang Yongtao", company: "Ant Group Co., Ltd." },
+        { name: "Zhang Wu", company: "Ant Group Co., Ltd." },
+        { name: "Sun Weichao", company: "Ant Group Co., Ltd." },
+        { name: "Peng Jin", company: "Ant Group Co., Ltd." },
+        { name: "Lin Guanchen", company: "Ant Group Co., Ltd." },
+        { name: "Huang Lin", company: "Ant Group Co., Ltd." },
+        { name: "Wu Sijie", company: "Ant Group Co., Ltd." },
+        { name: "Yan Dong", company: "Ant Group Co., Ltd." },
+        { name: "Lyu Lei", company: "National Engineering Research Center for Cryptography Technology" },
+        { name: "Fu Shan", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Wei Fanxing", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Xu Jinliang", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Yang Bo", company: "National FinTech Evaluation Center" },
+        { name: "Yi Qiang", company: "Huawei Technologies Co., Ltd." },
+        { name: "Zhao Xiaona", company: "Honor Device Co., Ltd." },
+        { name: "Li Zhichao", company: "Honor Device Co., Ltd." },
+        { name: "Li Gen", company: "OPPO Guangdong Mobile Communications Co., Ltd." },
+        { name: "Guo Yanhong", company: "CM Financial Technology Co., Ltd." },
+        { name: "Wang Bin", company: "Samsung R&D Institute China-Beijing" },
+        { name: "Ping Zhenghai", company: "ZTE Corporation Limited" },
+        { name: "Wang Zhitao", company: "Shanghai Electronic Certificate Authority Center Co., Ltd." },
+        { name: "Lu Ruyi", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Zhang Shengyi", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Wang Jun", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Zhu Pengfei", company: "Feitian Technologies Co., Ltd." },
+        { name: "Lyu Fang", company: "Client Service International Inc." },
+        { name: "Meng Ru", company: "Koal Software Co., Ltd." },
+        { name: "Liu Weihua", company: "Zhengzhou Xindajiean Information Technology Co., Ltd." }
+      ],
+      publishDate: "2025-09-11",
+      edDraftURI: null,
+      license: "w3c-software-doc",
+      wg: "International Internet Finance Authentication Alliance (IIFAA)",
+      wgURI: "https://www.iifaa.org",
+      maxTocLevel: 3,
+      otherLinks: [{
+        key: "Standard Number",
+        data: [{ value: "T/IIFAA 4002—2025" }]
+      }]
+    };
+  </script>
+  <style>
+    .example pre {
+      white-space: pre-wrap;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 0.5em;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    figure {
+      text-align: center;
+      margin: 2em 0;
+    }
+    figcaption {
+      font-style: italic;
+      margin-top: 0.5em;
+    }  
+    body > section:not(#abstract):not(#sotd):not(#toc) {
+      margin-top: 1.5em !important;
+      margin-bottom: 1.5em !important;
+    }
+    section > section {
+      margin-top: 1em !important;
+      margin-bottom: 1em !important;
+    }
+    h2, h3, h4, h5 {
+      margin-top: 1.2em !important;
+      margin-bottom: 0.6em !important;
+    }
+    table, pre.example {
+      margin-top: 0.8em !important;
+      margin-bottom: 0.8em !important;
+    }
+  </style>
+</head>
+<body>
+
+<section id="abstract">
+  <p>This document establishes the identity protocol and interaction flow for IIFAA decentralized authentication. It applies to R&amp;D design, deployment, testing, and certification activities related to IIFAA decentralized authentication.</p>
+</section>
+
+<section id="sotd">
+  <p>This document is drafted in accordance with the provisions given in GB/T 1.1-2020 <em>Directives for Standardization — Part 1: Rules for the Structure and Drafting of Standardizing Documents</em>.</p>
+  <p>This document is proposed by and is under the centralized management of the International Internet Finance Authentication Alliance (IIFAA).</p>
+  <p><strong>Drafting organizations of this document:</strong> Ant Group Co., Ltd., National Engineering Research Center for Cryptography Technology, China Academy of Information and Communications Technology (CAICT), National FinTech Evaluation Center, Huawei Technologies Co., Ltd., Honor Device Co., Ltd., OPPO Guangdong Mobile Communications Co., Ltd., CM Financial Technology Co., Ltd., Samsung R&D Institute China-Beijing, ZTE Corporation Limited, Shanghai Electronic Certificate Authority Center Co., Ltd., Beijing eSand Information Technology Co., Ltd., Feitian Technologies Co., Ltd., Client Service International Inc., Koal Software Co., Ltd., Zhengzhou Xindajiean Information Technology Co., Ltd.</p>
+</section>
+
+<section id="scope">
+  <h2>Scope</h2>
+  <p>This document establishes the identity protocol and interaction flow for IIFAA decentralized authentication.</p>
+  <p>This document applies to the IIFAA decentralized authentication R&amp;D design, deployment application, and test and authentication activities.</p>
+</section>
+
+<section id="normative-references">
+  <h2>Normative References</h2>
+  <p>The following documents are referred to in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition (including any amendments) applies.</p>
+  <dl>
+    <dt id="ref-tiifaa4001">[T/IIFAA 4001-2024]</dt>
+    <dd><cite>IIFAA Decentralized Authentication Technical Specification — Part 1: Overall Architecture</cite></dd>
+  </dl>
+</section>
+
+<section id="terms-and-definitions">
+  <h2>Terms and Definitions</h2>
+  <p>For the purposes of this document, the following terms and definitions apply, as well as those defined in [T/IIFAA 4001-2024].</p>
+
+  <dl>
+    <dt>Decentralized Identifier (DID)</dt>
+    <dd>A new type of identifier that supports verifiable, decentralized digital identity.</dd>
+
+    <dt>DID Document</dt>
+    <dd>The identity document information of the user's DID on the blockchain, which is stored in a decentralized manner to ensure that it will not be tampered with. This document describes the encryption public key, verification method, decentralized identity protocol used, and service endpoint for the specific DID.</dd>
+
+    <dt>Verifiable Credentials (VC)</dt>
+    <dd>VC data issued by the issuer for a user's DID is securely stored on the user side and presented to the service provider in a verifiable way after being authorized (signed) by the user.</dd>
+
+    <dt>Verifiable Presentation (VP)</dt>
+    <dd>It refers to the data that allows the VC holder (i.e., user) to identify himself/herself to the verifier.</dd>
+
+    <dt>Decentralized Identity Asset Wallet</dt>
+    <dd>A decentralized identity asset management tool based on mobile applications provided by users. Decentralized identity asset wallets usually use the security chip on the user device side to store and encrypt the user's identity private key and related asset credential data to ensure that any key identity data will not be leaked. At the same time, they also use the biometric technology of mobile devices, such as fingerprint recognition or facial recognition, to provide a more convenient and secure decentralized identity authorization method. In this document, it is also referred to as the <em>wallet</em>.</dd>
+
+    <dt>Identity</dt>
+    <dd>A set of attributes associated with an entity.</dd>
+    <dd class="note" role="note">
+      <p>Note 1: An entity can have multiple identities.</p>
+      <p>Note 2: Several entities can have the same identity.</p>
+      <p>[Source: GB/T 25069-2022, 3.512]</p>
+    </dd>
+  </dl>
+</section>
+
+<section id="abbreviations">
+  <h2>Abbreviations</h2>
+  <p>The following abbreviations apply to this document.</p>
+  <dl>
+    <dt>DID</dt><dd>Decentralized Identifier</dd>
+    <dt>OEM</dt><dd>Original Equipment Manufacturer</dd>
+    <dt>REE</dt><dd>Rich Execution Environment</dd>
+    <dt>SE</dt><dd>Secure Element</dd>
+    <dt>TEE</dt><dd>Trusted Execution Environment</dd>
+    <dt>VC</dt><dd>Verifiable Credential</dd>
+    <dt>VP</dt><dd>Verifiable Presentation</dd>
+  </dl>
+</section>
+
+<section id="framework">
+  <h2>Identity Protocol and Device Function Interaction Framework</h2>
+  <p>The identity protocol and device function interaction framework is shown in <a href="#fig-framework">Figure 1</a>.</p>
+  <figure id="fig-framework">
+    <img alt="Placeholder for Identity Protocol and Device Function Interaction Framework diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-1.png" />
+    <figcaption>: Identity Protocol and Device Function Interaction Framework</figcaption>
+  </figure>
+  <p>The specific composition of each part is as follows:</p>
+  <ol>
+    <li><strong>Identity protocol</strong>: It describes the identity document (DID Document), verifiable credential, and verifiable presentation related to IIFAA decentralized trusted authentication, involving the roles of participants such as identity service providers, credential issuers, and application manufacturers.</li>
+    <li><strong>Device function interaction</strong>: It describes the relevant content of IIFAA decentralized trusted authentication in the application part, mainly including such function services as identity management and authorization, and credential management and presentation, involving the roles of participants such as application manufacturers and identity service providers (providing decentralized identity asset wallet services).</li>
+  </ol>
+</section>
+
+<section id="identity-protocol">
+  <h2>Identity Protocol</h2>
+
+  <section id="did-document">
+    <h3>DID Document</h3>
+    <section id="did-overview">
+      <h4>Overview</h4>
+      <p>The document describes the encryption materials, verification methods, decentralized identity protocols used, and service endpoints for a specific DID. Some examples of decentralized identity protocol data are shown in <a href="#appendix-a">Appendix A</a>.</p>
+    </section>
+    <section id="did-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 1: Attributes of DID Documents</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>DID ID</td><td>Required</td><td><code>did:iifaa:2UdYuZagBsinmdRogHNJwPc8QXA4PyXdYXcY1aDaB8wR</code></td></tr>
+          <tr><td>created</td><td>Creation time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>update</td><td>Update time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>status</td><td>Overall status of DID</td><td>Required</td><td><code>active</code></td></tr>
+          <tr><td>Verification Methods</td><td>See <a href="#verification-methods">6.4</a></td><td>Required</td><td>Refer to Appendix A for data sample</td></tr>
+          <tr><td>authentication</td><td>See <a href="#verification-methods">6.4</a></td><td>Optional</td><td>Refer to Appendix A for data sample</td></tr>
+          <tr><td>proof</td><td>See <a href="#proof">6.5</a></td><td>Required</td><td>Refer to Appendix A for data sample</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="verifiable-credentials">
+    <h3>Verifiable Credentials</h3>
+    <section id="vc-overview">
+      <h4>Overview</h4>
+      <p>Verifiable Credentials are VC data issued by the issuer for a user's DID identity. It is securely stored on the user side and presented to the service provider in a verifiable way after being authorized (signed) by the user.</p>
+    </section>
+    <section id="vc-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 2: Attributes of VCs</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>Unique identifier of VC</td><td>Required</td><td><code>did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035</code></td></tr>
+          <tr><td>type</td><td>VC type set, with the first type as the main type of the current VC, and the rest as subtypes, which can be customized by the application</td><td>Required</td><td><code>["Disable Credential Type", "Selective Disclosure Credential Type"]</code></td></tr>
+          <tr><td>issuer</td><td>DID of the issuer. Business service providers can query the issuer's public key on the blockchain through the issuer's DID to verify whether the VC is from a trusted source</td><td>Required</td><td><code>did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1</code></td></tr>
+          <tr><td>Issuance Date</td><td>Issuance date</td><td>Required</td><td><code>2023-04-24 15:19:15</code></td></tr>
+          <tr><td>expiration Date</td><td>Valid expiration date</td><td>Required</td><td><code>2033-04-24 15:19:15</code></td></tr>
+          <tr><td>credentialSubject.claims.subject</td><td>VC attribute data stored in the form of KV</td><td>Required</td><td><code>{"name": "Zhang San", "disableIdNum": "330133199903033333", "endValidDate": "2032-04-14", "level": "1", "type": "4"}</code></td></tr>
+          <tr><td>credentialSubject.claims.seed</td><td>Selectively disclosed seed information</td><td>Required</td><td><code>eaa02887e4834024b954fb7b0c063ae7</code></td></tr>
+          <tr><td>Credential Status</td><td>VC status, provided to the business service provider for verification to determine whether the VC has been revoked</td><td>Required</td><td><code>{"id": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0#26", "type": "StatusList2021", "statusPurpose": "revocation", "statusListIndex": "26", "statusListCredential": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0"}</code></td></tr>
+          <tr><td>proof</td><td>See <a href="#proof">6.5</a></td><td>Required</td><td>See Appendix A</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="verifiable-presentation">
+    <h3>Verifiable Presentation</h3>
+    <section id="vp-overview">
+      <h4>Overview</h4>
+      <p>Verifiable Presentation (VP) refers to the data that allows the VC holder (i.e., user) to identify himself/herself to the verifier.</p>
+    </section>
+    <section id="vp-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 3: Attributes of VP</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>Unique identifier of VC under the same issuer</td><td>Required</td><td><code>did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035</code></td></tr>
+          <tr><td>type</td><td>List of VC types, with the first type as the main type of the current VC, and the rest as subtypes, which can be customized by the application</td><td>Required</td><td><code>["VerifiablePresentation", "SelectiveDisclosurePresentation"]</code></td></tr>
+          <tr><td>created</td><td>Creation time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>Verifiable Credential</td><td>VCs have a set attribute that contains a list of VCs provided by the holder. Refer to VCs in <a href="#verifiable-credentials">6.2</a></td><td>Required</td><td>Refer to data samples of VCs in <a href="#verifiable-credentials">6.2</a></td></tr>
+          <tr><td>proof</td><td>Refer to the proof in <a href="#proof">6.5</a></td><td>Required</td><td>Refer to data samples of the proof in <a href="#proof">6.5</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="vp-data-sample">
+      <h4>Data Sample</h4>
+      <pre class="example">
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ],
+  "created": "Wed Apr 26 14:50:56 GMT+08:00 2023",
+  "domain": "did:iifaa:123456",
+  "verifiableCredential": [
+    { /* vc set */ }
+  ],
+  "proof": {
+    "type": "SM2Signature2024",
+    "created": "2024-07-11T13:50:18+08:00",
+    "creator": "did:example:123OUgINRNdf0kIeo",
+    "verificationMethod": "did:cndid:cndid#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"
+  }
+}
+      </pre>
+    </section>
+  </section>
+
+  <section id="verification-methods">
+    <h3>Verification Methods / Authentication</h3>
+    <section id="vm-overview">
+      <h4>Overview</h4>
+      <p>The verification method associated with DID identity is used to verify the VP signature and complete DID identity authentication.</p>
+    </section>
+    <section id="vm-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 4: Attributes of Verification Method</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>ID of the current verification method</td><td>Required</td><td><code>did:example:123456#sm2-1</code></td></tr>
+          <tr><td>type</td><td>Type of the current verification method, which determines how to verify statements or operations related to the identity, such as digital signatures and encryption.</td><td>Required</td><td><code>SM2VerificationKey2024</code></td></tr>
+          <tr><td>Public Key</td><td>Verification value corresponding to the current verification method, which has two specific forms: publicKeyJwk and publicKeyHex</td><td>Required</td><td><code>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnKcEGSwB6OE0MzhDRD3CRMqUJ9DaLg4NfA8i8uz7LOykF171K_2EqRpGNUik6HeKdnbZQ7O5xv8rGk77OD5puZP9IOqWNvu</code></td></tr>
+          <tr><td>status</td><td>Status of the current verification method, e.g., whether it has been abandoned</td><td>Required</td><td><code>active</code></td></tr>
+          <tr><td>controller</td><td>DID account ID associated with the current verification method</td><td>Required</td><td><code>did:example:123456789abcdefghi</code></td></tr>
+          <tr><td>securityLevel</td><td>Security level of the current verification method, refer to <a href="#security-level">6.6</a> "Security Level"</td><td>Required</td><td><code>256</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="vm-data-sample">
+      <h4>Data Sample</h4>
+      <section id="sm2-key">
+        <h5>SM2 key</h5>
+        <pre class="example">
+{
+  "type": "SM2VerificationKey2024",
+  "id": "did:example:123456#sm2-1",
+  "controller": "did:example:123456",
+  "status": "active",
+  "securityLevel": "256",
+  "publicKeyHex": "04[{x-coordinate in hex}][{y-coordinate in hex}]"
+}
+        </pre>
+      </section>
+      <section id="ecc-key">
+        <h5>ECC NIST curve (p256, etc.)</h5>
+        <pre class="example">
+{
+  "id": "did:example:123456#ecdsa-p256-1",
+  "type": "JsonWebKey2020",
+  "controller": "did:example:123456",
+  "status": "active",
+  "securityLevel": "256",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "...",
+    "y": "..."
+  }
+}
+        </pre>
+      </section>
+      <section id="rsa-key">
+        <h5>RSA key</h5>
+        <p><code>RsaVerificationKey2018</code>:</p>
+        <pre class="example">
+{
+  "id": "did:example:123456789abcdefghi#keys-1",
+  "type": "RsaVerificationKey2018",
+  "controller": "did:example:123456789abcdefghi",
+  "status": "active",
+  "securityLevel": "256",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY...END PUBLIC KEY-----\r\n"
+}
+        </pre>
+        <p><code>RsaVerificationKey2020</code>:</p>
+        <pre class="example">
+{
+  "id": "did:example:123456789abcdefghi#key-1",
+  "type": "RsaVerificationKey2020",
+  "controller": "did:example:123456789abcdefghi",
+  "status": "active",
+  "securityLevel": "256",
+  "publicKeyJwk": {
+    "kty": "RSA",
+    "e": "AQAB",
+    "n": "0S25ZgyZ..."
+  }
+}
+        </pre>
+        <table class="def">
+          <caption>Table 5: Comparison of Different RSAs</caption>
+          <thead>
+            <tr><th>Features</th><th>RsaVerificationKey2018</th><th>RsaVerificationKey2020</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Public Key Format</td><td>The PEM format or JWK format is allowed (but PEM is more commonly used)</td><td>The JWK format is required (standardized, machine parsable)</td></tr>
+            <tr><td>Specification Version</td><td>Defined in earlier draft DID specifications (such as the 2018 standard)</td><td>Defined in the updated DID Core v1.0 and subsequent versions</td></tr>
+            <tr><td>Signature Algorithm Support</td><td>The algorithm may not be clearly defined (need to be combined with JWS independent statement)</td><td>Explicitly support common algorithms (such as RS256 and PS256) to enhance interoperability</td></tr>
+            <tr><td>Usage Scenarios</td><td>Compatibility first, may depend on tools in early versions</td><td>New project recommendation, in line with modern safety standards and specifications</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+  </section>
+
+  <section id="proof">
+    <h3>Proof</h3>
+    <section id="proof-overview">
+      <h4>Overview</h4>
+      <p>Self-certification data of the current VC, through which the business service provider can verify whether the VC has been tampered with and whether it comes from a trusted issuer.</p>
+    </section>
+    <section id="proof-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 6: Attributes of Proof</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>type</td><td>Type of the current verification method, which determines how to verify statements or operations related to the identity, such as digital signatures and encryption.</td><td>Required</td><td><code>SM2VerificationKey2024</code></td></tr>
+          <tr><td>creator</td><td>To identify the DID identity of a proof creator</td><td>Optional</td><td><code>did:example:1230UgINRNdf0kIeo</code></td></tr>
+          <tr><td>created</td><td>Proof creation time, using ISO 8601 standard time</td><td>Required</td><td><code>2024-07-11T13:50:18+08:00</code></td></tr>
+          <tr><td>Verification Method</td><td>Referenced verification method ID, refer to <a href="#verification-methods">6.4</a> "Verification Method"</td><td>Required</td><td><code>did:cndid:cndid#key-1</code></td></tr>
+          <tr><td>proofValue</td><td>base64Url encoding of the DER signature value, usually used to store the VC main body signature data, among which the binary encoding of the SM2 signature follows the ASN.1 DER encoding rules</td><td>Required</td><td><code>MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u</code></td></tr>
+          <tr><td>challenge</td><td>A bidirectional challenge value issued and verified by the SP server during the VP phase for SP generation and verification</td><td>Optional</td><td><code>15ecc79e-1490-4096-9684-46b0e92d4aec</code></td></tr>
+          <tr><td>alg</td><td>Signature result base64 URL, suitable for signature algorithms, RS256 (RSA+SHA256), ES256 (P-256 curve + SHA256)</td><td>RS256, ES256 required</td><td><code>RS256</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="proof-data-sample">
+      <h4>Data Sample</h4>
+      <section id="sm2-signature">
+        <h5>SM2 signature</h5>
+        <pre class="example">
+{
+  "type": "SM2Signature2024",
+  "created": "2024-07-11T13:50:18+08:00",
+  "creator": "did:example:123OUgINRNdf0kIeo",
+  "verificationMethod": "did:cndid:cndid#key-1",
+  "proofPurpose": "assertionMethod",
+  "proofValue": "MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5",
+  "challenge": "15ecc79e-1490-4096-9684-46b0e92d4aec"
+}
+        </pre>
+      </section>
+      <section id="ecc-rsa-signature">
+        <h5>ECC NIST curve (p256, etc.) signature, RSA signature</h5>
+        <pre class="example">
+{
+  "type": "BasicJsonWebSignature2024",
+  "alg": "RS256",
+  "created": "2024-07-11T13:50:18+08:00",
+  "verificationMethod": "did:cndid:cndid#key-1",
+  "proofPurpose": "assertionMethod",
+  "proofValue": "MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"
+}
+        </pre>
+      </section>
+    </section>
+  </section>
+
+  <section id="security-level">
+    <h3>Security Level</h3>
+    <section id="sl-overview">
+      <h4>Overview</h4>
+      <p>The DID identity security level identifier SecurityLevel consists of two bytes of data, where the low-order byte (bits 1~8) identifies the authentication type, and the high-order byte (bits 9~16) identifies the operating environment.</p>
+    </section>
+    <section id="sl-attributes">
+      <h4>Attributes</h4>
+      <table class="def">
+        <caption>Table 7: Attributes of Security Level</caption>
+        <thead>
+          <tr><th>Bit</th><th>Meaning Classification</th><th>Description of Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td rowspan="8">Authentication method</td><td>Whether a local password is set</td></tr>
+          <tr><td>2</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>3</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>4</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>5</td><td>Whether local biometrics are set</td></tr>
+          <tr><td>6</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>7</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>8</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>9</td><td rowspan="8">Operating environment</td><td>Private keys are stored and used in REE</td></tr>
+          <tr><td>10</td><td>Reserved (to add the definition of the REE security scheme)</td></tr>
+          <tr><td>11</td><td>Reserved (to add the definition of the REE security scheme)</td></tr>
+          <tr><td>12</td><td>Private keys are stored and used in TEE</td></tr>
+          <tr><td>13</td><td>Private keys are stored and used in SE</td></tr>
+          <tr><td>14</td><td>Reserved</td></tr>
+          <tr><td>15</td><td>Reserved</td></tr>
+          <tr><td>16</td><td>Reserved</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="sl-data-sample">
+      <h4>Data Sample</h4>
+      <table class="def">
+        <caption>Table 8: Data Samples of Security Level</caption>
+        <thead>
+          <tr>
+            <th>Bit</th>
+            <th>1</th><th>2~4</th><th>5</th><th>6~8</th>
+            <th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15~16</th>
+            <th>Int value</th>
+          </tr>
+          <tr><th colspan="12">Meaning</th></tr>
+          <tr><th colspan="5">Authentication Type</th><th colspan="7">Operating Environment</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>No authentication method, private key in REE</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>256</td>
+          </tr>
+          <tr>
+            <td>Local password, private key in REE</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>257</td>
+          </tr>
+          <tr>
+            <td>No authentication method, private key in SIM</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
+            <td>8192</td>
+          </tr>
+          <tr>
+            <td>Local password, private key in SIM</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
+            <td>8193</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Get the operating environment:</p>
+      <pre>
+int secureLevel = 257;
+int secureArea = secureLevel &amp; 0xFF00; //secureArea : 256--REE
+      </pre>
+      <p>Get the authentication type:</p>
+      <pre>
+int secureLevel = 257;
+int authType = secureLevel &amp; 0x00FF; //authType : 1--Local password
+      </pre>
+    </section>
+  </section>
+</section>
+
+<section id="device-interaction">
+  <h2>Device Function Interaction</h2>
+  <section id="di-overview">
+    <h3>Overview</h3>
+    <p>This section mainly describes the function interaction flow specifications, such as identity creation and credential management, for device-based decentralized trusted authentication provided to users.</p>
+  </section>
+
+  <section id="did-creation-flow">
+    <h3>DID creation</h3>
+    <section id="did-creation-flowchart">
+      <h4>Flowchart</h4>
+      <p>Enter the wallet and determine whether there is DID identity data locally. If not, enter the identity creation process, see <a href="#fig-did-creation">Figure 2</a>.</p>
+      <figure id="fig-did-creation">
+        <img alt="Placeholder for DID Creation Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-2.jpg" />
+        <figcaption>: Flowchart of DID Creation</figcaption>
+      </figure>
+    </section>
+    <section id="did-creation-sequence">
+      <h4>Sequence Diagram</h4>
+      <p>The sequence diagram is shown in <a href="#fig-did-sequence">Figure 3</a>.</p>
+      <figure id="fig-did-sequence">
+        <img alt="Placeholder for DID Creation Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-3.jpg" />
+        <figcaption>: DID Creation Sequence Diagram</figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="vc-application">
+    <h3>VC Application</h3>
+    <section id="vc-app-flowchart">
+      <h4>Flowchart</h4>
+      <p>Enter the VC management page and determine whether there is corresponding VC data locally. If not, an application button is displayed. If so, a view button is displayed. The flowchart is shown in <a href="#fig-vc-app">Figure 4</a>.</p>
+      <figure id="fig-vc-app">
+        <img alt="Placeholder for VC Application Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-4.jpg" />
+        <figcaption>: Flowchart of VC Application</figcaption>
+      </figure>
+    </section>
+    <section id="vc-app-sequence">
+      <h4>Sequence Diagram</h4>
+      <p>The VC application sequence diagram is shown in <a href="#fig-vc-seq">Figure 5</a>.</p>
+      <figure id="fig-vc-seq">
+        <img alt="Placeholder for VC Application Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-5.jpg" />
+        <figcaption>: VC Application Sequence Diagram</figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="viewing-vc">
+    <h3>Viewing VC</h3>
+    <p>The device only provides the query service for the local VC summary information list, with the specific process as follows:</p>
+    <section id="vc-view-flowchart">
+      <h4>Flowchart</h4>
+      <p>Enter the page, get VCUIStyle/VC templates and VC data from the IDP server and DIDSDK, respectively. The flowchart is shown in <a href="#fig-vc-view">Figure 6</a>.</p>
+      <figure id="fig-vc-view">
+        <img alt="Placeholder for VC Viewing Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-6.jpg" />
+        <figcaption>: Flowchart of VC Viewing</figcaption>
+      </figure>
+    </section>
+    <section id="vc-view-sequence">
+      <h4>Sequence Diagram</h4>
+      <p>The sequence diagram is shown in <a href="#fig-vc-view-seq">Figure 7</a>.</p>
+      <figure id="fig-vc-view-seq">
+        <img alt="Placeholder for VC Viewing Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-7.jpg" />
+        <figcaption>: VC Viewing Sequence Diagram</figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="issuing-vp">
+    <h3>Issuing VP</h3>
+    <section id="vp-issue-flowchart">
+      <h4>Flowchart</h4>
+      <p>The SP passes in the required VC content and the specified VM type to pull up the wallet, and the wallet passes the parameters to the SDK. After the SDK completes verification and signing, it returns the result. The flowchart is shown in <a href="#fig-vp-issue">Figure 8</a>.</p>
+      <figure id="fig-vp-issue">
+        <img alt="Placeholder for VP Issuance Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-8.jpg" />
+        <figcaption>: VP Issuance Flowchart</figcaption>
+      </figure>
+    </section>
+    <section id="vp-issue-sequence">
+      <h4>Sequence Diagram</h4>
+      <p>The sequence diagram is shown in <a href="#fig-vp-seq">Figure 9</a>.</p>
+      <figure id="fig-vp-seq">
+        <img alt="Placeholder for VP Issuance Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-9.jpg" />
+        <figcaption>: VP Issuance Sequence Diagram</figcaption>
+      </figure>
+    </section>
+  </section>
+</section>
+
+<section id="appendix-a" class="appendix">
+  <h2>Data Sample of Identity Protocol</h2>
+  <section id="a1">
+    <h3>Data Sample of Decentralized Identity Protocol</h3>
+    <pre class="example">
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:cdid:iifaa:123456789abcdefghi",
+  "version": "1.0.0",
+  "created": "2023-10-05T14:48:00.000Z",
+  "update": "2023-10-15T14:48:00.000Z",
+  "status": "active",
+  "verificationMethods": [
+    {
+      "type": "SM2VerificationKey2024",
+      "id": "did:example:123456#sm2-1",
+      "controller": "did:example:123456",
+      "status": "active",
+      "securityLevel": "256",
+      "publicKeyHex": "04a34e...a72c0e"
+    }
+  ],
+  "authentication": [
+    {
+      "type": "SM2VerificationKey2024",
+      "id": "did:example:123456#sm2-1",
+      "controller": "did:example:123456",
+      "status": "active",
+      "securityLevel": "256",
+      "publicKeyHex": "04a34e...a72c0e"
+    }
+  ],
+  "proof": {
+    "type": "SM2Signature2024",
+    "created": "2024-07-11T13:50:18+08:00",
+    "creator": "did:example:123OUgINRNdf0kIeo",
+    "verificationMethod": "did:cndid:cndid#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"
+  }
+}
+    </pre>
+  </section>
+  <section id="a2">
+    <h3>Data Example of VCs</h3>
+    <pre class="example">
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "type": ["DisableCredentialType", "SelectiveDisclosureCredentialType"],
+  "templateId": "200457",
+  "version": "1.1.1",
+  "id": "did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035",
+  "issuer": "did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1",
+  "issuanceDate": "2023-04-24 15:19:15",
+  "expirationDate": "2033-04-24 15:19:15",
+  "credentialSubject": {
+    "id": "7cf59e33f1fad217421aa6d970ec169c49c23362f7b1affdff6bccdfd9e42bcb",
+    "did": "did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1",
+    "claims": {
+      "subject": {
+        "name": "Zhang San",
+        "disableIdNum": "330133199903033333",
+        "endValidDate": "2032-04-14",
+        "level": "1",
+        "type": "4"
+      },
+      "seed": "eaa02887e4834024b954fb7b0c063ae7"
+    }
+  },
+  "credentialStatus": {
+    "id": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0#26",
+    "type": "StatusList2021",
+    "statusPurpose": "revocation",
+    "statusListIndex": "26",
+    "statusListCredential": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0"
+  },
+  "proof": {
+    "type": "SM2Signature2024",
+    "created": "2024-07-11T13:50:18+08:00",
+    "creator": "did:example:1230UgINRNdf0kIeo",
+    "verificationMethod": "did:cndid:cndid#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "MEYCIQCpy0H0UgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/0HnL8Uqwr5"
+  }
+}
+    </pre>
+  </section>
+  <section id="a3">
+    <h3>Data Samples of VPs</h3>
+    <pre class="example">
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ],
+  "created": "Wed Apr 26 14:50:56 GMT+08:00 2023",
+  "domain": "did:iifaa:123456",
+  "verifiableCredential": [
+    { /* vc set */ }
+  ],
+  "proof": {
+    "type": "SM2Signature2024",
+    "created": "2024-07-11T13:50:18+08:00",
+    "creator": "did:example:1230UgINRNdf0kIeo",
+    "verificationMethod": "did:cndid:cndid#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"
+  }
+}
+    </pre>
+  </section>
+</section>
+
+</body>
+</html>
