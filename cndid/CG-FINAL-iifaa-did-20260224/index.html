@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>IIFAA Decentralized Trusted Authentication Technical Specification — Part 3: Security Architecture</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" async class="remove"></script>
+  <script class="remove">
+    var respecConfig = {
+      specStatus: "base",
+      shortName: "iifaa-4003",
+      editors: [
+        { name: "Wang Yongtao", company: "Ant Group Co., Ltd." },
+        { name: "Zhang Wu", company: "Ant Group Co., Ltd." },
+        { name: "Sun Weichao", company: "Ant Group Co., Ltd." },
+        { name: "Peng Jin", company: "Ant Group Co., Ltd." },
+        { name: "Lin Guanchen", company: "Ant Group Co., Ltd." },
+        { name: "Huang Lin", company: "Ant Group Co., Ltd." },
+        { name: "Wu Sijie", company: "Ant Group Co., Ltd." },
+        { name: "Yan Dong", company: "Ant Group Co., Ltd." },
+        { name: "Lyu Lei", company: "National Engineering Research Center for Cryptography Technology" },
+        { name: "Fu Shan", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Wei Fanxing", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Xu Jinliang", company: "China Academy of Information and Communications Technology (CAICT)" },
+        { name: "Yang Bo", company: "National FinTech Evaluation Center" },
+        { name: "Yi Qiang", company: "Huawei Technologies Co., Ltd." },
+        { name: "Zhao Xiaona", company: "Honor Device Co., Ltd." },
+        { name: "Li Zhichao", company: "Honor Device Co., Ltd." },
+        { name: "Li Gen", company: "OPPO Guangdong Mobile Communications Co., Ltd." },
+        { name: "Guo Yanhong", company: "CM Financial Technology Co., Ltd." },
+        { name: "Wang Bin", company: "Samsung R&D Institute China-Beijing" },
+        { name: "Ping Zhenghai", company: "ZTE Corporation Limited" },
+        { name: "Wang Zhitao", company: "Shanghai Electronic Certificate Authority Center Co., Ltd." },
+        { name: "Lu Ruyi", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Zhang Shengyi", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Wang Jun", company: "Beijing eSand Information Technology Co., Ltd." },
+        { name: "Zhu Pengfei", company: "Feitian Technologies Co., Ltd." },
+        { name: "Lyu Fang", company: "Client Service International Inc." },
+        { name: "Meng Ru", company: "Koal Software Co., Ltd." },
+        { name: "Liu Weihua", company: "Zhengzhou Xindajiean Information Technology Co., Ltd." }
+      ],
+      publishDate: "2025-09-11",
+      edDraftURI: null,
+      license: "w3c-software-doc",
+      wg: "International Internet Finance Authentication Alliance (IIFAA)",
+      wgURI: "https://www.iifaa.org",
+      maxTocLevel: 3,
+      otherLinks: [{
+        key: "Standard Number",
+        data: [{ value: "T/IIFAA 4003—2025" }]
+      }],
+      localBiblio: {
+        "GB/T 1.1-2020": {
+          title: "Directives for Standardization — Part 1: Rules for the Structure and Drafting of Standardizing Documents",
+          href: "https://std.samr.gov.cn/"
+        },
+        "T/IIFAA 4001-2024": {
+          title: "IIFAA Decentralized Authentication Technical Specification — Part 1: Overall Architecture",
+          publisher: "IIFAA"
+        },
+        "T/IIFAA 4002-2025": {
+          title: "IIFAA Decentralized Authentication Technical Specification — Part 2: Identity Protocol and Interaction Flow",
+          publisher: "IIFAA"
+        },
+        "GB/T 25069-2022": {
+          title: "Information security technology — Terminology",
+          href: "https://std.samr.gov.cn/"
+        }
+      }
+    };
+  </script>
+  <style>
+    .example pre {
+      white-space: pre-wrap;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 0.5em;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    figure {
+      text-align: center;
+      margin: 2em 0;
+    }
+    figcaption {
+      font-style: italic;
+      margin-top: 0.5em;
+    }
+    code {
+      background: #f9f9f9;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    body > section:not(#abstract):not(#sotd):not(#toc) {
+      margin-top: 1.5em !important;
+      margin-bottom: 1.5em !important;
+    }
+    section > section {
+      margin-top: 1em !important;
+      margin-bottom: 1em !important;
+    }
+    h2, h3, h4, h5 {
+      margin-top: 1.2em !important;
+      margin-bottom: 0.6em !important;
+    }
+    table, pre.example {
+      margin-top: 0.8em !important;
+      margin-bottom: 0.8em !important;
+    }
+  </style>
+</head>
+<body>
+
+<section id="abstract">
+  <p>This document provides technical specifications for the IIFAA decentralized authentication device security and device-cloud security. It applies to R&amp;D design, deployment, testing, and certification activities related to IIFAA decentralized authentication.</p>
+</section>
+
+<section id="sotd">
+  <p>This document is drafted in accordance with the provisions given in GB/T 1.1-2020 <em>Directives for Standardization — Part 1: Rules for the Structure and Drafting of Standardizing Documents</em>.</p>
+  <p>This document is proposed by and is under the centralized management of the International Internet Finance Authentication Alliance (IIFAA).</p>
+  <p><strong>Drafting organizations of this document:</strong> Ant Group Co., Ltd., National Engineering Research Center for Cryptography Technology, China Academy of Information and Communications Technology (CAICT), National FinTech Evaluation Center, Huawei Technologies Co., Ltd., Honor Device Co., Ltd., OPPO Guangdong Mobile Communications Co., Ltd., CM Financial Technology Co., Ltd., Samsung R&D Institute China-Beijing, ZTE Corporation Limited, Shanghai Electronic Certificate Authority Center Co., Ltd., Beijing eSand Information Technology Co., Ltd., Feitian Technologies Co., Ltd., Client Service International Inc., Koal Software Co., Ltd., Zhengzhou Xindajiean Information Technology Co., Ltd.</p>
+</section>
+
+<section id="scope">
+  <h2>Scope</h2>
+  <p>This document provides technical specifications for the IIFAA decentralized authentication device security and device-cloud security.</p>
+  <p>This document applies to the IIFAA decentralized authentication R&amp;D design, deployment application, and test and authentication activities.</p>
+</section>
+
+<section id="normative-references">
+  <h2>Normative References</h2>
+  <p>The following documents are referred to in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition (including any amendments) applies.</p>
+  <dl>
+    <dt id="ref-tiifaa4001">[T/IIFAA 4001-2024]</dt>
+    <dd><cite>IIFAA Decentralized Authentication Technical Specification — Part 1: Overall Architecture</cite></dd>
+    <dt id="ref-tiifaa4002">[T/IIFAA 4002-2025]</dt>
+    <dd><cite>IIFAA Decentralized Authentication Technical Specification — Part 2: Identity Protocol and Interaction Flow</cite></dd>
+  </dl>
+</section>
+
+<section id="terms-and-definitions">
+  <h2>Terms and Definitions</h2>
+  <p>For the purposes of this document, the following terms and definitions apply, as well as those defined in [T/IIFAA 4001-2024].</p>
+
+  <dl>
+    <dt>Decentralized Identifier (DID)</dt>
+    <dd>A new type of identifier that supports verifiable, decentralized digital identity.</dd>
+
+    <dt>DID Document</dt>
+    <dd>It refers to the identity document information of the user's DID on the blockchain, which is stored in a decentralized manner to ensure that it will not be tampered with. This document describes the encryption public key, verification method, decentralized identity protocol used, and service endpoint for the specific DID.</dd>
+
+    <dt>Verifiable Credentials (VC)</dt>
+    <dd>VC data issued by the issuer for a user's DID is securely stored on the user side and presented to the service provider in a verifiable way after being authorized (signed) by the user.</dd>
+
+    <dt>Verifiable Presentation (VP)</dt>
+    <dd>It refers to the data that allows the VC holder (i.e., user) to identify himself/herself to the verifier.</dd>
+
+    <dt>Decentralized Identity Asset Wallet</dt>
+    <dd>A decentralized identity asset management tool based on mobile applications provided by users. Decentralized identity asset wallets usually use the security chip on the user device side to store and encrypt the user's identity private key and related asset credential data to ensure that any key identity data will not be leaked. At the same time, they also use the biometric technology of mobile devices, such as fingerprint recognition or facial recognition, to provide a more convenient and secure decentralized identity authorization method.</dd>
+
+    <dt>Identity</dt>
+    <dd>A set of attributes associated with an entity.</dd>
+    <dd class="note" role="note">
+      <p>Note 1: An entity can have multiple identities.</p>
+      <p>Note 2: Several entities can have the same identity.</p>
+      <p>[Source: GB/T 25069-2022, 3.512]</p>
+    </dd>
+  </dl>
+</section>
+
+<section id="abbreviations">
+  <h2>Abbreviations</h2>
+  <p>The following abbreviations apply to this document.</p>
+  <dl>
+    <dt>DID</dt><dd>Decentralized Identifier</dd>
+    <dt>OEM</dt><dd>Original Equipment Manufacturer</dd>
+    <dt>REE</dt><dd>Rich Execution Environment</dd>
+    <dt>SE</dt><dd>Secure Element</dd>
+    <dt>TEE</dt><dd>Trusted Execution Environment</dd>
+    <dt>VC</dt><dd>Verifiable Credential</dd>
+    <dt>VP</dt><dd>Verifiable Presentation</dd>
+  </dl>
+</section>
+
+<section id="device-security">
+  <h2>Device Security</h2>
+
+  <section id="device-security-architecture">
+    <h3>Device Security Architecture</h3>
+    <p>The device security architecture is shown in <a href="#fig-device-arch">Figure 1</a>. The device security system is used to build system-level identity asset management services, involving the roles of participants such as TEE manufacturers and OEMs. The device security logic layers include a basic dependency layer, a basic adaptation layer, a DID protocol layer, a functional service layer, etc.</p>
+    <figure id="fig-device-arch">
+      <img alt="Placeholder for Device Security Architecture" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-1.png" />
+      <figcaption>: Device Security Architecture</figcaption>
+    </figure>
+  </section>
+
+  <section id="interface">
+    <h3>Interface</h3>
+    <p>The wallet application side uses the DID-related capabilities within the device security framework by invoking instructions. The data interaction protocol is as follows:</p>
+    <pre class="example">
+IIFAA_Result IIFAA_DID_InvokeCmd(uint8_t *buf_in, size_t in_len, uint8_t *buf_out, size_t *out_len);
+    </pre>
+    <p>Where,</p>
+    <ul>
+      <li><code>buf_in</code> is the input buffer, and <code>in_len</code> is the length of the input buffer;</li>
+      <li><code>buf_out</code> is the output buffer, <code>out_len</code> is the length pointer of the output buffer.</li>
+    </ul>
+    <p>The form of input buffer is as follows:</p>
+    <pre>command(4 bytes)  params_len(4 bytes)  params_buf</pre>
+    <p>The form of output buffer is as follows:</p>
+    <pre>result_code(4 bytes)  response_len(4 bytes)  response_buf</pre>
+    <p>Among them, the <code>params</code> and <code>response</code> parts use TLV as the basic protocol format. The buffer form of TLV is as follows:</p>
+    <pre>TAG_VALUE  BUFFER_LEN  BUFFER</pre>
+    <p>The meaning of each corresponding field is shown in <a href="#table-field-desc">Table 1</a>:</p>
+    <table id="table-field-desc" class="def">
+      <caption>Table 1: Field Description</caption>
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Length</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TAG_VALUE</td>
+          <td>uint16_t</td>
+          <td>2 bytes</td>
+          <td>A tag indicating the type of node. It specifies that the TAG_VALUE of the leaf node is ≥ 128. The remaining values are non-leaf nodes.</td>
+        </tr>
+        <tr>
+          <td>BUFFER_LEN</td>
+          <td>uint16_t</td>
+          <td>2 bytes</td>
+          <td>Payload length of the TLV node.</td>
+        </tr>
+        <tr>
+          <td>BUFFER</td>
+          <td>unsigned char*</td>
+          <td>Length specified by BUFFER_LEN</td>
+          <td>Payload of the TLV node. If it is a leaf node, the buffer is the actual load. Otherwise, it is the sum of the loads of each child node.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note" role="note">Note: The data in the TLV node is stored in big-endian mode.</p>
+  </section>
+
+  <section id="identity-management-service">
+    <h3>Identity Management Service</h3>
+
+    <section id="idp-basic-message">
+      <h4>IDP Basic Message</h4>
+
+      <section id="request-message">
+        <h5>Request message</h5>
+        <p>The structure of request message is shown in <a href="#fig-req-msg">Figure 2</a>. When the client initiates a DID-related operation that requires IDP authorization, it needs to obtain the corresponding request instruction from the IDP Server. These instructions need to be signed by the IDP key. In the signature, the corresponding certificate applied for using the secondary/tertiary IDP should be placed in the <code>CERT_CHAIN</code> within the request command, allowing the client to perform certificate chain validation. The root certificate of the certificate chain will be embedded in the TA.</p>
+        <figure id="fig-req-msg">
+          <img alt="Placeholder for Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-2.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 2: Definition and Description of TAG Values</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IDP_REQUEST</td><td>0x01</td><td>Root node</td></tr>
+            <tr><td>CERT_ALG_ENCODE</td><td>0x6001</td><td>Certificate chain encoding format</td></tr>
+            <tr><td>CERT_CHAIN</td><td>0x6002</td><td>Certificate chain</td></tr>
+            <tr><td>SIGN_ALG</td><td>0x6003</td><td>Signature algorithm, default to one supported by IIFAA TA</td></tr>
+            <tr><td>SIGNATURE</td><td>0x6004</td><td>Signature, uniformly call the IIFAA TA interface for cross-TA signature</td></tr>
+            <tr><td>REQ_PARAMS</td><td>0x07</td><td>Detailed parameters, non-leaf nodes</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="response-message">
+        <h5>Response message</h5>
+        <p>The structure of response message is shown in <a href="#fig-resp-msg">Figure 3</a>. The response result returned by the client needs to be signed with a device certificate/device key to ensure that the result is credible. To sign the IIFAA device key/device certificate chain, the response result needs to place the device certificate in <code>CERT_CHAIN</code> to facilitate the verification of the certificate chain by the server.</p>
+        <figure id="fig-resp-msg">
+          <img alt="Placeholder for Response Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-3.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 3: Definition and Description of TAG Values</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IDP_RESPONSE</td><td>0x02</td><td>Root node</td></tr>
+            <tr><td>CERT_ALG_ENCODE</td><td>0x6001</td><td>Certificate chain encoding format</td></tr>
+            <tr><td>CERT_CHAIN</td><td>0x6002</td><td>Certificate chain</td></tr>
+            <tr><td>SIGN_ALG</td><td>0x6003</td><td>Signature algorithm</td></tr>
+            <tr><td>SIGNATURE</td><td>0x6004</td><td>Signature</td></tr>
+            <tr><td>RESP_DATA</td><td>0x08</td><td>Detailed result data, non-leaf nodes</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <section id="idp-function-interface-message">
+      <h4>IDP Function Interface Message</h4>
+
+      <section id="instruction-definition">
+        <h5>Definition and description of interface message</h5>
+        <p>Based on the specific IDP function instructions, <code>REQ_PARAMS</code> and <code>RESP_DATA</code> need to be further defined and described in accordance with the IDP basic message. The specific instructions involved are shown in <a href="#table-idp-instr">Table 4</a>:</p>
+        <table id="table-idp-instr" class="def">
+          <caption>Table 4: IDP Function Interface Message</caption>
+          <thead>
+            <tr><th>Instruction Name</th><th>Instruction ID</th><th>Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IIFAA_CMD_DID_GEN_VM</td><td>0x01000001</td><td>Generate VM: generate VerifyMethod (identity key, etc.)</td></tr>
+            <tr><td>IIFAA_CMD_DID_IMPORT_DOC</td><td>0x01000002</td><td>Import DID: import identity documents and establish key alias VMID mapping</td></tr>
+            <tr><td>IIFAA_CMD_DID_AUTH_Z</td><td>0x01000003</td><td>Authorize DID: DID identity authorization signature (DID authorization)</td></tr>
+            <tr><td>IIFAA_CMD_DID_QUERY_LOCAL</td><td>0x01000004</td><td>Query DID: query local DID identity</td></tr>
+            <tr><td>IIFAA_CMD_DID_DEREG</td><td>0x01000005</td><td>Cancel DID: delete local identity documents and related credential data</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="init-did-gen-key">
+        <h5>Initializing DID — generating DID key</h5>
+        <p><strong>Functional summary:</strong> Generate a key pair based on <code>ASYM_KEY_ALGORITHM</code>, store the private key in SFS, and use the public key as the file name. After DID authorization, according to <code>KEY_TYPE &amp; Security Level</code>, the VM ID is matched, and a new file named with the VMID is generated to replace the original file for storing private keys.</p>
+        
+        <p><strong>Request message:</strong> Based on the IDP request message, add an identity key algorithm (<code>ASYM_ALG</code>) to the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-req-gen-key">Figure 4</a>.</p>
+        <figure id="fig-req-gen-key">
+          <img alt="Placeholder for Request Message Structure (Gen Key)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-4.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 5: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CHALLENGE</td><td>0x6005</td><td>Challenge, used to prevent replay</td></tr>
+            <tr><td>SECURE_LEVEL</td><td>0x600a</td><td>Minimum security level required, see the security levels part in 5.3 for details</td></tr>
+            <tr><td>ASYM_KEY_ALGORITHM</td><td>0x6007</td><td>Identity key type</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Response message:</strong> Based on the IDP response message, add the locally constructed VM content (<code>VM_CONTENT</code>) in the return result (<code>RESP_DATA</code>), with the structure as shown below:</p>
+        <figure id="fig-resp-gen-key">
+          <img alt="Placeholder for Response Message Structure (Gen Key)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-5.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 6: Definition and Description of TAG Values under RESP_DATA</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PUBLIC_KEY</td><td>0x601b</td><td>Public key (raw encoding is used by default)</td></tr>
+            <tr><td>KEY_ALG</td><td>0x6007</td><td>Public key type, see the public key type part in "Certificate Chain" for details</td></tr>
+            <tr><td>SECURE_LEVEL</td><td>0x600a</td><td>Actual key security level, see the security levels part in 5.3 for details</td></tr>
+            <tr><td>CHALLENGE</td><td>0x6005</td><td>Challenge, used to prevent replay</td></tr>
+          </tbody>
+        </table>
+
+        <p>The raw encoding format of public key is shown as below:</p>
+        <pre class="example">
+public key of RSA2048/RSA3072: { n_len + n + e_len + e }
++-------------------------------------------------------------+
+| n_len |    N                 | e_len |   E             |
++-------------------------------------------------------------+
+|4 byte |   n_len byte         | 4 byte |  e len byte     |
++-------------------------------------------------------------+
+
+public key of ECC_p256/SM2: { 0x04 + x + y }
++-------------------------------------------------------------+
+| 0x04 |     X                  |    Y                    |
++-------------------------------------------------------------+
+|1 byte|     32 byte              |    32 byte                |
++-------------------------------------------------------------+
+        </pre>
+      </section>
+
+      <section id="init-did-import">
+        <h5>Initializing DID (importing DID document)</h5>
+        <p><strong>Functional summary:</strong> Get <code>DID_DOCUMENT</code> in the input and store it persistently. The file is named as DID ID.</p>
+        <p><strong>Request message:</strong> Based on the IDP request message, add a DID identity document (<code>DID_DOCUMENT</code>) in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-req-import">Figure 6</a>.</p>
+        <figure id="fig-req-import">
+          <img alt="Placeholder for Request Message Structure (Import)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-6.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 7: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DID_ABSTRACT_INFO</td>
+              <td>0x6009</td>
+              <td>DID document summary information (DID identifier, vm_id, and corresponding public key)</td>
+            </tr>
+          </tbody>
+        </table>
+        <pre class="example">
+{
+  "did": "",
+  "verificationMethods": [
+    {
+      "id": "123",
+      "pubkey": "sfdf"
+    },
+    {
+      "id": "123",
+      "pubkey": "sfdf"
+    },
+    {
+      "id": "123",
+      "pubkey": "sfdf"
+    }
+  ]
+}
+        </pre>
+        <p><strong>Response message:</strong> It is the response content after the DID is successfully imported. It does not need to be encapsulated based on <code>IDP_RESPONSE</code>, and the corresponding DID identifier can be directly returned. An example of a DID identifier is as follows:</p>
+        <pre class="example">did:iifaa:2UdYuZagBsinmdRogHNJwPc8QXA4PyXdYXcY1aDaB8wR</pre>
+      </section>
+
+      <section id="did-authorization">
+        <h5>DID authorization</h5>
+        <p><strong>Functional summary:</strong> Get the data <code>AUTH_DATA</code> to be authorized in the input, sign it using the signature algorithm corresponding to VMID, and return the signature through the <code>SIGNATURE</code> field in <code>IDP_RESPONSE</code>.</p>
+        <p><strong>Request message:</strong> Based on the IDP request message, add the key type (<code>KEY_TYPE</code>), security level (<code>SECURE_LEVEL</code>), and data to be authorized (<code>AUTH_DATA</code>) required for authorization in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-req-auth">Figure 7</a>.</p>
+        <figure id="fig-req-auth">
+          <img alt="Placeholder for Request Message Structure (Auth)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-7.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 8: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CHALLENGE</td><td>0x6005</td><td>Challenge, used to prevent replay</td></tr>
+            <tr><td>KEY_TYPE</td><td>0x6006</td><td>Public key type, see the public key type section in 11.2.1 "Certificate Chain" for details</td></tr>
+            <tr><td>SECURE_LEVEL</td><td>0x600a</td><td>Security level, see T/IIFAA 4002-2025 6.6 "Security Level" for details</td></tr>
+            <tr><td>AUTH_DATA</td><td>0x600b</td><td>Data to be authorized (≤ 32 byte)</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Response message:</strong> Based on the IDP response message, place the data to be signed {challenge + auth_data + vm_id} in respData, use the private key corresponding to vmID to sign resp_data, and place the signing result in [SIGNATURE], with the structure shown in <a href="#fig-resp-auth">Figure 8</a>.</p>
+        <figure id="fig-resp-auth">
+          <img alt="Placeholder for Response Message Structure (Auth)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-8.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+      </section>
+
+      <section id="querying-did">
+        <h5>Querying DID</h5>
+        <p><strong>Request message:</strong> Based on the IDP request message, add a DID identifier (optional) to be queried in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-req-query">Figure 9</a>.</p>
+        <figure id="fig-req-query">
+          <img alt="Placeholder for Request Message Structure (Query)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-9.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 9: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>DID_IDENTIFIER</td><td>0x600c</td><td>DID identifier (optional. If it is empty, all local DID identifiers will be returned, and if it is not empty, the corresponding DID document content will be returned)</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Response message:</strong> The structure of response message is shown in <a href="#fig-resp-query">Figure 10</a>. Based on the IDP response message, the specific return result is put into resp_data:</p>
+        <ul>
+          <li>If a DID identifier is passed in as the input parameter, put the corresponding <code>DID_Document</code> into resp_data;</li>
+          <li>If no DID identifier is passed in as the input parameter, put the local DID identifier set (<code>DID_IDENTIFIER_LIST</code>) into resp_data.</li>
+        </ul>
+        <figure id="fig-resp-query">
+          <img alt="Placeholder for Response Message Structure (Query)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-10.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 10: Definition and Description of TAG Values under RESP_DATA</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>DID_DOCUMENT</td><td>0x6009</td><td>DID document. For the specific format, please refer to the "DID Document" section in Identity Protocol</td></tr>
+            <tr><td>DID_IDENTIFIER_LIST</td><td>0x600d</td><td>DID identifier. If there are multiple ones, separate them with "#".</td></tr>
+          </tbody>
+        </table>
+        <p class="note" role="note">Note: <code>DID_DOCUMENT</code> and <code>DID_IDENTIFIER_LIST</code> will not be returned at the same time.</p>
+      </section>
+
+      <section id="cancelling-did">
+        <h5>Cancelling DID</h5>
+        <p><strong>Functional summary:</strong> Generate a dId + vmid Json string, sign the Json string, then delete the List node, and delete the records in the local file. For the original text of JSON, refer to:</p>
+        <pre class="example">
+{
+  "did": "did:iifaa:6VP29YtNfqjdkF3KPJ8Mr46EtNHKMK9zJv8xTj33pmCy",
+  "vmId": "04"
+}
+        </pre>
+        <p><strong>Request message:</strong> Based on the IDP request message, add a challenge, DID to be cancelled, authorized VM type, and VM security level in the request parameter (<code>REQ_PARAMS</code>), with the specific structure shown in <a href="#fig-req-cancel">Figure 11</a>.</p>
+        <figure id="fig-req-cancel">
+          <img alt="Placeholder for Request Message Structure (Cancel)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-11.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <p><strong>Response message:</strong> Based on the IDP response message, put the canceled DID identifier, challenge, and authorized VM_ID into resp_data, find the unique VM through input parameters KEY_TYPE + SECURITY_LEVEL, sign the following resp_data as a whole with the corresponding private key, and put the signature result in [SIGNATURE], with the specific structure shown in <a href="#fig-resp-cancel">Figure 12</a>.</p>
+        <figure id="fig-resp-cancel">
+          <img alt="Placeholder for Response Message Structure (Cancel)" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-12.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+      </section>
+    </section>
+  </section>
+
+  <section id="credential-management-service">
+    <h3>Credential Management Service</h3>
+
+    <section id="basic-message">
+      <h4>Basic Message</h4>
+
+      <section id="cred-request-message">
+        <h5>Request message</h5>
+        <p>When the client initiates credential import and other related operations that require ISSUER/IDP authorization, it needs to obtain the corresponding request instruction from the ISSUER/IDP Server. These instructions need to be signed by the ISSUER/IDP certificate key. The ISSUER/IDP certificate is placed in <code>CERT_CHAIN</code>, allowing the client to perform certificate chain validation. The root certificate of the certificate chain will be embedded in the TA. The structure is shown in <a href="#fig-cred-req">Figure 13</a>.</p>
+        <figure id="fig-cred-req">
+          <img alt="Placeholder for Credential Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-13.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 11: Definition and Description of TAG Values</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ISSUER_REQUEST</td><td>0x03</td><td>Root node</td></tr>
+            <tr><td>CERT_ALG_ENCODE</td><td>0x6001</td><td>Certificate chain encoding format</td></tr>
+            <tr><td>CERT_CHAIN</td><td>0x6002</td><td>Certificate chain</td></tr>
+            <tr><td>SIGN_ALG</td><td>0x6003</td><td>Signature algorithm, default to one supported by IIFAA TA</td></tr>
+            <tr><td>SIGNATURE</td><td>0x6004</td><td>Signature, uniformly call the IIFAA TA interface for cross-TA signature</td></tr>
+            <tr><td>REQ_PARAMS</td><td>0x07</td><td>Detailed parameters, non-leaf nodes</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="cred-response-message">
+        <h5>Response message</h5>
+        <p>The response result returned by the client needs to be signed with a device certificate/device key to ensure that the result is credible. To sign the IIFAA device key/device certificate chain, the response result needs to place the device certificate in <code>CERT_CHAIN</code> to facilitate the verification of the certificate chain by the server. The structure is shown in <a href="#fig-cred-resp">Figure 14</a>.</p>
+        <figure id="fig-cred-resp">
+          <img alt="Placeholder for Credential Response Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-14.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 12: Definition and Description of TAG Values</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IDP_RESPONSE</td><td>0x04</td><td>Root node</td></tr>
+            <tr><td>CERT_ALG_ENCODE</td><td>0x6001</td><td>Certificate chain encoding format</td></tr>
+            <tr><td>CERT_CHAIN</td><td>0x6002</td><td>Certificate chain</td></tr>
+            <tr><td>SIGN_ALG</td><td>0x6003</td><td>Signature algorithm</td></tr>
+            <tr><td>SIGNATURE</td><td>0x6004</td><td>Signature</td></tr>
+            <tr><td>RESP_DATA</td><td>0x08</td><td>Detailed result data, non-leaf nodes</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <section id="function-interface-message">
+      <h4>Function Interface Message</h4>
+      <p>Based on the specific function instructions, <code>REQ_PARAMS</code> and <code>RESP_DATA</code> need to be further defined and described in accordance with the basic message. The specific instructions involving VC/VP are shown in <a href="#table-vc-vp-instr">Table 13</a>:</p>
+      <table id="table-vc-vp-instr" class="def">
+        <caption>Table 13: Instructions Involving VC/VP</caption>
+        <thead>
+          <tr><th>Instruction Name</th><th>Instruction ID</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>IIFAA_CMD_CREDENTIAL_IMPORT_VC</td><td>0x02000002</td><td>Import VCs</td></tr>
+          <tr><td>IIFAA_CMD_CREDENTIAL_QUERY_VC</td><td>0x02000003</td><td>Query local VCs</td></tr>
+          <tr><td>IIFAA_CMD_CREDENTIAL_DISCLOSER_VP</td><td>0x02000004</td><td>Issue of VPs</td></tr>
+        </tbody>
+      </table>
+
+      <section id="import-vc">
+        <h5>Import VCs</h5>
+        <p><strong>Functional description:</strong> Import the verifiable certificate (VC) issued by ISSUER for the current DID, encrypt the VC content with the user identity key, and sign the entire message with the ISSUER key.</p>
+        <p><strong>Request message:</strong> Based on the ISSUER request message, add the DID identifier and VC-encrypted envelope data in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-vc-import">Figure 15</a>.</p>
+        <figure id="fig-vc-import">
+          <img alt="Placeholder for VC Import Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-15.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 14: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>DID_IDENTIFIER</td><td>0x600C</td><td>DID associated with the current VC</td></tr>
+            <tr><td>ENVELOP_ENCODE</td><td>0x600E</td><td>Envelope coding type, see the envelope coding part in 11.2.3 "Envelope Encryption Protocol" for details</td></tr>
+            <tr><td>ENVELOP_ENC_ALG</td><td>0x6010</td><td>Envelope encryption algorithm, see the algorithm type part in 11.2.3 "Envelope Encryption Protocol" for details</td></tr>
+            <tr><td>VM_ID</td><td>0x600D</td><td>DID VM identification (i.e. keyAlias) used for encryption</td></tr>
+            <tr><td>KEY_CIPHER</td><td>0x6011</td><td>Symmetric key data encrypted by the user's DID public key</td></tr>
+            <tr><td>DATA_CIPHER</td><td>0x6012</td><td>VC data ciphertext encrypted by the symmetric key</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Response message:</strong> Return <code>IIFAA_Result.IFAA_ERR_SUCCESS</code> if the import is successful, and return the corresponding error code if it fails.</p>
+      </section>
+
+      <section id="query-delete-vc">
+        <h5>Querying/Deleting VCs</h5>
+        <p>Querying VC may expose the user's sensitive data, for which sufficient access control and query instruction replay restrictions are required. The overall query logic flow chart is shown in <a href="#fig-vc-query-del">Figure 16</a>.</p>
+        <figure id="fig-vc-query-del">
+          <img alt="Placeholder for Querying/Deleting VCs Process" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-16.jpg" />
+          <figcaption>: Process of Querying/Deleting VCs</figcaption>
+        </figure>
+
+        <section id="get-device-challenge">
+          <h6>Getting trusted device challenge</h6>
+          <p><strong>Functional description:</strong> Pass in the DID, get the challenge of the trusted device corresponding to the DID, and store {challenge + current timestamp} persistently on the trusted device.</p>
+          <p><strong>Request message:</strong> Request the parameter to pass in a DID, with a data sample as follows:</p>
+          <pre class="example">did:iifaa:2UdYuZagBsinmdRogHNJwPc8QXA4PyXdYXcY1aDaB8wR</pre>
+          <p><strong>Response message:</strong> Return the challenge of the trusted device, with a data sample as follows:</p>
+          <pre class="example">AKHFSJKHSJKAFHDJKHFDJKHJKSJA</pre>
+        </section>
+
+        <section id="querying-vc">
+          <h6>Querying VCs</h6>
+          <p><strong>Functional description:</strong> After IDP authorization, query the VC information stored in the device. If VC_ID is not specified, all VC summary information is returned. If VC_ID is specified, the corresponding VC original text is returned.</p>
+          <p><strong>Request message:</strong> Based on the IDP request message, add data such as DID identifier, device challenge, and VC_ID (optional) in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-vc-query-req">Figure 17</a>.</p>
+          <figure id="fig-vc-query-req">
+            <img alt="Placeholder for VC Query Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-17.jpg" />
+            <figcaption>: Request Message Structure</figcaption>
+          </figure>
+          <table class="def">
+            <caption>Table 15: Definition and Description of TAG Values under REQ_PARAMS</caption>
+            <thead>
+              <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DID_IDENTIFIER</td><td>0x600C</td><td>DID to be queried</td></tr>
+              <tr><td>TERMINEL_CHALLENGE</td><td>0x6016</td><td>Device challenge</td></tr>
+              <tr><td>VC_ID</td><td>0x6013</td><td>VC ID to be queried (optional)</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Response message:</strong> Based on the IDP response message, place the query results in respData. If VC_ID is passed in, the original text of the corresponding VC document is returned. If VC_ID is not passed in, a collection of all VC summary information under the current DID is returned. The structure is shown in <a href="#fig-vc-query-resp">Figure 18</a>.</p>
+          <figure id="fig-vc-query-resp">
+            <img alt="Placeholder for VC Query Response Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-18.jpg" />
+            <figcaption>: Response Message Structure</figcaption>
+          </figure>
+          <table class="def">
+            <caption>Table 16: Definition and Description of TAG Values under RESP_DATA</caption>
+            <thead>
+              <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>VC_DOCUMENT</td><td>0x6014</td><td>Original text of VC document (only returned when VC_ID is passed in)</td></tr>
+              <tr><td>VC_BASIC_INFO_LIST</td><td>0x6015</td><td>VC summary information set (returned when VC_ID is not passed in)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="deleting-vc">
+          <h6>Deleting VCs</h6>
+          <p><strong>Functional description:</strong> After IDP authorization, delete the VC information stored in the device, specify the VC_ID, and then return the corresponding VC summary information.</p>
+          <p><strong>Request message:</strong> Based on the IDP request message, add data such as DID identifier, device challenge, and VC_ID in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-vc-del-req">Figure 19</a>.</p>
+          <figure id="fig-vc-del-req">
+            <img alt="Placeholder for VC Delete Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-19.jpg" />
+            <figcaption>: Request Message Structure</figcaption>
+          </figure>
+          <table class="def">
+            <caption>Table 17: Definition and Description of TAG Values under REQ_PARAMS</caption>
+            <thead>
+              <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DID_IDENTIFIER</td><td>0x600C</td><td>DID to be queried</td></tr>
+              <tr><td>TERMINEL_CHALLENGE</td><td>0x6016</td><td>Device challenge</td></tr>
+              <tr><td>VC_ID</td><td>0x6013</td><td>VC identification to be deleted</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Response message:</strong> If the deletion is successful, return the summary information of the deleted VC.</p>
+        </section>
+      </section>
+
+      <section id="presenting-vc">
+        <h5>Presenting VC (issuing VP)</h5>
+        <p><strong>Functional description:</strong> The user issues a verifiable presentation (VP) that meets the requirements for a specific service provider. The VP content is encrypted using the service provider's identity public key, and the overall message needs to be signed with an institutional identity key. The specific logic is shown in <a href="#fig-vp-present">Figure 20</a>.</p>
+        <figure id="fig-vp-present">
+          <img alt="Placeholder for Presenting VC Functional Description" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-20.jpg" />
+          <figcaption>: Functional Description of Presenting VC (Issuing VP)</figcaption>
+        </figure>
+        <p><strong>Request message:</strong> Based on the request message, add the VM type (<code>VM_TYPE</code>) and identity key algorithm (<code>ASYM_ALG</code>) in the request parameter (<code>REQ_PARAMS</code>), with the structure shown in <a href="#fig-vp-req">Figure 21</a>.</p>
+        <figure id="fig-vp-req">
+          <img alt="Placeholder for VP Request Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-21.jpg" />
+          <figcaption>: Request Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 18: Definition and Description of TAG Values under REQ_PARAMS</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>DID_IDENTIFIER</td><td>0x600C</td><td>DID to be presented</td></tr>
+            <tr><td>CHALLENGE</td><td>0x6005</td><td>Challenge, used to prevent replay</td></tr>
+            <tr><td>VM_TYPE</td><td>0x6006</td><td>VM Type</td></tr>
+            <tr><td>SECURE_LEVEL</td><td>0x600a</td><td>VM security level, see T/IIFAA 4002-2025 6.3 "Security Level" for details</td></tr>
+            <tr><td>SP_CONFIG</td><td>0x6017</td><td>SP scenario configuration, to be signed by OPS</td></tr>
+            <tr><td>USER_SELECTED_ITEMS</td><td>0x6018</td><td>The data set selected by the user to be presented within the SP scenario configuration range</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Response message:</strong> Based on the SP response message, place the VP result in respData, with the structure shown in <a href="#fig-vp-resp">Figure 22</a>.</p>
+        <figure id="fig-vp-resp">
+          <img alt="Placeholder for VP Response Message Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-22.jpg" />
+          <figcaption>: Response Message Structure</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 19: Definition and Description of TAG Values under RESP_DATA</caption>
+          <thead>
+            <tr><th>Field</th><th>Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ENVELOP_ENCODE</td><td>0x600E</td><td>Envelope coding type, see the envelope coding part in 11.2.3 "Envelope Encryption Protocol" for details</td></tr>
+            <tr><td>ENVELOP_ENC_ALG</td><td>0x6010</td><td>Envelope encryption algorithm, see the algorithm type part in 11.2.3 "Envelope Encryption Protocol" for details</td></tr>
+            <tr><td>VM_ID</td><td>0x600D</td><td>DID VM identification (i.e. keyAlias) used for encryption</td></tr>
+            <tr><td>KEY_CIPHER</td><td>0x6011</td><td>Symmetric key data encrypted by the SP DID public key</td></tr>
+            <tr><td>DATA_CIPHER</td><td>0x6012</td><td>VP data ciphertext encrypted by the symmetric key</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+  </section>
+
+  <section id="device-basic-dependencies">
+    <h3>Device Basic Dependencies</h3>
+
+    <section id="secure-storage">
+      <h4>Secure Storage</h4>
+      <p>The specific requirements are as follows:</p>
+      <ol>
+        <li>Persistent storage of DID documents: Store DID documents with DID as the index;</li>
+        <li>Persistent storage of DID identity keys: Store user identity keys with DID.VMID as the index;</li>
+        <li>Persistent storage of VCs: Store VCs with VC.ID as the index (TEE to store plaintext, REE to store ciphertext);</li>
+        <li>Persistent storage of VP presentation records: Store with {DID identifier}_vp_history as the index (TEE to store plaintext, REE to store ciphertext).</li>
+      </ol>
+    </section>
+
+    <section id="cryptographic-capabilities">
+      <h4>Cryptographic Capabilities</h4>
+      <p>The following cryptographic algorithms in <a href="#table-crypto-alg">Table 20</a> shall be supported:</p>
+      <table id="table-crypto-alg" class="def">
+        <caption>Table 20: Cryptographic Algorithms</caption>
+        <thead>
+          <tr><th>Algorithm Type</th><th>Generation</th><th>Encryption</th><th>Endorsement</th><th>Decryption</th><th>Signature Verification</th><th>Hash</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>RSA(2048/3072)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>-</td></tr>
+          <tr><td>ECC(secp256r1)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>-</td></tr>
+          <tr><td>AES(128/192/256)</td><td>Supported</td><td>Supported</td><td>-</td><td>Supported</td><td>-</td><td>-</td></tr>
+          <tr><td>SM2</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>-</td></tr>
+          <tr><td>SM4</td><td>Supported</td><td>Supported</td><td>-</td><td>Supported</td><td>-</td><td>-</td></tr>
+          <tr><td>SM3/MD5/SHA2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>Supported</td></tr>
+          <tr><td>Random</td><td>Supported</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="trusted-hardware">
+      <h4>Trusted Hardware</h4>
+      <p>The specific requirements are as follows:</p>
+      <ol>
+        <li><strong>Trusted UI:</strong> For scenarios such as DID identity authorization, users are required to display the authorized DID identity, and a secure and reliable DID authorization page can be provided through TUI.</li>
+        <li><strong>Trusted geographic location:</strong> For some special identity/service credential applications, it is necessary to provide trusted geographic location information for relevant risk prevention and control.</li>
+        <li><strong>Security camera:</strong> Based on the security camera, it can provide more reliable zero-knowledge face recognition capabilities for DID identity authorization.</li>
+        <li><strong>IIFAA local password-free (fingerprint/face):</strong> It provides authorization for the use of identity keys based on fingerprint or face authentication.</li>
+      </ol>
+    </section>
+  </section>
+</section>
+
+<section id="device-cloud-security">
+  <h2>Device-Cloud Security</h2>
+
+  <section id="overview">
+    <h3>Overview</h3>
+    <p>The device-cloud security system mainly describes the device-cloud link security mechanism. It involves different participants, including TEE manufacturers and identity service providers.</p>
+  </section>
+
+  <section id="institutional-identity">
+    <h3>Definition of Institutional Identity</h3>
+
+    <section id="institutional-roles">
+      <h4>Definition of Institutional Identity Role</h4>
+      <p>In a decentralized authentication system, the identity of an institution usually consists of seven roles, including identity service provider, credential issuer, and credential verifier. An institution can assume multiple identity roles at the same time. The specific definitions of institutional roles are shown in <a href="#table-inst-roles">Table 21</a>:</p>
+      <table id="table-inst-roles" class="def">
+        <caption>Table 21: Definition of Institutional Identity Role</caption>
+        <thead>
+          <tr><th>Institution Type</th><th>Functional Orientation</th><th>Set of Executable Instructions</th><th>Remark</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CISP</td><td>Core Infrastructure Service Platform</td><td>Provide core basic services</td><td>Institutional certificate revocation</td></tr>
+          <tr><td>OPS</td><td>Operation Service</td><td>Provide operation services such as institution entry, scenario configuration, and credential template management</td><td>Not interacting directly with the device</td></tr>
+          <tr><td>WP</td><td>Wallet Provider</td><td>Provide DID identity wallet services (including business plug-ins and wallet programs)</td><td>DID creation, DID import, DID authorization, DID query, VC import, VC query, and VC deletion</td></tr>
+          <tr><td>ORG IDP</td><td>Organization Identity Service Provider</td><td>Provide DID identity management services for authoritative institutions</td><td>DID creation, DID import, DID cancellation</td></tr>
+          <tr><td>BIZ IDP</td><td>Business Identity Service Provider</td><td>Provide DID identity management services for ordinary institutions and users</td><td>DID creation, DID import, DID cancellation</td></tr>
+          <tr><td>ISSUER</td><td>Credential Issuer</td><td>Provide credential issuance services</td><td>VC import</td></tr>
+          <tr><td>VERIFYER</td><td>Credential Verifier (SP)</td><td>Provide various business services based on user credentials</td><td>VP presentation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="institutional-certificates">
+      <h4>Definition of Institutional Identity Certificate</h4>
+
+      <section id="trust-relationship">
+        <h5>Trust relationship</h5>
+        <p>To build a trusted device-cloud interaction system, each institution needs to apply for an identity certificate corresponding to its role. The trust root of the certificate is CISP. Institutions with high trust levels can issue certificates for those at the corresponding sub-levels. The specific trust relationship is shown in <a href="#fig-trust-rel">Figure 23</a>.</p>
+        <figure id="fig-trust-rel">
+          <img alt="Placeholder for Trust Relationship" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-23.jpg" />
+          <figcaption>: Trust Relationship</figcaption>
+        </figure>
+      </section>
+
+      <section id="certificate-chain-structure">
+        <h5>Structure and definition of certificate chain</h5>
+        <p>IIFAA uses a custom certificate format (minimalist): <code>CERT_ENCODE_ALG_IFAA</code>. The certificate structure is of a maximum length of four levels: CISP -> ORG_IDP -> WP/BIZ_IDP/OSP -> SP/ISSUER, where the CISP root certificate is preset on the device, and the longest certificate chain contains three layers of certificate data. The specific certificate chain is shown in <a href="#table-cert-chain">Table 22</a>.</p>
+        <table id="table-cert-chain" class="def">
+          <caption>Table 22: Certificate Chain</caption>
+          <thead>
+            <tr><th>Field Name</th><th>CERT_SIZE</th><th>CERT_DATA_1</th><th>CERT_DATA_2</th><th>CERT_DATA_3</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Meaning</td><td>Certificate level</td><td>Level 1 certificate body</td><td>Level 2 certificate body</td><td>Level 3 certificate body</td></tr>
+            <tr><td>Length</td><td>2 byte</td><td>-</td><td>-</td><td>-</td></tr>
+          </tbody>
+        </table>
+        <p>The structure is as follows:</p>
+        <pre>
++-------------+-------------+-------------+------------+
+| cert_size   | cert data 1 | cert data 2 | cert data 3|
++---2 byte----+-----TLV-----+-----TLV-----+----TLV-----+
++
++-----+--------------+-------------+
+|                   |            |
++-----+----+           +----+-----+ +-----+----+
+| cert body|         | sign alg | | signature|
++-----+----+             +----------+ +----------+
+|
++-------------+---+--------+-----------+------------+
+|            |           |          |           |
++----+-----+ +-----+----+ +-----+----+ +----+-----+ +----+-----+
+| cert sn  | | org did  | | role type| | pub key  | | key alg  |
++----------+ +----------+ +----------+ +----------+ +----------+
+        </pre>
+      </section>
+
+      <section id="certificate-body-structure">
+        <h5>Structure and definition of certificate body</h5>
+        <p>The structure of certificate body is shown in <a href="#fig-cert-body">Figure 24</a>.</p>
+        <figure id="fig-cert-body">
+          <img alt="Placeholder for Certificate Body Structure" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-24.jpg" />
+          <figcaption>: Structure of Certificate Body</figcaption>
+        </figure>
+        <table class="def">
+          <caption>Table 23: Definition and Description of Fields</caption>
+          <thead>
+            <tr><th>Field</th><th>TAG Value</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CERT_DATA</td><td>0x09</td><td>Certificate data</td></tr>
+            <tr><td>CERT_BODY</td><td>0x0a</td><td>Certificate body (signed data)</td></tr>
+            <tr><td>CERT_SN</td><td>0x6019</td><td>Certificate serial number, a 4-byte unsigned integer used to determine the revocation status, etc.</td></tr>
+            <tr><td>ORG_DID</td><td>0x600c</td><td>Institutional DID, optional, not dependent on the DID trusted device side</td></tr>
+            <tr><td>ROLE_TYPE</td><td>0x601a</td><td>Identity type of certificate holder</td></tr>
+            <tr><td>PUBLIC_KEY</td><td>0x601b</td><td>Public key (raw encoding is used by default)</td></tr>
+            <tr><td>ASYM_KEY_ALGORITHM</td><td>0x6007</td><td>Public key type</td></tr>
+            <tr><td>SIGNATURE</td><td>0x6004</td><td>Signature</td></tr>
+            <tr><td>SIGN_ALG</td><td>0x6003</td><td>Signature algorithm</td></tr>
+          </tbody>
+        </table>
+        <p>The raw encoding format of public key is shown as below:</p>
+        <pre class="example">
+public key of RSA2048/RSA3072: { n_len + n + e_len + e }
++-------------------------------------------------------------+
+| n_len |    N                 | e_len |   E             |
++-------------------------------------------------------------+
+|4 byte |   n_len byte         | 4 byte |  e len byte     |
++-------------------------------------------------------------+
+
+public key of ECC_p256/SM2: { 0x04 + x + y }
++-------------------------------------------------------------+
+| 0x04 |     X                  |    Y                    |
++-------------------------------------------------------------+
+|1 byte|     32 byte              |    32 byte                |
++-------------------------------------------------------------+
+        </pre>
+
+        <section id="institution-type">
+          <h6>Institution type</h6>
+          <p>The institutional identity consists of two bytes of data. The bit value identifies whether it has the corresponding role identity authority. Starting from the low bit, it represents such identities as verifyer, issuer, biz_idp, org_idp, ops, and cisp in turn, and bits 8 to 16 are reserved for extension. Examples of institution identity values are shown in <a href="#table-inst-identity">Table 24</a>:</p>
+          <table id="table-inst-identity" class="def">
+            <caption>Table 24: Example of Institution Identity Value</caption>
+            <thead>
+              <tr>
+                <th>Bit</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8~16</th><th>Example</th>
+              </tr>
+              <tr>
+                <th>Identity Role</th><th>VERIFYER</th><th>ISSUER</th><th>BIZ_IDP</th><th>ORG_IDP</th><th>WP</th><th>OPS</th><th>CISP</th><th>Reserved</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>VERIFYER</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>ISSUER</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td></tr>
+              <tr><td>VERIFYER+ISSUER</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
+              <tr><td>ISSUER+BIZ_IDP</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td></tr>
+              <tr><td>BIZ_IDP+WP+OPS</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>52</td></tr>
+              <tr><td>VERIFYER+ISSUER+ BIZ_IDP+WP+OPS</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>55</td></tr>
+              <tr><td>ISSUER+BIZ_IDP+ ORG_IDP+WP+OPS</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>60</td></tr>
+              <tr><td>ORG_DIP+OPS+CISP</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>105</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="public-key-type">
+          <h6>Public key type</h6>
+          <p>User public and private keys generated during registration, where the private key is encrypted and stored by the client. To upload the public key to the server, the types of public and private keys shall be specified. The following key types will be reserved:</p>
+          <pre class="example">
+typedef enum {
+    ASYM_KEY_RSA2048 = 1 &lt;&lt; 0, // RSA2048 private key
+    ASYM_KEY_ECDSA256 = 1 &lt;&lt; 1, // ECC256 private key
+    ASYM_KEY_SM2 = 1 &lt;&lt; 2,     // national encryption algorithm
+    ASYM_KEY_RSA3072 = 1 &lt;&lt; 3, // RSA3072 private key
+    // more here
+} IIFAA_AsymmetricKeyType;
+          </pre>
+          <p>Default encoding format (raw):</p>
+          <pre class="example">
+ECC_p256/SM2: { 0x04 + x + y }
++-------------------------------------------------------------+
+| 0x04 | X | Y |
++-------------------------------------------------------------+
+|1 byte| 32 byte | 32 byte |
++-------------------------------------------------------------+
+
+RSA2048/RSA3072: { n_len + n + e_len + e }
++-------------------------------------------------------------+
+| n_len | N | e_len | E |
++-------------------------------------------------------------+
+|4 byte | n_len byte | 4 byte | e len byte |
++-------------------------------------------------------------+
+          </pre>
+        </section>
+
+        <section id="signature-algorithm">
+          <h6>Signature algorithm</h6>
+          <p>The signature algorithm standardizes the signature verification rules for identity confirmation between IFAA Client and IFAA Server. Currently, IFAA reserves the following types of signature algorithms:</p>
+          <pre class="example">
+typedef enum {
+    SIGN_ALG_ECDSA_SHA256_RAW = 0x01,  // Raw data of ECDSA+SHA256
+    SIGN_ALG_ECDSA_SHA256_DER,  // ECDSA+SHA256 signature in der format
+    SIGN_ALG_RSA_SHA256_RAW,  // Raw data of RSA+SHA256
+    SIGN_ALG_RSA_SHA256_DER,  // Signature of RSA+SHA256 in DER format
+    SIGN_ALG_SM2_SM3_RAW,  // Raw data of SM2+SM3
+    SIGN_ALG_SM2_SM3_DER,  // Signature of SM2+SM3 in der format
+    SIGN_ALG_SHA256_PKCS7,  // Certificate chain signature in PKCS7 format
+    // more here ...
+} IIFAA_SignAlgorithm;
+          </pre>
+        </section>
+      </section>
+    </section>
+  </section>
+
+  <section id="instruction-access-auth">
+    <h3>Instruction-Level Access Authentication</h3>
+
+    <section id="instruction-permission">
+      <h4>Instruction Permission Requirements</h4>
+      <p>During the system initialization phase, each participant needs to complete the registration application for digital certificates according to role classification. Specifically, different roles such as IDP (identity provider), VERIFIER (credential verifier), ISSUER (credential issuer), and operation management organization must apply to the certificate authority center for the institutional identity certificate corresponding to their functions. Each digital certificate shall contain elements such as ID, type, public key, and signature. The specific specifications are shown in <a href="#table-instr-perm">Table 25</a>.</p>
+      <table id="table-instr-perm" class="def">
+        <caption>Table 25: Definition of Instruction Permission Field</caption>
+        <thead>
+          <tr><th>Instruction Name</th><th>CMD_ID</th><th>Institutional Identity</th><th>Supported Algorithms</th><th>Remark</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Query Version Information</td><td>0x00000001</td><td>-</td><td>-</td><td>No signature required</td></tr>
+          <tr><td>DID creation</td><td>0x01000001</td><td>WP, BIZ_IDP</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>Import DID</td><td>0x01000002</td><td>WP, BIZ_IDP</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>DID Authorization</td><td>0x01000003</td><td>VERIFYER</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>Query DID</td><td>0x01000004</td><td>WP</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>Delete DID</td><td>0x01000005</td><td>WP</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>VC import</td><td>0x02000001</td><td>ISSUER</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>Delete VC</td><td>0x02000004</td><td>WP</td><td>RSA, ECC, SM2</td><td></td></tr>
+          <tr><td>Issuing VP</td><td>0x02000003</td><td>VERIFYER</td><td>RSA, ECC, SM2</td><td>Instructions do not need to be signed; SPConfig is signed by OPS, and the result data is encrypted with the VERIFYER public key</td></tr>
+          <tr><td>Get Device Challenge</td><td>0x00000002</td><td>-</td><td>-</td><td>No signature required</td></tr>
+          <tr><td>Update Certificate Revocation List</td><td>0x00000003</td><td>CISP</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="signature-key-type">
+      <h4>Requirements for Signature Key Type</h4>
+      <p>After the instruction is executed, the device key or DID identity key shall be selected according to the instruction type to implement the digital signature, with details shown in <a href="#table-sig-key-type">Table 26</a>.</p>
+      <table id="table-sig-key-type" class="def">
+        <caption>Table 26: Definition of Signature Key Type Field</caption>
+        <thead>
+          <tr><th>Instruction</th><th>Signature Data</th><th>Key Type</th><th>Supported Algorithms</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DID creation</td><td>DID identity key and relevant information generated by the device: public key, security level...</td><td>Device key</td><td>RSA (IIFAA device key), ECC (Huawei certificate chain)</td></tr>
+          <tr><td>DID Authorization</td><td>Information such as business data to be authorized</td><td>Specified DID identity key</td><td>RSA, ECC, SM2</td></tr>
+          <tr><td>Delete DID</td><td>Cancel result data</td><td>Specified DID identity key</td><td>RSA, ECC, SM2</td></tr>
+          <tr><td>Issuing VP</td><td>VP data</td><td>Specified DID identity key</td><td>RSA, ECC, SM2</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="device-cloud-bidirectional-trust">
+    <h3>Device-Cloud Bidirectional Trust</h3>
+
+    <section id="overall-process">
+      <h4>Overall Process Sequence Diagram</h4>
+      <p>To ensure the security and trustworthiness of the data transmission process of the device-cloud bidirectional link, a bidirectional signature mechanism is introduced to enhance data tampering resistance and improve the ability to prevent illegal applications from accessing critical infrastructure. The overall process sequence diagram is shown in <a href="#fig-bidi-seq">Figure 25</a>.</p>
+      <figure id="fig-bidi-seq">
+        <img alt="Placeholder for Overall Process Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-25.jpg" />
+        <figcaption>: Overall Process Sequence Diagram</figcaption>
+      </figure>
+    </section>
+
+    <section id="envelope-encryption">
+      <h4>Envelope Encryption</h4>
+
+      <section id="application-scenarios">
+        <h5>Specific application scenarios</h5>
+        <p>Through the envelope encryption scheme, dynamic data encryption of the device-cloud bidirectional link is realized to ensure the transmission confidentiality of core business data and improve the link security level. The specific application scenarios are shown in <a href="#table-envelope-scenarios">Table 31</a>.</p>
+        <table id="table-envelope-scenarios" class="def">
+          <caption>Table 31: Description of Specific Application Scenarios</caption>
+          <thead>
+            <tr><th>Instruction</th><th>Encrypted Data</th><th>Key Type</th><th>Supported Algorithms</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>VC import</td><td>VC plaintext data</td><td>Specified user DID key</td><td>RSA, ECC, SM2</td></tr>
+            <tr><td>Issuing VP</td><td>VP plaintext data</td><td>DID identity key of VERIFYER institution</td><td>RSA, ECC, SM2</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="envelope-coding">
+        <h5>Envelope coding</h5>
+        <p>Envelope coding is to format and serialize the encrypted information according to certain rules so that it can be correctly parsed and processed in different devices, systems, or network environments. The specific format is as follows:</p>
+        <pre class="example">
+typedef enum {
+    ENVELOP_ENCODE_IIFAA = 1 &lt;&lt; 0, // IIFAA custom format
+    ENVELOP_ENCODE_PKCS7 = 1 &lt;&lt; 1, // PKCS7 envelope format
+    // more here...
+} ENVELOP_ENCODE_TYPE;
+        </pre>
+      </section>
+
+      <section id="algorithm-type">
+        <h5>Algorithm type</h5>
+        <p>The algorithms supported by the IIFAA custom format include RSA envelope encryption (RSA_AES128_ECB_PKCS5) and SM2_SM4_CBC_PKCS5 (national encryption).</p>
+        <p><strong>RSA_AES128_ECB_PKCS5</strong></p>
+        <p>The original data is encrypted using the AES algorithm with a 128-bit key in electronic code book mode (ECB) with PKCS#5 padding. In this process, the symmetric key used for encryption is encrypted with the RSA key. An example of TLV data is shown in <a href="#fig-rsa-envelope">Figure 26</a>.</p>
+        <figure id="fig-rsa-envelope">
+          <img alt="Placeholder for RSA Envelope TLV Data" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-26.jpg" />
+          <figcaption>: Overall Process Sequence Diagram</figcaption>
+        </figure>
+        <p><strong>SM2_SM4_CBC_PKCS5:</strong></p>
+        <p>Data encryption is to encrypt the original data using the SM4 algorithm in ciphertext block chaining mode (CBC) with PKCS#5 padding. The CBC mode requires an initialization vector (IV) as the input to encrypt the first block. In this process, when symmetric keys are encrypted, the SM4 key and the initialization vector (IV) are encrypted with the SM2 key. The symmetric key and IV are assembled as follows: the ciphertext format of the SM4 key and IV is {Key (16 bytes) + IV (16 bytes)}.</p>
+        <p>JSON data sample:</p>
+        <pre class="example">
+{
+  "algorithm": "SM2_SM4_CBC_PKCS5",
+  "keyAlias": "did:iifaa:5o42zmY48hPczeSMfCyjQCupaVnfx1zZJmDciYHvmQGX#key-1",
+  "cipher": "Data ciphertext",
+  "keyCipher": "SM4 key and IV ciphertext Enc{Key (16 bytes) + IV (16 bytes)}"
+}
+        </pre>
+        <p>An example of TLV data is shown in <a href="#fig-sm2-envelope">Figure 27</a>.</p>
+        <figure id="fig-sm2-envelope">
+          <img alt="Placeholder for SM2 Envelope TLV Data" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-27.jpg" />
+          <figcaption>: Overall Process Sequence Diagram</figcaption>
+        </figure>
+      </section>
+    </section>
+
+    <section id="bidirectional-challenge">
+      <h4>Bidirectional Challenge Solution</h4>
+      <p>To ensure the data security of the end-cloud bidirectional link and effectively prevent middlemen from caching legitimate instructions or device results, thereby avoiding the threat of replay attacks to business services or DID trusted devices, a bidirectional challenge scheme is introduced. The process sequence diagram is shown in <a href="#fig-bidi-challenge">Figure 28</a>.</p>
+      <figure id="fig-bidi-challenge">
+        <img alt="Placeholder for Bidirectional Challenge Process" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-3-28.jpg" />
+        <figcaption>: Process Sequence Diagram of Bidirectional Challenge Solution</figcaption>
+      </figure>
+    </section>
+  </section>
+</section>
+
+<section id="security-requirements">
+  <h2>Security Requirements and Test Verification Methods</h2>
+
+  <section id="overview-security">
+    <h3>Overview</h3>
+    <p>This chapter specifies the specific security requirements and test verification methods according to Chapter 8 "Safety Requirements" of T/IIFAA 4001-2025 and 10.2 "Operating Environment Safety Test".</p>
+  </section>
+
+  <section id="password-security">
+    <h3>Password Application Security</h3>
+    <p>Cryptographic algorithms and their applications are described in 8.1 of T/IIFAA 4001-2025. Specific applications shall be based on the specific application scenarios of decentralized authentication, comply with the provisions of relevant laws and regulations, and meet the requirements of relevant national management agencies and relevant national standards and industry standards. This document does not specify specific requirements and verification methods for password application security.</p>
+  </section>
+
+  <section id="protocol-data-security">
+    <h3>Protocol Data Security</h3>
+
+    <section id="protocol-security-requirements">
+      <h4>Security Requirements</h4>
+      <p>Protocol data security refers to the data security at the DID protocol layer and its underlying data transmission layer. The requirements are as follows:</p>
+      <ol>
+        <li>The data of the DID protocol layer shall be transmitted in an encrypted manner. Attackers other than ISSUER, SP, and user clients cannot obtain the plaintext information of VC and VP.</li>
+        <li>The DID protocol layer link shall ensure data integrity and prevent data tampering.</li>
+        <li>The DID protocol layer link shall be bidirectionally authenticated to ensure that both ends of the data transmission are authenticated to prevent illegal access and data leakage.</li>
+        <li>The data transmission layer shall adopt a secure communication protocol, such as TLS/TLCP, to ensure the security of data transmission.</li>
+        <li>According to the security requirements of the application scenario, when the DID protocol layer link (such as the link from the client to the SP that presents VP) needs to prevent replay attacks, it shall have the ability to prevent replay attacks.</li>
+        <li>The VP shall be presented legally. The client that presents the VP must be the client to which the VC is issued. Unauthorized use of VP shall be prevented.</li>
+      </ol>
+    </section>
+
+    <section id="protocol-test-method">
+      <h4>Test Verification Method</h4>
+      <p>The test method is as follows:</p>
+      <ol>
+        <li>Check whether the fields containing VC and VP (i.e., <code>DATA_CIPHER</code> and <code>KEY_CIPHER</code>) in the data message are encrypted ciphertexts. If so, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>For any link in the DID protocol layer, the data message must originate from a legitimate sender and remain untampered with. Check whether the receiver accepts the tampered message. If not, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>For any link in the DID protocol layer, including device-cloud and cloud-cloud links, certificate chain verification and signature verification shall be performed at both ends of the link. Check whether each data link type is signed and verified. If it is signed and verified, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Check the protocol of the data transmission layer. If a secure communication protocol is used for interaction and the communication data is encrypted and protected for integrity, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>When it is necessary to prevent replay attacks, use data messages for the 2nd transmission, i.e. replay, and check whether the receiver accepts the replayed data. If the receiver does not accept the replayed data, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>On an unauthorized client, present a valid VP that has not been used. If it cannot pass the verification, it meets the requirements; otherwise, it does not meet the requirements.</li>
+      </ol>
+    </section>
+  </section>
+
+  <section id="server-security">
+    <h3>Server Security</h3>
+
+    <section id="server-security-requirements">
+      <h4>Security Requirements</h4>
+      <p>The security requirements are as follows:</p>
+      <ol>
+        <li><strong>Application security:</strong> Applications related to decentralized authentication installed on server devices shall avoid installing unaudited applications, and shall be the latest to ensure the security of the application.</li>
+        <li><strong>Password and authentication:</strong> Password and authentication settings shall be performed for server devices to ensure that only authorized personnel can access the device.</li>
+        <li><strong>Antivirus software and malware:</strong> Antivirus and malware scanners shall be installed and run regularly to ensure that the device is protected from viruses and malware.</li>
+        <li>The server shall authenticate all requests to ensure that the request comes from a legitimate authorized user or client.</li>
+        <li>The server shall be able to handle abnormal data messages to avoid server attacks and service interruptions.</li>
+        <li>The server shall record all access logs and abnormal logs for tracking and analysis.</li>
+        <li>The server shall establish an emergency response mechanism to deal with security events and threats in a timely manner.</li>
+      </ol>
+    </section>
+
+    <section id="server-test-method">
+      <h4>Test Verification Method</h4>
+      <p>The test verification method is as follows:</p>
+      <ol>
+        <li>Check the version of the application. If it is the latest version, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Log in to the system as an unauthorized person. If you cannot access the system, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Check whether the system has been installed with antivirus and malware scanners. If so, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Initiate a request to the server with an illegal or unauthorized user identity or client software. If the server does not respond to the request, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>When a large number of abnormal messages are used to attack the server (security testing tools can be used), if the server can maintain uninterrupted service, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Check whether the system has access logs and abnormal log records. If so, it meets the requirements; otherwise, it does not meet the requirements.</li>
+        <li>Check whether the service provider has an emergency response mechanism. If so, it meets the requirements; otherwise, it does not meet the requirements.</li>
+      </ol>
+    </section>
+  </section>
+
+  <section id="device-security-req">
+    <h3>Device Security</h3>
+
+    <section id="device-security-requirements">
+      <h4>Security Requirements</h4>
+      <p>The security requirements are as follows:</p>
+      <ol>
+        <li>Data shall be stored securely. The stored data of the device shall be encrypted to ensure that the data will not be accessed and used by unauthorized persons or malware.</li>
+        <li>Safe update shall be available. It shall be ensured that the operating system and application programs of devices will not be tampered with or replaced by malware during updates, and the update itself is safe.</li>
+        <li>Trusted identity authentication shall be available to ensure that the user identity authentication on the device is credible, and only authorized users can access the device and data.</li>
+      </ol>
+    </section>
+
+    <section id="device-test-method">
+      <h4>Test Verification Method</h4>
+      <p>The test verification method is as follows:</p>
+      <ol>
+        <li>Check whether the DID key and VC data can be stored safely.
+          <ol>
+            <li>Check whether the DID key is stored in a secure environment as stated in the DID document. When the DID document states SE storage, if the DID key is generated and used in the device SE or SIM card security area, it meets the requirements. When the DID document states TEE storage, if the DID key is generated and used in the device TEE, it meets the requirements.</li>
+            <li>Check whether the VC is encrypted and stored. If the VC is encrypted by a cryptographic mechanism and unauthorized persons or malware cannot access the VC plaintext, it meets the requirements.</li>
+          </ol>
+        </li>
+        <li>Check the update process of the operating system and application programs. If there is file source verification and file integrity verification during the update process, it meets the requirements.</li>
+        <li>Check whether the device has an identity authentication mechanism, including but not limited to password authentication and biometric authentication. If unauthorized users cannot access the relevant data of DID, it meets the requirements.</li>
+      </ol>
+    </section>
+  </section>
+</section>
+
+</body>
+</html>
