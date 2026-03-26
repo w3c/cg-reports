@@ -1,0 +1,1446 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 35.8.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+  
+  
+<title>IIFAA Decentralized Trusted Authentication Technical Specification — Part 2: Identity Protocol and Interaction Framework</title>
+  
+  
+  
+<style>
+
+    .example pre {
+      white-space: pre-wrap;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 0.5em;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    figure {
+      text-align: center;
+      margin: 2em 0;
+    }
+    figcaption {
+      font-style: italic;
+      margin-top: 0.5em;
+    }  
+    body > section:not(#abstract):not(#sotd):not(#toc) {
+      margin-top: 1.5em !important;
+      margin-bottom: 1.5em !important;
+    }
+    section > section {
+      margin-top: 1em !important;
+      margin-bottom: 1em !important;
+    }
+    h2, h3, h4, h5 {
+      margin-top: 1.2em !important;
+      margin-bottom: 0.6em !important;
+    }
+    table, pre.example {
+      margin-top: 0.8em !important;
+      margin-bottom: 0.8em !important;
+    }
+  
+</style>
+
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:italic}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+<meta name="color-scheme" content="light">
+<meta name="description" content="This document establishes the identity protocol and interaction flow for IIFAA decentralized authentication. It applies to R&amp;D design, deployment, testing, and certification activities related to IIFAA decentralized authentication.">
+<link rel="canonical" href="https://www.w3.org/community/reports/cndid/iifaa-did-part2/">
+<style>
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "specStatus": "CG-FINAL",
+  "shortName": "iifaa-did-part2",
+  "editors": [
+    {
+      "name": "Wang Yongtao",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Zhang Wu",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Sun Weichao",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Peng Jin",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Lin Guanchen",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Huang Lin",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Wu Sijie",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Yan Dong",
+      "company": "Ant Group Co., Ltd."
+    },
+    {
+      "name": "Lyu Lei",
+      "company": "National Engineering Research Center for Cryptography Technology"
+    },
+    {
+      "name": "Fu Shan",
+      "company": "China Academy of Information and Communications Technology (CAICT)"
+    },
+    {
+      "name": "Wei Fanxing",
+      "company": "China Academy of Information and Communications Technology (CAICT)"
+    },
+    {
+      "name": "Xu Jinliang",
+      "company": "China Academy of Information and Communications Technology (CAICT)"
+    },
+    {
+      "name": "Yang Bo",
+      "company": "National FinTech Evaluation Center"
+    },
+    {
+      "name": "Yi Qiang",
+      "company": "Huawei Technologies Co., Ltd."
+    },
+    {
+      "name": "Zhao Xiaona",
+      "company": "Honor Device Co., Ltd."
+    },
+    {
+      "name": "Li Zhichao",
+      "company": "Honor Device Co., Ltd."
+    },
+    {
+      "name": "Li Gen",
+      "company": "OPPO Guangdong Mobile Communications Co., Ltd."
+    },
+    {
+      "name": "Guo Yanhong",
+      "company": "CM Financial Technology Co., Ltd."
+    },
+    {
+      "name": "Wang Bin",
+      "company": "Samsung R&D Institute China-Beijing"
+    },
+    {
+      "name": "Ping Zhenghai",
+      "company": "ZTE Corporation Limited"
+    },
+    {
+      "name": "Wang Zhitao",
+      "company": "Shanghai Electronic Certificate Authority Center Co., Ltd."
+    },
+    {
+      "name": "Lu Ruyi",
+      "company": "Beijing eSand Information Technology Co., Ltd."
+    },
+    {
+      "name": "Zhang Shengyi",
+      "company": "Beijing eSand Information Technology Co., Ltd."
+    },
+    {
+      "name": "Wang Jun",
+      "company": "Beijing eSand Information Technology Co., Ltd."
+    },
+    {
+      "name": "Zhu Pengfei",
+      "company": "Feitian Technologies Co., Ltd."
+    },
+    {
+      "name": "Lyu Fang",
+      "company": "Client Service International Inc."
+    },
+    {
+      "name": "Meng Ru",
+      "company": "Koal Software Co., Ltd."
+    },
+    {
+      "name": "Liu Weihua",
+      "company": "Zhengzhou Xindajiean Information Technology Co., Ltd."
+    }
+  ],
+  "publishDate": "2026-03-26",
+  "edDraftURI": "https://w3c-cg.github.io/cndid/IIFAA_technical_report/",
+  "license": "w3c-software-doc",
+  "github": "w3c-cg/cndid",
+  "group": "cndid",
+  "publishISODate": "2026-03-26T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Report 26 March 2026"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final"></head>
+<body data-new-gr-c-s-check-loaded="14.1277.0" data-gr-ext-installed="" class="h-entry informative"><div class="head">
+    
+    <h1 id="title" class="title">IIFAA Decentralized Trusted Authentication Technical Specification — Part 2: Identity Protocol and Interaction Framework</h1> 
+    <p id="w3c-state">
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
+      <time class="dt-published" datetime="2026-03-26">26 March 2026</time>
+    </p>
+    <dl>
+      <dt>This version:</dt><dd>
+              <a class="u-url" href="https://www.w3.org/community/reports/cndid/CG-FINAL-iifaa-did-part2-20260326/">https://www.w3.org/community/reports/cndid/CG-FINAL-iifaa-did-part2-20260326/</a>
+            </dd>
+     
+      <dt>Latest editor's draft:</dt><dd><a href="https://w3c-cg.github.io/cndid/CG-FINAL-iifaa-did-part2-20260326.html">https://w3c-cg.github.io/cndid/CG-FINAL-iifaa-did-part2-20260326.html</a></dd>
+      
+      
+      
+      
+      <dt>Editors:</dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wang Yongtao</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Zhang Wu</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Sun Weichao</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Peng Jin</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Lin Guanchen</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Huang Lin</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wu Sijie</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Yan Dong</span> (<span class="p-org org h-org">Ant Group Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Lyu Lei</span> (<span class="p-org org h-org">National Engineering Research Center for Cryptography Technology</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Fu Shan</span> (<span class="p-org org h-org">China Academy of Information and Communications Technology (CAICT)</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wei Fanxing</span> (<span class="p-org org h-org">China Academy of Information and Communications Technology (CAICT)</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Xu Jinliang</span> (<span class="p-org org h-org">China Academy of Information and Communications Technology (CAICT)</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Yang Bo</span> (<span class="p-org org h-org">National FinTech Evaluation Center</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Yi Qiang</span> (<span class="p-org org h-org">Huawei Technologies Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Zhao Xiaona</span> (<span class="p-org org h-org">Honor Device Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Li Zhichao</span> (<span class="p-org org h-org">Honor Device Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Li Gen</span> (<span class="p-org org h-org">OPPO Guangdong Mobile Communications Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Guo Yanhong</span> (<span class="p-org org h-org">CM Financial Technology Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wang Bin</span> (<span class="p-org org h-org">Samsung R&amp;D Institute China-Beijing</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Ping Zhenghai</span> (<span class="p-org org h-org">ZTE Corporation Limited</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wang Zhitao</span> (<span class="p-org org h-org">Shanghai Electronic Certificate Authority Center Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Lu Ruyi</span> (<span class="p-org org h-org">Beijing eSand Information Technology Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Zhang Shengyi</span> (<span class="p-org org h-org">Beijing eSand Information Technology Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Wang Jun</span> (<span class="p-org org h-org">Beijing eSand Information Technology Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Zhu Pengfei</span> (<span class="p-org org h-org">Feitian Technologies Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Lyu Fang</span> (<span class="p-org org h-org">Client Service International Inc.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Meng Ru</span> (<span class="p-org org h-org">Koal Software Co., Ltd.</span>)
+  </dd><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">Liu Weihua</span> (<span class="p-org org h-org">Zhengzhou Xindajiean Information Technology Co., Ltd.</span>)
+  </dd>
+      
+      
+      <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c-cg/cndid/">GitHub w3c-cg/cndid</a>
+        (<a href="https://github.com/w3c-cg/cndid/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c-cg/cndid/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c-cg/cndid/issues/">open issues</a>)
+      </dd>
+      
+    </dl>
+    
+    <p class="copyright">
+          <a href="https://www.w3.org/policies/#copyright">Copyright</a>
+          ©
+          2026
+          
+          the Contributors to the IIFAA Decentralized Trusted Authentication Technical Specification — Part 2: Identity Protocol and Interaction Framework
+          Specification, published by the
+          <a href="https://www.w3.org/groups/cg/cndid">Chinese DID &amp; VC Community Group</a> under the
+          <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
+                is available.
+              
+        </p>
+    <hr title="Separator for header">
+  </div>
+
+<section id="abstract" class="introductory"><h2>Abstract</h2>
+  <p>This document establishes the identity protocol and interaction flow for IIFAA decentralized authentication. It applies to R&amp;D design, deployment, testing, and certification activities related to IIFAA decentralized authentication.</p>
+</section>
+
+<section id="sotd" class="introductory"><h2>Status of This Document</h2><p>
+      This specification was published by the
+      <a href="https://www.w3.org/groups/cg/cndid">Chinese DID &amp; VC Community Group</a>. It is not a W3C Standard nor is it
+      on the W3C Standards Track.
+      
+            Please note that under the
+            <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+            other conditions apply.
+          
+      Learn more about
+      <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
+    </p>
+ <p>
+    <a href="https://github.com/w3c-cg/cndid/issues/">GitHub Issues</a> are preferred for
+          discussion of this specification.
+        
+    
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">1. </bdi>Scope</a></li><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">2. </bdi>Normative References</a></li><li class="tocline"><a class="tocxref" href="#terms-and-definitions"><bdi class="secno">3. </bdi>Terms and Definitions</a></li><li class="tocline"><a class="tocxref" href="#abbreviations"><bdi class="secno">4. </bdi>Abbreviations</a></li><li class="tocline"><a class="tocxref" href="#framework"><bdi class="secno">5. </bdi>Identity Protocol and Device Function Interaction Framework</a></li><li class="tocline"><a class="tocxref" href="#identity-protocol"><bdi class="secno">6. </bdi>Identity Protocol</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-document"><bdi class="secno">6.1 </bdi>DID Document</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-overview"><bdi class="secno">6.1.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#did-attributes"><bdi class="secno">6.1.2 </bdi>Attributes</a></li></ol></li><li class="tocline"><a class="tocxref" href="#verifiable-credentials"><bdi class="secno">6.2 </bdi>Verifiable Credentials</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vc-overview"><bdi class="secno">6.2.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#vc-attributes"><bdi class="secno">6.2.2 </bdi>Attributes</a></li></ol></li><li class="tocline"><a class="tocxref" href="#verifiable-presentation"><bdi class="secno">6.3 </bdi>Verifiable Presentation</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vp-overview"><bdi class="secno">6.3.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#vp-attributes"><bdi class="secno">6.3.2 </bdi>Attributes</a></li><li class="tocline"><a class="tocxref" href="#vp-data-sample"><bdi class="secno">6.3.3 </bdi>Data Sample</a></li></ol></li><li class="tocline"><a class="tocxref" href="#verification-methods"><bdi class="secno">6.4 </bdi>Verification Methods / Authentication</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vm-overview"><bdi class="secno">6.4.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#vm-attributes"><bdi class="secno">6.4.2 </bdi>Attributes</a></li><li class="tocline"><a class="tocxref" href="#vm-data-sample"><bdi class="secno">6.4.3 </bdi>Data Sample</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sm2-key"><bdi class="secno">6.4.3.1 </bdi>SM2 key</a></li><li class="tocline"><a class="tocxref" href="#ecc-key"><bdi class="secno">6.4.3.2 </bdi>ECC NIST curve (p256, etc.)</a></li><li class="tocline"><a class="tocxref" href="#rsa-key"><bdi class="secno">6.4.3.3 </bdi>RSA key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#proof"><bdi class="secno">6.5 </bdi>Proof</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#proof-overview"><bdi class="secno">6.5.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#proof-attributes"><bdi class="secno">6.5.2 </bdi>Attributes</a></li><li class="tocline"><a class="tocxref" href="#proof-data-sample"><bdi class="secno">6.5.3 </bdi>Data Sample</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sm2-signature"><bdi class="secno">6.5.3.1 </bdi>SM2 signature</a></li><li class="tocline"><a class="tocxref" href="#ecc-rsa-signature"><bdi class="secno">6.5.3.2 </bdi>ECC NIST curve (p256, etc.) signature, RSA signature</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#security-level"><bdi class="secno">6.6 </bdi>Security Level</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sl-overview"><bdi class="secno">6.6.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#sl-attributes"><bdi class="secno">6.6.2 </bdi>Attributes</a></li><li class="tocline"><a class="tocxref" href="#sl-data-sample"><bdi class="secno">6.6.3 </bdi>Data Sample</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#device-interaction"><bdi class="secno">7. </bdi>Device Function Interaction</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#di-overview"><bdi class="secno">7.1 </bdi>Overview</a></li><li class="tocline"><a class="tocxref" href="#did-creation-flow"><bdi class="secno">7.2 </bdi>DID creation</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#did-creation-flowchart"><bdi class="secno">7.2.1 </bdi>Flowchart</a></li><li class="tocline"><a class="tocxref" href="#did-creation-sequence"><bdi class="secno">7.2.2 </bdi>Sequence Diagram</a></li></ol></li><li class="tocline"><a class="tocxref" href="#vc-application"><bdi class="secno">7.3 </bdi>VC Application</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vc-app-flowchart"><bdi class="secno">7.3.1 </bdi>Flowchart</a></li><li class="tocline"><a class="tocxref" href="#vc-app-sequence"><bdi class="secno">7.3.2 </bdi>Sequence Diagram</a></li></ol></li><li class="tocline"><a class="tocxref" href="#viewing-vc"><bdi class="secno">7.4 </bdi>Viewing VC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vc-view-flowchart"><bdi class="secno">7.4.1 </bdi>Flowchart</a></li><li class="tocline"><a class="tocxref" href="#vc-view-sequence"><bdi class="secno">7.4.2 </bdi>Sequence Diagram</a></li></ol></li><li class="tocline"><a class="tocxref" href="#issuing-vp"><bdi class="secno">7.5 </bdi>Issuing VP</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#vp-issue-flowchart"><bdi class="secno">7.5.1 </bdi>Flowchart</a></li><li class="tocline"><a class="tocxref" href="#vp-issue-sequence"><bdi class="secno">7.5.2 </bdi>Sequence Diagram</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#appendix-a"><bdi class="secno">A. </bdi>Data Sample of Identity Protocol</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#a1"><bdi class="secno">A.1 </bdi>Data Sample of Decentralized Identity Protocol</a></li><li class="tocline"><a class="tocxref" href="#a2"><bdi class="secno">A.2 </bdi>Data Example of VCs</a></li><li class="tocline"><a class="tocxref" href="#a3"><bdi class="secno">A.3 </bdi>Data Samples of VPs</a></li></ol></li></ol></nav>
+
+<section id="scope"><div class="header-wrapper"><h2 id="x1-scope"><bdi class="secno">1. </bdi>Scope</h2><a class="self-link" href="#scope" aria-label="Permalink for Section 1."></a></div>
+  
+  <p>This document establishes the identity protocol and interaction flow for IIFAA decentralized authentication.</p>
+  <p>This document applies to the IIFAA decentralized authentication R&amp;D design, deployment application, and test and authentication activities.</p>
+</section>
+
+<section id="normative-references"><div class="header-wrapper"><h2 id="x2-normative-references"><bdi class="secno">2. </bdi>Normative References</h2><a class="self-link" href="#normative-references" aria-label="Permalink for Section 2."></a></div>
+  
+  <p>The following documents are referred to in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition (including any amendments) applies.</p>
+  <dl>
+    <dt id="ref-tiifaa4001">[T/IIFAA 4001-2024]</dt>
+    <dd><cite>IIFAA Decentralized Authentication Technical Specification — Part 1: Overall Architecture</cite></dd>
+  </dl>
+</section>
+
+<section id="terms-and-definitions"><div class="header-wrapper"><h2 id="x3-terms-and-definitions"><bdi class="secno">3. </bdi>Terms and Definitions</h2><a class="self-link" href="#terms-and-definitions" aria-label="Permalink for Section 3."></a></div>
+  
+  <p>For the purposes of this document, the following terms and definitions apply, as well as those defined in [T/IIFAA 4001-2024].</p>
+
+  <dl>
+    <dt>Decentralized Identifier (DID)</dt>
+    <dd>A new type of identifier that supports verifiable, decentralized digital identity.</dd>
+
+    <dt>DID Document</dt>
+    <dd>The identity document information of the user's DID on the blockchain, which is stored in a decentralized manner to ensure that it will not be tampered with. This document describes the encryption public key, verification method, decentralized identity protocol used, and service endpoint for the specific DID.</dd>
+
+    <dt>Verifiable Credentials (VC)</dt>
+    <dd>VC data issued by the issuer for a user's DID is securely stored on the user side and presented to the service provider in a verifiable way after being authorized (signed) by the user.</dd>
+
+    <dt>Verifiable Presentation (VP)</dt>
+    <dd>It refers to the data that allows the VC holder (i.e., user) to identify himself/herself to the verifier.</dd>
+
+    <dt>Decentralized Identity Asset Wallet</dt>
+    <dd>A decentralized identity asset management tool based on mobile applications provided by users. Decentralized identity asset wallets usually use the security chip on the user device side to store and encrypt the user's identity private key and related asset credential data to ensure that any key identity data will not be leaked. At the same time, they also use the biometric technology of mobile devices, such as fingerprint recognition or facial recognition, to provide a more convenient and secure decentralized identity authorization method. In this document, it is also referred to as the <em>wallet</em>.</dd>
+
+    <dt>Identity</dt>
+    <dd>A set of attributes associated with an entity.</dd>
+    <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div><dd class="" role="note">
+      <p>Note 1: An entity can have multiple identities.</p>
+      <p>Note 2: Several entities can have the same identity.</p>
+      <p>[Source: GB/T 25069-2022, 3.512]</p>
+    </dd></div>
+  </dl>
+</section>
+
+<section id="abbreviations"><div class="header-wrapper"><h2 id="x4-abbreviations"><bdi class="secno">4. </bdi>Abbreviations</h2><a class="self-link" href="#abbreviations" aria-label="Permalink for Section 4."></a></div>
+  
+  <p>The following abbreviations apply to this document.</p>
+  <dl>
+    <dt>DID</dt><dd>Decentralized Identifier</dd>
+    <dt>OEM</dt><dd>Original Equipment Manufacturer</dd>
+    <dt>REE</dt><dd>Rich Execution Environment</dd>
+    <dt>SE</dt><dd>Secure Element</dd>
+    <dt>TEE</dt><dd>Trusted Execution Environment</dd>
+    <dt>VC</dt><dd>Verifiable Credential</dd>
+    <dt>VP</dt><dd>Verifiable Presentation</dd>
+  </dl>
+</section>
+
+<section id="framework"><div class="header-wrapper"><h2 id="x5-identity-protocol-and-device-function-interaction-framework"><bdi class="secno">5. </bdi>Identity Protocol and Device Function Interaction Framework</h2><a class="self-link" href="#framework" aria-label="Permalink for Section 5."></a></div>
+  
+  <p>The identity protocol and device function interaction framework is shown in <a href="#fig-framework">Figure 1</a>.</p>
+  <figure id="fig-framework">
+    <img alt="Placeholder for Identity Protocol and Device Function Interaction Framework diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-1.png">
+    <figcaption><a class="self-link" href="#fig-framework">Figure <bdi class="figno">1</bdi></a> <span class="fig-title">: Identity Protocol and Device Function Interaction Framework</span></figcaption>
+  </figure>
+  <p>The specific composition of each part is as follows:</p>
+  <ol>
+    <li><strong>Identity protocol</strong>: It describes the identity document (DID Document), verifiable credential, and verifiable presentation related to IIFAA decentralized trusted authentication, involving the roles of participants such as identity service providers, credential issuers, and application manufacturers.</li>
+    <li><strong>Device function interaction</strong>: It describes the relevant content of IIFAA decentralized trusted authentication in the application part, mainly including such function services as identity management and authorization, and credential management and presentation, involving the roles of participants such as application manufacturers and identity service providers (providing decentralized identity asset wallet services).</li>
+  </ol>
+</section>
+
+<section id="identity-protocol"><div class="header-wrapper"><h2 id="x6-identity-protocol"><bdi class="secno">6. </bdi>Identity Protocol</h2><a class="self-link" href="#identity-protocol" aria-label="Permalink for Section 6."></a></div>
+  
+
+  <section id="did-document"><div class="header-wrapper"><h3 id="x6-1-did-document"><bdi class="secno">6.1 </bdi>DID Document</h3><a class="self-link" href="#did-document" aria-label="Permalink for Section 6.1"></a></div>
+    
+    <section id="did-overview"><div class="header-wrapper"><h4 id="x6-1-1-overview"><bdi class="secno">6.1.1 </bdi>Overview</h4><a class="self-link" href="#did-overview" aria-label="Permalink for Section 6.1.1"></a></div>
+      
+      <p>The document describes the encryption materials, verification methods, decentralized identity protocols used, and service endpoints for a specific DID. Some examples of decentralized identity protocol data are shown in <a href="#appendix-a">Appendix A</a>.</p>
+    </section>
+    <section id="did-attributes"><div class="header-wrapper"><h4 id="x6-1-2-attributes"><bdi class="secno">6.1.2 </bdi>Attributes</h4><a class="self-link" href="#did-attributes" aria-label="Permalink for Section 6.1.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 1: Attributes of DID Documents</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>DID ID</td><td>Required</td><td><code>did:iifaa:2UdYuZagBsinmdRogHNJwPc8QXA4PyXdYXcY1aDaB8wR</code></td></tr>
+          <tr><td>created</td><td>Creation time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>update</td><td>Update time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>status</td><td>Overall status of DID</td><td>Required</td><td><code>active</code></td></tr>
+          <tr><td>Verification Methods</td><td>See <a href="#verification-methods">6.4</a></td><td>Required</td><td>Refer to Appendix A for data sample</td></tr>
+          <tr><td>authentication</td><td>See <a href="#verification-methods">6.4</a></td><td>Optional</td><td>Refer to Appendix A for data sample</td></tr>
+          <tr><td>proof</td><td>See <a href="#proof">6.5</a></td><td>Required</td><td>Refer to Appendix A for data sample</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="verifiable-credentials"><div class="header-wrapper"><h3 id="x6-2-verifiable-credentials"><bdi class="secno">6.2 </bdi>Verifiable Credentials</h3><a class="self-link" href="#verifiable-credentials" aria-label="Permalink for Section 6.2"></a></div>
+    
+    <section id="vc-overview"><div class="header-wrapper"><h4 id="x6-2-1-overview"><bdi class="secno">6.2.1 </bdi>Overview</h4><a class="self-link" href="#vc-overview" aria-label="Permalink for Section 6.2.1"></a></div>
+      
+      <p>Verifiable Credentials are VC data issued by the issuer for a user's DID identity. It is securely stored on the user side and presented to the service provider in a verifiable way after being authorized (signed) by the user.</p>
+    </section>
+    <section id="vc-attributes"><div class="header-wrapper"><h4 id="x6-2-2-attributes"><bdi class="secno">6.2.2 </bdi>Attributes</h4><a class="self-link" href="#vc-attributes" aria-label="Permalink for Section 6.2.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 2: Attributes of VCs</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>Unique identifier of VC</td><td>Required</td><td><code>did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035</code></td></tr>
+          <tr><td>type</td><td>VC type set, with the first type as the main type of the current VC, and the rest as subtypes, which can be customized by the application</td><td>Required</td><td><code>["Disable Credential Type", "Selective Disclosure Credential Type"]</code></td></tr>
+          <tr><td>issuer</td><td>DID of the issuer. Business service providers can query the issuer's public key on the blockchain through the issuer's DID to verify whether the VC is from a trusted source</td><td>Required</td><td><code>did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1</code></td></tr>
+          <tr><td>Issuance Date</td><td>Issuance date</td><td>Required</td><td><code>2023-04-24 15:19:15</code></td></tr>
+          <tr><td>expiration Date</td><td>Valid expiration date</td><td>Required</td><td><code>2033-04-24 15:19:15</code></td></tr>
+          <tr><td>credentialSubject.claims.subject</td><td>VC attribute data stored in the form of KV</td><td>Required</td><td><code>{"name": "Zhang San", "disableIdNum": "330133199903033333", "endValidDate": "2032-04-14", "level": "1", "type": "4"}</code></td></tr>
+          <tr><td>credentialSubject.claims.seed</td><td>Selectively disclosed seed information</td><td>Required</td><td><code>eaa02887e4834024b954fb7b0c063ae7</code></td></tr>
+          <tr><td>Credential Status</td><td>VC status, provided to the business service provider for verification to determine whether the VC has been revoked</td><td>Required</td><td><code>{"id": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0#26", "type": "StatusList2021", "statusPurpose": "revocation", "statusListIndex": "26", "statusListCredential": "https://szcldemo.zjdpf.org.cn/idp/credentials/status/0"}</code></td></tr>
+          <tr><td>proof</td><td>See <a href="#proof">6.5</a></td><td>Required</td><td>See Appendix A</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="verifiable-presentation"><div class="header-wrapper"><h3 id="x6-3-verifiable-presentation"><bdi class="secno">6.3 </bdi>Verifiable Presentation</h3><a class="self-link" href="#verifiable-presentation" aria-label="Permalink for Section 6.3"></a></div>
+    
+    <section id="vp-overview"><div class="header-wrapper"><h4 id="x6-3-1-overview"><bdi class="secno">6.3.1 </bdi>Overview</h4><a class="self-link" href="#vp-overview" aria-label="Permalink for Section 6.3.1"></a></div>
+      
+      <p>Verifiable Presentation (VP) refers to the data that allows the VC holder (i.e., user) to identify himself/herself to the verifier.</p>
+    </section>
+    <section id="vp-attributes"><div class="header-wrapper"><h4 id="x6-3-2-attributes"><bdi class="secno">6.3.2 </bdi>Attributes</h4><a class="self-link" href="#vp-attributes" aria-label="Permalink for Section 6.3.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 3: Attributes of VP</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>Unique identifier of VC under the same issuer</td><td>Required</td><td><code>did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035</code></td></tr>
+          <tr><td>type</td><td>List of VC types, with the first type as the main type of the current VC, and the rest as subtypes, which can be customized by the application</td><td>Required</td><td><code>["VerifiablePresentation", "SelectiveDisclosurePresentation"]</code></td></tr>
+          <tr><td>created</td><td>Creation time</td><td>Required</td><td><code>2023-10-05T14:48:00.000Z</code></td></tr>
+          <tr><td>Verifiable Credential</td><td>VCs have a set attribute that contains a list of VCs provided by the holder. Refer to VCs in <a href="#verifiable-credentials">6.2</a></td><td>Required</td><td>Refer to data samples of VCs in <a href="#verifiable-credentials">6.2</a></td></tr>
+          <tr><td>proof</td><td>Refer to the proof in <a href="#proof">6.5</a></td><td>Required</td><td>Refer to data samples of the proof in <a href="#proof">6.5</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="vp-data-sample"><div class="header-wrapper"><h4 id="x6-3-3-data-sample"><bdi class="secno">6.3.3 </bdi>Data Sample</h4><a class="self-link" href="#vp-data-sample" aria-label="Permalink for Section 6.3.3"></a></div>
+      
+      <div class="example" id="example-1">
+        <div class="marker">
+    <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"@context"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/examples/v1"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"VerifiablePresentation"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Wed Apr 26 14:50:56 GMT+08:00 2023"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"domain"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:iifaa:123456"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verifiableCredential"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-comment">/* vc set */</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proof"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2Signature2024"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"creator"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123OUgINRNdf0kIeo"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+    </section>
+  </section>
+
+  <section id="verification-methods"><div class="header-wrapper"><h3 id="x6-4-verification-methods-authentication"><bdi class="secno">6.4 </bdi>Verification Methods / Authentication</h3><a class="self-link" href="#verification-methods" aria-label="Permalink for Section 6.4"></a></div>
+    
+    <section id="vm-overview"><div class="header-wrapper"><h4 id="x6-4-1-overview"><bdi class="secno">6.4.1 </bdi>Overview</h4><a class="self-link" href="#vm-overview" aria-label="Permalink for Section 6.4.1"></a></div>
+      
+      <p>The verification method associated with DID identity is used to verify the VP signature and complete DID identity authentication.</p>
+    </section>
+    <section id="vm-attributes"><div class="header-wrapper"><h4 id="x6-4-2-attributes"><bdi class="secno">6.4.2 </bdi>Attributes</h4><a class="self-link" href="#vm-attributes" aria-label="Permalink for Section 6.4.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 4: Attributes of Verification Method</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>ID of the current verification method</td><td>Required</td><td><code>did:example:123456#sm2-1</code></td></tr>
+          <tr><td>type</td><td>Type of the current verification method, which determines how to verify statements or operations related to the identity, such as digital signatures and encryption.</td><td>Required</td><td><code>SM2VerificationKey2024</code></td></tr>
+          <tr><td>Public Key</td><td>Verification value corresponding to the current verification method, which has two specific forms: publicKeyJwk and publicKeyHex</td><td>Required</td><td><code>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnKcEGSwB6OE0MzhDRD3CRMqUJ9DaLg4NfA8i8uz7LOykF171K_2EqRpGNUik6HeKdnbZQ7O5xv8rGk77OD5puZP9IOqWNvu</code></td></tr>
+          <tr><td>status</td><td>Status of the current verification method, e.g., whether it has been abandoned</td><td>Required</td><td><code>active</code></td></tr>
+          <tr><td>controller</td><td>DID account ID associated with the current verification method</td><td>Required</td><td><code>did:example:123456789abcdefghi</code></td></tr>
+          <tr><td>securityLevel</td><td>Security level of the current verification method, refer to <a href="#security-level">6.6</a> "Security Level"</td><td>Required</td><td><code>256</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="vm-data-sample"><div class="header-wrapper"><h4 id="x6-4-3-data-sample"><bdi class="secno">6.4.3 </bdi>Data Sample</h4><a class="self-link" href="#vm-data-sample" aria-label="Permalink for Section 6.4.3"></a></div>
+      
+      <section id="sm2-key"><div class="header-wrapper"><h5 id="x6-4-3-1-sm2-key"><bdi class="secno">6.4.3.1 </bdi>SM2 key</h5><a class="self-link" href="#sm2-key" aria-label="Permalink for Section 6.4.3.1"></a></div>
+        
+        <div class="example" id="example-2">
+        <div class="marker">
+    <a class="self-link" href="#example-2">Example<bdi> 2</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2VerificationKey2024"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456#sm2-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"publicKeyHex"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"04[{x-coordinate in hex}][{y-coordinate in hex}]"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+      </section>
+      <section id="ecc-key"><div class="header-wrapper"><h5 id="x6-4-3-2-ecc-nist-curve-p256-etc"><bdi class="secno">6.4.3.2 </bdi>ECC NIST curve (p256, etc.)</h5><a class="self-link" href="#ecc-key" aria-label="Permalink for Section 6.4.3.2"></a></div>
+        
+        <div class="example" id="example-3">
+        <div class="marker">
+    <a class="self-link" href="#example-3">Example<bdi> 3</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456#ecdsa-p256-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"JsonWebKey2020"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"publicKeyJwk"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"kty"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"EC"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"crv"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"P-256"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"x"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"..."</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"y"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"..."</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+      </section>
+      <section id="rsa-key"><div class="header-wrapper"><h5 id="x6-4-3-3-rsa-key"><bdi class="secno">6.4.3.3 </bdi>RSA key</h5><a class="self-link" href="#rsa-key" aria-label="Permalink for Section 6.4.3.3"></a></div>
+        
+        <p><code>RsaVerificationKey2018</code>:</p>
+        <div class="example" id="example-4">
+        <div class="marker">
+    <a class="self-link" href="#example-4">Example<bdi> 4</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456789abcdefghi#keys-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RsaVerificationKey2018"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456789abcdefghi"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"publicKeyPem"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"-----BEGIN PUBLIC KEY...END PUBLIC KEY-----\r\n"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+        <p><code>RsaVerificationKey2020</code>:</p>
+        <div class="example" id="example-5">
+        <div class="marker">
+    <a class="self-link" href="#example-5">Example<bdi> 5</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456789abcdefghi#key-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RsaVerificationKey2020"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456789abcdefghi"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"publicKeyJwk"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"kty"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RSA"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"e"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"AQAB"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"n"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0S25ZgyZ..."</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+        <table class="def">
+          <caption>Table 5: Comparison of Different RSAs</caption>
+          <thead>
+            <tr><th>Features</th><th>RsaVerificationKey2018</th><th>RsaVerificationKey2020</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Public Key Format</td><td>The PEM format or JWK format is allowed (but PEM is more commonly used)</td><td>The JWK format is required (standardized, machine parsable)</td></tr>
+            <tr><td>Specification Version</td><td>Defined in earlier draft DID specifications (such as the 2018 standard)</td><td>Defined in the updated DID Core v1.0 and subsequent versions</td></tr>
+            <tr><td>Signature Algorithm Support</td><td>The algorithm may not be clearly defined (need to be combined with JWS independent statement)</td><td>Explicitly support common algorithms (such as RS256 and PS256) to enhance interoperability</td></tr>
+            <tr><td>Usage Scenarios</td><td>Compatibility first, may depend on tools in early versions</td><td>New project recommendation, in line with modern safety standards and specifications</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+  </section>
+
+  <section id="proof"><div class="header-wrapper"><h3 id="x6-5-proof"><bdi class="secno">6.5 </bdi>Proof</h3><a class="self-link" href="#proof" aria-label="Permalink for Section 6.5"></a></div>
+    
+    <section id="proof-overview"><div class="header-wrapper"><h4 id="x6-5-1-overview"><bdi class="secno">6.5.1 </bdi>Overview</h4><a class="self-link" href="#proof-overview" aria-label="Permalink for Section 6.5.1"></a></div>
+      
+      <p>Self-certification data of the current VC, through which the business service provider can verify whether the VC has been tampered with and whether it comes from a trusted issuer.</p>
+    </section>
+    <section id="proof-attributes"><div class="header-wrapper"><h4 id="x6-5-2-attributes"><bdi class="secno">6.5.2 </bdi>Attributes</h4><a class="self-link" href="#proof-attributes" aria-label="Permalink for Section 6.5.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 6: Attributes of Proof</caption>
+        <thead>
+          <tr><th>Attribute Name</th><th>Description</th><th>Optional/Required</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>type</td><td>Type of the current verification method, which determines how to verify statements or operations related to the identity, such as digital signatures and encryption.</td><td>Required</td><td><code>SM2VerificationKey2024</code></td></tr>
+          <tr><td>creator</td><td>To identify the DID identity of a proof creator</td><td>Optional</td><td><code>did:example:1230UgINRNdf0kIeo</code></td></tr>
+          <tr><td>created</td><td>Proof creation time, using ISO 8601 standard time</td><td>Required</td><td><code>2024-07-11T13:50:18+08:00</code></td></tr>
+          <tr><td>Verification Method</td><td>Referenced verification method ID, refer to <a href="#verification-methods">6.4</a> "Verification Method"</td><td>Required</td><td><code>did:cndid:cndid#key-1</code></td></tr>
+          <tr><td>proofValue</td><td>base64Url encoding of the DER signature value, usually used to store the VC main body signature data, among which the binary encoding of the SM2 signature follows the ASN.1 DER encoding rules</td><td>Required</td><td><code>MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u</code></td></tr>
+          <tr><td>challenge</td><td>A bidirectional challenge value issued and verified by the SP server during the VP phase for SP generation and verification</td><td>Optional</td><td><code>15ecc79e-1490-4096-9684-46b0e92d4aec</code></td></tr>
+          <tr><td>alg</td><td>Signature result base64 URL, suitable for signature algorithms, RS256 (RSA+SHA256), ES256 (P-256 curve + SHA256)</td><td>RS256, ES256 required</td><td><code>RS256</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="proof-data-sample"><div class="header-wrapper"><h4 id="x6-5-3-data-sample"><bdi class="secno">6.5.3 </bdi>Data Sample</h4><a class="self-link" href="#proof-data-sample" aria-label="Permalink for Section 6.5.3"></a></div>
+      
+      <section id="sm2-signature"><div class="header-wrapper"><h5 id="x6-5-3-1-sm2-signature"><bdi class="secno">6.5.3.1 </bdi>SM2 signature</h5><a class="self-link" href="#sm2-signature" aria-label="Permalink for Section 6.5.3.1"></a></div>
+        
+        <div class="example" id="example-6">
+        <div class="marker">
+    <a class="self-link" href="#example-6">Example<bdi> 6</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2Signature2024"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"creator"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123OUgINRNdf0kIeo"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"challenge"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"15ecc79e-1490-4096-9684-46b0e92d4aec"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+      </section>
+      <section id="ecc-rsa-signature"><div class="header-wrapper"><h5 id="x6-5-3-2-ecc-nist-curve-p256-etc-signature-rsa-signature"><bdi class="secno">6.5.3.2 </bdi>ECC NIST curve (p256, etc.) signature, RSA signature</h5><a class="self-link" href="#ecc-rsa-signature" aria-label="Permalink for Section 6.5.3.2"></a></div>
+        
+        <div class="example" id="example-7">
+        <div class="marker">
+    <a class="self-link" href="#example-7">Example<bdi> 7</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BasicJsonWebSignature2024"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"alg"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RS256"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+      </section>
+    </section>
+  </section>
+
+  <section id="security-level"><div class="header-wrapper"><h3 id="x6-6-security-level"><bdi class="secno">6.6 </bdi>Security Level</h3><a class="self-link" href="#security-level" aria-label="Permalink for Section 6.6"></a></div>
+    
+    <section id="sl-overview"><div class="header-wrapper"><h4 id="x6-6-1-overview"><bdi class="secno">6.6.1 </bdi>Overview</h4><a class="self-link" href="#sl-overview" aria-label="Permalink for Section 6.6.1"></a></div>
+      
+      <p>The DID identity security level identifier SecurityLevel consists of two bytes of data, where the low-order byte (bits 1~8) identifies the authentication type, and the high-order byte (bits 9~16) identifies the operating environment.</p>
+    </section>
+    <section id="sl-attributes"><div class="header-wrapper"><h4 id="x6-6-2-attributes"><bdi class="secno">6.6.2 </bdi>Attributes</h4><a class="self-link" href="#sl-attributes" aria-label="Permalink for Section 6.6.2"></a></div>
+      
+      <table class="def">
+        <caption>Table 7: Attributes of Security Level</caption>
+        <thead>
+          <tr><th>Bit</th><th>Meaning Classification</th><th>Description of Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td rowspan="8">Authentication method</td><td>Whether a local password is set</td></tr>
+          <tr><td>2</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>3</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>4</td><td>Reserved (used to add low-security level authentication methods)</td></tr>
+          <tr><td>5</td><td>Whether local biometrics are set</td></tr>
+          <tr><td>6</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>7</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>8</td><td>Reserved (used to add high-security level authentication methods)</td></tr>
+          <tr><td>9</td><td rowspan="8">Operating environment</td><td>Private keys are stored and used in REE</td></tr>
+          <tr><td>10</td><td>Reserved (to add the definition of the REE security scheme)</td></tr>
+          <tr><td>11</td><td>Reserved (to add the definition of the REE security scheme)</td></tr>
+          <tr><td>12</td><td>Private keys are stored and used in TEE</td></tr>
+          <tr><td>13</td><td>Private keys are stored and used in SE</td></tr>
+          <tr><td>14</td><td>Reserved</td></tr>
+          <tr><td>15</td><td>Reserved</td></tr>
+          <tr><td>16</td><td>Reserved</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="sl-data-sample"><div class="header-wrapper"><h4 id="x6-6-3-data-sample"><bdi class="secno">6.6.3 </bdi>Data Sample</h4><a class="self-link" href="#sl-data-sample" aria-label="Permalink for Section 6.6.3"></a></div>
+      
+      <table class="def">
+        <caption>Table 8: Data Samples of Security Level</caption>
+        <thead>
+          <tr>
+            <th>Bit</th>
+            <th>1</th><th>2~4</th><th>5</th><th>6~8</th>
+            <th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15~16</th>
+            <th>Int value</th>
+          </tr>
+          <tr><th colspan="12">Meaning</th></tr>
+          <tr><th colspan="5">Authentication Type</th><th colspan="7">Operating Environment</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>No authentication method, private key in REE</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>256</td>
+          </tr>
+          <tr>
+            <td>Local password, private key in REE</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>257</td>
+          </tr>
+          <tr>
+            <td>No authentication method, private key in SIM</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
+            <td>8192</td>
+          </tr>
+          <tr>
+            <td>Local password, private key in SIM</td>
+            <td>1</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
+            <td>8193</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Get the operating environment:</p>
+      <pre aria-busy="false"><code class="hljs javascript">int secureLevel = <span class="hljs-number">257</span>;
+int secureArea = secureLevel &amp; <span class="hljs-number">0xFF00</span>; <span class="hljs-comment">//secureArea : 256--REE</span></code></pre>
+      <p>Get the authentication type:</p>
+      <pre aria-busy="false"><code class="hljs javascript">int secureLevel = <span class="hljs-number">257</span>;
+int authType = secureLevel &amp; <span class="hljs-number">0x00FF</span>; <span class="hljs-comment">//authType : 1--Local password</span></code></pre>
+    </section>
+  </section>
+</section>
+
+<section id="device-interaction"><div class="header-wrapper"><h2 id="x7-device-function-interaction"><bdi class="secno">7. </bdi>Device Function Interaction</h2><a class="self-link" href="#device-interaction" aria-label="Permalink for Section 7."></a></div>
+  
+  <section id="di-overview"><div class="header-wrapper"><h3 id="x7-1-overview"><bdi class="secno">7.1 </bdi>Overview</h3><a class="self-link" href="#di-overview" aria-label="Permalink for Section 7.1"></a></div>
+    
+    <p>This section mainly describes the function interaction flow specifications, such as identity creation and credential management, for device-based decentralized trusted authentication provided to users.</p>
+  </section>
+
+  <section id="did-creation-flow"><div class="header-wrapper"><h3 id="x7-2-did-creation"><bdi class="secno">7.2 </bdi>DID creation</h3><a class="self-link" href="#did-creation-flow" aria-label="Permalink for Section 7.2"></a></div>
+    
+    <section id="did-creation-flowchart"><div class="header-wrapper"><h4 id="x7-2-1-flowchart"><bdi class="secno">7.2.1 </bdi>Flowchart</h4><a class="self-link" href="#did-creation-flowchart" aria-label="Permalink for Section 7.2.1"></a></div>
+      
+      <p>Enter the wallet and determine whether there is DID identity data locally. If not, enter the identity creation process, see <a href="#fig-did-creation">Figure 2</a>.</p>
+      <figure id="fig-did-creation">
+        <img alt="Placeholder for DID Creation Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-2.jpg">
+        <figcaption><a class="self-link" href="#fig-did-creation">Figure <bdi class="figno">2</bdi></a> <span class="fig-title">: Flowchart of DID Creation</span></figcaption>
+      </figure>
+    </section>
+    <section id="did-creation-sequence"><div class="header-wrapper"><h4 id="x7-2-2-sequence-diagram"><bdi class="secno">7.2.2 </bdi>Sequence Diagram</h4><a class="self-link" href="#did-creation-sequence" aria-label="Permalink for Section 7.2.2"></a></div>
+      
+      <p>The sequence diagram is shown in <a href="#fig-did-sequence">Figure 3</a>.</p>
+      <figure id="fig-did-sequence">
+        <img alt="Placeholder for DID Creation Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-3.jpg">
+        <figcaption><a class="self-link" href="#fig-did-sequence">Figure <bdi class="figno">3</bdi></a> <span class="fig-title">: DID Creation Sequence Diagram</span></figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="vc-application"><div class="header-wrapper"><h3 id="x7-3-vc-application"><bdi class="secno">7.3 </bdi>VC Application</h3><a class="self-link" href="#vc-application" aria-label="Permalink for Section 7.3"></a></div>
+    
+    <section id="vc-app-flowchart"><div class="header-wrapper"><h4 id="x7-3-1-flowchart"><bdi class="secno">7.3.1 </bdi>Flowchart</h4><a class="self-link" href="#vc-app-flowchart" aria-label="Permalink for Section 7.3.1"></a></div>
+      
+      <p>Enter the VC management page and determine whether there is corresponding VC data locally. If not, an application button is displayed. If so, a view button is displayed. The flowchart is shown in <a href="#fig-vc-app">Figure 4</a>.</p>
+      <figure id="fig-vc-app">
+        <img alt="Placeholder for VC Application Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-4.jpg">
+        <figcaption><a class="self-link" href="#fig-vc-app">Figure <bdi class="figno">4</bdi></a> <span class="fig-title">: Flowchart of VC Application</span></figcaption>
+      </figure>
+    </section>
+    <section id="vc-app-sequence"><div class="header-wrapper"><h4 id="x7-3-2-sequence-diagram"><bdi class="secno">7.3.2 </bdi>Sequence Diagram</h4><a class="self-link" href="#vc-app-sequence" aria-label="Permalink for Section 7.3.2"></a></div>
+      
+      <p>The VC application sequence diagram is shown in <a href="#fig-vc-seq">Figure 5</a>.</p>
+      <figure id="fig-vc-seq">
+        <img alt="Placeholder for VC Application Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-5.jpg">
+        <figcaption><a class="self-link" href="#fig-vc-seq">Figure <bdi class="figno">5</bdi></a> <span class="fig-title">: VC Application Sequence Diagram</span></figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="viewing-vc"><div class="header-wrapper"><h3 id="x7-4-viewing-vc"><bdi class="secno">7.4 </bdi>Viewing VC</h3><a class="self-link" href="#viewing-vc" aria-label="Permalink for Section 7.4"></a></div>
+    
+    <p>The device only provides the query service for the local VC summary information list, with the specific process as follows:</p>
+    <section id="vc-view-flowchart"><div class="header-wrapper"><h4 id="x7-4-1-flowchart"><bdi class="secno">7.4.1 </bdi>Flowchart</h4><a class="self-link" href="#vc-view-flowchart" aria-label="Permalink for Section 7.4.1"></a></div>
+      
+      <p>Enter the page, get VCUIStyle/VC templates and VC data from the IDP server and DIDSDK, respectively. The flowchart is shown in <a href="#fig-vc-view">Figure 6</a>.</p>
+      <figure id="fig-vc-view">
+        <img alt="Placeholder for VC Viewing Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-6.jpg">
+        <figcaption><a class="self-link" href="#fig-vc-view">Figure <bdi class="figno">6</bdi></a> <span class="fig-title">: Flowchart of VC Viewing</span></figcaption>
+      </figure>
+    </section>
+    <section id="vc-view-sequence"><div class="header-wrapper"><h4 id="x7-4-2-sequence-diagram"><bdi class="secno">7.4.2 </bdi>Sequence Diagram</h4><a class="self-link" href="#vc-view-sequence" aria-label="Permalink for Section 7.4.2"></a></div>
+      
+      <p>The sequence diagram is shown in <a href="#fig-vc-view-seq">Figure 7</a>.</p>
+      <figure id="fig-vc-view-seq">
+        <img alt="Placeholder for VC Viewing Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-7.jpg">
+        <figcaption><a class="self-link" href="#fig-vc-view-seq">Figure <bdi class="figno">7</bdi></a> <span class="fig-title">: VC Viewing Sequence Diagram</span></figcaption>
+      </figure>
+    </section>
+  </section>
+
+  <section id="issuing-vp"><div class="header-wrapper"><h3 id="x7-5-issuing-vp"><bdi class="secno">7.5 </bdi>Issuing VP</h3><a class="self-link" href="#issuing-vp" aria-label="Permalink for Section 7.5"></a></div>
+    
+    <section id="vp-issue-flowchart"><div class="header-wrapper"><h4 id="x7-5-1-flowchart"><bdi class="secno">7.5.1 </bdi>Flowchart</h4><a class="self-link" href="#vp-issue-flowchart" aria-label="Permalink for Section 7.5.1"></a></div>
+      
+      <p>The SP passes in the required VC content and the specified VM type to pull up the wallet, and the wallet passes the parameters to the SDK. After the SDK completes verification and signing, it returns the result. The flowchart is shown in <a href="#fig-vp-issue">Figure 8</a>.</p>
+      <figure id="fig-vp-issue">
+        <img alt="Placeholder for VP Issuance Flowchart" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-8.jpg">
+        <figcaption><a class="self-link" href="#fig-vp-issue">Figure <bdi class="figno">8</bdi></a> <span class="fig-title">: VP Issuance Flowchart</span></figcaption>
+      </figure>
+    </section>
+    <section id="vp-issue-sequence"><div class="header-wrapper"><h4 id="x7-5-2-sequence-diagram"><bdi class="secno">7.5.2 </bdi>Sequence Diagram</h4><a class="self-link" href="#vp-issue-sequence" aria-label="Permalink for Section 7.5.2"></a></div>
+      
+      <p>The sequence diagram is shown in <a href="#fig-vp-seq">Figure 9</a>.</p>
+      <figure id="fig-vp-seq">
+        <img alt="Placeholder for VP Issuance Sequence Diagram" src="https://github.com/XUYIJIA00/cndid/raw/main/IIFAA_technical_report/images/DID-2-9.jpg">
+        <figcaption><a class="self-link" href="#fig-vp-seq">Figure <bdi class="figno">9</bdi></a> <span class="fig-title">: VP Issuance Sequence Diagram</span></figcaption>
+      </figure>
+    </section>
+  </section>
+</section>
+
+<section id="appendix-a" class="appendix"><div class="header-wrapper"><h2 id="a-data-sample-of-identity-protocol"><bdi class="secno">A. </bdi>Data Sample of Identity Protocol</h2><a class="self-link" href="#appendix-a" aria-label="Permalink for Appendix A."></a></div>
+  
+  <section id="a1"><div class="header-wrapper"><h3 id="a-1-data-sample-of-decentralized-identity-protocol"><bdi class="secno">A.1 </bdi>Data Sample of Decentralized Identity Protocol</h3><a class="self-link" href="#a1" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <div class="example" id="example-8">
+        <div class="marker">
+    <a class="self-link" href="#example-8">Example<bdi> 8</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"@context"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://www.w3.org/ns/did/v1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cdid:iifaa:123456789abcdefghi"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2023-10-05T14:48:00.000Z"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"update"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2023-10-15T14:48:00.000Z"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verificationMethods"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2VerificationKey2024"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456#sm2-1"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"publicKeyHex"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"04a34e...a72c0e"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"authentication"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2VerificationKey2024"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456#sm2-1"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"controller"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123456"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"active"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"securityLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"256"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"publicKeyHex"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"04a34e...a72c0e"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proof"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2Signature2024"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"creator"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:123OUgINRNdf0kIeo"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W3OcfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+  </section>
+  <section id="a2"><div class="header-wrapper"><h3 id="a-2-data-example-of-vcs"><bdi class="secno">A.2 </bdi>Data Example of VCs</h3><a class="self-link" href="#a2" aria-label="Permalink for Appendix A.2"></a></div>
+    
+    <div class="example" id="example-9">
+        <div class="marker">
+    <a class="self-link" href="#example-9">Example<bdi> 9</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"@context"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/examples/v1"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"DisableCredentialType"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"SelectiveDisclosureCredentialType"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"templateId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"200457"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.1.1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:credential:disable:BovPfgFcvy4eRuDcf1w9Wa7zSgbnsd1FuFeh6SxQhJVm#1682320755035"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"issuer"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"issuanceDate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2023-04-24 15:19:15"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"expirationDate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2033-04-24 15:19:15"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"credentialSubject"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"7cf59e33f1fad217421aa6d970ec169c49c23362f7b1affdff6bccdfd9e42bcb"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"did"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:myidentity:E2h3D7FgsoNiFDzE6gSv4F2MqjK6mSmv9WZqLB7jBYq1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"claims"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"subject"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Zhang San"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"disableIdNum"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"330133199903033333"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"endValidDate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2032-04-14"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"seed"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"eaa02887e4834024b954fb7b0c063ae7"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"credentialStatus"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://szcldemo.zjdpf.org.cn/idp/credentials/status/0#26"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"StatusList2021"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"statusPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"revocation"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"statusListIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"26"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"statusListCredential"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://szcldemo.zjdpf.org.cn/idp/credentials/status/0"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proof"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2Signature2024"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"creator"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:1230UgINRNdf0kIeo"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0H0UgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/0HnL8Uqwr5"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+  </section>
+  <section id="a3"><div class="header-wrapper"><h3 id="a-3-data-samples-of-vps"><bdi class="secno">A.3 </bdi>Data Samples of VPs</h3><a class="self-link" href="#a3" aria-label="Permalink for Appendix A.3"></a></div>
+    
+    <div class="example" id="example-10">
+        <div class="marker">
+    <a class="self-link" href="#example-10">Example<bdi> 10</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"@context"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/examples/v1"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"VerifiablePresentation"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Wed Apr 26 14:50:56 GMT+08:00 2023"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"domain"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:iifaa:123456"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"verifiableCredential"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-comment">/* vc set */</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"proof"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SM2Signature2024"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2024-07-11T13:50:18+08:00"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"creator"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:example:1230UgINRNdf0kIeo"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"verificationMethod"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"did:cndid:cndid#key-1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofPurpose"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assertionMethod"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"proofValue"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MEYCIQCpy0HOUgINRNdf0kIeoStR94v7W30cfoBpWel6TAckqwIhAPdTq7u/ZpTOOp1VLtLCOuFpOVL7AYpys/OHnL8Uqwr5"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+      </div>
+  </section>
+</section>
+
+
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
+// @ts-check
+
+if (document.respec) {
+  document.respec.ready.then(setupVarHighlighter);
+} else {
+  setupVarHighlighter();
+}
+
+function setupVarHighlighter() {
+  document
+    .querySelectorAll("var")
+    .forEach(varElem => varElem.addEventListener("click", highlightListener));
+}
+
+function highlightListener(ev) {
+  ev.stopPropagation();
+  const { target: varElem } = ev;
+  const hightligtedElems = highlightVars(varElem);
+  const resetListener = () => {
+    const hlColor = getHighlightColor(varElem);
+    hightligtedElems.forEach(el => removeHighlight(el, hlColor));
+    [...HL_COLORS.keys()].forEach(key => HL_COLORS.set(key, true));
+  };
+  if (hightligtedElems.length) {
+    document.body.addEventListener("click", resetListener, { once: true });
+  }
+}
+
+// availability of highlight colors. colors from var.css
+const HL_COLORS = new Map([
+  ["respec-hl-c1", true],
+  ["respec-hl-c2", true],
+  ["respec-hl-c3", true],
+  ["respec-hl-c4", true],
+  ["respec-hl-c5", true],
+  ["respec-hl-c6", true],
+  ["respec-hl-c7", true],
+]);
+
+function getHighlightColor(target) {
+  // return current colors if applicable
+  const { value } = target.classList;
+  const re = /respec-hl-\w+/;
+  const activeClass = re.test(value) && value.match(re);
+  if (activeClass) return activeClass[0];
+
+  // first color preference
+  if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
+
+  // otherwise get some other available color
+  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+}
+
+function highlightVars(varElem) {
+  const textContent = norm(varElem.textContent);
+  const parent = varElem.closest(".algorithm, section");
+  const highlightColor = getHighlightColor(varElem);
+
+  const varsToHighlight = [...parent.querySelectorAll("var")].filter(
+    el =>
+      norm(el.textContent) === textContent &&
+      el.closest(".algorithm, section") === parent
+  );
+
+  // update availability of highlight color
+  const colorStatus = varsToHighlight[0].classList.contains("respec-hl");
+  HL_COLORS.set(highlightColor, colorStatus);
+
+  // highlight vars
+  if (colorStatus) {
+    varsToHighlight.forEach(el => removeHighlight(el, highlightColor));
+    return [];
+  } else {
+    varsToHighlight.forEach(el => addHighlight(el, highlightColor));
+  }
+  return varsToHighlight;
+}
+
+function removeHighlight(el, highlightColor) {
+  el.classList.remove("respec-hl", highlightColor);
+  // clean up empty class attributes so they don't come in export
+  if (!el.classList.length) el.removeAttribute("class");
+}
+
+function addHighlight(elem, highlightColor) {
+  elem.classList.add("respec-hl", highlightColor);
+}
+
+/**
+ * Same as `norm` from src/core/utils, but our build process doesn't allow
+ * imports in runtime scripts, so duplicated here.
+ * @param {string} str
+ */
+function norm(str) {
+  return str.trim().replace(/\s+/g, " ");
+}
+})()</script><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
