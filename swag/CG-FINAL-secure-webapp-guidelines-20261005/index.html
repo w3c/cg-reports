@@ -79,11 +79,9 @@ dd{margin-left:0}
 body:has(input[name=color-scheme][value=light]:checked),head:not(:has(meta[name=color-scheme][content~=dark]))+body{color-scheme:light}
 body:has(input[name=color-scheme][value=dark]:checked){color-scheme:dark}
 </style>
-<style>
-:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,#onetap_google_intermediate_iframe,[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,.google-one-tap-modal-div,.adthrive-auto-injected-player-container,.adthrive[id^="cls-video-container"]:has(.adthrive-auto-injected-player-container),#amp_floatingAdDiv,#ez-content-blocker-container) {display:none!important;min-height:0!important;height:0!important;}
-</style>
 <meta name="color-scheme" content="light">
 <meta name="description" content="Secure Web Application Guidelines (SWAG) provide recommendations on how to develop more secure web applications. SWAG are best practices you can follow to reduce the risk of introducing security vulnerabilities into your web application, or help you respond to vulnerabilities. In this document, we collect web platform features that you can implement in a web application and practices you can follow to help mitigate or respond to various attacks.">
+<link rel="canonical" href="https://w3c-cg.github.io/swag/docs/swag.html">
 <style>
 var:hover{text-decoration:underline;cursor:pointer}
 var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
@@ -109,7 +107,7 @@ var[data-type]::after{content:attr(data-type);transform:translateX(-50%) transla
 var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </style>
 <script id="initialUserConfig" type="application/json">{
-  "specStatus": "CG-DRAFT",
+  "specStatus": "CG-FINAL",
   "editors": [
     {
       "name": "Daniel Appelquist",
@@ -137,19 +135,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "noRecTrack": true,
   "maxTocLevel": 2,
   "publishISODate": "2026-10-05T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 05 October 2026"
+  "generatedSubtitle": "Final Community Group Report 05 October 2026"
 }</script>
-<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-final">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
 <body class="h-entry informative" data-cite="HTML INFRA URL WEBIDL DOM FETCH"><div class="head">
     
     <h1 id="title" class="title">Secure Web Application Guidelines (SWAG)</h1> 
     <p id="w3c-state">
-      <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
+      <a href="https://www.w3.org/standards/types#reports">Final Community Group Report</a>
       <time class="dt-published" datetime="2026-10-05">05 October 2026</time>
     </p>
     <dl>
-      
+      <dt>This version:</dt><dd>
+                <a class="u-url" href="https://www.w3.org/community/reports/cg/swag/CG-FINAL-swag-20261005/">https://www.w3.org/community/reports/cg/swag/CG-FINAL-swag-20261005/</a>
+              </dd>
       <dt>Latest published version:</dt><dd>
                 <a href="https://w3c-cg.github.io/swag/docs/swag.html">https://w3c-cg.github.io/swag/docs/swag.html</a>
               </dd>
@@ -186,8 +186,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             the Contributors to the Secure Web Application Guidelines (SWAG)
             Specification, published by the
             <a href="https://www.w3.org/groups/cg/swag">Security Web Application Guidelines Community Group</a> under the
-            <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>. A human-readable
-                    <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a>
+            <a href="https://www.w3.org/community/about/agreements/fsa/">W3C Community Final Specification Agreement (FSA)</a>. A human-readable
+                    <a href="https://www.w3.org/community/about/agreements/fsa-deed/">summary</a>
                     is available.
                   
           </p>
@@ -200,8 +200,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       on the W3C Standards Track.
       
               Please note that under the
-              <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>
-              there is a limited opt-out and other conditions apply.
+              <a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a>
+              other conditions apply.
             
       Learn more about
       <a href="https://www.w3.org/community/">W3C Community and Business Groups</a>.
